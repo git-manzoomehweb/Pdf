@@ -1,0 +1,80 @@
+<!-- panel/pdf/voucher_download_pdf.bc -->
+
+
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>voucher pdf test</h1>
+
+     <basis core="group" if="[##cms.query.id##]<>0">
+     <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+         method="post" body='{
+         "name": "db",
+         "mid": "20",
+         "member": [
+             {
+                 "type": "list",
+                 "name": "q",
+                 "request": "voucher_pdf",
+                 "id": "[##cms.query.id##]",
+                 "lid": "[##cms.query.lid|(1)##]",
+                 "cityid": "[##cms.query.cityid|(0)##]",
+                 "status": "[##cms.query.status|(0)##]"
+             }
+         ]
+     }' content-type="application/json" run="atclient" triggers="" onprocessed="loaddata">
+     </basis>
+     <div>
+                         lskjflskdjglksdjglkjsdflgkjdfgjfdlkgjlfkjglrkjgrjgrl
+     </div>
+     <basis core="print" datamembername="api.Webservice" run="atclient">
+         <face>
+             <script type="text/template">
+                             {{ 
+                                 return await getHotelInfo($data);
+                             }}
+             </script>
+         </face>
+     </basis>
+</basis>
+
+
+
+    <h1>voucher pdf test2222</h1>
+
+    <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+</body>
+<script>
+
+
+    console.log("hellooooooooooooooooooooooooooooooooooo")
+    const getHotelInfo = async ($data) => {
+        let data = $data;
+        console.log("byeeeeeeeeeeeeee")
+        console.log(data);
+        return data;
+    }
+
+    
+const loaddata = async (args) => {
+    const response = args.response;
+    if (response.status == 200) {
+        const responseJson = await response.json();
+        if (responseJson) {
+            console.log(responseJson.sources[0].data[0])
+        }
+    }
+}
+
+
+</script>
+
+</html>

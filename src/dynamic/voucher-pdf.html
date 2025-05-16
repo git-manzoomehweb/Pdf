@@ -1,0 +1,124 @@
+<!-- panel/pdf/voucher_download_pdf.bc -->
+
+
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>voucher pdf test</h1>
+
+     <basis core="group" if="[##cms.query.id##]<>0">
+     <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+         method="post" body='{
+         "name": "db",
+         "mid": "20",
+         "member": [
+             {
+                 "type": "list",
+                 "name": "q",
+                 "request": "voucher_pdf",
+                 "id": "[##cms.query.id##]",
+                 "lid": "[##cms.query.lid|(1)##]",
+                 "cityid": "[##cms.query.cityid|(0)##]",
+                 "status": "[##cms.query.status|(0)##]"
+             }
+         ]
+     }' content-type="application/json" run="atclient" triggers="" onprocessed="loaddata">
+     </basis>
+
+     <basis core="print" datamembername="api.Webservice" run="atclient">
+         <face>
+             <script type="text/template">
+                             {{ 
+                                 return await getHotelInfo($data);
+                             }}
+             </script>
+         </face>
+     </basis>
+</basis>
+
+
+
+    <h1>voucher pdf test2222</h1>
+
+    <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+</body>
+<script>
+
+
+// گلوبال دیتا
+let voucherDataArray = [];
+
+// ذخیره داده از response
+const loaddata = async (args) => {
+    console.log(args)
+    const response = args.response;
+    if (response.status === 200) {
+        const responseJson = await response.json();
+        const dataArray = responseJson?.sources?.[0]?.data;
+        if (Array.isArray(dataArray)) {
+            voucherDataArray = dataArray;
+            console.log("✅ Data loaded:", voucherDataArray);
+        } else {
+            console.warn("❌ داده‌ای در sources[0].data یافت نشد.");
+        }
+    } else {
+        console.error("❌ Response status:", response.status);
+    }
+};
+
+// تابع عمومی گرفتن کل داده‌ها
+const getAllVoucherItems = () => {
+    return voucherDataArray.length ? voucherDataArray : null;
+};
+
+// گرفتن آیتم خاص
+const getVoucherItemByIndex = (index) => {
+    if (!voucherDataArray.length) {
+        console.warn("❌ داده هنوز لود نشده است");
+        return null;
+    }
+    return voucherDataArray[index] || null;
+};
+
+// گرفتن اطلاعات هتل
+const getHotelInfo = (index) => {
+    const item = getVoucherItemByIndex(index);
+    return item?.hotelinfo ?? null;
+};
+
+// گرفتن اتاق‌ها
+const getRooms = (index) => {
+    const item = getVoucherItemByIndex(index);
+    return item?.rooms ?? [];
+};
+
+// گرفتن چک‌این و چک‌اوت
+const getCheckinDate = (index) => {
+    return getVoucherItemByIndex(index)?.checkin?.mstring ?? null;
+};
+
+const getCheckoutDate = (index) => {
+    return getVoucherItemByIndex(index)?.checkout?.mstring ?? null;
+};
+
+// گرفتن توضیحات PDF
+const getPdfDescription = (index) => {
+    return getVoucherItemByIndex(index)?.pdf_description?.[0]?.note?.text ?? null;
+};
+
+
+
+
+
+
+</script>
+
+</html>
