@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>voucher pdf test</h1>
+    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+        method="post" body='{
+         "name": "db",
+         "mid": "20",
+         "member": [
+             {
+                 "type": "list",
+                 "name": "q",
+                 "request": "voucher_pdf",
+                 "id": "[##cms.query.id##]",
+                 "lid": "[##cms.query.lid|(1)##]",
+                 "cityid": "[##cms.query.cityid|(0)##]",
+                 "status": "[##cms.query.status|(0)##]"
+             }
+         ]
+     }' content-type="application/json" run="atclient">
+    </basis>
+    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+        <layout>
+            testtttttttt
+            @child
+        </layout>
+        <face>
+            <script type="text/template">
+                <div>
+                    @nights@
+                    <span>sources : </span>
+                    <div>@data@</div>
+
+            {{
+                return await fn($data);
+            }}
+            
+                </div>
+             </script>
+        </face>
+    </basis>
+    <h2>voucher pdf test2222</h2>
+    <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+</body>
+<script>
+let hotelJson;
+export async function getHotelInfo($data) {
+  hotelJson = $data;
+  return hotelJson.hotelinfo;
+}
+
+export async function getHotelImage($data) {
+      hotelJson = $data;
+  return hotelJson.hotelinfo?.hotelimage || "";
+}
+
+export async function getHotelName($data) {
+      hotelJson = $data;
+  return hotelJson.hotelinfo?.hotelname || "";
+}
+
+export async function getPersianHotelName($data) {
+      hotelJson = $data;
+  return hotelJson.hotelinfo?.persianname || "";
+}
+
+export async function getHotelStar($data) {
+      hotelJson = $data;
+  return hotelJson.hotelinfo?.star || 0;
+}
+
+export async function getCountryInfo($data) {
+      hotelJson = $data;
+  return {
+    english: hotelJson.hotelinfo?.ecountry || "",
+    persian: hotelJson.hotelinfo?.country || ""
+  };
+}
+
+export async function getCityInfo($data) {
+      hotelJson = $data;
+  return {
+    english: hotelJson.hotelinfo?.ecity || "",
+    persian: hotelJson.hotelinfo?.city || ""
+  };
+}
+
+export async function getServices($data) {
+      hotelJson = $data;
+  return hotelJson.hotelinfo?.services || "";
+}
+
+export async function getCheckinDate($data) {
+      hotelJson = $data;
+  return hotelJson.checkin;
+}
+
+export async function getCheckoutDate($data) {
+      hotelJson = $data;
+  return hotelJson.checkout;
+}
+
+export async function getNights($data) {
+      hotelJson = $data;
+  return hotelJson.nights || 0;
+}
+
+export async function getFlightInfo($data) {
+      hotelJson = $data;
+  return hotelJson.flightinfo || "";
+}
+
+export async function getRooms($data) {
+      hotelJson = $data;
+  return hotelJson.rooms || [];
+}
+
+export async function getRoomByIndex(index = 0) {
+  return hotelJson.rooms?.[index] || null;
+}
+
+export async function getPassengersInRoom(index = 0) {
+  return hotelJson.rooms?.[index]?.passengers || [];
+}
+
+export async function getPassengerFullNames(index = 0) {
+  const passengers = hotelJson.rooms?.[index]?.passengers || [];
+  return passengers.map(p => `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`);
+}
+
+export async function getRoomType(index = 0) {
+  return hotelJson.rooms?.[index]?.roomtype?.trim() || "";
+}
+
+export async function isRoomOnRequest(index = 0) {
+  return hotelJson.rooms?.[index]?.onrequest === "1";
+}
+
+export async function getNote($data) {
+      hotelJson = $data;
+  return hotelJson.note || "";
+}
+
+export async function getPdfDescription($data) {
+      hotelJson = $data;
+  return hotelJson.pdf_description?.map(d => d.note) || [];
+}
+
+export async function getCreateDate($data) {
+      hotelJson = $data;
+  return hotelJson.createDate;
+}
+
+export async function getCreateHour($data) {
+      hotelJson = $data;
+  return hotelJson.createHour || "";
+}
+
+export async function getRefNumber($data) {
+      hotelJson = $data;
+  return hotelJson.refnumber || "";
+}
+
+export async function getTransfer($data) {
+      hotelJson = $data;
+  return hotelJson.transfer || {};
+}
+
+export async function getHotelDescription($data) {
+      hotelJson = $data;
+  return hotelJson.HotelDescription || "";
+}
+
+export async function getBroker($data) {
+      hotelJson = $data;
+  return hotelJson.broker || "";
+}
+
+export async function getProvider($data) {
+      hotelJson = $data;
+  return hotelJson.provider || "";
+}
+
+
+</script>
+</html>
