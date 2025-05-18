@@ -13,8 +13,6 @@ export default {
         intermedium: ["Inter_medium"],
         interregular: ["Inter_regular"],
         interthin: ["Inter_thin"],
-        interultrabold: ["Inter_ultrabold"],
-        interheavy: ["Inter_heavy"],
 
         danablack: ["Dana_black"],
         danabold: ["Dana_bold"],
