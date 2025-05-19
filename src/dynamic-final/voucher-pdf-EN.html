@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/pdf-ui.min.css">
+</head>
+
+<body class="p-0 m-0">
+
+    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+    method="post" body='{
+         "name": "db",
+         "mid": "20",
+         "member": [
+             {
+                 "type": "list",
+                 "name": "q",
+                 "request": "voucher_pdf",
+                 "id": "[##cms.query.id##]",
+                 "lid": "[##cms.query.lid|(2)##]",
+                 "cityid": "[##cms.query.cityid|(0)##]",
+                 "status": "[##cms.query.status|(0)##]"
+             }
+         ]
+     }' content-type="application/json" run="atclient">
+</basis>
+
+    <header class="h-[100px] print:w-[595pt] print:h-[75pt] w-full bg-gray-200">
+
+    </header>
+
+    <main
+        class="pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
+
+        <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]">
+            <div class="flex justify-center items-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+            </div>
+        </div>
+
+        <div class="w-[95%] mx-auto">
+
+            <!-- info -->
+            <section class="w-full flex justify-between items-center ">
+                <h2 class="font-danademibold text-base text-black">Voucher/Accommodation</h2>
+                <ul class="flex gap-x-4">
+
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>
+                            @child
+                        </layout>
+                        <face>
+                            <script type="text/template">
+                    <li>
+                        <div>
+                            <h2 class="text-sm font-normal text-[#202020] font-danaregular">Reference number :</h2>
+                            <p class="text-base text-[#292929] text-left font-danademibold">@refnumber@</p>
+                        </div>
+                    </li>
+                        </script>
+                        </face>
+                    </basis>
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>
+                            @child
+                        </layout>
+                        <face>
+                            <script type="text/template">
+                    <li>
+                        <div>
+                            <h2 class="text-sm font-normal text-[#202020] font-danaregular">Date Of issue:</h2>
+                            <p class="text-base text-[#292929] text-left font-danademibold">@createDate.mstring@</p>
+                        </div>
+                    </li>
+                        </script>
+                        </face>
+                    </basis>
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>
+                            @child
+                        </layout>
+                        <face>
+                            <script type="text/template">
+                    <li>
+                        <div>
+                            <h2 class="text-sm font-normal text-[#202020] font-danaregular">CreateHour :</h2>
+                            <p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p>
+                        </div>
+                    </li>
+                        </script>
+                        </face>
+                    </basis>
+                </ul>
+
+            </section>
+
+            <section class="border-2 border-[#E3E3E3] rounded-xl  my-4 justify-between flex p-3">
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>
+                        @child
+                    </layout>
+                    <face>
+                        <script type="text/template">
+                                {{ return await RenderInfoCard($data)}}
+                        </script>
+                    </face>
+                </basis>
+            </section>
+
+            <section>
+
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>
+                        @child
+                    </layout>
+                    <face>
+                        <script type="text/template">
+                                {{ return await renderRooms($data)}}
+                        </script>
+                    </face>
+                </basis>
+            </section>
+
+
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                <layout>
+                    @child
+                </layout>
+                <face>
+                    <script type="text/template">
+                <section class="mt-3 {{return await checkSection($data.HotelDescription)}}" >
+                <h2 class="font-bold text-2xl my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription);}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks")}}
+                </h2>
+                <div class="bg-[#F8F8F8] rounded-xl py-4  px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription);}}">
+                    @HotelDescription@
+                </div>
+            </section>   
+                        </script>
+                </face>
+            </basis>
+
+
+
+
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                <layout>
+                    @child
+                </layout>
+                <face>
+                    <script type="text/template">
+            <section class="{{return await checkSection($data.pdf_description[0]?.note.text)}}">
+                <h2 class="font-bold text-2xl my-2 font-danabold" 
+             dir="{{return await detectDirection($data.pdf_description[0]?.note.text);}}"
+                >{{ return await getLocalizedText(await detectDirection($data.pdf_description[0].note.text), "قوانین و مقررات", "Rules")}}</h2>
+                <div class="bg-[#F8F8F8] rounded-xl py-4  px-8 text-justify font-danaregular">
+                    {{ return await renderRules($data)}}
+                            </div>
+            </section>
+                        </script>
+                </face>
+            </basis>
+
+
+
+
+
+
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                <layout>
+                    @child
+                </layout>
+                <face>
+                    <script type="text/template">
+            <section class="{{return await checkSection($data.note)}}">
+                <h2 class="font-bold text-2xl my-2 font-danabold" 
+                dir="{{return await detectDirection($data.note);}}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}}</h2>
+                <div class="bg-[#F8F8F8] rounded-xl py-4  px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note);}}">
+                    @note@
+                            </div>
+            </section>
+                        </script>
+                </face>
+            </basis>
+
+
+
+
+
+    </main>
+
+
+
+    <footer class="h-[100px] print:w-[595pt] print:h-[75pt] w-full bg-gray-200">
+
+    </footer>
+
+</body>
+
+
+<basis core="call" file="Client_BasisCore_Script.inc"></basis>
+<script>
+
+
+function detectDirection(text) {
+    const rtlChars = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/; // محدوده یونیکد عربی و فارسی
+    return rtlChars.test(text) ? 'rtl' : 'ltr';
+}
+
+
+
+    async function RenderInfoCard($data) {
+        let hotelJson = $data;
+
+        if (!hotelJson || !hotelJson.hotelinfo) {
+            console.error("Invalid hotel data:", hotelJson);
+            return '<div class="text-red-500">Invalid hotel data provided.</div>';
+        }
+
+        const hotel = hotelJson.hotelinfo;
+        const checkin = hotelJson.checkin?.mstring ? formatDateToReadable(hotelJson.checkin.mstring) : "";
+        const checkout = hotelJson.checkout?.mstring ? formatDateToReadable(hotelJson.checkout.mstring) : "";
+        const nights = hotelJson.nights || 0;
+        const roomsCount = hotelJson.rooms?.length || 0;
+
+        let infocard = `
+<div class="w-3/5">
+    <div class="flex leading-5 gap-x-3">
+        <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden">
+            <img class="w-[80px] h-[80px] object-cover " width="80" height="80" src="${hotel.hotelimage}"
+                alt="${hotel.hotelname}" />
+        </figure>
+        <div class="flex flex-col gap-y-1">
+            <h2 class="text-lg font-danademibold">
+                ${hotel.hotelname}
+            </h2>
+            <div class="flex items-center">
+                ${RenderRateHotel(hotel.star)}
+                <span class="text-sm ml-2 font-danaregular">${hotel.star} star</span>
+            </div>
+            <span class="text-base font-danaregular">${hotel.ecountry} / ${hotel.ecity}</span>
+        </div>
+    </div>
+
+    <div class="mt-3">
+                        <ul class="flex flex-col gap-y-2 font-danaregular">
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+                                    <svg class="scale-150 origin-center" width="13" height="13">
+                                        <use href="./images/pdf-sprite-icons.svg#location-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        veniam, quis nostrud exercitation ullamco laboris
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+                                    <svg class="scale-150 origin-center" width="12" height="13">
+                                        <use href="./images/pdf-sprite-icons.svg#call-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        +51-556699774411
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+                                    <svg class="scale-150 origin-center" width="13" height="13">
+                                        <use href="./images/pdf-sprite-icons.svg#email-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        heydarimohsen71@gmail.com
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+                                    <svg class="scale-150 origin-center" width="13" height="13">
+                                        <use href="./images/pdf-sprite-icons.svg#www-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        www.moshenheydari.com
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+    </div>
+</div>
+<div class="w-2/5 border-l-2 border-[#E3E3E3] pl-3 ">
+    <ul class="flex flex-col gap-y-2">
+        <li>
+            <h2 class="text-base font-danademibold">Check in</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+                <svg class="scale-150 origin-center" width="13" height="13">
+                    <use href="./images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+                </svg>
+                <span class="font-danaregular">${checkin}</span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">Check out</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+                <svg class="scale-150 origin-center" width="13" height="13">
+                    <use href="./images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+                </svg>
+                <span class="font-danaregular">${checkout}</span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">Night</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${nights}
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">Room</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${roomsCount}
+            </div>
+        </li>
+    </ul>
+</div>`;
+
+        return infocard;
+    }
+
+
+
+    async function renderRules($data) {
+        const rules = $data?.pdf_description;       
+        if (!rules || !Array.isArray(rules)) {
+            console.warn("هیچ آیتمی در pdf_description پیدا نشد");
+            return null;
+        }
+        
+        let direction ; 
+        direction = detectDirection(rules[0].note.text);
+
+        let ulitem = '';
+        rules.forEach((item, index) => {
+            const text = item?.note?.text?.trim();
+
+            if (text) {
+                ulitem += `<li>${text}</li>`;
+            } else {
+                console.warn(`آیتم ${index} متن معتبری ندارد`, item);
+            }
+        });
+
+        return `<ul dir="${direction}">${ulitem}</ul>`;
+    }
+
+
+    function RenderRateHotel(starCount) {
+        let stars = '';
+        for (let i = 0; i < starCount; i++) {
+            stars += `
+            <svg width="14" height="14">
+                <use href="./images/pdf-sprite-icons.svg#star-icon-pdf"></use>
+            </svg>`;
+        }
+        return stars;
+    }
+
+    function formatDateToReadable(dateString) {
+        const date = new Date(dateString);
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit'
+        };
+        const formatted = date.toLocaleDateString('en-US', options);
+        const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
+        return `${day} ${month} ${year} / ${weekday}`;
+    }
+
+    async function renderRooms($data) {
+        let hotelinfo = $data?.hotelinfo;
+        let roominfo = $data?.rooms;
+        let roomcontent = '';
+
+        roominfo.forEach((room) => {
+            const parsedPassengers = room.passengers.map(p => {
+                const typeRaw = p.type || '';
+                const typeMatch = typeRaw.match(/^([^\(]+)(?:\s*\((.+)\))?/);
+                const passengerType = typeMatch?.[1]?.trim() || '–';
+                const passengerAge = typeMatch?.[2]?.trim() || (p.age || '–');
+
+                return {
+                    name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
+                    type: passengerType,
+                    age: passengerAge
+                };
+            });
+
+            const passengerNames = parsedPassengers.map(p =>
+                `<h2 class="text-[#292929] text-sm font-danademibold">${p.name}</h2>`
+            ).join('');
+
+            const passengerTypes = parsedPassengers.map(p =>
+                `<h2 class="text-[#292929] text-sm font-danademibold">${p.type}</h2>`
+            ).join('');
+
+            const passengerAges = parsedPassengers.map(p =>
+                `<h2 class="text-[#292929] text-sm font-danademibold">${p.age}</h2>`
+            ).join('');
+
+            const childrenCount = (room.numpassenger.childwithbed || 0) + (room.numpassenger.childwithoutbed || 0);
+
+            roomcontent += `
+            <h2 class="font-bold text-2xl my-2 font-danabold">Room ${room.index}</h2>
+            <div class="bg-[#F4FBF9] rounded-xl p-4 flex flex-wrap justify-between gap-4">
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Room type</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">${room.roomtype.trim()}</div>
+                </div>
+
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Board</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                        ${escapeXML(hotelinfo.services)}
+                    </div>
+                </div>
+
+                <!-- Passenger Names -->
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Passenger</span>
+                    ${passengerNames}
+                </div>
+
+                <!-- Passenger Types (Gender) -->
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Gender</span>
+                    ${passengerTypes}
+                </div>
+
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Age</span>
+                    ${passengerAges}
+                </div>
+
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Status</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                        ${room.onrequest === "1" ? "On Request" : "Available"}
+                    </div>
+                </div>
+            </div>
+        `;
+        });
+
+        return roomcontent;
+    }
+
+
+    function escapeXML(str) {
+        return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&apos;");
+    }
+
+
+async function getLocalizedText(dir, faText, enText) {
+  const isRTL = dir === 'rtl';
+  return isRTL ? faText : enText;
+}
+
+
+async function checkSection(input) {
+
+
+  // اگر ورودی null یا undefined یا رشته خالی بود
+  if (
+    input === null ||
+    input === undefined ||
+    (typeof input === 'string' && input.trim() === '')
+  ) {
+    return 'hidden';
+  }
+
+  // اگر رشته HTML هست مثل <p></p> یا <div>  </div> یا فقط تگ‌های خالی
+  if (typeof input === 'string') {
+    const temp = document.createElement('div');
+    temp.innerHTML = input;
+
+    // اگر هیچ متن قابل‌نمایشی نداشت
+    if (temp.textContent.trim() === '') {
+      return 'hidden';
+    }
+  }
+
+  // در غیر اینصورت مشکلی نیست
+  return '';
+}
+
+
+
+</script>
+
+</html>
