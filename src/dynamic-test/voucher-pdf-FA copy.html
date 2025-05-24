@@ -1,0 +1,796 @@
+<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
+
+
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/pdf-ui.min.css">
+    <!-- <script src="./js/html2pdf.bundle.min.js"></script> -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
+</head>
+
+<body class="p-0 m-0 overflow-auto" id="content">
+    <!-- <div id="show-cap"></div> -->
+
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+        <div
+            class="bg-[#F8F8F8] rounded-xl py-4  px-8  font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
+            شما اجازه دسترسی به این صفحه را ندارید
+        </div>
+    </basis>
+    <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            method="post" body='{
+         "name": "db",
+         "mid": "20",
+         "member": [
+             {
+                 "type": "list",
+                 "name": "q",
+                 "request": "voucher_pdf",
+                 "id": "[##cms.query.id##]",
+                 "lid": "[##cms.query.lid|(1)##]",
+                 "cityid": "[##cms.query.cityid|(0)##]",
+                 "status": "[##cms.query.status|(0)##]"
+             }
+         ]
+     }' content-type="application/json" run="atclient">
+        </basis>
+    
+        <header id="pdf-header" class="header h-[100px] w-auto mx-auto bg-gray-200">
+            <img class="block h-[100px] w-auto mx-auto object-contain"
+                src="images/Header-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" />
+    
+        </header>
+    
+        <main
+            class="dir-rtl pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
+    
+            <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]">
+                <div class="flex justify-center items-center">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+                </div>
+            </div>
+    
+            <div class="w-[95%] mx-auto">
+    
+                <!-- info -->
+                <section class="w-full flex justify-between items-center ">
+                    <h2 class="font-danademibold text-base text-black">کوپن / اقامت</h2>
+                    <ul class="flex gap-x-4">
+    
+                        <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                            <layout>
+                                @child
+                            </layout>
+                            <face>
+                                <script type="text/template">
+                    <li>
+                        <div>
+                            <h2 class="text-sm font-normal text-[#202020] font-danaregular">شماره قرارداد :</h2>
+                            <p class="text-base text-[#292929] text-left font-danademibold">@refnumber@</p>
+                        </div>
+                    </li>
+                        </script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                            <layout>
+                                @child
+                            </layout>
+                            <face>
+                                <script type="text/template">
+                    <li>
+                        <div>
+                            <h2 class="text-sm font-normal text-[#202020] font-danaregular">تاریخ صدور :</h2>
+                            <p class="text-base text-[#292929] text-left font-danademibold">@createDate.sstring@</p>
+                        </div>
+                    </li>
+                        </script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                            <layout>
+                                @child
+                            </layout>
+                            <face>
+                                <script type="text/template">
+                    <li>
+                        <div>
+                            <h2 class="text-sm font-normal text-[#202020] font-danaregular">ساعت ایجاد  :</h2>
+                            <p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p>
+                        </div>
+                    </li>
+                        </script>
+                            </face>
+                        </basis>
+                    </ul>
+    
+                </section>
+    
+                <section class="border-2 border-[#E3E3E3] rounded-xl  my-4 justify-between flex p-3">
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>
+                            @child
+                        </layout>
+                        <face>
+                            <script type="text/template">
+                                {{ return await RenderInfoCard($data)}}
+                        </script>
+                        </face>
+                    </basis>
+                </section>
+    
+                <section>
+    
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>
+                            @child
+                        </layout>
+                        <face>
+                            <script type="text/template">
+                                {{ return await renderRooms($data)}}
+                        </script>
+                        </face>
+                    </basis>
+                </section>
+    
+    
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>
+                        @child
+                    </layout>
+                    <face>
+                        <script type="text/template">
+                <section class="mt-3 {{return await checkSection($data.HotelDescription)}}" >
+                <h2 class="font-bold text-2xl my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription);}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks")}}
+                </h2>
+                <div class="bg-[#F8F8F8] rounded-xl py-4  px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription);}}">
+                    @HotelDescription@
+                </div>
+            </section>   
+                        </script>
+                    </face>
+                </basis>
+    
+    
+    
+    
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>
+                        @child
+                    </layout>
+                    <face>
+                        <script type="text/template">
+            <section class="{{return await checkSection($data.pdf_description[0]?.note.text)}}">
+                <h2 class="font-bold text-2xl my-2 font-danabold" 
+             dir="{{return await detectDirection($data.pdf_description[0]?.note.text);}}"
+                >{{ return await getLocalizedText(await detectDirection($data.pdf_description[0].note.text), "قوانین و مقررات", "Rules")}}</h2>
+                <div class="bg-[#F8F8F8] rounded-xl py-4  px-8 text-justify font-danaregular">
+                    {{ return await renderRules($data)}}
+                            </div>
+            </section>
+                        </script>
+                    </face>
+                </basis>
+    
+    
+    
+    
+    
+    
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>
+                        @child
+                    </layout>
+                    <face>
+                        <script type="text/template">
+            <section class="{{return await checkSection($data.note)}}">
+                <h2 class="font-bold text-2xl my-2 font-danabold" 
+                dir="{{return await detectDirection($data.note);}}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}}</h2>
+                <div class="bg-[#F8F8F8] rounded-xl py-4  px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note);}}">
+                    @note@
+                            </div>
+            </section>
+                        </script>
+                    </face>
+                </basis>
+    
+    
+    
+    
+    
+        </main>
+    
+        <div
+            class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 text-xs max-lg:w-full max-lg:min-w-0 max-lg:min-w-0 max-lg:max-w-full margin-btn">
+            <button class="flex gap-1 items-center my-4 font-bold text-base hover:text-[#FF0000]"
+                onclick="generatePDF2()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                    viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="9" y1="13" x2="15" y2="13" />
+                    <line x1="9" y1="17" x2="15" y2="17" />
+                </svg> Generate PDF</button>
+        </div>
+    
+    
+        <footer id="pdf-footer" class=" footer h-[100px] print:w-[595pt] print:h-[100pt] mx-auto bg-gray-200">
+            <img class="block mx-auto h-[100px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
+                src="images/Footer-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" />
+    
+        </footer>
+    
+    
+    
+                <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+    
+    <script>
+    
+    
+            function detectDirection(text) {
+                const rtlChars = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/; // محدوده یونیکد عربی و فارسی
+                return rtlChars.test(text) ? 'rtl' : 'ltr';
+            }
+    
+    
+    
+            async function RenderInfoCard($data) {
+                let hotelJson = $data;
+    
+                if (!hotelJson || !hotelJson.hotelinfo) {
+                    console.error("Invalid hotel data:", hotelJson);
+                    return '<div class="text-red-500">Invalid hotel data provided.</div>';
+                }
+    
+                const hotel = hotelJson.hotelinfo;
+                const checkin = hotelJson.checkin?.mstring ? formatDateToReadable(hotelJson.checkin.mstring) : "";
+                const checkout = hotelJson.checkout?.mstring ? formatDateToReadable(hotelJson.checkout.mstring) : "";
+                const nights = hotelJson.nights || 0;
+                const roomsCount = hotelJson.rooms?.length || 0;
+                let infocard = `
+    <div class="w-3/5 ">
+    <div class="flex leading-5 gap-x-3 ticketContainer">
+        <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="/images/basisfly-LOGO-9504.png"
+            alt="${hotel.hotelname}" />
+        <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden" >
+            
+            <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="${hotel.hotelimage}"
+                alt="${hotel.hotelname}" />
+        </figure>
+        <div class="flex flex-col gap-y-1">
+            <h2 class="text-lg font-danademibold">
+                ${hotel.hotelname}
+            </h2>
+            <div class="flex items-center">
+                ${RenderRateHotel(hotel.star)}
+                <span class="text-sm ml-2 font-danaregular">${hotel.star} ستاره </span>
+            </div>
+            <span class="text-base font-danaregular">${hotel.country} / ${hotel.city}</span>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+                        <ul class="flex flex-col gap-y-2 font-danaregular">
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+                                    <svg class="scale-150 origin-center" width="13" height="13">
+                                        <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#location-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        veniam, quis nostrud exercitation ullamco laboris
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+    
+                                    <svg class="scale-150 origin-center" width="12" height="13">
+                                        <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#call-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        +51-556699774411
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+    
+                                    <svg class="scale-150 origin-center" width="13" height="13">
+                                        <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#email-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        heydarimohsen71@gmail.com
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+    
+                                    <svg class="scale-150 origin-center" width="13" height="13">
+                                        <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#www-icon-pdf"></use>
+                                    </svg>
+                                    <span>
+                                        www.moshenheydari.com
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+    </div>
+    </div>
+    <div class="w-2/5 border-r-2 border-[#E3E3E3] pr-3 ">
+    <ul class="flex flex-col gap-y-2">
+        <li>
+            <h2 class="text-base font-danademibold">زمان ورورد</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+                <svg class="scale-150 origin-center" width="13" height="13">
+                    <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+                </svg>
+                <span class="font-danaregular dir-ltr">
+                ${checkin}
+                (${hotelJson.checkin?.sstring})
+                </span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">زمان خروج</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+                <svg class="scale-150 origin-center" width="13" height="13">
+                    <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+                </svg>
+                <span class="font-danaregular dir-ltr">
+                ${checkout}
+                (${hotelJson.checkout?.sstring})
+                </span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">تعداد شب ها</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${nights}
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">تعداد اتاق ها</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${roomsCount}
+            </div>
+        </li>
+    </ul>
+    </div>`;
+    
+                return infocard;
+            }
+    
+    
+    
+            async function renderRules($data) {
+                const rules = $data?.pdf_description;
+                if (!rules || !Array.isArray(rules)) {
+                    console.warn("هیچ آیتمی در pdf_description پیدا نشد");
+                    return null;
+                }
+    
+                let direction;
+                direction = detectDirection(rules[0].note.text);
+    
+                let ulitem = '';
+                rules.forEach((item, index) => {
+                    const text = item?.note?.text?.trim();
+    
+                    if (text) {
+                        ulitem += `<li>${text}</li>`;
+                    } else {
+                        console.warn(`آیتم ${index} متن معتبری ندارد`, item);
+                    }
+                });
+    
+                return `<ul dir="${direction}">${ulitem}</ul>`;
+            }
+    
+    
+            function RenderRateHotel(starCount) {
+                let stars = '';
+                for (let i = 0; i < starCount; i++) {
+                    stars += `
+            <svg width="14" height="14">
+                <use href="http://basisflydemo.ir/images/pdf-sprite-icons.svg#star-icon-pdf"></use>
+            </svg>`;
+                }
+                return stars;
+            }
+    
+            function formatDateToReadable(dateString) {
+                const date = new Date(dateString);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit'
+                };
+                const formatted = date.toLocaleDateString('en-US', options);
+                const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
+                return `${day} ${month} ${year} / ${weekday}`;
+            }
+    
+            async function renderRooms($data) {
+                let hotelinfo = $data?.hotelinfo;
+                let roominfo = $data?.rooms;
+                let roomcontent = '';
+    
+                roominfo.forEach((room) => {
+                    const parsedPassengers = room.passengers.map(p => {
+                        const typeRaw = p.type || '';
+                        const typeMatch = typeRaw.match(/^([^\(]+)(?:\s*\((.+)\))?/);
+                        const passengerType = typeMatch?.[1]?.trim() || '–';
+                        const passengerAge = typeMatch?.[2]?.trim() || (p.age || '–');
+    
+                        return {
+                            name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
+                            type: passengerType,
+                            age: passengerAge
+                        };
+                    });
+    
+                    const passengerNames = parsedPassengers.map(p =>
+                        `<h2 class="text-[#292929] text-sm font-danademibold">${p.name}</h2>`
+                    ).join('');
+    
+                    const passengerTypes = parsedPassengers.map(p =>
+                        `<h2 class="text-[#292929] text-sm font-danademibold">${p.type}</h2>`
+                    ).join('');
+    
+                    const passengerAges = parsedPassengers.map(p =>
+                        `<h2 class="text-[#292929] text-sm font-danademibold">${p.age}</h2>`
+                    ).join('');
+    
+                    const childrenCount = (room.numpassenger.childwithbed || 0) + (room.numpassenger.childwithoutbed || 0);
+    
+                    roomcontent += `
+            <h2 class="font-bold text-2xl my-2 font-danabold">اتاق ${room.index}</h2>
+            <div class="bg-[#F4FBF9] rounded-xl p-4 flex flex-wrap justify-between gap-4">
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">نوع اتاق</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">${room.roomtype.trim()}</div>
+                </div>
+    
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">خدمات</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                        ${escapeXML(hotelinfo.services)}
+                    </div>
+                </div>
+    
+                <!-- Passenger Names -->
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">مسافران</span>
+                    ${passengerNames}
+                </div>
+    
+                <!-- Passenger Types (Gender) -->
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">نوع مسافر</span>
+                    ${passengerTypes}
+                </div>
+    
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">سن</span>
+                    ${passengerAges}
+                </div>
+    
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">وضعیت</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                        ${room.onrequest === "1" ? "On Request" : "Available"}
+                    </div>
+                </div>
+            </div>
+        `;
+                });
+    
+                return roomcontent;
+            }
+    
+    
+            function escapeXML(str) {
+                return str.replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&apos;");
+            }
+    
+    
+            async function getLocalizedText(dir, faText, enText) {
+                const isRTL = dir === 'rtl';
+                return isRTL ? faText : enText;
+            }
+    
+    
+            async function checkSection(input) {
+    
+    
+                // اگر ورودی null یا undefined یا رشته خالی بود
+                if (
+                    input === null ||
+                    input === undefined ||
+                    (typeof input === 'string' && input.trim() === '')
+                ) {
+                    return 'hidden';
+                }
+    
+                // اگر رشته HTML هست مثل <p></p> یا <div>  </div> یا فقط تگ‌های خالی
+                if (typeof input === 'string') {
+                    const temp = document.createElement('div');
+                    temp.innerHTML = input;
+    
+                    // اگر هیچ متن قابل‌نمایشی نداشت
+                    if (temp.textContent.trim() === '') {
+                        return 'hidden';
+                    }
+                }
+    
+                // در غیر اینصورت مشکلی نیست
+                return '';
+            }
+    
+    
+
+            async function waitForImagesToLoad(container) {
+  const images = container.querySelectorAll("img");
+  const promises = [];
+  images.forEach(img => {
+    if (!img.complete) {
+      promises.push(new Promise(resolve => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      }));
+    }
+  });
+  await Promise.all(promises);
+}
+    
+            async function generatePDF2() {
+                console.log("generate clicked");
+                const element = document.querySelector('.pdf-content');
+                const headerElement = document.getElementById('pdf-header');
+                const footerElement = document.getElementById('pdf-footer');
+    
+                // element.style.transform = 'scale(0.8)';
+                // element.style.transformOrigin = 'top left';
+                // element.style.width = '125%';
+    
+                try {
+                    const loadingElement = document.querySelector('.pdf-loading');
+                    if (loadingElement) loadingElement.classList.remove('hidden');
+    
+                    const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+    
+                    var static_width = 300;
+                    var static_y = -45;
+                    var static_height = 20;
+                    var html2canvas_width = 1554 * 0.8;
+                    var header_scale = 1.5;
+                    var main_sacel = 1.5;
+                    var window_width = 1900;
+                    var margin = [35, -5, 35, -5];
+    
+                    if (isMobile) {
+                        static_width = 190;
+                        static_y = 10;
+                        static_height = 25;
+                        header_scale = 2;
+                        main_sacel = 1.2;
+                        html2canvas_width = 416 * 2.05;
+                        window_width = 600;
+                        margin = [35, 20, 35, -5];
+                    } else {
+                        if (window.innerWidth > 1554) {
+                            html2canvas_width = window.innerWidth * 0.6;
+                            window_width = window.innerWidth + 115;
+                        }
+    
+                        if (window.innerWidth < 1554) {
+                            if (window.innerWidth < 1554 && window.innerWidth > 1200) {
+                                html2canvas_width = window.innerWidth * 0.8;
+                            } else {
+                                html2canvas_width = window.innerWidth * 1;
+                            }
+                            window_width = window.innerWidth;
+                            static_width = 190;
+                            static_y = 10;
+                            static_height = 25;
+                            header_scale = 2;
+                            main_sacel = 1.2;
+                            margin = [35, 20, 35, -5];
+                        }
+                    }
+    
+                    const opt = {
+                        margin: margin,
+                        image: { type: 'jpeg', quality: 1 },
+                        html2canvas: {
+                            width: html2canvas_width,
+                            scale: main_sacel,
+                            windowWidth: window_width,
+                            backgroundColor: '#ffffff',
+                            useCORS: true,
+                            allowTaint: true,
+                            scrollX: 0,
+                            scrollY: 0,
+                            letterRendering: true,
+                            ignoreElements: (e) => {
+                                if (['BUTTON', 'A', 'SCRIPT'].includes(e.tagName)) {
+                                    return true;
+                                }
+                                if (e.classList.contains('pdf-loading', 'pdf-header', 'pdf-footer')) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        },
+                        jsPDF: {
+                            unit: 'mm',
+                            format: 'a4',
+                            orientation: 'portrait'
+                        }
+                    };
+    
+                    try {
+                        const headerElement = document.getElementById('pdf-header');
+                        const footerElement = document.getElementById('pdf-footer');
+    
+                        // تبدیل هدر و فوتر به عکس
+                        const headerCanvasPromise = html2canvas(headerElement, { scale: header_scale });
+                        const footerCanvasPromise = html2canvas(footerElement, { scale: header_scale });
+    
+                        Promise.all([headerCanvasPromise, footerCanvasPromise]).then(async ([headerCanvas, footerCanvas]) => {
+                            const headerImage = headerCanvas.toDataURL('image/png');
+                            const footerImage = footerCanvas.toDataURL('image/png');
+
+
+                            const maincontainer = document.querySelector("main");
+                            await waitForImagesToLoad(maincontainer);
+                            const worker = html2pdf().set(opt).from(element).toPdf();
+    
+    
+                            worker.get('pdf').then(function (pdf) {
+                                const totalPages = pdf.internal.getNumberOfPages();
+                                for (let i = 1; i <= totalPages; i++) {
+                                    pdf.setPage(i);
+    
+                                    // Add header
+                                    pdf.addImage(headerImage, 'PNG', static_y, 5, static_width, static_height); // x, y, width, height (سایز رو تنظیم کن)
+    
+                                    // Add footer
+                                    pdf.addImage(footerImage, 'PNG', static_y, 270, static_width, static_height);
+                                }
+                            });
+    
+                            worker.save();
+                        });
+    
+    
+                    } catch (highResError) { }
+    
+                } catch (error) {
+                    console.error('PDF generation failed:', error);
+                    alert('خطا در تولید PDF.');
+                }
+                finally {
+                    const loadingElement = document.querySelector('.pdf-loading');
+                    if (loadingElement) loadingElement.classList.add('hidden');
+                }
+            }
+    
+            // async function generatePDF1() {
+            //     const element = document.querySelector('.pdf-content');
+            //     const headerElement = document.getElementById('pdf-header');
+            //     const footerElement = document.getElementById('pdf-footer');
+    
+            //     try {
+            //         const loadingElement = document.querySelector('.pdf-loading');
+            //         if (loadingElement) loadingElement.classList.remove('hidden');
+    
+            //         // تشخیص موبایل و زوم
+            //         const isMobile = window.innerWidth <= 768;
+            //         const zoomLevel = window.devicePixelRatio || 1;
+            //         const actualWidth = window.innerWidth * zoomLevel;
+    
+            //         // تنظیمات پویا
+            //         const a4WidthPx = 794; // عرض A4 در 96dpi (~210mm)
+            //         let html2canvasWidth = actualWidth;
+            //         let scale = a4WidthPx / actualWidth; // مقیاس متناسب با عرض واقعی
+            //         let windowWidth = actualWidth;
+            //         let headerScale = isMobile ? 2 : 1.5;
+            //         let margin = isMobile ? [35, 20, 35, -5] : [35, -5, 35, -5];
+    
+            //         // تنظیم عرض و مقیاس برای رزولوشن‌های مختلف
+            //         if (actualWidth < a4WidthPx) {
+            //             html2canvasWidth = a4WidthPx; // حداقل عرض A4
+            //             scale = 1; // بدون مقیاس اضافی
+            //         } else if (actualWidth > 1554) {
+            //             html2canvasWidth = a4WidthPx * 1.2; // محدود کردن عرض برای رزولوشن‌های بزرگ
+            //             scale = a4WidthPx / html2canvasWidth;
+            //         }
+    
+            //         // تنظیمات هدر و فوتر
+            //         const headerFooterWidth = isMobile ? 190 : Math.min(actualWidth * 0.2, 300);
+            //         const headerFooterHeight = isMobile ? 25 : 20;
+            //         const headerFooterY = isMobile ? 10 : -45;
+    
+            //         const opt = {
+            //             margin: margin,
+            //             image: { type: 'jpeg', quality: 1 },
+            //             html2canvas: {
+            //                 width: html2canvasWidth,
+            //                 scale: scale * (isMobile ? 1.2 : 1), // تنظیم مقیاس برای موبایل
+            //                 windowWidth: windowWidth,
+            //                 backgroundColor: '#ffffff',
+            //                 useCORS: true,
+            //                 allowTaint: true,
+            //                 scrollX: 0,
+            //                 scrollY: 0,
+            //                 letterRendering: true,
+            //                 ignoreElements: (e) => {
+            //                     if (['BUTTON', 'A', 'SCRIPT'].includes(e.tagName)) return true;
+            //                     if (e.classList.contains('pdf-loading', 'pdf-header', 'pdf-footer')) return true;
+            //                     return false;
+            //                 },
+            //             },
+            //             jsPDF: {
+            //                 unit: 'mm',
+            //                 format: 'a4',
+            //                 orientation: 'portrait',
+            //             },
+            //         };
+    
+            //         // تبدیل هدر و فوتر به تصویر
+            //         const headerCanvasPromise = html2canvas(headerElement, { scale: headerScale });
+            //         const footerCanvasPromise = html2canvas(footerElement, { scale: headerScale });
+    
+            //         const [headerCanvas, footerCanvas] = await Promise.all([headerCanvasPromise, footerCanvasPromise]);
+            //         const headerImage = headerCanvas.toDataURL('image/png');
+            //         const footerImage = footerCanvas.toDataURL('image/png');
+    
+            //         const worker = html2pdf().set(opt).from(element).toPdf();
+    
+            //         worker.get('pdf').then(function (pdf) {
+            //             const totalPages = pdf.internal.getNumberOfPages();
+            //             for (let i = 1; i <= totalPages; i++) {
+            //                 pdf.setPage(i);
+    
+            //                 pdf.addImage(headerImage, 'PNG', headerFooterY, 5, headerFooterWidth, headerFooterHeight);
+    
+            //                 pdf.addImage(footerImage, 'PNG', headerFooterY, 270, headerFooterWidth, headerFooterHeight);
+            //             }
+            //         });
+    
+            //         await worker.save();
+    
+            //     } catch (error) {
+            //         console.error('PDF generation failed:', error);
+            //         alert('خطا در تولید PDF.');
+            //     } finally {
+            //         const loadingElement = document.querySelector('.pdf-loading');
+            //         if (loadingElement) loadingElement.classList.add('hidden');
+            //     }
+            // }
+    
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <!-- <script src="./js/print-pdf-solution.js"></script> -->
+                 <script src="js/flight_ticket_test.js" defer></script>
+        <script src="print-pdf-solution.js"></script>
+
+    </basis>    
+</body>
+</html>

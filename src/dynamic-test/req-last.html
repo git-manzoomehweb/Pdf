@@ -1,0 +1,982 @@
+<basis core="group" if="[##db.checkrkey.userid|(0)##]<>0">
+
+    <basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+        <member name="Voucher" method="cms" query='{
+         "name": "db",
+         "mid": "20",
+         "schemabase" : "[##cms.query.schemabase|(true)##]",
+         "member":[{ 
+         "type":"list",
+         "name": "q",
+         "request": "Voucher_Pdf",
+         "id":"[##cms.query.id##]",
+       "lid":"1",
+         "cityid" : "[##cms.query.cityid##]",
+         "status": "0"}]
+        }' />
+    </basis>
+
+    <basis core="group" name="ParentGroup">
+        <basis core='inlinesource' name='db'>
+            <member name="VoucherJson" format="json"
+                postsql="select  Id , ParentId , case when trim(Field) is null then (select field from [db.VoucherJson] where id = a.parentid ) else field end as field, value , type , path  from [db.VoucherJson] as a"
+                preview="">
+                {"root":[##db.Voucher.result##]}
+            </member>
+
+            <member name="provider" format="json"
+                postsql="select value from [db.provider] where field = 'provider' group by Value" preview="">
+                {"root":[##db.Voucher.result##]}
+            </member>
+
+            <member name="ecountry" format="json" postsql="select value from [db.ecountry] where field = 'ecountry'"
+                preview="">
+                {"root":[##db.Voucher.result##]}
+            </member>
+
+
+        </basis>
+
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+            <meta charset="UTF-8" />
+            <title>Voucher</title>
+            <style type="text/css">
+                @font-face {
+                    font-family: 'IRANSansWeb';
+                    src: url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.eot');
+                    src: local('?'),
+                        url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.woff2') format("woff"),
+                        url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.ttf') format("truetype"),
+                        url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.otf') format("otf");
+                    font-weight: 400;
+                    font-style: normal
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0
+                }
+
+                body {
+                    font-family: IRANSansWeb;
+                    font-size: 10px;
+                    color: #2d2d2d;
+                }
+
+                table {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .clr {
+                    clear: both
+                }
+
+                .Panel-Warning {
+                    margin: 5px 0
+                }
+
+                #Panel-Header-resize,
+                #Panel-Footer-resize {
+                    width: 100%
+                }
+
+                #Panel-Header,
+                #Panel-Footer {
+                    width: 1300px;
+                    margin: 0 auto;
+                    min-height: 80px;
+                    text-align: center;
+                    margin-bottom: 15px;
+                }
+
+                #Panel-Voucher-resize {
+                    width: 100%
+                }
+
+                #Panel-Voucher {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+
+                #Panel-RouleBox-Persian {
+                    direction: rtl;
+                    text-align: right;
+                    margin: 20px 0
+                }
+
+                #Panel-RouleBox-English {
+                    direction: ltr;
+                    text-align: left;
+                    margin: 20px 0
+                }
+
+                #Panel-RouleBox-Persian p,
+                #Panel-RouleBox-English p {
+                    text-align: justify;
+                    line-height: 30px
+                }
+
+                .Panel-Voucher-Head {
+                    direction: ltr;
+                    border-top: 2px solid #569DE5;
+                    border-bottom: 2px solid #569DE5;
+                    padding: 5px 0;
+                    text-align: left;
+                }
+
+                .Panel-Voucher-Head table tr th {
+                    width: 33.3%;
+                    direction: ltr;
+                    font-weight: normal;
+                }
+
+                .Panel-Voucher-HeadLeft {
+                    width: 11%;
+                    float: left;
+                }
+
+                .Panel-Voucher-HeadLeft img {
+                    width: 100%;
+                    height: 70px
+                }
+
+                /* .Panel-Voucher-HeadRight {
+            width: 86%;
+            height: auto;
+            float: right;
+          } */
+
+                .Panel-Voucher-Head p {
+                    line-height: 17px
+                }
+
+                .Panel-Voucher-Head p span.Voucher-title {
+                    display: inline-block;
+                    width: 80px;
+                }
+
+                .Panel-Voucher-Details {
+                    margin: 20px 0
+                }
+
+                .Panel-Voucher-Details table caption {
+                    background: #569DE5;
+                    padding: 5px 0 5px 0;
+                    text-align: left;
+                    font-weight: bold;
+                    font-weight: normal;
+                    font-size: 10px;
+                    width: 100%;
+                }
+
+                .Panel-Voucher-Details table caption span {
+                    display: inline-block;
+                    padding: 0 5px;
+                    color: #FFF
+                }
+
+                .Panel-Voucher-Details table tr th {
+                    padding: 2px 0;
+                    font-size: 10px;
+                }
+
+                .Panel-Voucher-Details table thead tr {
+                    background: #E3E3E3
+                }
+
+                .Panel-Voucher-Details table tbody tr {
+                    background: #E9F2F9;
+                }
+
+                .Panel-Voucher-Details table tr td {
+                    padding: 2px 0;
+                    font-size: 10px;
+                }
+
+                .Panel-Voucher-Details table tr:not(:last-child) td {
+                    border-bottom: 1px solid #569DE5;
+                }
+
+                .Panel-Voucher-Details.Rooms table tr td,
+                .Panel-Voucher-Details.Rooms table tr th {
+                    padding: 0
+                }
+
+                .Panel-MergCel {
+                    padding: 8px 0;
+                    box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    -o-box-sizing: border-box;
+                    -ms-box-sizing: border-box;
+                }
+
+                .Panel-MergCel:nth-child(1) {
+                    width: 40%;
+                    border-right: 1px solid #FFF;
+                }
+
+                .Panel-MergCel:nth-child(2) {
+                    width: 16%;
+                    border-right: 1px solid #FFF;
+                }
+
+                .Panel-MergCel:nth-child(3) {
+                    width: 24%;
+                    border-right: 1px solid #FFF;
+                }
+
+                .Panel-MergCel:nth-child(4) {
+                    width: 20%
+                }
+
+                .Panel-MergCel {
+                    float: left;
+                }
+
+                .title_page {
+                    text-align: center;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+
+                .text_page {
+                    direction: rtl;
+                    text-align: justify;
+                }
+
+                .part_div {
+                    width: 33.3%;
+                    float: right;
+                }
+
+                .border {
+                    border: 1px solid #000;
+                    padding: 15px;
+                }
+
+                .display_inline {
+                    display: inline-block;
+                }
+
+                .font_bold {
+                    font-weight: bold;
+                }
+
+                thead {
+                    display: table-header-group;
+                }
+
+                tfoot {
+                    display: table-row-group;
+                }
+
+                tr {
+                    page-break-inside: avoid;
+                }
+            </style>
+        </head>
+
+        <body>
+            <basis core="group" name="" if="'[##db.ecountry.Value##]' = 'Iran'">
+                <div id="Panel-Voucher-resize">
+                    <div id="Panel-Voucher">
+                        <div style="text-align:center;font-size:12px;margin-bottom:5px">HOTEL REQUEST</div>
+                        <div class="title_page"> درخواست رزرو هتل</div>
+                        <br><br>
+                        <div class="text_page">مدیر محترم رزرواسیون هتل
+                            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid"
+                                nullvalue="null">
+                                <face filter="Field in ('hotelname')"><span> @value</span></face>
+                                <face filter="Field in ('persianname') and value <>''">
+                                    <span> / @value</span>
+                                </face>
+                                <face filter="type in ('array','object')">@Child</face>
+                            </basis>
+                            <br> با سلام<br /> احتراما تاریخ رزرواسیون اتاق و خدمات در آن هتل طبق جدول زیر باستحضار
+                            میرسد. لذا
+                            خواهشمند است در صورت امکان نسبت به تایید رزرو و ثبت آن در جدول پایین هماهنگی های لازم به عمل
+                            آید .
+                        </div>
+                        <br />
+                        <div class="Panel-Voucher-Head">
+                            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid"
+                                nullvalue="null">
+                                <face filter="Field in ('flightinfo')"></face>
+                                <face filter="Field in ('hotelimage')">
+                                    <!-- <div class="Panel-Voucher-HeadLeft">
+                      <img src="@value" width="" height="">
+                    </div> -->
+                                </face>
+
+                                <face filter="Field in ('hotelname')">
+                                    <div class="Panel-Voucher-HeadRight">
+                                        <p class="display_inline"><span class="Voucher-title">Hotel Name</span>
+                                        <div class="display_inline"><span>: @value</span>
+                                </face>
+                                <face filter="Field in ('persianname') and value <>''">
+                                    <span> / @value</span>
+                                </face>
+                                <face filter="Field in ('star') and value ='0'">
+                        </div><span><span> / (@value*) </span></span></p>
+                        <p><span class="Voucher-title">Request NO</span><span>: [##cms.query.id##]</span></p>
+                        </face>
+                        <face filter="Field in ('star') and value <>'0'">
+                    </div><span><span> / (@value*) </span> </span></p>
+                    <p><span class="Voucher-title">Request NO</span><span>: [##cms.query.id##]</span></p>
+                    </face>
+
+                    <face filter="Field in ('refnumber') and value='undefined'"></face>
+                    <face filter="Field in ('refnumber') and value<>''">
+                        <p><span class="Voucher-title">ReservationId</span><span>: @value</span></p>
+                    </face>
+                    <face filter="Field in ('checkin')">
+                        <p><span class="Voucher-title">Check In</span>@child</p>
+                    </face>
+                    <face filter="Field in ('checkout')">
+                        <p><span class="Voucher-title">Check Out</span>@child</p>
+                    </face>
+                    <face filter="Field in ('createDate')">
+                        <p><span class="Voucher-title">createDate</span>@child</p>
+                    </face>
+                    <face filter="Field in ('mstring')"><span>: @value</span></face>
+                    <face filter="Field in ('sstring')"><span
+                            style="font-size:10px;margin:0 8px;display:inline-block;">(@value)</span></face>
+                    <face filter="Field in ('createHour')">
+                        <p><span class="Voucher-title">createHour</span>: @value</p>
+                </div>
+                </face>
+                <face filter="type in ('array','object')">@Child</face>
+            </basis>
+            <div class="clr"></div>
+            </div>
+
+            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+                <layout>@Child</layout>
+
+                <face filter="Field in ('hotelinfo','checkin','checkout','createDate')"></face>
+                <face filter="Field in ('flightinfo') and value <> ''">
+                    <div class="Panel-Voucher-Details">
+                        <table cellspacing="2px">
+                            <caption><span>FLIGHT DETAILS</span></caption>
+
+                            <thead>
+                                <tr>
+                                    <th>AIRLINE</th>
+                                    <th>FLIGHT NO</th>
+                                    <th>DATE</th>
+                                    <th>DEPARTURE TIME</th>
+                                    <th>ARRIVAL TIME</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>@Child</tbody>
+                        </table>
+                    </div><!-- end Panel-Voucher-Details -->
+                </face>
+
+                <face filter="Field in ('enterflight','exitflight')">
+                    <tr>@Child</tr>
+                </face>
+                <face filter="Field in ('airlines','routecode','flightno') and type in ('Scalar.String')">
+                    <td>@value</td>
+                </face>
+                <face filter="Field in ('date')">
+                    <td>@child</td>
+                </face>
+                <face filter="Field in ('mstring')">@value</face>
+                <face filter="Field in ('etime','atime')">
+                    <td>@value</td>
+                </face>
+                <face filter="type in ('array','object')">@Child</face>
+            </basis>
+
+            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+                <layout>
+                    <div class="Panel-Voucher-Details">
+                        <table cellspacing="2px">
+                            <caption><span>ACCOMODATIONS</span></caption>
+
+                            <thead>
+                                <tr>
+                                    <th>HOTEL</th>
+                                    <th>COUNTRY</th>
+                                    <th>CITY</th>
+                                    <th>SERVICES</th>
+                                    <th>CHECK IN</th>
+                                    <th>CHECK OUT</th>
+                                    <th>NIGHTS</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>@Child</tr>
+                            </tbody>
+                        </table>
+                    </div><!-- end Panel-Voucher-Details -->
+                </layout>
+
+                <face filter="Field in ('flightinfo','createDate')"></face>
+                <face filter="Field in ('hotelinfo')">@Child</face>
+                <face filter="Field in ('hotelname')">
+                    <td>@value
+                </face>
+                <face filter="Field in ('persianname')"><br />@value</td>
+                </face>
+                <face filter="Field in ('ecountry')">
+                    <td>@value</td>
+                </face>
+                <face filter="Field in ('ecity')">
+                    <td>@value</td>
+                </face>
+                <face filter="Field in ('services')">
+                    <td>@value</td>
+                </face>
+                <face filter="Field in ('checkin','checkout')">
+                    <td>@Child</td>
+                </face>
+                <face filter="Field in ('mstring')">@value</face>
+                <face filter="Field in ('nights')">
+                    <td>@value</td>
+                </face>
+                <face filter="type in ('array','object')">@Child</face>
+            </basis>
+
+            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+                <layout>
+                    <div class="Panel-Voucher-Details Rooms">
+                        <table cellspacing="2px">
+                            <caption><span>PASSENGERS AND ROOMS</span></caption>
+
+                            <colgroup>
+                                <col width="4%">
+                                </col>
+                                <col width="70%">
+                                </col>
+                                <col width="12%">
+                                </col>
+                                <col width="12%">
+                                </col>
+                            </colgroup>
+
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>
+                                        <div class="Panel-MergCelBox">
+                                            <div class="Panel-MergCel">SURNAME / NAME</div>
+                                            <div class="Panel-MergCel">SEX</div>
+                                            <div class="Panel-MergCel">NATIONALITY</div>
+                                            <div class="Panel-MergCel">AGE</div>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </th>
+                                    <th>ROOM TYPE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>@Child</tbody>
+                        </table>
+                    </div><!-- end Panel-Voucher-Details -->
+                </layout>
+
+                <face filter="Field in ('rooms') and type in ('object')">
+                    <tr>@Child</tr>
+                </face>
+                <face filter="Field in ('index')">
+                    <td>@value</td>
+                </face>
+                <face filter="Field in ('passengers') and type in ('array')">
+                    <td>@Child</td>
+                </face>
+                <face filter="Field in ('passengers') and type in ('object')">
+                    <div class="Panel-MergCelBox">
+                        @Child
+                        <div class="clr"></div>
+                    </div>
+                </face>
+                <face filter="Field in ('fullname')">
+                    <div class="Panel-MergCel">@child</div>
+                </face>
+                <face filter="Field in ('lastname')">@value</face>
+                <face filter="Field in ('firstname')"> / @value </face>
+                <face filter="Field in ('gender') and value='0'">
+                    <div class="Panel-MergCel">F</div>
+                </face>
+                <face filter="Field in ('gender') and value='1'">
+                    <div class="Panel-MergCel">M</div>
+                </face>
+                <face filter="Field in ('ecountryname') and value in ('null')">
+                    <div class="Panel-MergCel"></div>
+                </face>
+                <face filter="Field in ('ecountryname') and value not in ('null')">
+                    <div class="Panel-MergCel">@value</div>
+                </face>
+                <face filter="Field in ('type')">
+                    <div class="Panel-MergCel">@value</div>
+                </face>
+                <face filter="Field in ('roomtype')">
+                    <td>@value</td>
+                </face>
+                <face filter="Field in ('onrequest') and value='0'">
+                    <td>AVAILABLE</td>
+                </face>
+                <face filter="Field in ('onrequest') and value='1'">
+                    <td>ON REQUEST</td>
+                </face>
+
+                <face filter="type in ('array','object')">@Child</face>
+            </basis>
+
+            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+                <layout>
+                    <div class="Panel-Voucher-Details">
+                        @Child
+                    </div><!-- end Panel-Voucher-Details -->
+                </layout>
+
+                <face filter="Field in ('brokerinfo') and value <> 'Undefined'">
+                    <table cellspacing="2px">
+                        <caption><span>TRANSFER</span></caption>
+
+                        <thead>
+                            <tr>
+                                <th>TEL</th>
+                                <th>BOARD</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>@Child</tr>
+                        </tbody>
+                    </table>
+                </face>
+
+                <face filter="Field in ('phone') and type in ('Array')">
+                    <td>@child</td>
+                </face>
+                <face filter="Field in ('number')">
+                    <p>@value</p>
+                </face>
+                <face filter="Field in ('board')">
+                    <td>@value</td>
+                </face>
+                <face filter="type in ('array','object')">@Child</face>
+            </basis>
+
+            <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+                <layout>
+                    <div class="Panel-Voucher-Details">
+                        @Child
+                    </div><!-- end Panel-Voucher-Details -->
+                </layout>
+
+                <face filter="Field in ('support') and value <> 'Undefined'">
+                    <table cellspacing="1px">
+                        <caption><span>TOUR LEADER </span></caption>
+
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>TEL</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>@Child</tr>
+                        </tbody>
+                    </table>
+                </face>
+                <face filter="Field in ('name','tel')">
+                    <td>@value</td>
+                </face>
+
+                <face
+                    filter="Field in ('HotelDescription') and value not in ('<p></p>') and '[##db.provider.Value##]'='0'">
+                    <tr style="background:none">
+                        <td colspan="8">
+                            <div id="Panel-RouleBox-Persian">@value</div>
+                        </td>
+                    </tr>
+                </face>
+
+                <face
+                    filter="Field in ('HotelDescription') and value not in ('<p></p>') and '[##db.provider.Value##]'<>'0'">
+                    <tr style="background:none">
+                        <td colspan="8">
+                            <div id="Panel-RouleBox-English">@value</div>
+                        </td>
+                    </tr>
+                </face>
+
+
+                <face filter="Field in ('note') and value not in ('<p></p>') and '[##db.provider.Value##]'='0'">
+                    <tr style="background:none">
+                        <td colspan="8">
+                            <div id="Panel-RouleBox-Persian">@value</div>
+                        </td>
+                    </tr>
+                </face>
+
+                <face filter="Field in ('note') and value not in ('<p></p>') and '[##db.provider.Value##]'<>'0'">
+                    <tr style="background:none">
+                        <td colspan="8">
+                            <div id="Panel-RouleBox-English">@value</div>
+                        </td>
+                    </tr>
+                </face>
+                <face filter="type in ('array','object')">@Child</face>
+            </basis>
+            <br />
+            <div class="text_page border">
+                <p> محل تایید رزرواسیون توسط هتل
+                </p>
+                <p>خواهشمند است جهت سهولت در امر واریزی، شماره شبا، نام صاحب حساب و نام بانک مقصد در کانفرم درج گردد.
+                </p>
+                <div>نام تائید کننده</div>
+                <br />
+                <div>
+                    <div class="part_div">توضیحات هتل</div>
+                    <div class="part_div">مهر و امضا</div>
+                    <div class="part_div">تاریخ تائید</div>
+                    <div class="clr"></div>
+                </div>
+            </div>
+
+            </div>
+            </div><!-- end Panel-Voucher-resize -->
+    </basis>
+
+
+    <basis core="group" name="" if="'[##db.ecountry.Value##]' <> 'Iran'">
+        <div id="Panel-Voucher-resize">
+            <div id="Panel-Voucher">
+
+                <div style="text-align:center;font-size:12px;margin-bottom:5px">HOTEL REQUEST</div>
+                <div class="Panel-Voucher-Head">
+                    <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid"
+                        nullvalue="null">
+                        <face filter="Field in ('flightinfo')"></face>
+                        <face filter="Field in ('hotelimage')">
+                            <!-- <div class="Panel-Voucher-HeadLeft">
+                  <img src="@value" width="" height="">
+                </div> -->
+                        </face>
+
+                        <face filter="Field in ('hotelname')">
+                            <div class="Panel-Voucher-HeadRight">
+                                <p><span class="Voucher-title">Hotel Name</span><span>: @value</span>
+                        </face>
+
+                        <face filter="Field in ('star') and value ='0'">
+                            <span><span> / (@value*) </span></span></p>
+                            <p><span class="Voucher-title">Request NO</span><span>: [##cms.query.id##]</span></p>
+                        </face>
+                        <face filter="Field in ('star') and value <>'0'">
+                            <span><span> / (@value*) </span> </span></p>
+                            <p><span class="Voucher-title">Request NO</span><span>: [##cms.query.id##]</span></p>
+                        </face>
+                        <face filter="Field in ('refnumber') and value='undefined'"></face>
+                        <face filter="Field in ('refnumber') and value<>''">
+                            <p><span class="Voucher-title">ReservationId</span><span>: @value</span></p>
+                        </face>
+                        <face filter="Field in ('checkin')">
+                            <p><span class="Voucher-title">Check In</span>@child</p>
+                        </face>
+                        <face filter="Field in ('checkout')">
+                            <p><span class="Voucher-title">Check Out</span>@child</p>
+                        </face>
+                        <face filter="Field in ('createDate')">
+                            <p><span class="Voucher-title">createDate</span>@child</p>
+                        </face>
+                        <face filter="Field in ('mstring')"><span>: @value</span></face>
+                        <face filter="Field in ('sstring')"><span
+                                style="font-size:10px;margin:0 8px;display:inline-block;">(@value)</span></face>
+                        <face filter="Field in ('createHour')">
+                            <p><span class="Voucher-title">createHour</span>: @value</p>
+                </div>
+                </face>
+                <face filter="type in ('array','object')">@Child</face>
+    </basis>
+
+    
+    <div class="clr"></div>
+    </div>
+
+    <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+        <layout>@Child</layout>
+
+        <face filter="Field in ('hotelinfo','checkin','checkout','createDate')"></face>
+        <face filter="Field in ('flightinfo') and value <> ''">
+            <div class="Panel-Voucher-Details">
+                <table cellspacing="2px">
+                    <caption><span>FLIGHT DETAILS</span></caption>
+
+                    <thead>
+                        <tr>
+                            <th>AIRLINE</th>
+                            <th>FLIGHT NO</th>
+                            <th>DATE</th>
+                            <th>DEPARTURE TIME</th>
+                            <th>ARRIVAL TIME</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>@Child</tbody>
+                </table>
+            </div><!-- end Panel-Voucher-Details -->
+        </face>
+
+        <face filter="Field in ('enterflight','exitflight')">
+            <tr>@Child</tr>
+        </face>
+        <face filter="Field in ('airlines','routecode','flightno') and type in ('Scalar.String')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('date')">
+            <td>@child</td>
+        </face>
+        <face filter="Field in ('mstring')">@value</face>
+        <face filter="Field in ('etime','atime')">
+            <td>@value</td>
+        </face>
+        <face filter="type in ('array','object')">@Child</face>
+    </basis>
+
+    <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+        <layout>
+            <div class="Panel-Voucher-Details">
+                <table cellspacing="2px">
+                    <caption><span>ACCOMODATIONS</span></caption>
+
+                    <thead>
+                        <tr>
+                            <th>HOTEL</th>
+                            <th>COUNTRY</th>
+                            <th>CITY</th>
+                            <th>SERVICES</th>
+                            <th>CHECK IN</th>
+                            <th>CHECK OUT</th>
+                            <th>NIGHTS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>@Child</tr>
+                    </tbody>
+                </table>
+            </div><!-- end Panel-Voucher-Details -->
+        </layout>
+
+        <face filter="Field in ('flightinfo','createDate')"></face>
+        <face filter="Field in ('hotelinfo')">@Child</face>
+        <face filter="Field in ('hotelname')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('ecountry')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('ecity')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('services')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('checkin','checkout')">
+            <td>@Child</td>
+        </face>
+        <face filter="Field in ('mstring')">@value</face>
+        <face filter="Field in ('nights')">
+            <td>@value</td>
+        </face>
+        <face filter="type in ('array','object')">@Child</face>
+    </basis>
+
+    <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+        <layout>
+            <div class="Panel-Voucher-Details Rooms">
+                <table cellspacing="2px">
+                    <caption><span>PASSENGERS AND ROOMS</span></caption>
+
+                    <colgroup>
+                        <col width="4%">
+                        </col>
+                        <col width="70%">
+                        </col>
+                        <col width="12%">
+                        </col>
+                        <col width="12%">
+                        </col>
+                    </colgroup>
+
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>
+                                <div class="Panel-MergCelBox">
+                                    <div class="Panel-MergCel">SURNAME / NAME</div>
+                                    <div class="Panel-MergCel">SEX</div>
+                                    <div class="Panel-MergCel">NATIONALITY</div>
+                                    <div class="Panel-MergCel">AGE</div>
+                                    <div class="clr"></div>
+                                </div>
+                            </th>
+                            <th>ROOM TYPE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>@Child</tbody>
+                </table>
+            </div><!-- end Panel-Voucher-Details -->
+        </layout>
+
+        <face filter="Field in ('rooms') and type in ('object')">
+            <tr>@Child</tr>
+        </face>
+        <face filter="Field in ('index')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('passengers') and type in ('array')">
+            <td>@Child</td>
+        </face>
+        <face filter="Field in ('passengers') and type in ('object')">
+            <div class="Panel-MergCelBox">
+                @Child
+                <div class="clr"></div>
+            </div>
+        </face>
+        <face filter="Field in ('fullname')">
+            <div class="Panel-MergCel">@child</div>
+        </face>
+        <face filter="Field in ('lastname')">@value</face>
+        <face filter="Field in ('firstname')"> / @value </face>
+        <face filter="Field in ('gender') and value='0'">
+            <div class="Panel-MergCel">F</div>
+        </face>
+        <face filter="Field in ('gender') and value='1'">
+            <div class="Panel-MergCel">M</div>
+        </face>
+        <face filter="Field in ('ecountryname') and value in ('null')">
+            <div class="Panel-MergCel"></div>
+        </face>
+        <face filter="Field in ('ecountryname') and value not in ('null')">
+            <div class="Panel-MergCel">@value</div>
+        </face>
+        <face filter="Field in ('type')">
+            <div class="Panel-MergCel">@value</div>
+        </face>
+        <face filter="Field in ('roomtype')">
+            <td>@value</td>
+        </face>
+        <face filter="Field in ('onrequest') and value='0'">
+            <td>AVAILABLE</td>
+        </face>
+        <face filter="Field in ('onrequest') and value='1'">
+            <td>ON REQUEST</td>
+        </face>
+
+        <face filter="type in ('array','object')">@Child</face>
+    </basis>
+
+    <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+        <layout>
+            <div class="Panel-Voucher-Details">
+                @Child
+            </div><!-- end Panel-Voucher-Details -->
+        </layout>
+
+        <face filter="Field in ('brokerinfo') and value <> 'Undefined'">
+            <table cellspacing="2px">
+                <caption><span>TRANSFER</span></caption>
+
+                <thead>
+                    <tr>
+                        <th>TEL</th>
+                        <th>BOARD</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>@Child</tr>
+                </tbody>
+            </table>
+        </face>
+
+        <face filter="Field in ('phone') and type in ('Array')">
+            <td>@child</td>
+        </face>
+        <face filter="Field in ('number')">
+            <p>@value</p>
+        </face>
+        <face filter="Field in ('board')">
+            <td>@value</td>
+        </face>
+        <face filter="type in ('array','object')">@Child</face>
+    </basis>
+
+    <basis core="tree" datamembername="db.VoucherJson" idcol="id" parentidcol="parentid" nullvalue="null">
+        <layout>
+            <div class="Panel-Voucher-Details">
+                @Child
+            </div><!-- end Panel-Voucher-Details -->
+        </layout>
+
+        <face filter="Field in ('support') and value <> 'Undefined'">
+            <table cellspacing="1px">
+                <caption><span>TOUR LEADER </span></caption>
+
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>TEL</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>@Child</tr>
+                </tbody>
+            </table>
+        </face>
+        <face filter="Field in ('name','tel')">
+            <td>@value</td>
+        </face>
+
+        <face filter="Field in ('HotelDescription') and value not in ('<p></p>') and '[##db.provider.Value##]'='0'">
+            <tr style="background:none">
+                <td colspan="8">
+                    <div id="Panel-RouleBox-Persian">@value</div>
+                </td>
+            </tr>
+        </face>
+
+        <face filter="Field in ('HotelDescription') and value not in ('<p></p>') and '[##db.provider.Value##]'<>'0'">
+            <tr style="background:none">
+                <td colspan="8">
+                    <div id="Panel-RouleBox-English">@value</div>
+                </td>
+            </tr>
+        </face>
+        <face filter="Field in ('note') and value not in ('<p></p>') and '[##db.provider.Value##]'='0'">
+            <tr style="background:none">
+                <td colspan="8">
+                    <div id="Panel-RouleBox-Persian">@value</div>
+                </td>
+            </tr>
+        </face>
+
+        <face filter="Field in ('note') and value not in ('<p></p>') and '[##db.provider.Value##]'<>'0'">
+            <tr style="background:none">
+                <td colspan="8">
+                    <div id="Panel-RouleBox-English">@value</div>
+                </td>
+            </tr>
+        </face>
+        <face filter="type in ('array','object')">@Child</face>
+    </basis>
+    </div>
+    </div><!-- end Panel-Voucher-resize -->
+</basis>

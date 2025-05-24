@@ -109,7 +109,7 @@
             width: 100%;
             max-width: 210mm; /* عرض استاندارد A4 */
             margin: 0 auto;
-            padding: 15px;
+            padding: 5px;
             box-sizing: border-box;
             direction: rtl;
             text-align: right;
@@ -131,7 +131,7 @@
                 width: 210mm !important;
                 min-height: 297mm !important;
                 margin: 0 auto !important;
-                padding: 10mm !important;
+                padding: 5mm !important;
             }
             p {
                 text-align: justify !important;
