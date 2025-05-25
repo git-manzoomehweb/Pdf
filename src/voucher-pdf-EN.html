@@ -1,0 +1,506 @@
+<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher PDF</title>
+    <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
+    <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="p-0 m-0 overflow-auto" id="content">
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'"><div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">You have permission to access this page. </div></basis>
+    <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]" method="post" body='{ "name": "db", "mid": "20", "member": [ { "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(2)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}' content-type="application/json" run="atclient"></basis>
+    <header id="pdf-header" class="header h-[100px] w-auto mx-auto "><img class="block h-[100px] w-auto mx-auto object-contain" src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" /></header>
+    <main class="pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
+        <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]"><div class="flex justify-center items-center"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div></div></div>
+        <div class="w-[95%] mx-auto">
+            <!-- info -->
+            <section class="w-full flex justify-between items-center "><h2 class="font-danademibold text-base text-black"><span>Voucher</span><span class="mx-1">/ </span><span>Accommodation</span></h2><ul class="flex gap-x-4"><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">Reference number :</h2><p class="text-base text-[#292929] text-left font-danademibold">[##cms.query.id##]</p></div></li></script></face></basis><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">Date Of issue:</h2><p class="text-base text-[#292929] text-left font-danademibold">@createDate.mstring@</p></div></li></script></face></basis><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">CreateHour :</h2><p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p></div></li></script></face></basis></ul></section>
+            <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex p-3"><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template">{{ return await RenderInfoCard($data)}} </script></face></basis></section>
+            <section><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template">{{ return await renderRooms($data)}} </script></face></basis></section>
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">Remarks</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription)}}">@HotelDescription@ </div></section></script></face></basis>
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="{{return await checkSection($data.pdf_description[0]?.note.text)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description[0]?.note.text)}}" >Rules</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular">{{ return await renderRules($data)}} </div></section></script></face></basis>
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >Note</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">@note@ </div></section></script></face></basis>
+    </main>
+        <div class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 max-lg:w-full max-lg:min-w-0 max-lg:max-w-full margin-btn"><button class="flex gap-1 items-center my-4 font-bold text-base hover:text-[#FF0000]" onclick="DownloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="15" y2="17" /></svg>Download PDF</button></div>
+        <footer id="pdf-footer" class=" footer h-[100px] print:w-[595pt] print:h-[100pt] mx-auto "><img class="block mx-auto h-[100px] print:w-[595pt] print:h-[100pt] w-auto object-contain" src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" /></footer>
+        <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
+<script>
+
+
+function detectDirection(text) {
+                const rtlChars = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/;
+    return rtlChars.test(text) ? 'rtl' : 'ltr';
+}
+
+
+            function extractFilenameFromUrl(url) {
+                if (!url) return "";
+                try {
+                    const parsedUrl = new URL(url);
+                    return parsedUrl.pathname.split('/').pop();
+                } catch (e) {
+                    return url.split('/').pop();
+                }
+            }
+
+
+    async function RenderInfoCard($data) {
+        let hotelJson = $data;
+
+        if (!hotelJson || !hotelJson.hotelinfo) {
+            console.error("Invalid hotel data:", hotelJson);
+            return '<div class="text-red-500">Invalid hotel data provided.</div>';
+        }
+
+        const hotel = hotelJson.hotelinfo;
+                const hotelImageName = extractFilenameFromUrl(hotel.hotelimage);
+
+        const checkin = hotelJson.checkin?.mstring ? formatDateToReadable(hotelJson.checkin.mstring) : "";
+        const checkout = hotelJson.checkout?.mstring ? formatDateToReadable(hotelJson.checkout.mstring) : "";
+        const nights = hotelJson.nights || 0;
+        const roomsCount = hotelJson.rooms?.length || 0;
+
+        let infocard = `
+    <div class="w-3/5 ">
+    <div class="flex leading-5 gap-x-3 ticketContainer">
+        <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden" >
+            
+            <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="${hotelImageName}"
+                alt="${hotel.hotelname}" />
+        </figure>
+        <div class="flex flex-col gap-y-1">
+            <h2 class="text-lg font-danademibold">
+                ${hotel.hotelname}
+            </h2>
+            <div class="flex items-center">
+                ${RenderRateHotel(hotel.star)}
+                <span class="text-sm ml-2 font-danaregular">${hotel.star} <span class="ml-1">star</span> </span>
+            </div>
+            <div class="text-base font-danaregular">
+                <span>
+                ${hotel.ecountry}
+                </span>
+                <span class="mx-1"> / </span>
+                 <span>
+                 ${hotel.ecity}
+                 </span>
+                 </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+                        <ul class="flex flex-col gap-y-2 font-danaregular">
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+<svg id="location-icon-pdf" xmlns="http://www.w3.org/2000/svg" class="scale-110 origin-center print:scale-100" width="9" height="12" viewBox="0 0 9 12" fill="none" >
+<path d="M4.49653 0.5C6.965 0.5 9 2.54484 9 5.07477C9 6.34963 8.55371 7.5332 7.81915 8.53637C7.00878 9.64293 6.00997 10.6071 4.8857 11.3638C4.62839 11.5387 4.39617 11.5519 4.11377 11.3638C2.9831 10.6071 1.98428 9.64293 1.18085 8.53637C0.445756 7.5332 0 6.34963 0 5.07477C0 2.54484 2.035 0.5 4.49653 0.5ZM4.49653 3.67726C3.68029 3.67726 3.01459 4.37629 3.01459 5.21721C3.01459 6.06474 3.68029 6.73132 4.49653 6.73132C5.3133 6.73132 5.98541 6.06474 5.98541 5.21721C5.98541 4.37629 5.3133 3.67726 4.49653 3.67726Z" fill="#242424"/>
+                                    </svg>
+
+
+                                    <span>
+                                        veniam, quis nostrud exercitation ullamco laboris
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+
+
+                                    <svg id="call-icon-pdf" xmlns="http://www.w3.org/2000/svg" class="scale-110 origin-center print:scale-100" width="12" height="13" viewBox="0 0 12 13" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.8993 7.87375C9.7778 7.75825 9.6458 7.63225 9.5058 7.49175C8.8673 6.85625 8.3158 7.07175 7.8723 7.24625C7.3408 7.45375 6.8398 7.65075 5.9258 6.73775C5.0113 5.82375 5.2073 5.32175 5.4153 4.79025C5.5888 4.34625 5.8048 3.79425 5.1663 3.15775C5.0273 3.01825 4.90229 2.88625 4.78679 2.76425C4.31729 2.26875 3.97829 1.91075 3.50079 1.90475C3.11029 1.89175 2.65529 2.16025 2.00929 2.80725C2.00279 2.81375 1.97029 2.84625 1.96479 2.85325C1.82179 2.99225 1.44229 3.36325 1.43779 4.08675C1.43029 5.21825 2.34279 6.70825 4.14929 8.51575C5.9473 10.3133 7.4313 11.2238 8.5608 11.2238H8.5733C9.2983 11.2198 9.6698 10.8398 9.8098 10.6968L9.8568 10.6513C10.5003 10.0073 10.7613 9.57525 10.7558 9.16275C10.7503 8.68525 10.3933 8.34475 9.8993 7.87375Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.67639 5.49578C8.71139 5.6748 8.86839 5.7988 9.04389 5.7988C9.06789 5.7988 9.09239 5.7968 9.11639 5.7923C9.31939 5.7528 9.45239 5.5558 9.41289 5.35228C9.22239 4.37528 8.46839 3.62128 7.49189 3.43078C7.28839 3.39678 7.09189 3.52378 7.05189 3.72728C7.01239 3.93078 7.14489 4.12778 7.34839 4.16728C8.02339 4.29828 8.54489 4.81978 8.67639 5.49578Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.46127 1.78138C7.25777 1.74988 7.06977 1.90688 7.04727 2.11238C7.02427 2.31838 7.17277 2.50388 7.37877 2.52638C8.93327 2.69888 10.1403 3.90538 10.3148 5.46038C10.3363 5.6524 10.4983 5.7939 10.6868 5.7939C10.7008 5.7939 10.7148 5.7929 10.7293 5.7919C10.9348 5.7689 11.0833 5.5834 11.0598 5.37738C10.8468 3.47138 9.36677 1.99238 7.46127 1.78138Z" fill="#242424"/>
+                                    </svg>
+
+
+                                    <span>
+                                        +51-556699774411
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+
+
+                                    <svg id="email-icon-pdf" xmlns="http://www.w3.org/2000/svg" class="scale-110 origin-center print:scale-100" width="13" height="13" viewBox="0 0 13 13" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.5572 9.31171L8.2004 6.74909L7.91873 6.9793C7.52223 7.30971 7.02444 7.47492 6.52556 7.47492C6.0256 7.47492 5.52565 7.30917 5.12698 6.97659L4.81444 6.72634L2.43652 9.30901C2.29569 9.03059 2.20848 8.71642 2.18248 8.38492L4.17852 6.21717L2.1814 4.61817C2.20631 4.304 2.28431 4.01529 2.40944 3.75963L5.64102 6.34771C6.14748 6.76967 6.90202 6.76913 7.40198 6.35259L10.5816 3.75204C10.7083 4.00825 10.7874 4.29804 10.8129 4.61275L8.83035 6.23396L10.8118 8.38871C10.7852 8.71967 10.698 9.03384 10.5572 9.31171ZM11.6427 8.18505C11.6427 8.18396 11.6432 8.18288 11.6432 8.18126V4.82292C11.6432 4.82292 11.6427 4.82129 11.6427 4.82021C11.6427 4.65608 11.6254 4.499 11.6004 4.34517C11.5858 4.24225 11.5658 4.14312 11.5419 4.04454C11.5403 4.03642 11.5392 4.02829 11.5376 4.02017L11.5354 4.02179C11.4656 3.73633 11.3632 3.46821 11.2245 3.22663L11.2283 3.22338C11.2218 3.21308 11.2142 3.20333 11.2077 3.19304C11.1817 3.14808 11.1519 3.10638 11.1232 3.06358C11.0544 2.95904 10.9797 2.86046 10.899 2.76729C10.8746 2.73913 10.8524 2.70933 10.8269 2.68279C10.7191 2.56796 10.6016 2.46504 10.4765 2.37133C10.4494 2.35183 10.4218 2.33396 10.3947 2.315C10.269 2.22833 10.1379 2.15033 9.99819 2.08642C9.98735 2.08154 9.9776 2.07558 9.96731 2.07071C9.8189 2.00517 9.66235 1.95696 9.5004 1.91958C9.4641 1.91092 9.42727 1.90388 9.39044 1.89683C9.2274 1.86596 9.06002 1.84483 8.88615 1.84429C8.88398 1.84429 8.88235 1.84375 8.88073 1.84375H4.11406C4.1119 1.84375 4.11081 1.84429 4.10865 1.84429C3.92556 1.84483 3.75115 1.86704 3.58106 1.899C3.55885 1.90333 3.53719 1.90767 3.51552 1.91254C2.74852 2.07721 2.12669 2.55225 1.75023 3.2315L1.76269 3.24125C1.62565 3.48392 1.52381 3.75096 1.45448 4.03588L1.4496 4.03208C1.44473 4.05375 1.44202 4.07704 1.43715 4.09925C1.4209 4.17346 1.40681 4.24875 1.39544 4.32567C1.36998 4.486 1.35156 4.65013 1.35156 4.82238V8.18126V8.18288C1.35156 8.36488 1.37106 8.5393 1.40031 8.70938C1.42035 8.83613 1.45177 8.95638 1.48535 9.07771C1.48969 9.09451 1.4924 9.11292 1.49727 9.12917L1.49944 9.12701C1.64298 9.61938 1.88185 10.0663 2.21823 10.4021C2.52265 10.7065 2.8964 10.9145 3.31402 11.0369C3.36548 11.0526 3.41585 11.0694 3.4684 11.0819C3.53285 11.097 3.59785 11.1095 3.66448 11.1198C3.80802 11.1431 3.95481 11.1593 4.10702 11.1599C4.10919 11.1599 4.11135 11.1604 4.11406 11.1604H8.88073C8.88235 11.1604 8.88452 11.1599 8.88615 11.1599C9.05623 11.1599 9.21927 11.1404 9.37852 11.1128C9.3899 11.1106 9.40181 11.1084 9.41319 11.1063C9.9294 11.0082 10.3828 10.7731 10.743 10.4281C10.7538 10.4183 10.7657 10.4118 10.7766 10.4021C10.7961 10.3826 10.8101 10.3566 10.8291 10.3365C10.9429 10.2163 11.0496 10.089 11.1416 9.94763L11.1411 9.94655C11.2982 9.70226 11.4087 9.42276 11.4943 9.13026L11.5008 9.1373C11.5127 9.09505 11.5186 9.04955 11.5295 9.00676C11.5528 8.91359 11.5771 8.82259 11.5923 8.72671C11.6226 8.5523 11.6427 8.37355 11.6427 8.18505Z" fill="#242424"/>
+                                    </svg>
+
+                                    <span>
+                                        heydarimohsen71@gmail.com
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+                                    <svg id="www-icon-pdf" xmlns="http://www.w3.org/2000/svg" class="scale-110 origin-center print:scale-100" width="13" height="13" viewBox="0 0 13 13" fill="none" >
+<g clip-path="url(#clip0_273_251)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.50229 2.03125C5.95737 2.03125 5.17956 3.60154 5.10156 6.09373H7.90304C7.82504 3.60154 7.04721 2.03125 6.50229 2.03125Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.10156 6.90625C5.17956 9.39846 5.95739 10.9688 6.5023 10.9688C7.04722 10.9688 7.82505 9.39846 7.90305 6.90625H5.10156Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.71248 6.09174H11.6245C11.4316 3.6445 9.52281 1.675 7.10156 1.39062C8.10094 1.97508 8.64965 3.99658 8.71248 6.09174Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.287 6.09174C4.34983 3.99658 4.89854 1.97508 5.89793 1.39062C3.47667 1.675 1.56783 3.6445 1.375 6.09174H4.287Z" fill="#242424"/>
+<g filter="url(#filter0_d_273_251)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.71248 6.90625C8.64965 9.00142 8.10094 11.0229 7.10156 11.6074C9.52281 11.323 11.4316 9.3535 11.6245 6.90625H8.71248Z" fill="#242424"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.287 6.90625H1.375C1.56783 9.3535 3.47667 11.323 5.89793 11.6074C4.89854 11.0229 4.34983 9.00142 4.287 6.90625Z" fill="#242424"/>
+</g>
+<defs>
+<filter id="filter0_d_273_251" x="3.10156" y="6.90625" width="12.5229" height="12.7012" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_273_251"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_273_251" result="shape"/>
+</filter>
+<clipPath id="clip0_273_251">
+<rect width="13" height="13" fill="white"/>
+</clipPath>
+</defs>
+                                    </svg>
+
+                                    <span>
+                                        www.moshenheydari.com
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+    </div>
+</div>
+<div class="w-2/5 border-l-2 border-[#E3E3E3] pl-3 ">
+    <ul class="flex flex-col gap-y-2">
+        <li>
+            <h2 class="text-base font-danademibold">Check in</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+                <svg id="calendar-icon-pdf" class="scale-110 origin-center" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
+                </svg>
+                <span class="font-danaregular">${checkin}</span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">Check out</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
+
+                                <svg id="calendar-icon-pdf" class="scale-110 origin-center" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
+                </svg>
+                <span class="font-danaregular">${checkout}</span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">Night</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${nights}
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">Room</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${roomsCount}
+            </div>
+        </li>
+    </ul>
+</div>`;
+
+        return infocard;
+    }
+
+
+
+    async function renderRules($data) {
+        const rules = $data?.pdf_description;       
+        if (!rules || !Array.isArray(rules)) {
+            console.warn("هیچ آیتمی در pdf_description پیدا نشد");
+            return null;
+        }
+        
+        let direction ; 
+        direction = detectDirection(rules[0].note.text);
+
+        let ulitem = '';
+        rules.forEach((item, index) => {
+            const text = item?.note?.text?.trim();
+
+            if (text) {
+                ulitem += `<li>${text}</li>`;
+            } else {
+                console.warn(`آیتم ${index} متن معتبری ندارد`, item);
+            }
+        });
+
+        return `<ul dir="${direction}">${ulitem}</ul>`;
+    }
+
+
+    function RenderRateHotel(starCount) {
+        let stars = '';
+        for (let i = 0; i < starCount; i++) {
+            stars += `
+                    <svg id="star-icon-pdf" width="14" height="14" viewBox="0 0 14 14" fill="none" >
+<path d="M10.2667 8.62758C10.2323 8.41991 10.3017 8.20816 10.4528 8.06175L12.6344 5.99675C12.8141 5.82816 12.88 5.5715 12.8036 5.33758C12.7225 5.10425 12.5178 4.93508 12.2728 4.90008L9.37359 4.4795C9.16418 4.44741 8.98276 4.315 8.88943 4.12425L7.59501 1.51675C7.49409 1.32075 7.30101 1.1895 7.08168 1.16675H6.83609L6.73693 1.20758L6.67334 1.23091C6.63834 1.25133 6.60684 1.27641 6.57943 1.30675L6.52693 1.34758C6.47968 1.39308 6.44059 1.44675 6.41026 1.50508L5.13276 4.12425C5.03359 4.32258 4.83993 4.45675 4.61943 4.4795L1.72026 4.90008C1.47934 4.938 1.27984 5.10658 1.20168 5.33758C1.12118 5.56916 1.18243 5.82583 1.35859 5.99675L3.46501 8.03841C3.61609 8.18716 3.68551 8.40008 3.65109 8.6095L3.13193 11.4795C3.07534 11.8266 3.30576 12.1556 3.65109 12.2209C3.79284 12.2437 3.93751 12.2209 4.06526 12.1567L6.64943 10.8028C6.69843 10.776 6.75209 10.7585 6.80693 10.7503H6.96501C7.06709 10.7532 7.16684 10.7789 7.25668 10.8267L9.84026 12.1742C10.0578 12.2909 10.3233 12.2734 10.5228 12.1276C10.7263 11.987 10.829 11.7408 10.7853 11.4976L10.2667 8.62758Z" fill="#FFBF1C"/>
+            </svg>`;
+        }
+        return stars;
+    }
+
+    function formatDateToReadable(dateString) {
+        const date = new Date(dateString);
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit'
+        };
+        const formatted = date.toLocaleDateString('en-US', options);
+        const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
+                return `${day} ${month} ${year}<span class="mx-1"> / </span>${weekday}`;
+    }
+
+    async function renderRooms($data) {
+        let hotelinfo = $data?.hotelinfo;
+        let roominfo = $data?.rooms;
+        let roomcontent = '';
+
+        roominfo.forEach((room) => {
+            const parsedPassengers = room.passengers.map(p => {
+                const typeRaw = p.type || '';
+                const typeMatch = typeRaw.match(/^([^\(]+)(?:\s*\((.+)\))?/);
+                const passengerType = typeMatch?.[1]?.trim() || '–';
+                const passengerAge = typeMatch?.[2]?.trim() || (p.age || '–');
+
+                return {
+                    name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
+                    type: passengerType,
+                    age: passengerAge
+                };
+            });
+
+            const passengerNames = parsedPassengers.map(p =>
+                `<h2 class="text-[#292929] text-sm font-danademibold">${p.name}</h2>`
+            ).join('');
+
+            const passengerTypes = parsedPassengers.map(p =>
+                `<h2 class="text-[#292929] text-sm font-danademibold">${p.type}</h2>`
+            ).join('');
+
+            const passengerAges = parsedPassengers.map(p =>
+                `<h2 class="text-[#292929] text-sm font-danademibold">${p.age}</h2>`
+            ).join('');
+
+            const childrenCount = (room.numpassenger.childwithbed || 0) + (room.numpassenger.childwithoutbed || 0);
+
+            roomcontent += `
+            <h2 class="font-bold text-lg my-2 font-danabold">Room ${room.index}</h2>
+            <div class="bg-[#F4FBF9] rounded-xl p-4 flex flex-wrap justify-between gap-4">
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Room type</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">${room.roomtype.trim()}</div>
+                </div>
+
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Board</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                        ${escapeXML(hotelinfo.services)}
+                    </div>
+                </div>
+
+                <!-- Passenger Names -->
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Passenger</span>
+                    ${passengerNames}
+                </div>
+
+                <!-- Passenger Types (Gender) -->
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Gender</span>
+                    ${passengerTypes}
+                </div>
+
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Age</span>
+                    ${passengerAges}
+                </div>
+
+                <div class="gap-y-2 flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Status</span>
+                    <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                        ${room.onrequest === "1" ? "On Request" : "Available"}
+                    </div>
+                </div>
+            </div>
+        `;
+        });
+
+        return roomcontent;
+    }
+
+
+    function escapeXML(str) {
+        return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&apos;");
+    }
+
+
+async function getLocalizedText(dir, faText, enText) {
+  const isRTL = dir === 'rtl';
+  return isRTL ? faText : enText;
+}
+
+
+async function checkSection(input) {
+
+
+  // اگر ورودی null یا undefined یا رشته خالی بود
+  if (
+    input === null ||
+    input === undefined ||
+    (typeof input === 'string' && input.trim() === '')
+  ) {
+    return 'hidden';
+  }
+
+  // اگر رشته HTML هست مثل <p></p> یا <div>  </div> یا فقط تگ‌های خالی
+  if (typeof input === 'string') {
+    const temp = document.createElement('div');
+    temp.innerHTML = input;
+
+    // اگر هیچ متن قابل‌نمایشی نداشت
+    if (temp.textContent.trim() === '') {
+      return 'hidden';
+    }
+  }
+
+  // در غیر اینصورت مشکلی نیست
+  return '';
+}
+
+            async function waitForImagesToLoad(container) {
+                const images = container.querySelectorAll("img");
+                const promises = [];
+                images.forEach(img => {
+                    if (!img.complete) {
+                        promises.push(new Promise(resolve => {
+                            img.onload = resolve;
+                            img.onerror = resolve;
+                        }));
+                    }
+                });
+                await Promise.all(promises);
+            }
+
+            async function DownloadPDF() {
+                console.log("generate clicked");
+
+                const element = document.querySelector('.pdf-content');
+                const headerElement = document.getElementById('pdf-header');
+                const footerElement = document.getElementById('pdf-footer');
+                const loadingElement = document.querySelector('.pdf-loading');
+
+                // ذخیره عرض اصلی
+                const originalWidth = element.style.width;
+
+                try {
+                    if (loadingElement) loadingElement.classList.remove('hidden');
+
+                    // تغییر عرض فقط برای خروجی PDF
+                    element.style.width = '100%';
+
+                    const isMobile = window.innerWidth <= 768;
+                    let static_width = 300;
+                    let static_y = -45;
+                    let static_height = 20;
+                    let header_scale = 1.5;
+                    let main_scale = 2;
+
+                    let margin = [35, 5, 35, 5];
+
+                    if (isMobile) {
+                        static_width = 190;
+                        static_y = 10;
+                        static_height = 25;
+                        header_scale = 2;
+                        main_scale = 2;
+                        margin = [10, 10, 10, 10];
+                    }
+
+                    const opt = {
+                        margin: margin,
+                        image: { type: 'jpeg', quality: 1 },
+                        html2canvas: {
+                            scale: main_scale,
+                            backgroundColor: '#ffffff',
+                            useCORS: true,
+                            allowTaint: true,
+                            scrollX: 0,
+                            scrollY: 0,
+                            letterRendering: true,
+                            ignoreElements: (e) => {
+                                if (['BUTTON', 'A', 'SCRIPT'].includes(e.tagName)) return true;
+                                if (e.classList.contains('pdf-loading', 'pdf-header', 'pdf-footer')) return true;
+                                return false;
+                            }
+                        },
+                        jsPDF: {
+                            unit: 'mm',
+                            format: 'a4',
+                            orientation: 'portrait'
+                        }
+                    };
+
+                    const [headerCanvas, footerCanvas] = await Promise.all([
+                        html2canvas(headerElement, { scale: header_scale }),
+                        html2canvas(footerElement, { scale: header_scale })
+                    ]);
+
+                    const headerImage = headerCanvas.toDataURL('image/png');
+                    const footerImage = footerCanvas.toDataURL('image/png');
+
+                    const maincontainer = document.querySelector("main");
+                    await waitForImagesToLoad(maincontainer);
+
+                    const worker = html2pdf().set(opt).from(element).toPdf();
+
+                    const pdf = await worker.get('pdf');
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.addImage(headerImage, 'PNG', static_y, 5, static_width, static_height);
+                        pdf.addImage(footerImage, 'PNG', static_y, 270, static_width, static_height);
+                    }
+
+                    await worker.save();
+
+                } catch (err) {
+                    console.error("PDF generation error:", err);
+                    alert("خطا در تولید PDF.");
+                } finally {
+                    // بازگرداندن عرض به حالت اولیه
+                    element.style.width = originalWidth;
+
+                    if (loadingElement) loadingElement.classList.add('hidden');
+                }
+            }
+
+
+</script>
+        <script src="[##cms.cms.cdn##]/js/flight_ticket_test.js" defer></script>
+    </basis>
+</body>
+
+</html>

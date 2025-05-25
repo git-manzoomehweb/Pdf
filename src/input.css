@@ -2,17 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-  @font-face{font-display:swap;font-family:'Inter_black';font-style:normal;src:url(../fonts/Inter-black.woff) format('woff'),url(../fonts/Inter-black.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_bold'; font-style:normal;src:url(../fonts/Inter-bold.woff) format('woff'),url(../fonts/Inter-bold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_semibold'; font-style:normal;src:url(../fonts/Inter-semibold.woff) format('woff'),url(../fonts/Inter-semibold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_extrabold'; font-style:normal;src:url(../fonts/Inter-extrabold.woff) format('woff'),url(../fonts/Inter-extrabold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_light'; font-style:normal;src:url(../fonts/Inter-light.woff) format('woff'),url(../fonts/Inter-light.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_medium';font-style:normal;src:url(../fonts/Inter-medium.woff) format('woff'),url(../fonts/Inter-medium.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_regular';font-style:normal;src:url(../fonts/Inter-regular.woff) format('woff'),url(../fonts/Inter-regular.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_thin';font-style:normal;src:url(../fonts/Inter-thin.woff) format('woff'),url(../fonts/Inter-thin.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_ultrabold';font-style:normal;src:url(../fonts/Inter-ultrabold.woff) format('woff'),url(../fonts/Inter-ultrabold.woff2) format('woff2')}
-  
-    /* @font-face{font-display:swap;font-family:'Inter_black';font-style:normal;src:url(../fonts/Inter18pt-Black.woff) format('woff'),url(../fonts/Inter18pt-Black.woff2) format('woff2')}
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_black';
+    font-style: normal;
+    src: url(../fonts/Inter-black.woff) format('woff'), url(../fonts/Inter-black.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_bold';
+    font-style: normal;
+    src: url(../fonts/Inter-bold.woff) format('woff'), url(../fonts/Inter-bold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_semibold';
+    font-style: normal;
+    src: url(../fonts/Inter-semibold.woff) format('woff'), url(../fonts/Inter-semibold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_extrabold';
+    font-style: normal;
+    src: url(../fonts/Inter-extrabold.woff) format('woff'), url(../fonts/Inter-extrabold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_light';
+    font-style: normal;
+    src: url(../fonts/Inter-light.woff) format('woff'), url(../fonts/Inter-light.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_medium';
+    font-style: normal;
+    src: url(../fonts/Inter-medium.woff) format('woff'), url(../fonts/Inter-medium.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_regular';
+    font-style: normal;
+    src: url(../fonts/Inter-regular.woff) format('woff'), url(../fonts/Inter-regular.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_thin';
+    font-style: normal;
+    src: url(../fonts/Inter-thin.woff) format('woff'), url(../fonts/Inter-thin.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter_ultrabold';
+    font-style: normal;
+    src: url(../fonts/Inter-ultrabold.woff) format('woff'), url(../fonts/Inter-ultrabold.woff2) format('woff2')
+}
+
+/* @font-face{font-display:swap;font-family:'Inter_black';font-style:normal;src:url(../fonts/Inter18pt-Black.woff) format('woff'),url(../fonts/Inter18pt-Black.woff2) format('woff2')}
   @font-face{font-display:swap;font-family:'Inter_bold'; font-style:normal;src:url(../fonts/Inter18pt-Bold.woff) format('woff'),url(../fonts/Inter18pt-Bold.woff2) format('woff2')}
   @font-face{font-display:swap;font-family:'Inter_semibold'; font-style:normal;src:url(../fonts/Inter18pt-SemiBold.woff) format('woff'),url(../fonts/Inter18pt-SemiBold.woff2) format('woff2')}
   @font-face{font-display:swap;font-family:'Inter_extrabold'; font-style:normal;src:url(../fonts/Inter18pt-ExtraBold.woff) format('woff'),url(../fonts/Inter18pt-ExtraBold.woff2) format('woff2')}
@@ -21,33 +74,139 @@
   @font-face{font-display:swap;font-family:Inter_regular;font-style:normal;src:url(../fonts/Inter18pt-Regular.woff) format('woff'),url(../fonts/Inter18pt-Regular.woff2) format('woff2')}
   @font-face{font-display:swap;font-family:'Inter_thin';font-style:normal;src:url(../fonts/Inter18pt-Thin.woff) format('woff'),url(../fonts/Inter18pt-Thin.woff2) format('woff2')}
    */
-   
-  @font-face{font-display:swap;font-family:'Dana_FANum_black';font-style:normal;src:url(../_fonts/DanaFaNum-black.woff) format('woff'),url(../_fonts/DanaFaNum-black.woff2) format('woff2'),url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_bold'; font-style:normal;src:url(../_fonts/DanaFaNum-bold.woff) format('woff'),url(../_fonts/DanaFaNum-bold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_demibold'; font-style:normal;src:url(../_fonts/DanaFaNum-demibold.woff) format('woff'),url(../_fonts/DanaFaNum-demibold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_extrabold'; font-style:normal;src:url(../_fonts/DanaFaNum-extrabold.woff) format('woff'),url(../_fonts/DanaFaNum-extrabold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_light'; font-style:normal;src:url(../_fonts/DanaFaNum-light.woff) format('woff'),url(../_fonts/DanaFaNum-light.woff2) format('woff2'),url(../_fonts/dana-fanum-light.eot) format('embedded-opentype')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_medium';font-style:normal;src:url(../_fonts/DanaFaNum-medium.woff) format('woff'),url(../_fonts/DanaFaNum-medium.woff2) format('woff2'),url(../_fonts/dana-fanum-medium.eot) format('embedded-opentype')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_regular';font-style:normal;src:url(../_fonts/DanaFaNum-regular.woff) format('woff'),url(../_fonts/DanaFaNum-regular.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_thin';font-style:normal;src:url(../_fonts/DanaFaNum-thin.woff) format('woff'),url(../_fonts/DanaFaNum-thin.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_ultrabold';font-style:normal;src:url(../_fonts/DanaFaNum-ultrabold.woff) format('woff'),url(../_fonts/DanaFaNum-ultrabold.woff2) format('woff2')}
-  
 
-  @font-face{font-display:swap;font-family:'Dana_black';font-style:normal;src:url(../_fonts/Dana-black.woff) format('woff'),url(../_fonts/Dana-black.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_bold'; font-style:normal;src:url(../_fonts/Dana-bold.woff) format('woff'),url(../_fonts/Dana-bold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_demibold'; font-style:normal;src:url(../_fonts/Dana-DemiBold.woff) format('woff'),url(../_fonts/Dana-DemiBold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_extrabold'; font-style:normal;src:url(../_fonts/Dana-extrabold.woff) format('woff'),url(../_fonts/Dana-extrabold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_light'; font-style:normal;src:url(../_fonts/Dana-light.woff) format('woff'),url(../_fonts/Dana-light.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_medium';font-style:normal;src:url(../_fonts/Dana-medium.woff) format('woff'),url(../_fonts/Dana-medium.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_regular';font-style:normal;src:url(../_fonts/Dana-regular.woff) format('woff'),url(../_fonts/Dana-regular.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_thin';font-style:normal;src:url(../_fonts/Dana-thin.woff) format('woff'),url(../_fonts/Dana-thin.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_ultrabold';font-style:normal;src:url(../_fonts/Dana-ultrabold.woff) format('woff'),url(../_fonts/Dana-ultrabold.woff2) format('woff2')}
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_black';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-black.woff) format('woff'), url(../_fonts/DanaFaNum-black.woff2) format('woff2'), url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_bold';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-bold.woff) format('woff'), url(../_fonts/DanaFaNum-bold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_demibold';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-demibold.woff) format('woff'), url(../_fonts/DanaFaNum-demibold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_extrabold';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-extrabold.woff) format('woff'), url(../_fonts/DanaFaNum-extrabold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_light';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-light.woff) format('woff'), url(../_fonts/DanaFaNum-light.woff2) format('woff2'), url(../_fonts/dana-fanum-light.eot) format('embedded-opentype')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_medium';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-medium.woff) format('woff'), url(../_fonts/DanaFaNum-medium.woff2) format('woff2'), url(../_fonts/dana-fanum-medium.eot) format('embedded-opentype')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_regular';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-regular.woff) format('woff'), url(../_fonts/DanaFaNum-regular.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_thin';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-thin.woff) format('woff'), url(../_fonts/DanaFaNum-thin.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_FANum_ultrabold';
+    font-style: normal;
+    src: url(../_fonts/DanaFaNum-ultrabold.woff) format('woff'), url(../_fonts/DanaFaNum-ultrabold.woff2) format('woff2')
+}
+
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_black';
+    font-style: normal;
+    src: url(../_fonts/Dana-black.woff) format('woff'), url(../_fonts/Dana-black.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_bold';
+    font-style: normal;
+    src: url(../_fonts/Dana-bold.woff) format('woff'), url(../_fonts/Dana-bold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_demibold';
+    font-style: normal;
+    src: url(../_fonts/Dana-DemiBold.woff) format('woff'), url(../_fonts/Dana-DemiBold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_extrabold';
+    font-style: normal;
+    src: url(../_fonts/Dana-extrabold.woff) format('woff'), url(../_fonts/Dana-extrabold.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_light';
+    font-style: normal;
+    src: url(../_fonts/Dana-light.woff) format('woff'), url(../_fonts/Dana-light.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_medium';
+    font-style: normal;
+    src: url(../_fonts/Dana-medium.woff) format('woff'), url(../_fonts/Dana-medium.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_regular';
+    font-style: normal;
+    src: url(../_fonts/Dana-regular.woff) format('woff'), url(../_fonts/Dana-regular.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_thin';
+    font-style: normal;
+    src: url(../_fonts/Dana-thin.woff) format('woff'), url(../_fonts/Dana-thin.woff2) format('woff2')
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Dana_ultrabold';
+    font-style: normal;
+    src: url(../_fonts/Dana-ultrabold.woff) format('woff'), url(../_fonts/Dana-ultrabold.woff2) format('woff2')
+}
 
 
 
 
-  
-  /* @font-face{font-display:swap;font-family:'Dana_FANum_black';font-style:normal;src:url(../_fonts/DanaFaNum-black.woff) format('woff'),url(../_fonts/DanaFaNum-black.woff2) format('woff2'),url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')}
+
+/* @font-face{font-display:swap;font-family:'Dana_FANum_black';font-style:normal;src:url(../_fonts/DanaFaNum-black.woff) format('woff'),url(../_fonts/DanaFaNum-black.woff2) format('woff2'),url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')}
   @font-face{font-display:swap;font-family:'Dana_FANum_bold'; font-style:normal;src:url(../_fonts/DanaFaNum-bold.woff) format('woff'),url(../_fonts/DanaFaNum-bold.woff2) format('woff2')}
   @font-face{font-display:swap;font-family:'Dana_FANum_demibold'; font-style:normal;src:url(../_fonts/DanaFaNum-demibold.woff) format('woff'),url(../_fonts/DanaFaNum-demibold.woff2) format('woff2')}
   @font-face{font-display:swap;font-family:'Dana_FANum_extrabold'; font-style:normal;src:url(../_fonts/DanaFaNum-extrabold.woff) format('woff'),url(../_fonts/DanaFaNum-extrabold.woff2) format('woff2')}
@@ -82,18 +241,23 @@
    */
 
 
-.dir-rtl{direction: rtl;}
-.dir-ltr{direction: ltr;}
+.dir-rtl {
+    direction: rtl;
+}
 
-  @media print {
+.dir-ltr {
+    direction: ltr;
+}
+
+@media print {
     @page {
-      margin: 0;
+        margin: 0;
     }
-  }
+}
 
 
 
-          /* #capture {
+/* #capture {
             width: 1280px;
         }
 
@@ -105,49 +269,58 @@
             margin-bottom: 1em !important;
         } */
 
-        #pdf-content {
-            width: 100%;
-            max-width: 210mm; /* عرض استاندارد A4 */
-            margin: 0 auto;
-            padding: 5px;
-            box-sizing: border-box;
-            direction: rtl;
-            text-align: right;
-        }
+#pdf-content {
+    width: 100%;
+    max-width: 210mm;
+    /* عرض استاندارد A4 */
+    margin: 0 auto;
+    padding: 5px;
+    box-sizing: border-box;
+    direction: rtl;
+    text-align: right;
+}
 
-        .margin-btn {
-            padding: 0;
-        }
+/* .pdf-content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: unset;
+} */
 
-        /* تنظیمات خاص برای چاپ */
-        @media print {
-            body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-            }
-            
-            #pdf-content {
-                width: 210mm !important;
-                min-height: 297mm !important;
-                margin: 0 auto !important;
-                padding: 5mm !important;
-            }
-            p {
-                text-align: justify !important;
-            }
-        }
 
-        @media (max-width: 768px) {
-            .margin-btn {
-                padding: 1.5em !important;
-            }
+.margin-btn {
+    padding: 0;
+}
 
-            .pdf-content {
-                padding: 1.5em !important;
-            }
+/* تنظیمات خاص برای چاپ */
+@media print {
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
 
-            .text-sm {
-                font-size: smaller !important;
-            }
-        }
+    #pdf-content {
+        width: 210mm !important;
+        min-height: 297mm !important;
+        margin: 0 auto !important;
+        padding: 5mm !important;
+    }
+
+    p {
+        text-align: justify !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .margin-btn {
+        padding: 1.5em !important;
+    }
+
+    .pdf-content {
+        padding: 1.5em !important;
+    }
+
+    .text-sm {
+        font-size: smaller !important;
+    }
+}

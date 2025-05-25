@@ -588,6 +588,10 @@ video {
   }
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .visible {
   visibility: visible;
 }
@@ -841,6 +845,10 @@ video {
   height: 0.75rem;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -975,8 +983,16 @@ video {
   width: 100%;
 }
 
+.min-w-3 {
+  min-width: 0.75rem;
+}
+
 .min-w-\[900px\] {
   min-width: 900px;
+}
+
+.min-w-full {
+  min-width: 100%;
 }
 
 .max-w-7xl {
@@ -1012,21 +1028,15 @@ video {
   transform-origin: center;
 }
 
-.scale-100 {
-  --tw-scale-x: 1;
-  --tw-scale-y: 1;
+.scale-110 {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .scale-150 {
   --tw-scale-x: 1.5;
   --tw-scale-y: 1.5;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.scale-110 {
-  --tw-scale-x: 1.1;
-  --tw-scale-y: 1.1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1153,6 +1163,10 @@ video {
   overflow: hidden;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .text-nowrap {
   text-wrap: nowrap;
 }
@@ -1235,6 +1249,10 @@ video {
   border-top-width: 2px;
 }
 
+.border-solid {
+  border-style: solid;
+}
+
 .border-dashed {
   border-style: dashed;
 }
@@ -1253,6 +1271,10 @@ video {
   border-color: rgb(232 232 232 / var(--tw-border-opacity, 1));
 }
 
+.border-current {
+  border-color: currentColor;
+}
+
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
@@ -1266,6 +1288,20 @@ video {
 .border-red-500 {
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+
+.border-orange-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 186 116 / var(--tw-border-opacity, 1));
+}
+
+.border-\[\#DADADA\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(218 218 218 / var(--tw-border-opacity, 1));
+}
+
+.border-e-transparent {
+  border-inline-end-color: transparent;
 }
 
 .bg-\[\#8d8d8d8c\] {
@@ -1290,6 +1326,10 @@ video {
 .bg-\[\#F8F8F8\] {
   --tw-bg-opacity: 1;
   background-color: rgb(248 248 248 / var(--tw-bg-opacity, 1));
+}
+
+.bg-black\/60 {
+  background-color: rgb(0 0 0 / 0.6);
 }
 
 .bg-gray-200 {
@@ -1325,6 +1365,21 @@ video {
 .bg-yellow-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#FFF7F4\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 247 244 / var(--tw-bg-opacity, 1));
+}
+
+.bg-orange-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .object-contain {
@@ -1406,6 +1461,10 @@ video {
   padding-bottom: 6px;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .pb-5 {
   padding-bottom: 1.25rem;
 }
@@ -1434,6 +1493,10 @@ video {
   padding-top: 2.5rem;
 }
 
+.pt-2\.5 {
+  padding-top: 0.625rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
@@ -1460,6 +1523,10 @@ video {
 
 .text-start {
   text-align: start;
+}
+
+.align-\[-0\.125em\] {
+  vertical-align: -0.125em;
 }
 
 .font-dana_FANum_demibold {
@@ -1536,6 +1603,10 @@ video {
   font-weight: 700;
 }
 
+.font-medium {
+  font-weight: 500;
+}
+
 .font-normal {
   font-weight: 400;
 }
@@ -1562,6 +1633,14 @@ video {
 
 .leading-5 {
   line-height: 1.25rem;
+}
+
+.leading-9 {
+  line-height: 2.25rem;
+}
+
+.leading-normal {
+  line-height: 1.5;
 }
 
 .tracking-tighter {
@@ -1613,6 +1692,16 @@ video {
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-orange-600 {
+  --tw-text-opacity: 1;
+  color: rgb(234 88 12 / var(--tw-text-opacity, 1));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1649,94 +1738,116 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-@font-face{
-  font-display:swap;
-
-  font-family:'Inter_black';
-
-  font-style:normal;
-
-  src:url(../fonts/Inter-black.woff) format('woff'),url(../fonts/Inter-black.woff2) format('woff2')
+.backdrop-blur-xl {
+  --tw-backdrop-blur: blur(24px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-@font-face{
-  font-display:swap;
-
-  font-family:'Inter_bold';
-
-  font-style:normal;
-
-  src:url(../fonts/Inter-bold.woff) format('woff'),url(../fonts/Inter-bold.woff2) format('woff2')
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
-@font-face{
-  font-display:swap;
-
-  font-family:'Inter_semibold';
-
-  font-style:normal;
-
-  src:url(../fonts/Inter-semibold.woff) format('woff'),url(../fonts/Inter-semibold.woff2) format('woff2')
+.duration-150 {
+  transition-duration: 150ms;
 }
 
-@font-face{
-  font-display:swap;
-
-  font-family:'Inter_extrabold';
-
-  font-style:normal;
-
-  src:url(../fonts/Inter-extrabold.woff) format('woff'),url(../fonts/Inter-extrabold.woff2) format('woff2')
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Inter_light';
+  font-family: 'Inter_black';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../fonts/Inter-light.woff) format('woff'),url(../fonts/Inter-light.woff2) format('woff2')
+  src: url(../fonts/Inter-black.woff) format('woff'), url(../fonts/Inter-black.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Inter_medium';
+  font-family: 'Inter_bold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../fonts/Inter-medium.woff) format('woff'),url(../fonts/Inter-medium.woff2) format('woff2')
+  src: url(../fonts/Inter-bold.woff) format('woff'), url(../fonts/Inter-bold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Inter_regular';
+  font-family: 'Inter_semibold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../fonts/Inter-regular.woff) format('woff'),url(../fonts/Inter-regular.woff2) format('woff2')
+  src: url(../fonts/Inter-semibold.woff) format('woff'), url(../fonts/Inter-semibold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Inter_thin';
+  font-family: 'Inter_extrabold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../fonts/Inter-thin.woff) format('woff'),url(../fonts/Inter-thin.woff2) format('woff2')
+  src: url(../fonts/Inter-extrabold.woff) format('woff'), url(../fonts/Inter-extrabold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Inter_ultrabold';
+  font-family: 'Inter_light';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../fonts/Inter-ultrabold.woff) format('woff'),url(../fonts/Inter-ultrabold.woff2) format('woff2')
+  src: url(../fonts/Inter-light.woff) format('woff'), url(../fonts/Inter-light.woff2) format('woff2')
+}
+
+@font-face {
+  font-display: swap;
+
+  font-family: 'Inter_medium';
+
+  font-style: normal;
+
+  src: url(../fonts/Inter-medium.woff) format('woff'), url(../fonts/Inter-medium.woff2) format('woff2')
+}
+
+@font-face {
+  font-display: swap;
+
+  font-family: 'Inter_regular';
+
+  font-style: normal;
+
+  src: url(../fonts/Inter-regular.woff) format('woff'), url(../fonts/Inter-regular.woff2) format('woff2')
+}
+
+@font-face {
+  font-display: swap;
+
+  font-family: 'Inter_thin';
+
+  font-style: normal;
+
+  src: url(../fonts/Inter-thin.woff) format('woff'), url(../fonts/Inter-thin.woff2) format('woff2')
+}
+
+@font-face {
+  font-display: swap;
+
+  font-family: 'Inter_ultrabold';
+
+  font-style: normal;
+
+  src: url(../fonts/Inter-ultrabold.woff) format('woff'), url(../fonts/Inter-ultrabold.woff2) format('woff2')
 }
 
 /* @font-face{font-display:swap;font-family:'Inter_black';font-style:normal;src:url(../fonts/Inter18pt-Black.woff) format('woff'),url(../fonts/Inter18pt-Black.woff2) format('woff2')}
@@ -1749,184 +1860,184 @@ video {
   @font-face{font-display:swap;font-family:'Inter_thin';font-style:normal;src:url(../fonts/Inter18pt-Thin.woff) format('woff'),url(../fonts/Inter18pt-Thin.woff2) format('woff2')}
    */
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_black';
+  font-family: 'Dana_FANum_black';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-black.woff) format('woff'),url(../_fonts/DanaFaNum-black.woff2) format('woff2'),url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')
+  src: url(../_fonts/DanaFaNum-black.woff) format('woff'), url(../_fonts/DanaFaNum-black.woff2) format('woff2'), url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_bold';
+  font-family: 'Dana_FANum_bold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-bold.woff) format('woff'),url(../_fonts/DanaFaNum-bold.woff2) format('woff2')
+  src: url(../_fonts/DanaFaNum-bold.woff) format('woff'), url(../_fonts/DanaFaNum-bold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_demibold';
+  font-family: 'Dana_FANum_demibold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-demibold.woff) format('woff'),url(../_fonts/DanaFaNum-demibold.woff2) format('woff2')
+  src: url(../_fonts/DanaFaNum-demibold.woff) format('woff'), url(../_fonts/DanaFaNum-demibold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_extrabold';
+  font-family: 'Dana_FANum_extrabold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-extrabold.woff) format('woff'),url(../_fonts/DanaFaNum-extrabold.woff2) format('woff2')
+  src: url(../_fonts/DanaFaNum-extrabold.woff) format('woff'), url(../_fonts/DanaFaNum-extrabold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_light';
+  font-family: 'Dana_FANum_light';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-light.woff) format('woff'),url(../_fonts/DanaFaNum-light.woff2) format('woff2'),url(../_fonts/dana-fanum-light.eot) format('embedded-opentype')
+  src: url(../_fonts/DanaFaNum-light.woff) format('woff'), url(../_fonts/DanaFaNum-light.woff2) format('woff2'), url(../_fonts/dana-fanum-light.eot) format('embedded-opentype')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_medium';
+  font-family: 'Dana_FANum_medium';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-medium.woff) format('woff'),url(../_fonts/DanaFaNum-medium.woff2) format('woff2'),url(../_fonts/dana-fanum-medium.eot) format('embedded-opentype')
+  src: url(../_fonts/DanaFaNum-medium.woff) format('woff'), url(../_fonts/DanaFaNum-medium.woff2) format('woff2'), url(../_fonts/dana-fanum-medium.eot) format('embedded-opentype')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_regular';
+  font-family: 'Dana_FANum_regular';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-regular.woff) format('woff'),url(../_fonts/DanaFaNum-regular.woff2) format('woff2')
+  src: url(../_fonts/DanaFaNum-regular.woff) format('woff'), url(../_fonts/DanaFaNum-regular.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_thin';
+  font-family: 'Dana_FANum_thin';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-thin.woff) format('woff'),url(../_fonts/DanaFaNum-thin.woff2) format('woff2')
+  src: url(../_fonts/DanaFaNum-thin.woff) format('woff'), url(../_fonts/DanaFaNum-thin.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_FANum_ultrabold';
+  font-family: 'Dana_FANum_ultrabold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/DanaFaNum-ultrabold.woff) format('woff'),url(../_fonts/DanaFaNum-ultrabold.woff2) format('woff2')
+  src: url(../_fonts/DanaFaNum-ultrabold.woff) format('woff'), url(../_fonts/DanaFaNum-ultrabold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_black';
+  font-family: 'Dana_black';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-black.woff) format('woff'),url(../_fonts/Dana-black.woff2) format('woff2')
+  src: url(../_fonts/Dana-black.woff) format('woff'), url(../_fonts/Dana-black.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_bold';
+  font-family: 'Dana_bold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-bold.woff) format('woff'),url(../_fonts/Dana-bold.woff2) format('woff2')
+  src: url(../_fonts/Dana-bold.woff) format('woff'), url(../_fonts/Dana-bold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_demibold';
+  font-family: 'Dana_demibold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-DemiBold.woff) format('woff'),url(../_fonts/Dana-DemiBold.woff2) format('woff2')
+  src: url(../_fonts/Dana-DemiBold.woff) format('woff'), url(../_fonts/Dana-DemiBold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_extrabold';
+  font-family: 'Dana_extrabold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-extrabold.woff) format('woff'),url(../_fonts/Dana-extrabold.woff2) format('woff2')
+  src: url(../_fonts/Dana-extrabold.woff) format('woff'), url(../_fonts/Dana-extrabold.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_light';
+  font-family: 'Dana_light';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-light.woff) format('woff'),url(../_fonts/Dana-light.woff2) format('woff2')
+  src: url(../_fonts/Dana-light.woff) format('woff'), url(../_fonts/Dana-light.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_medium';
+  font-family: 'Dana_medium';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-medium.woff) format('woff'),url(../_fonts/Dana-medium.woff2) format('woff2')
+  src: url(../_fonts/Dana-medium.woff) format('woff'), url(../_fonts/Dana-medium.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_regular';
+  font-family: 'Dana_regular';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-regular.woff) format('woff'),url(../_fonts/Dana-regular.woff2) format('woff2')
+  src: url(../_fonts/Dana-regular.woff) format('woff'), url(../_fonts/Dana-regular.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_thin';
+  font-family: 'Dana_thin';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-thin.woff) format('woff'),url(../_fonts/Dana-thin.woff2) format('woff2')
+  src: url(../_fonts/Dana-thin.woff) format('woff'), url(../_fonts/Dana-thin.woff2) format('woff2')
 }
 
-@font-face{
-  font-display:swap;
+@font-face {
+  font-display: swap;
 
-  font-family:'Dana_ultrabold';
+  font-family: 'Dana_ultrabold';
 
-  font-style:normal;
+  font-style: normal;
 
-  src:url(../_fonts/Dana-ultrabold.woff) format('woff'),url(../_fonts/Dana-ultrabold.woff2) format('woff2')
+  src: url(../_fonts/Dana-ultrabold.woff) format('woff'), url(../_fonts/Dana-ultrabold.woff2) format('woff2')
 }
 
 /* @font-face{font-display:swap;font-family:'Dana_FANum_black';font-style:normal;src:url(../_fonts/DanaFaNum-black.woff) format('woff'),url(../_fonts/DanaFaNum-black.woff2) format('woff2'),url(../_fonts/dana-fanum-black.eot) format('embedded-opentype')}
@@ -1963,11 +2074,11 @@ video {
   @font-face{font-display:swap;font-family:'Inter_ultrabold';font-style:normal;src:url(../_fonts/Inter-ultrabold.woff) format('woff'),url(../_fonts/Inter-ultrabold.woff2) format('woff2')}
    */
 
-.dir-rtl{
+.dir-rtl {
   direction: rtl;
 }
 
-.dir-ltr{
+.dir-ltr {
   direction: ltr;
 }
 
@@ -1999,6 +2110,12 @@ video {
   direction: rtl;
   text-align: right;
 }
+
+/* .pdf-content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: unset;
+} */
 
 .margin-btn {
   padding: 0;
@@ -2039,9 +2156,41 @@ video {
   }
 }
 
+.even\:bg-orange-50:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 247 237 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-\[\#FF0000\]:hover {
   --tw-text-opacity: 1;
   color: rgb(255 0 0 / var(--tw-text-opacity, 1));
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:ring-0:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.disabled\:opacity-70:disabled {
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .motion-reduce\:animate-\[spin_1\.5s_linear_infinite\] {
+    animation: spin 1.5s linear infinite;
+  }
 }
 
 @media not all and (min-width: 1024px) {
@@ -2082,6 +2231,13 @@ video {
 
   .lg\:pt-5 {
     padding-top: 1.25rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark\:shadow-black\/30 {
+    --tw-shadow-color: rgb(0 0 0 / 0.3);
+    --tw-shadow: var(--tw-shadow-colored);
   }
 }
 

@@ -1,7 +1,6 @@
 <basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,131 +8,61 @@
     <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
     <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
 </head>
-
 <body class="p-0 m-0 overflow-auto" id="content">
-    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
-        <div
-            class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
-            You have permission to access this page. </div>
-    </basis>
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'"><div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
+ليس لديك صلاحية الدخول لهذه الصفحة.
+    </div></basis>
     <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
         <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
             method="post"
-            body='{ "name": "db", "mid": "20", "member": [ { "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(2)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}'
+            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(3)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}'
             content-type="application/json" run="atclient"></basis>
-        <header id="pdf-header" class="header h-[100px] w-auto mx-auto "><img
-                class="block h-[100px] w-auto mx-auto object-contain"
-                src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="1060" height="100"
-                alt="Footer-contract-pdf" /></header>
-        <main
-            class="pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
-
-            <div class="pdf-loading hidden ">
-                <div
-                    class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
-                    <span
-                        class="pointer-events-none rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white
-                         shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 
-                         focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 disabled:opacity-70 dark:shadow-black/30
-                          dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong flex justify-center items-center gap-x-2">
-                        <div class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                            role="status"></div>
-                        <div class="font-danamedium leading-9 ">generate PDF ...</div>
-                    </span>
-                </div>
-            </div>
-
+        <header id="pdf-header" class="header h-[100px] w-auto mx-auto "><img class="block h-[100px] w-auto mx-auto object-contain" src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" /></header>
+        <main  class="dir-rtl pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
+            <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]"><div class="flex justify-center items-center"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div></div></div>
             <div class="w-[95%] mx-auto">
                 <!-- info -->
                 <section class="w-full flex justify-between items-center ">
-                    <h2 class="font-danademibold text-base text-black"><span>Voucher</span><span class="mx-1">/
-                        </span><span>Accommodation</span></h2>
+                    <h2 class="font-danademibold text-base text-black"><span>قسيمة</span><span class="mx-1">/ </span><span>يقضي</span>
+                    </h2>
                     <ul class="flex gap-x-4">
                         <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">Reference number :</h2><p class="text-base text-[#292929] text-left font-danademibold">[##cms.query.id##]</p></div></li></script>
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">رقم العقد :</h2><p class="text-base text-[#292929] text-left font-danademibold">[##cms.query.id##]</p></div></li></script>
                             </face>
                         </basis>
                         <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">Date Of issue:</h2><p class="text-base text-[#292929] text-left font-danademibold">@createDate.mstring@</p></div></li></script>
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">تاريخ الإصدار :</h2><p class="text-base text-[#292929] text-left font-danademibold">@createDate.mstring@</p></div></li></script>
                             </face>
                         </basis>
                         <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">CreateHour :</h2><p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p></div></li></script>
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">ساعات الخلق :</h2><p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p></div></li></script>
                             </face>
                         </basis>
                     </ul>
                 </section>
-                <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex p-3">
-                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
-                        <layout>@child </layout>
-                        <face>
-                            <script type="text/template">{{ return await RenderInfoCard($data)}} </script>
-                        </face>
-                    </basis>
-                </section>
-                <section>
-                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
-                        <layout>@child </layout>
-                        <face>
-                            <script type="text/template">{{ return await renderRooms($data)}} </script>
-                        </face>
-                    </basis>
-                </section>
-                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
-                    <layout>@child </layout>
-                    <face>
-                        <script
-                            type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">Remarks</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription)}}">@HotelDescription@ </div></section></script>
-                    </face>
-                </basis>
-                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
-                    <layout>@child </layout>
-                    <face>
-                        <script
-                            type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}" >Rules</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular">{{ return await renderRules($data)}} </div></section></script>
-                    </face>
-                </basis>
-                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
-                    <layout>@child </layout>
-                    <face>
-                        <script
-                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >Note</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">@note@ </div></section></script>
-                    </face>
-                </basis>
+                <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex p-3"><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template">{{ return await RenderInfoCard($data)}} </script></face></basis></section>
+                <section><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template">{{ return await renderRooms($data)}} </script></face></basis></section>
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="mt-3{{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">ملاحظات</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription)}}">@HotelDescription@ </div></section></script></face></basis>
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="{{return await checkSection($data.pdf_description[0]?.note.text)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description[0]?.note.text)}}" >قواعد</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular">{{ return await renderRules($data)}} </div></section></script></face></basis>
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >ملحوظة</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">@note@ </div></section></script></face></basis>
         </main>
-        <div
-            class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 max-lg:w-full max-lg:min-w-0 max-lg:max-w-full margin-btn">
-            <button class="flex gap-1 items-center my-4 font-bold text-base hover:text-[#FF0000]"
-                onclick="DownloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
-                    viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="9" y1="13" x2="15" y2="13" />
-                    <line x1="9" y1="17" x2="15" y2="17" />
-                </svg>Download PDF</button></div>
-        <footer id="pdf-footer" class=" footer h-[100px] print:w-[595pt] print:h-[100pt] mx-auto "><img
-                class="block mx-auto h-[100px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
-                src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="1060" height="100"
-                alt="Footer-contract-pdf" /></footer>
+        <div class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 max-lg:w-full max-lg:min-w-0 max-lg:max-w-full margin-btn dir-rtl"><button class="flex gap-1 font-danademibold items-center my-4 font-bold text-base hover:text-[#FF0000]" onclick="DownloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="15" y2="17" /></svg>تحميل PDF </button></div>
+        <footer id="pdf-footer" class=" footer h-[100px] print:w-[595pt] print:h-[100pt] mx-auto "><img class="block mx-auto h-[100px] print:w-[595pt] print:h-[100pt] w-auto object-contain" src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" /></footer>
         <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
         <script>
-
-
             function detectDirection(text) {
                 const rtlChars = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/;
                 return rtlChars.test(text) ? 'rtl' : 'ltr';
             }
-
 
             function extractFilenameFromUrl(url) {
                 if (!url) return "";
@@ -144,7 +73,6 @@
                     return url.split('/').pop();
                 }
             }
-
 
             async function RenderInfoCard($data) {
                 let hotelJson = $data;
@@ -161,7 +89,6 @@
                 const checkout = hotelJson.checkout?.mstring ? formatDateToReadable(hotelJson.checkout.mstring) : "";
                 const nights = hotelJson.nights || 0;
                 const roomsCount = hotelJson.rooms?.length || 0;
-
                 let infocard = `
     <div class="w-3/5 ">
     <div class="flex leading-5 gap-x-3 ticketContainer">
@@ -176,65 +103,69 @@
             </h2>
             <div class="flex items-center">
                 ${RenderRateHotel(hotel.star)}
-                <span class="text-sm ml-2 font-danaregular">${hotel.star} <span class="ml-1">star</span> </span>
+                <span class="text-sm ml-2 font-danaregular">${hotel.star} <span class="mr-1">النجم</span> </span>
             </div>
-            <div class="text-base font-danaregular">
+            <div class="text-base font-danaregular dir-rtl">
                 <span>
-                ${hotel.ecountry}
+                ${hotel.country}
                 </span>
                 <span class="mx-1"> / </span>
                  <span>
-                 ${hotel.ecity}
+                 ${hotel.city}
                  </span>
                  </div>
         </div>
     </div>
-
+    
     <div class="mt-3">
-
+                        
     </div>
-</div>
-<div class="w-2/5 border-l-2 border-[#E3E3E3] pl-3 ">
+    </div>
+    <div class="w-2/5 border-r-2 border-[#E3E3E3] pr-3 ">
     <ul class="flex flex-col gap-y-2">
         <li>
-            <h2 class="text-base font-danademibold">Check in</h2>
+            <h2 class="text-base font-danademibold">وقت الوصول</h2>
             <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
 
                 <svg id="calendar-icon-pdf" class="scale-110 origin-center" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
-                </svg>
-                <span class="font-danaregular">${checkin}</span>
+</svg>
+
+                <span class="font-danaregular dir-ltr">
+                ${checkin}
+                </span>
             </div>
         </li>
         <li>
-            <h2 class="text-base font-danademibold">Check out</h2>
+            <h2 class="text-base font-danademibold">وقت المغادرة</h2>
             <div class="flex items-center w-full gap-x-2 text-sm text-[#242424]">
 
                                 <svg id="calendar-icon-pdf" class="scale-110 origin-center" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
-                </svg>
-                <span class="font-danaregular">${checkout}</span>
+</svg>
+
+                <span class="font-danaregular dir-ltr">
+                ${checkout}
+                </span>
             </div>
         </li>
         <li>
-            <h2 class="text-base font-danademibold">Night</h2>
+            <h2 class="text-base font-danademibold">عدد الليالي</h2>
             <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
                 ${nights}
             </div>
         </li>
         <li>
-            <h2 class="text-base font-danademibold">Room</h2>
+            <h2 class="text-base font-danademibold">عدد الغرف</h2>
             <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
                 ${roomsCount}
             </div>
         </li>
     </ul>
-</div>`;
+    </div>`;
 
                 return infocard;
             }
-
-
 
             async function renderRules($data) {
                 const rules = $data?.pdf_description;
@@ -257,9 +188,8 @@
                     }
                 });
 
-                return `<ul dir="${direction}">${ulitem}</ul>`;
+                return `<ul dir="${direction}" class="text-right">${ulitem}</ul>`;
             }
-
 
             function RenderRateHotel(starCount) {
                 let stars = '';
@@ -267,7 +197,7 @@
                     stars += `
                     <svg id="star-icon-pdf" width="14" height="14" viewBox="0 0 14 14" fill="none" >
 <path d="M10.2667 8.62758C10.2323 8.41991 10.3017 8.20816 10.4528 8.06175L12.6344 5.99675C12.8141 5.82816 12.88 5.5715 12.8036 5.33758C12.7225 5.10425 12.5178 4.93508 12.2728 4.90008L9.37359 4.4795C9.16418 4.44741 8.98276 4.315 8.88943 4.12425L7.59501 1.51675C7.49409 1.32075 7.30101 1.1895 7.08168 1.16675H6.83609L6.73693 1.20758L6.67334 1.23091C6.63834 1.25133 6.60684 1.27641 6.57943 1.30675L6.52693 1.34758C6.47968 1.39308 6.44059 1.44675 6.41026 1.50508L5.13276 4.12425C5.03359 4.32258 4.83993 4.45675 4.61943 4.4795L1.72026 4.90008C1.47934 4.938 1.27984 5.10658 1.20168 5.33758C1.12118 5.56916 1.18243 5.82583 1.35859 5.99675L3.46501 8.03841C3.61609 8.18716 3.68551 8.40008 3.65109 8.6095L3.13193 11.4795C3.07534 11.8266 3.30576 12.1556 3.65109 12.2209C3.79284 12.2437 3.93751 12.2209 4.06526 12.1567L6.64943 10.8028C6.69843 10.776 6.75209 10.7585 6.80693 10.7503H6.96501C7.06709 10.7532 7.16684 10.7789 7.25668 10.8267L9.84026 12.1742C10.0578 12.2909 10.3233 12.2734 10.5228 12.1276C10.7263 11.987 10.829 11.7408 10.7853 11.4976L10.2667 8.62758Z" fill="#FFBF1C"/>
-            </svg>`;
+</svg>`;
                 }
                 return stars;
             }
@@ -319,39 +249,39 @@
                     const childrenCount = (room.numpassenger.childwithbed || 0) + (room.numpassenger.childwithoutbed || 0);
 
                     roomcontent += `
-            <h2 class="font-bold text-lg my-2 font-danabold">Room ${room.index}</h2>
+            <h2 class="font-bold text-lg my-2 font-danabold">الغرفة ${room.index}</h2>
             <div class="bg-[#F4FBF9] rounded-xl p-4 flex flex-wrap justify-between gap-4">
                 <div class="gap-y-2 flex flex-col">
-                    <span class="text-[#6D6D6D] text-sm font-danaregular">Room type</span>
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">نوع الغرفة</span>
                     <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">${room.roomtype.trim()}</div>
                 </div>
-
+    
                 <div class="gap-y-2 flex flex-col">
-                    <span class="text-[#6D6D6D] text-sm font-danaregular">Board</span>
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">خدمات</span>
                     <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
                         ${escapeXML(hotelinfo.services)}
                     </div>
                 </div>
-
+    
                 <!-- Passenger Names -->
                 <div class="gap-y-2 flex flex-col">
-                    <span class="text-[#6D6D6D] text-sm font-danaregular">Passenger</span>
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">الركاب</span>
                     ${passengerNames}
                 </div>
-
+    
                 <!-- Passenger Types (Gender) -->
                 <div class="gap-y-2 flex flex-col">
-                    <span class="text-[#6D6D6D] text-sm font-danaregular">Gender</span>
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">نوع مسافر</span>
                     ${passengerTypes}
                 </div>
-
+    
                 <div class="gap-y-2 flex flex-col">
-                    <span class="text-[#6D6D6D] text-sm font-danaregular">Age</span>
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">عمر</span>
                     ${passengerAges}
                 </div>
-
+    
                 <div class="gap-y-2 flex flex-col">
-                    <span class="text-[#6D6D6D] text-sm font-danaregular">Status</span>
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">حالة</span>
                     <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
                         ${room.onrequest === "1" ? "On Request" : "Available"}
                     </div>
@@ -363,7 +293,6 @@
                 return roomcontent;
             }
 
-
             function escapeXML(str) {
                 return str.replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
@@ -372,12 +301,10 @@
                     .replace(/'/g, "&apos;");
             }
 
-
             async function getLocalizedText(dir, faText, enText) {
                 const isRTL = dir === 'rtl';
                 return isRTL ? faText : enText;
             }
-
 
             async function checkSection(input) {
 
@@ -451,7 +378,7 @@
                         static_y = 10;
                         static_height = 25;
                         header_scale = 2;
-                        main_scale = 1;
+                        main_scale = 2;
                         margin = [10, 10, 10, 10];
                     }
 
@@ -514,9 +441,9 @@
             }
 
 
+        
         </script>
         <script src="[##cms.cms.cdn##]/js/flight_ticket_test.js" defer></script>
     </basis>
 </body>
-
 </html>
