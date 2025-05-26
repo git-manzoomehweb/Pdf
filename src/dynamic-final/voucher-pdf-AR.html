@@ -84,7 +84,11 @@
                     <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
-                            <script type="text/template">{{ return await renderRooms($data)}} </script>
+                            <script type="text/template">
+                                {{ return await renderFlightInfo($data.flightinfo)}} 
+                                {{ return await renderRooms($data)}} 
+                                {{ return await renderBrokerInfo($data.broker)}}
+                            </script>
                         </face>
                     </basis>
                 </section>
@@ -92,7 +96,7 @@
                     <layout>@child </layout>
                     <face>
                         <script
-                            type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">ملاحظات</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-rtl" dir="{{return await detectDirection($data.HotelDescription)}}">{{ return await fixRTLTextCompletely($data.HotelDescription) }}</div></section></script>
+                            type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">ملاحظة </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.HotelDescription)}}" >{{ return await fixRTLTextCompletely($data.HotelDescription) }}</div></section></script>
                     </face>
                 </basis>
                 <basis core="print" datamembername="db.voucher_pdf" run="atclient">
@@ -106,7 +110,7 @@
                     <layout>@child </layout>
                     <face>
                         <script
-                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >ملحوظة</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-rtl" dir="{{return await detectDirection($data.note)}}"> {{ return await fixRTLTextCompletely($data.note) }}</div></section></script>
+                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" >ملحوظة</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}"> {{ return await fixRTLTextCompletely($data.note) }}</div></section></script>
                     </face>
                 </basis>
         </main>
@@ -327,7 +331,7 @@ function fixRTLTextCompletely(text) {
                 }
 
                 let direction;
-                direction = detectDirection(rules[0].note.text);
+                direction = detectDirection(rules?.[0]?.note.text);
 
                 let ulitem = '';
                 rules.forEach((item, index) => {
@@ -342,6 +346,7 @@ function fixRTLTextCompletely(text) {
 
                 // return `<ul dir="${direction}" class="text-right">${ulitem}</ul>`;
                 return `<ul dir="${direction}" class="text-right">${fixRTLTextCompletely(ulitem)}</ul>`;
+
             }
 
             function RenderRateHotel(starCount) {
@@ -383,7 +388,8 @@ function fixRTLTextCompletely(text) {
                         return {
                             name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
                             type: passengerType,
-                            age: passengerAge
+                age: passengerAge,
+                transfer: p.transfer_data || null
                         };
                     });
 
@@ -441,10 +447,134 @@ function fixRTLTextCompletely(text) {
                 </div>
             </div>
         `;
+
+        // باکس ترنسفر
+        const transfers = parsedPassengers.filter(p => p.transfer);
+        if (transfers.length > 0) {
+            roomcontent += `
+            <div dir="rtl" class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex flex-col gap-2">
+    <h3 class="font-danabold text-base text-[#292929] mb-1">نقل الغرفة ${room.index}</h3>
+    ${transfers.map(p => `
+        <div class="flex justify-between flex-wrap gap-4 border border-dashed border-[#DADADA] p-3 rounded-lg">
+            <div class="flex flex-col w-1/5">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">اسم الراكب</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.name}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">مطار الوصول</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.airport_arrival || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">رقم رحلة الوصول</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.arrival_flight_number || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">مطار المغادرة</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.airport_departure || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">رقم رحلة المغادرة</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.departure_flight_number || '–'}</div>
+            </div>
+        </div>
+    `).join('')}
+</div>
+            `;
+        }
                 });
 
                 return roomcontent;
             }
+
+function renderFlightInfo(flightinfo) {
+    if (!flightinfo) return '';
+
+    const renderSegment = (title, flight) => `
+        <h2 class="font-bold text-lg my-2 font-danabold">${title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 flex-wrap" dir="rtl">
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">شركة الطيران</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.airlines}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">رقم الرحلة</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.flightno}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">التاريخ</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.date.sstring} (${flight.date.mstring})</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">وقت المغادرة</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${flight.etime}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">وقت الوصول</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${flight.atime}</div>
+            </div>
+        </div>
+    `;
+
+    return `
+        ${renderSegment("رحلة الذهاب", flightinfo.enterflight)}
+        ${renderSegment("رحلة الإياب", flightinfo.exitflight)}
+    `;
+}
+
+function renderBrokerInfo(broker) {
+    if (!broker?.brokerinfo) return '';
+
+    const b = broker.brokerinfo;
+    const support = broker.support?.person?.[0]?.info || {};
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold">الوسيط</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 flex-wrap" dir="rtl">
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">اسم الوسيط</span>
+                <div class="text-[#292929] text-sm font-danademibold">${b.broker_name}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">الدولة</span>
+                <div class="text-[#292929] text-sm font-danademibold">${(b.country || []).map(c => c.countryname).join(', ')}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">اسم المدير</span>
+                <div class="text-[#292929] text-sm font-danademibold">${b.manager_name || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">الهاتف</span>
+                <div class="text-[#292929] text-sm font-danademibold">${(b.phone || []).map(p => p.number).join(', ')}</div>
+            </div>
+            ${b.email ? `
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">البريد الإلكتروني</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${b.email}</div>
+            </div>` : ''}
+            ${b.website ? `
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">الموقع الإلكتروني</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${b.website}</div>
+            </div>` : ''}
+        </div>
+
+        ${support.name || support.tel ? `
+        <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex flex-col gap-2">
+            <h3 class="font-danabold text-base text-[#292929] mb-1">الدعم</h3>
+            <div class="flex flex-wrap gap-4 border border-dashed border-[#DADADA] p-3 rounded-lg">
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">الاسم</span>
+                    <div class="text-[#292929] text-sm font-danademibold">${support.name || '–'}</div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">الهاتف</span>
+                    <div class="text-[#292929] text-sm font-danademibold dir-ltr">${support.tel || '–'}</div>
+                </div>
+            </div>
+        </div>` : ''}
+    `;
+}
+
 
             function escapeXML(str) {
                 return str.replace(/&/g, "&amp;")

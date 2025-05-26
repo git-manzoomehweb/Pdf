@@ -84,7 +84,11 @@
                     <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
-                            <script type="text/template">{{ return await renderRooms($data)}} </script>
+                            <script type="text/template">
+                                {{ return await renderFlightInfo($data.flightinfo)}} 
+                                {{ return await renderRooms($data)}} 
+                                {{ return await renderBrokerInfo($data.broker)}}
+                            </script>
                         </face>
                     </basis>
                 </section>
@@ -244,7 +248,7 @@
                 }
 
                 let direction;
-                direction = detectDirection(rules[0].note.text);
+                direction = detectDirection(rules?.[0]?.note.text);
 
                 let ulitem = '';
                 rules.forEach((item, index) => {
@@ -300,7 +304,8 @@
                         return {
                             name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
                             type: passengerType,
-                            age: passengerAge
+                age: passengerAge,
+                transfer: p.transfer_data || null
                         };
                     });
 
@@ -358,10 +363,134 @@
                 </div>
             </div>
         `;
+
+        // باکس ترنسفر
+        const transfers = parsedPassengers.filter(p => p.transfer);
+        if (transfers.length > 0) {
+            roomcontent += `
+            <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex flex-col gap-2">
+    <h3 class="font-danabold text-base text-[#292929] mb-1">Room ${room.index} Transfer</h3>
+    ${transfers.map(p => `
+        <div class="flex justify-between flex-wrap gap-4 border border-dashed border-[#DADADA] p-3 rounded-lg">
+            <div class="flex flex-col w-1/5">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Passenger Name</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.name}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Arrival Airport</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.airport_arrival || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Arrival Flight No.</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.arrival_flight_number || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Departure Airport</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.airport_departure || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Departure Flight No.</span>
+                <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.departure_flight_number || '–'}</div>
+            </div>
+        </div>
+    `).join('')}
+</div>
+            `;
+        }
                 });
 
                 return roomcontent;
             }
+
+
+            function renderFlightInfo(flightinfo) {
+    if (!flightinfo) return '';
+
+    const renderSegment = (title, flight) => `
+        <h2 class="font-bold text-lg my-2 font-danabold">${title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 flex-wrap">
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Airline</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.airlines}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Flight Number</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.flightno}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Date</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.date.sstring} (${flight.date.mstring})</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Departure Time</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${flight.etime}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Arrival Time</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${flight.atime}</div>
+            </div>
+        </div>
+    `;
+
+    return `
+        ${renderSegment("Departure Flight", flightinfo.enterflight)}
+        ${renderSegment("Return Flight", flightinfo.exitflight)}
+    `;
+}
+
+function renderBrokerInfo(broker) {
+    if (!broker?.brokerinfo) return '';
+
+    const b = broker.brokerinfo;
+    const support = broker.support?.person?.[0]?.info || {};
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold">Broker</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 flex-wrap">
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Broker Name</span>
+                <div class="text-[#292929] text-sm font-danademibold">${b.broker_name}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Country</span>
+                <div class="text-[#292929] text-sm font-danademibold">${(b.country || []).map(c => c.countryname).join(', ')}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Manager Name</span>
+                <div class="text-[#292929] text-sm font-danademibold">${b.manager_name || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Phone</span>
+                <div class="text-[#292929] text-sm font-danademibold">${(b.phone || []).map(p => p.number).join(', ')}</div>
+            </div>
+            ${b.email ? `
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Email</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${b.email}</div>
+            </div>` : ''}
+            ${b.website ? `
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">Website</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${b.website}</div>
+            </div>` : ''}
+        </div>
+
+        ${support.name || support.tel ? `
+        <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex flex-col gap-2">
+            <h3 class="font-danabold text-base text-[#292929] mb-1">Support</h3>
+            <div class="flex flex-wrap gap-4 border border-dashed border-[#DADADA] p-3 rounded-lg">
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Name</span>
+                    <div class="text-[#292929] text-sm font-danademibold">${support.name || '–'}</div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">Phone</span>
+                    <div class="text-[#292929] text-sm font-danademibold dir-ltr">${support.tel || '–'}</div>
+                </div>
+            </div>
+        </div>` : ''}
+    `;
+}
 
 
             function escapeXML(str) {
@@ -442,7 +571,7 @@
                     let static_y = -45;
                     let static_height = 20;
                     let header_scale = 1.5;
-                    let main_scale = 2;
+                    let main_scale = 1.2;
 
                     let margin = [35, 5, 35, 5];
 
@@ -451,7 +580,7 @@
                         static_y = 10;
                         static_height = 25;
                         header_scale = 2;
-                        main_scale = 1;
+                        main_scale = 1.2;
                         margin = [10, 10, 10, 10];
                     }
 
