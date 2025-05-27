@@ -1,55 +1,49 @@
-<basis core="dbsource" source="trust_login8" mid="24" name="Paneluser" lid="1"
-    rkey="[##cms.query.rkey|cms.cookie.rkey##]">
-    <member name="login" type="scalar" request="userid" />
-</basis>
+<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ticket PDF</title>
+    <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
     <link rel="stylesheet" href="css/flight_ticket_styles_test.css">
-    <title>ticket</title>
-    <style>
-        #capture {
-            width: 1280px;
-        }
-    </style>
+    <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
 </head>
 
-<body class="overflow-auto" id="content">
+<body class="p-0 m-0 overflow-auto" id="content">
     <div id="show-cap"></div>
-    <basis core="group" if="[##Paneluser.login.userid##]=0">
 
-        <p class="text-xl text-center">You are not allowed to access this page</p>
-
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+        <div
+            class="dir-rtl bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
+            شما اجازه دسترسی به این صفحه را ندارید </div>
     </basis>
-    <basis core="group" if="[##Paneluser.login.userid##]<>0">
+    <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+
         <basis core="group" if="'[##cms.query.tid##]'='Error'">
             <div class="text-base font-bold mb-5 text-center text-red-500">Ticket number is not available, please
                 contact the site support </div>
         </basis>
 
 
+
         <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
-            method="post"
-            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "ticket_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(1)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}'
-            content-type="application/json" run="atclient"></basis>
-
-
-
-        <basis core="api" name="api.Webservice" url="https://basisfly.com/panel/[##cms.query.rkey##]" method="post"
-            body='{
+            method="post" body='{
+    "name": "db",
     "member": [
         {
-            "request": "invoice_ticket_pdf",
+            "request": "ticket_pdf",
             "factorid": "[##cms.query.id##]",
             "ticketid": "[##cms.query.tid##]",
            "lid": "[##cms.query.lid|(1)##]"
         }
     ]
-} ' content-type="application/json" run="atclient" triggers="" onprocessed="">
+}' content-type="application/json" run="atclient">
         </basis>
+
+
+        
         <header class="header mb-5 lg:mb-8 py-2 mt-8">
             <img class="block mx-auto" src="images/Header-contract-pdf.jpg" width="1060" height="100"
                 alt="Footer-contract-pdf" />
@@ -72,7 +66,7 @@
 
                 <!-- ticket details -->
                 <div class="haeder__details__container flex gap-4 lg:gap-7 text-sm">
-                    <basis core="print" datamembername="api.Webservice" run="atclient">
+                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>@child</layout>
                         <face>
                             <script type="text/template">
@@ -102,7 +96,7 @@
 
                 </div>
             </div>
-            <basis core="print" datamembername="api.Webservice" run="atclient">
+            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                 <layout>@child</layout>
                 <face>
                     <script type="text/template">
@@ -130,7 +124,7 @@
 
                     <!-- ticket details (passenger name, flight number and etc. ) -->
                     <div class="ticketContainer__details__head flex justify-between p-4 items-center">
-                        <basis core="print" datamembername="api.Webservice" run="atclient">
+                        <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                             <layout>@child</layout>
                             <face>
                                 <script type="text/template">
@@ -178,7 +172,7 @@
                     <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm">
                         Departure : </div>
                     <!-- flight and landing date and time (yellow section) -->
-                    <basis core="print" datamembername="api.Webservice" run="atclient">
+                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>
                             <div
                                 class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center bg-yellow-300 text-sm">
@@ -246,7 +240,7 @@
 
                     <!-- flight path  -->
                     <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
-                        <basis core="print" datamembername="api.Webservice" run="atclient">
+                        <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                             <layout>@child</layout>
                             <face>
                                 <script type="text/template">
@@ -272,7 +266,7 @@
                 <div class="ticketContainer__details w-full">
                     <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm">Return
                         : </div>
-                    <basis core="print" datamembername="api.Webservice" run="atclient">
+                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>
                             <div
                                 class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center bg-yellow-300 text-sm">
@@ -338,7 +332,7 @@
                     </basis>
 
                     <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
-                        <basis core="print" datamembername="api.Webservice" run="atclient">
+                        <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                             <layout>@child</layout>
                             <face>
                                 <script type="text/template">
@@ -366,7 +360,7 @@
 
                     <!-- ticket details (passenger name, flight number and etc. ) -->
                     <div class="ticketContainer__details__head flex justify-between p-4 items-center">
-                        <basis core="print" datamembername="api.Webservice" run="atclient">
+                        <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                             <layout>@child</layout>
                             <face>
                                 <script type="text/template">
@@ -414,7 +408,7 @@
                     <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm">Route 1
                         : </div>
                     <!-- flight and landing date and time (yellow section) -->
-                    <basis core="print" datamembername="api.Webservice" run="atclient">
+                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>
                             <div
                                 class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center bg-yellow-300 text-sm">
@@ -481,7 +475,7 @@
 
                     <!-- flight path  -->
                     <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
-                        <basis core="print" datamembername="api.Webservice" run="atclient">
+                        <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                             <layout>@child</layout>
                             <face>
                                 <script type="text/template">
@@ -499,7 +493,7 @@
                 </div>
                 <!-- ticket info (right section of ticket) -->
             </div>
-            <basis core="print" datamembername="api.Webservice" run="atclient">
+            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                 <layout>@child</layout>
                 <face>
                     <script type="text/template">
@@ -519,7 +513,7 @@
 
         <div
             class="ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[900px] shrink-0 flex flex-col justify-end items-start gap-4 max-lg:w-full max-lg:min-w-0 max-lg:min-w-0 max-lg:max-w-full">
-            <basis core="print" datamembername="api.Webservice" run="atclient">
+            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                 <layout>
                     <div class="ticketContainer__info__details text-sm flex flex-col gap-2">@child</div>
                 </layout>
@@ -548,7 +542,7 @@
             class="fare_conditions max-w-screen-md min-w-[900px] mx-auto mt-8 text-xs max-lg:w-full max-lg:min-w-0 max-lg:min-w-0 max-lg:max-w-full">
             <h3 class="my-4 font-bold text-base">Fare Conditions</h3>
             <div id="desc_array"></div>
-            <basis core="print" datamembername="api.Webservice" run="atclient">
+            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                 <layout>@child</layout>
                 <face>
                     <script type="text/template">
@@ -608,7 +602,14 @@
             <img class="block mx-auto" src="images/Footer-contract-pdf.jpg" width="1060" height="100"
                 alt="Footer-contract-pdf" />
         </footer>
-        <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+
+
+
+        <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
+        <!-- <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script> -->
+
+
+
         <script>
             function nodata_error($data) {
                 var len = $data.length
@@ -1007,6 +1008,7 @@
             }
         </script>
     </basis>
+
 </body>
 
 </html>
