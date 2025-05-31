@@ -1,0 +1,1916 @@
+<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
+
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice PDF</title>
+  <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
+  <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="p-0 m-0">
+
+
+  <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+    <div
+      class="dir-rtl bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
+      شما اجازه دسترسی به این صفحه را ندارید </div>
+  </basis>
+
+
+  <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+
+    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+      method="post" body='{
+            "name": "db", 
+            "mid": "20", 
+
+            "member":
+            [
+                { 
+                    "name": "q", 
+                    "type":"list", 
+                    "request":"invoice_pdf", 
+                    "id":"[##cms.query.id##]"
+                }
+            ] 
+        }' content-type="application/json" run="atclient">
+    </basis>
+
+
+
+    <header class="h-[100px] print:w-[595pt] print:h-[75pt] w-full bg-gray-200">
+
+    </header>
+
+
+
+    <main
+      class="font-dana_FANum_regular dir-rtl pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
+
+      <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]">
+        <div class="flex justify-center items-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+        </div>
+      </div>
+
+      <div class="w-[95%] mx-auto">
+
+        <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+          <layout>@child </layout>
+          <face>
+            <script type="text/template">
+                                {{return await setInvoiceType($data.invoiceDetails.invoicetype)}}
+                                {{return await renderInvoiceDetails($data)}}
+                                </script>
+          </face>
+        </basis>
+
+
+        <!-- <section class="mt-3">
+                    <h1 class="my-4 font-dana_FANum_demibold text-center  ">قرارداد ارائه خدمات مسافرتی و گردشگری</h1>
+                    <div class="w-full flex justify-between flex-wrap gap-y-2">
+                        <div class="w-[25.5%] bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+                            <ul class="text-[#414141]  font-dana_FANum_regular flex flex-col justify-between gap-y-3">
+                                <li>
+                                    <span class="text-base print:text-xs font-dana_FANum_medium">
+                                        شماره قرارداد
+                                    </span>
+                                    <span class="text-lg print:text-base font-dana_FANum_demibold tracking-tighter">
+                                        587245
+                                    </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        تاریخ ثبت :
+                                    </span>
+                                    <span>
+                                        1404/02/01
+                                    </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        ساعت ثبت : </span>
+                                    <span>
+                                        12:20 </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        نام کانتر : </span>
+                                    <span>
+                                        شیدا ابراهیمی </span>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="w-[36.5%] bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+                            <ul class="text-[#414141]  font-dana_FANum_regular flex flex-col gap-y-[6px]">
+                                <li class="text-sm">
+                                    <span>
+                                        نام خریدار :
+                                    </span>
+                                    <span>
+                                        محسن حیدری
+                                    </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        آدرس : </span>
+                                    <span>
+                                        هران خیابان ..... </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        تلفن : </span>
+                                    <span>
+                                        021-222222222</span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        ایمیل : </span>
+                                    <span>
+                                        test@gmail.com </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        موبایل : </span>
+                                    <span>
+                                        092021212123 </span>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class=" w-[36.5%] bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+                            <ul class="text-[#414141]  font-dana_FANum_regular flex flex-col gap-y-[6px]">
+
+                                <li class="text-sm">
+                                    <span>
+                                        نوع خدمات :
+                                    </span>
+                                    <span>
+                                        پرواز + هتل تهران
+                                    </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        کیش (Iran Air Tours 996) / کیش
+                                    </span>
+                                </li>
+                                <li class="text-sm">
+                                    <span>
+                                        تهران (Iran Air Tours 917) | 5 star (هتل 5 ستاره میراژ)
+                                    </span>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div
+                            class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-justify">
+                            این قرارداد فی‌مابین خانم/آقای میترا صالحی‌زاد دارای شماره تلفن ثابت (9888075842+) و همراه
+                            (989126150593+) به نشانی (شهرک غرب، غلامک جنوبی، کوچه رز، کوچه یاس، کوچه یاسمن، پلاک 5، واحد
+                            1)
+                            منعقد یا به نمایندگی تام‌الاختیار از سوی افراد ذیل جمعاً به تعداد 4 نفر که از این پس
+                            "گردشگر"
+                            نامیده می‌شوند از یک طرف و دفتر لاچین سیر که از این پس "کارگزار" نامیده می‌شود، به صورت خرید
+                            اینترنتی منعقد گردیده است.
+                        </div>
+                    </div>
+                </section> -->
+
+
+        <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+          <layout>@child </layout>
+          <face>
+            <script type="text/template">
+                                {{return await renderAllProducts($data.products)}}
+                                </script>
+          </face>
+        </basis>
+
+
+
+        <!-- <section class="dir-ltr mt-4"><h2 class="text-base font-danabold flex items-center gap-x-2 "><svg class="h-6" width="17" height="17"><use href="./images/pdf-sprite-icons.svg#airplane-right-icon-pdf"></use></svg><span>Flight Information </span></h2><div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative pb-[25px] overflow-hidden"><div class="flex justify-between p-[6px]"><div class="w-1/2 flex gap-x-2 items-center"><div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center"><svg class="scale-150 origin-center" width="24" height="23"><use href="./images/pdf-sprite-icons.svg#takeoff-airplane-icon-pdf"></use></svg></div><div><span class="block text-[#6D6D6D] text-xs text-nowrap font-interregular">From:</span><span class="text-black text-xs font-danamedium">Dubai International Airport/<span class="text-[#292929]">Dubai </span></span></div></div><div class="w-1/2 flex gap-x-2 items-center"><div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center"><svg class="scale-150 origin-center" width="24" height="23"><use href="./images/pdf-sprite-icons.svg#landing-airplane-icon-pdf"></use></svg></div><div><span class="block text-[#6D6D6D] text-xs text-nowrap font-interregular">To:</span><span class="text-black text-xs font-danamedium">(IKIA) Imam Khomeini International Airport/<span class="text-[#292929]">Tehran </span></span></div></div></div><div class="h-[25px] w-full bg-[#EAEAEA] absolute bottom-0 left-0 right-0 rounded-[4px] "><ul class="flex justify-between px-2"><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Date:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">2025/02/01</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Exit Time</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">10:30</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Flight NO:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">996</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Arrival Time</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">12:20</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Airline</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">Iran Air Tour</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Flight Class:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">Economy</span></li></ul></div></div><div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative pb-[25px] overflow-hidden"><div class="flex justify-between p-[6px]"><div class="w-1/2 flex gap-x-2 items-center"><div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center"><svg class="scale-150 origin-center" width="24" height="23"><use href="./images/pdf-sprite-icons.svg#takeoff-airplane-icon-pdf"></use></svg></div><div><span class="block text-[#6D6D6D] text-xs text-nowrap font-interregular">From:</span><span class="text-black text-xs font-danamedium">Dubai International Airport/<span class="text-[#292929]">Dubai </span></span></div></div><div class="w-1/2 flex gap-x-2 items-center"><div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center"><svg class="scale-150 origin-center" width="24" height="23"><use href="./images/pdf-sprite-icons.svg#landing-airplane-icon-pdf"></use></svg></div><div><span class="block text-[#6D6D6D] text-xs text-nowrap font-interregular">To:</span><span class="text-black text-xs font-danamedium">(IKIA) Imam Khomeini International Airport/<span class="text-[#292929]">Tehran </span></span></div></div></div><div class="h-[25px] w-full bg-[#EAEAEA] absolute bottom-0 left-0 right-0 rounded-[4px] "><ul class="flex justify-between px-2"><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Date:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">2025/02/01</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Exit Time</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">10:30</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Flight NO:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">996</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Arrival Time</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">12:20</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Airline</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">Iran Air Tour</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Flight Class:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">Economy</span></li></ul></div></div><div></div></section> -->
+
+
+
+        <!-- <section class="dir-ltr mt-4"><h2 class="text-base font-danabold flex items-center gap-x-2 "><svg class="h-5" width="17" height="17"><use href="./images/pdf-sprite-icons.svg#bulleted-list-icon-pdf"></use></svg><span>List of Rooms </span></h2><div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden"><div class="flex justify-between items-center py-[6px] px-2 "><div class="w-1/3 flex gap-x-2 items-center"><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Hotel:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">Stay in the heart</span></div><div class="w-2/3 flex gap-x-2 items-center"><ul class="flex justify-between px-2 gap-x-5"><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Grade:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">5 star</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Services:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">B.B</span></li><li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Room Type:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">سوئیت 4 نفره با تراس</span></li></ul></div></div><hr class="w-[98%] mx-auto" /><div class="flex justify-between items-center py-[6px] px-2 "><div class="w-full flex gap-x-2 items-center"><ul class="flex justify-between gap-x-2 w-full flex-wrap"><li class="flex items-center gap-x-2"><svg class=" scale-150" width="12" height="11"><use href="./images/pdf-sprite-icons.svg#pin-icon-pdf"></use></svg><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">city :</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">Dubai</span></li><li class="flex items-center gap-x-2"><svg class=" scale-150" width="12" height="11"><use href="./images/pdf-sprite-icons.svg#small-bed-icon-pdf"></use></svg><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Room :</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">First Room</span></li><li class="flex items-center gap-x-2"><svg class=" scale-150" width="12" height="11"><use href="./images/pdf-sprite-icons.svg#user-icon-pdf"></use></svg><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Passengers :</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">1 Adute 1 children</span></li><li class="flex items-center gap-x-2"><svg class=" scale-150" width="12" height="11"><use href="./images/pdf-sprite-icons.svg#check-in-icon-pdf"></use></svg><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Check in :</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">2024/02/01</span></li><li class="flex items-center gap-x-2"><span class="-scale-x-100"><svg class="scale-150 " width="12" height="11"><use href="./images/pdf-sprite-icons.svg#check-in-icon-pdf"></use></svg></span><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Check out :</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">2024/02/01</span></li></ul></div></div></div><div></div></section> -->
+
+
+
+        <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+          <layout>@child </layout>
+          <face>
+            <script type="text/template">
+                                {{return await renderPassengers($data.passengers , $data)}}
+                                </script>
+          </face>
+        </basis>
+
+
+
+        <!-- <section class="dir-ltr mt-4">
+
+                    <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+                        <svg class="h-5" width="17" height="17">
+                            <use href="./images/pdf-sprite-icons.svg#large-bed-icon-pdf"></use>
+                        </svg>
+                        <span>
+                            Room 1
+                        </span>
+                    </h2>
+
+                    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative p-2  overflow-hidden">
+
+                        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+                            <thead>
+                                <tr>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Name:</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Surname:</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Date of Birth</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">National Code:</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Passport No:</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Expiration Date of Passport:
+                                    </th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Gender:</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Age Rang:</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr>
+                                    <td class="text-[#292929] text-xs font-danamedium">MOHSEN </td>
+                                    <td class="text-[#292929] text-xs font-danamedium">HEYDARI</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">1377/06/29</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0021481024</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Female</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Adult</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-[#292929] text-xs font-danamedium">MOHSEN </td>
+                                    <td class="text-[#292929] text-xs font-danamedium">HEYDARI</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">1377/06/29</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0021481024</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Female</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Adult</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-[#292929] text-xs font-danamedium">MOHSEN </td>
+                                    <td class="text-[#292929] text-xs font-danamedium">HEYDARI</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">1377/06/29</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0021481024</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Female</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Adult</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-[#292929] text-xs font-danamedium">MOHSEN </td>
+                                    <td class="text-[#292929] text-xs font-danamedium">HEYDARI</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">1377/06/29</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0021481024</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Female</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">Adult</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section> -->
+
+        <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+          <layout>@child </layout>
+          <face>
+            <script type="text/template">
+                                {{return await renderPriceDetailsSection($data , $data.priceDetails)}}
+                                </script>
+          </face>
+        </basis>
+
+        <!-- <section class="dir-ltr mt-4">
+
+                    <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+                        <svg class="h-5" width="17" height="17">
+                            <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+                        </svg>
+                        <span>
+                            Cost Table By Product
+                        </span>
+                    </h2>
+
+                    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6  overflow-hidden">
+
+                        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+                            <thead>
+                                <tr>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Flight :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Hotel :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Insurance :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Total Cost :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Unit :</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr>
+                                    <td class="text-[#292929] text-xs font-danamedium">14,639,810,000</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0.0</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">1463981000.0</td>
+                                    <td class="text-[#292929] text-xs font-dana_FANum_medium">ریال</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section> -->
+
+
+        <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+          <layout>@child </layout>
+          <face>
+            <script type="text/template">
+                                {{return await renderBillSection($data.bill)}}
+                                </script>
+          </face>
+        </basis>
+
+        <!-- 
+                <section class="dir-ltr mt-4">
+
+                    <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+                        <svg class="h-5" width="17" height="17">
+                            <use href="./images/pdf-sprite-icons.svg#bank-card-icon-pdf"></use>
+                        </svg>
+                        <span>
+                            Total Cost Table
+                        </span>
+                    </h2>
+
+                    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6   overflow-hidden">
+
+                        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+                            <thead>
+                                <tr>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Total Cost :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Commission :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Discount :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Discount code:</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Cost by Commission :</th>
+                                    <th class="text-[#6D6D6D] text-xs font-danaregular  ">Unit:</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr>
+                                    <td class="text-[#292929] text-xs font-danamedium">14,639,810,000</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0.0</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">0</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">-</td>
+                                    <td class="text-[#292929] text-xs font-danamedium">1463981000.0</td>
+                                    <td class="text-[#292929] text-xs font-dana_FANum_medium">ریال</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section> -->
+
+
+      </div>
+
+    </main>
+
+
+
+    <footer class="h-[100px] print:w-[595pt] print:h-[75pt] w-full bg-gray-200">
+
+    </footer>
+    <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
+
+  </basis>
+
+
+
+  <script>
+    let globalInvoiceType = null;
+
+    function setInvoiceType(type) {
+      globalInvoiceType = type;
+      console.log(globalInvoiceType)
+    }
+
+    function renderBillSection(bill = {}) {
+      const {
+        totalprice = 0,
+        commission = 0,
+        totalwithcommisions = 0,
+        unit = "-",
+        coupon = {}
+      } = bill;
+
+      const { couponcost = 0, couponcode = "-" } = coupon;
+
+      const formatPrice = (num) => {
+        if (typeof num === 'number') return num.toLocaleString();
+        const parsed = parseFloat(num);
+        return isNaN(parsed) ? "-" : parsed.toLocaleString();
+      };
+
+      return `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#bank-card-icon-pdf"></use>
+        </svg>
+        <span>Total Cost Table</span>
+      </h2>
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+          <thead>
+            <tr>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Total Cost :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Commission :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Discount :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Discount code:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Cost by Commission :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Unit:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(totalprice)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(commission)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(couponcost)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${couponcode}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(totalwithcommisions)}</td>
+              <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  `;
+    }
+
+    function renderPriceDetailsSection($data, priceDetails = {}) {
+      const type = $data?.invoiceDetails?.invoicetype;
+
+      const formatPrice = (num) => {
+        if (typeof num === 'number') return num.toLocaleString();
+        const parsed = parseFloat(num);
+        return isNaN(parsed) ? "-" : parsed.toLocaleString();
+      };
+
+      // جدول دو ردیفه با هدر (label) و مقدار (value) کنار هم
+      const renderMultiRowTable = (columns = []) => {
+        const headers = columns.map(col => `
+      <th class="text-[#6D6D6D] text-xs font-danaregular">${col.label}</th>
+    `).join('');
+
+        const values = columns.map(col => `
+      <td class="text-[#292929] text-xs font-danamedium">
+        ${col.label === 'Unit' ? col.value : formatPrice(col.value)}
+      </td>
+    `).join('');
+
+        return `
+      <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+        <thead>
+          <tr>${headers}</tr>
+        </thead>
+        <tbody>
+          <tr>${values}</tr>
+        </tbody>
+      </table>
+    `;
+      };
+
+      // این تابع برای بخش‌های تک‌ردیفه (که قبلا بود)
+      const renderRow = (label, value) => `
+    <tr>
+      <td class="text-[#6D6D6D] text-xs font-danaregular">${label}</td>
+      <td class="text-[#292929] text-xs font-danamedium">
+        ${label === 'Unit' ? value : formatPrice(value)}
+      </td>
+    </tr>
+  `;
+
+      const startSection = (title) => `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+        </svg>
+        <span>${title}</span>
+      </h2>
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+          <tbody>
+  `;
+
+      const endSection = () => `
+          </tbody>
+        </table>
+      </div>
+    </section>
+  `;
+
+      const renderCostTableByProduct = ({
+        flight = 0,
+        hotel = 0,
+        insurance = 0,
+        service = 0,
+        transfer = 0,
+        visa = 0,
+        total = 0,
+        unit = '-'
+      }) => `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+        </svg>
+        <span>Cost Table By Product</span>
+      </h2>
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+          <thead>
+            <tr>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Flight :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Hotel :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Insurance :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">service :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">transfer :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">visa :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Total Cost :</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Unit :</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(flight)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(hotel)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(insurance)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(service)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(transfer)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(visa)}</td>
+              <td class="text-[#292929] text-xs font-danamedium">${formatPrice(total)}</td>
+              <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  `;
+
+      switch (type) {
+
+case '3': { // Hotel Room Price
+  const parts = [];
+
+  if (Array.isArray(priceDetails.roomPrice)) {
+    priceDetails.roomPrice.forEach((item, index) => {
+      const roomData = item.room || {};
+      const guests = Object.entries(roomData); // مانند [["adult", {...}]]
+
+      guests.forEach(([guestType, guestData]) => {
+        const { roomIndex, count, perperson, total, unit } = guestData;
+        parts.push(`
+          <section class="dir-ltr mt-4">
+            <h2 class="text-base font-danabold flex items-center gap-x-2">
+              <svg class="h-5" width="17" height="17">
+                <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+              </svg>
+              <span>Room ${roomIndex} - ${guestType.charAt(0).toUpperCase() + guestType.slice(1)}</span>
+            </h2>
+            <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+              <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+                <thead>
+                  <tr>
+                    <th class="text-[#6D6D6D] text-xs font-danaregular">Count</th>
+                    <th class="text-[#6D6D6D] text-xs font-danaregular">Per Person</th>
+                    <th class="text-[#6D6D6D] text-xs font-danaregular">Total</th>
+                    <th class="text-[#6D6D6D] text-xs font-danaregular">Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-[#292929] text-xs font-danamedium">${formatPrice(count)}</td>
+                    <td class="text-[#292929] text-xs font-danamedium">${formatPrice(perperson)}</td>
+                    <td class="text-[#292929] text-xs font-danamedium">${formatPrice(total)}</td>
+                    <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        `);
+      });
+    });
+  }
+
+  return parts.join('');
+}
+
+
+
+
+
+        // case '2': { // Two-way flight
+        //   const parts = [];
+
+        //   if (priceDetails.adult?.length) {
+        //     priceDetails.adult.forEach((item, index) => {
+        //       // دقت کن که item.adult وجود داره و مقادیرش
+        //       const { special_class, count, perperson, total, unit } = item.adult;
+        //       parts.push(`
+        //     <section class="dir-ltr mt-4">
+        //       <h2 class="text-base font-danabold flex items-center gap-x-2">
+        //         <svg class="h-5" width="17" height="17">
+        //           <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+        //         </svg>
+        //         <span>Adult Ticket Info ${index + 1}</span>
+        //       </h2>
+        //       <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        //         <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+        //           <thead>
+        //             <tr>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Class</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Count</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Per Person</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Total</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Unit</th>
+        //             </tr>
+        //           </thead>
+        //           <tbody>
+        //             <tr>
+        //               <td class="text-[#292929] text-xs font-danamedium">${special_class}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(count)}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(perperson)}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(total)}</td>
+        //               <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+        //             </tr>
+        //           </tbody>
+        //         </table>
+        //       </div>
+        //     </section>
+        //   `);
+        //     });
+        //   }
+
+        //   return parts.join('');
+        // }
+        case '6': // Flight + Hotel + Insurance
+          return renderCostTableByProduct(priceDetails);
+        // case '8': { // train-1
+        //   const parts = [];
+
+        //   if (priceDetails.adult?.length) {
+        //     priceDetails.adult.forEach((item, index) => {
+        //       // دقت کن که item.adult وجود داره و مقادیرش
+        //       const { special_class, count, perperson, total, unit } = item.adult;
+        //       parts.push(`
+        //     <section class="dir-ltr mt-4">
+        //       <h2 class="text-base font-danabold flex items-center gap-x-2">
+        //         <svg class="h-5" width="17" height="17">
+        //           <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+        //         </svg>
+        //         <span>Adult Ticket Info ${index + 1}</span>
+        //       </h2>
+        //       <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        //         <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+        //           <thead>
+        //             <tr>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Class</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Count</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Per Person</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Total</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Unit</th>
+        //             </tr>
+        //           </thead>
+        //           <tbody>
+        //             <tr>
+        //               <td class="text-[#292929] text-xs font-danamedium">${special_class}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(count)}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(perperson)}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(total)}</td>
+        //               <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+        //             </tr>
+        //           </tbody>
+        //         </table>
+        //       </div>
+        //     </section>
+        //   `);
+        //     });
+        //   }
+
+        //   return parts.join('');
+        // }
+
+
+
+        case '11': { // Lounge
+          const parts = [];
+
+          if (priceDetails.adult?.length) {
+            priceDetails.adult.forEach(item => {
+              const { count, perperson, total, unit } = item.adult;
+              parts.push(`
+            <section class="dir-ltr mt-4">
+              <h2 class="text-base font-danabold flex items-center gap-x-2">
+                <svg class="h-5" width="17" height="17">
+                  <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+                </svg>
+                <span>Adult Lounge Info</span>
+              </h2>
+              <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+                ${renderMultiRowTable([
+                { label: 'Count', value: count },
+                { label: 'Per Person', value: perperson },
+                { label: 'Total', value: total },
+                { label: 'Unit', value: unit }
+              ])}
+              </div>
+            </section>
+          `);
+            });
+          }
+
+          if (priceDetails.services?.length) {
+            priceDetails.services.forEach(item => {
+              const { name, count, perperson, total, unit } = item.service;
+              parts.push(`
+            <section class="dir-ltr mt-4">
+              <h2 class="text-base font-danabold flex items-center gap-x-2">
+                <svg class="h-5" width="17" height="17">
+                  <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+                </svg>
+                <span>Service: ${name}</span>
+              </h2>
+              <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+                ${renderMultiRowTable([
+                { label: 'Count', value: count },
+                { label: 'Per Person', value: perperson },
+                { label: 'Total', value: total },
+                { label: 'Unit', value: unit }
+              ])}
+              </div>
+            </section>
+          `);
+            });
+          }
+
+          if (priceDetails.transfers?.length) {
+            priceDetails.transfers.forEach(item => {
+              const { car_name, perperson, total, unit } = item.transfer;
+              parts.push(`
+            <section class="dir-ltr mt-4">
+              <h2 class="text-base font-danabold flex items-center gap-x-2">
+                <svg class="h-5" width="17" height="17">
+                  <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+                </svg>
+                <span>Transfer: ${car_name}</span>
+              </h2>
+              <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+                ${renderMultiRowTable([
+                { label: 'Per Person', value: perperson },
+                { label: 'Total', value: total },
+                { label: 'Unit', value: unit }
+              ])}
+              </div>
+            </section>
+          `);
+            });
+          }
+
+          if (priceDetails.escortinfo?.length) {
+            priceDetails.escortinfo.forEach(item => {
+              const { firsname, lastname, perperson, total, unit } = item.escort;
+              parts.push(`
+            <section class="dir-ltr mt-4">
+              <h2 class="text-base font-danabold flex items-center gap-x-2">
+                <svg class="h-5" width="17" height="17">
+                  <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+                </svg>
+                <span>Escort: ${firsname} ${lastname}</span>
+              </h2>
+              <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+                ${renderMultiRowTable([
+                { label: 'Per Person', value: perperson },
+                { label: 'Total', value: total },
+                { label: 'Unit', value: unit }
+              ])}
+              </div>
+            </section>
+          `);
+            });
+          }
+
+          return parts.join('');
+        }
+
+
+        case '12': { return ""; }
+        // case '13': { // visa
+        //   const parts = [];
+
+        //   if (priceDetails.adult?.length) {
+        //     priceDetails.adult.forEach((item, index) => {
+        //       // دقت کن که item.adult وجود داره و مقادیرش
+        //       const { special_class, count, perperson, total, unit } = item.adult;
+        //       parts.push(`
+        //     <section class="dir-ltr mt-4">
+        //       <h2 class="text-base font-danabold flex items-center gap-x-2">
+        //         <svg class="h-5" width="17" height="17">
+        //           <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+        //         </svg>
+        //         <span>Adult Ticket Info ${index + 1}</span>
+        //       </h2>
+        //       <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        //         <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+        //           <thead>
+        //             <tr>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Class</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Count</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Per Person</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Total</th>
+        //               <th class="text-[#6D6D6D] text-xs font-danaregular">Unit</th>
+        //             </tr>
+        //           </thead>
+        //           <tbody>
+        //             <tr>
+        //               <td class="text-[#292929] text-xs font-danamedium">${special_class}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(count)}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(perperson)}</td>
+        //               <td class="text-[#292929] text-xs font-danamedium">${formatPrice(total)}</td>
+        //               <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+        //             </tr>
+        //           </tbody>
+        //         </table>
+        //       </div>
+        //     </section>
+        //   `);
+        //     });
+        //   }
+
+        //   return parts.join('');
+        // }
+
+
+
+        // default: {
+        //   // رندر عمومی و ساده برای بقیه حالات
+        //   if (!priceDetails) return "";
+
+        //   let rows = "";
+        //   for (const key in priceDetails) {
+        //     const label = key.charAt(0).toUpperCase() + key.slice(1);
+        //     rows += renderRow(label, priceDetails[key]);
+        //   }
+        //   return startSection("Price Details") + rows + endSection();
+        // }
+
+
+        default: { // train-1
+          const parts = [];
+
+          if (priceDetails.adult?.length) {
+            priceDetails.adult.forEach((item, index) => {
+              // دقت کن که item.adult وجود داره و مقادیرش
+              const { special_class, count, perperson, total, unit } = item.adult;
+              parts.push(`
+            <section class="dir-ltr mt-4">
+              <h2 class="text-base font-danabold flex items-center gap-x-2">
+                <svg class="h-5" width="17" height="17">
+                  <use href="./images/pdf-sprite-icons.svg#coins-icon-pdf"></use>
+                </svg>
+                <span>Adult Ticket Info ${index + 1}</span>
+              </h2>
+              <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+                <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+                  <thead>
+                    <tr>
+                      <th class="text-[#6D6D6D] text-xs font-danaregular">Class</th>
+                      <th class="text-[#6D6D6D] text-xs font-danaregular">Count</th>
+                      <th class="text-[#6D6D6D] text-xs font-danaregular">Per Person</th>
+                      <th class="text-[#6D6D6D] text-xs font-danaregular">Total</th>
+                      <th class="text-[#6D6D6D] text-xs font-danaregular">Unit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-[#292929] text-xs font-danamedium">${special_class}</td>
+                      <td class="text-[#292929] text-xs font-danamedium">${formatPrice(count)}</td>
+                      <td class="text-[#292929] text-xs font-danamedium">${formatPrice(perperson)}</td>
+                      <td class="text-[#292929] text-xs font-danamedium">${formatPrice(total)}</td>
+                      <td class="text-[#292929] text-xs font-dana_FANum_medium">${unit}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          `);
+            });
+          }
+
+          return parts.join('');
+        }
+      }
+    }
+
+    function renderInvoiceDetails($data) {
+      const invoiceDetails = $data.invoiceDetails || {};
+      const invoiceDate = $data.invoiceDate || {};
+      const account =
+        $data.account?.mycounter_forPassenger ||
+        $data.account?.person ||
+        $data.account?.supplier_agency ||
+        $data.account?.mycounter_forAgency ||
+        $data.account?.partner_agency ||
+        {};
+
+      const isPartnerAgency = !!$data.account?.partner_agency;
+
+      // اگر partner_agency بود، از فیلدهای خاص آن استفاده کن
+      const contractNumber = invoiceDetails.factorid || "-";
+      const registerDate = invoiceDate.mstring || "-";
+      const registerTime = invoiceDate.time || "-";
+
+      const counterName = isPartnerAgency
+        ? `${account.namecounter || ""} ${account.familycounter || ""}`.trim() || "-"
+        : invoiceDetails.counterName || account.counterName || "-";
+
+      const buyerName = isPartnerAgency
+        ? account.agencyname || "-"
+        : `${account.fullname?.firstname || ""} ${account.fullname?.lastname || ""}`.trim();
+
+      const address = isPartnerAgency ? account.agencyaddress || "-" : account.address || "-";
+      const phone = isPartnerAgency ? account.agencytell || "-" : account.tel || "-";
+      const email = isPartnerAgency ? account.agencyemail || "-" : account.email || "-";
+      const mobile = isPartnerAgency ? account.agencymobile || "-" : account.mobile || "-";
+
+      const serviceType = invoiceDetails.title || "-";
+      const agreementText = invoiceDetails.description || "-";
+      const userDescription = invoiceDetails.userDescription || "-";
+
+      return `
+        <h1 class="my-4 font-dana_FANum_demibold text-center">قرارداد ارائه خدمات مسافرتی و گردشگری</h1>
+        <div class="w-full flex justify-between flex-wrap gap-y-2">
+            <div class="w-[25.5%] bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+                <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
+                    <li>
+                        <span class="text-base print:text-xs font-dana_FANum_medium">شماره قرارداد</span>
+                        <span class="text-lg print:text-base font-dana_FANum_demibold tracking-tighter">${contractNumber}</span>
+                    </li>
+                    <li class="text-sm"><span>تاریخ ثبت :</span><span>${registerDate}</span></li>
+                    <li class="text-sm"><span>ساعت ثبت :</span><span>${registerTime}</span></li>
+                    <li class="text-sm"><span>نام کانتر :</span><span>${counterName}</span></li>
+                </ul>
+            </div>
+
+            <div class="w-[36.5%] bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+                <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
+                    <li class="text-sm"><span>نام خریدار :</span><span>${buyerName}</span></li>
+                    <li class="text-sm"><span>آدرس :</span><span>${address}</span></li>
+                    <li class="text-sm"><span>تلفن :</span><span>${phone}</span></li>
+                    <li class="text-sm"><span>ایمیل :</span><span>${email}</span></li>
+                    <li class="text-sm"><span>موبایل :</span><span>${mobile}</span></li>
+                </ul>
+            </div>
+
+            <div class="w-[36.5%] bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+                <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
+                    <li class="text-sm"><span>نوع خدمات :</span><span>${serviceType}</span></li>
+                    <li class="text-sm"><span></span></li>
+                    <li class="text-sm"><span>${userDescription}</span></li>
+                </ul>
+            </div>
+
+            <div class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-justify">
+                <div>${agreementText}</div>
+                <div>${userDescription}</div>
+            </div>
+        </div>
+    `;
+    }
+
+    function renderFlightInfoSection(route) {
+      const {
+        route: routeName,
+        routeDate,
+        etime,
+        atime,
+        airline,
+        startairport,
+        endairport,
+        routecode,
+      } = route;
+
+      const flightclass = route.class;
+
+      const fromAirport = `${startairport.airport} / ${startairport.startotherinfo.city}`;
+      const fromCode = startairport.startotherinfo.shortname;
+
+      const toAirport = `${endairport.airport} / ${endairport.endotherinfo.city}`;
+      const toCode = endairport.endotherinfo.shortname;
+
+      return `
+
+    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative pb-[25px] overflow-hidden">
+      <div class="flex justify-between p-[6px]">
+        <div class="w-1/2 flex gap-x-2 items-center">
+          <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
+            <svg class="scale-150 origin-center" width="24" height="23">
+              <use href="./images/pdf-sprite-icons.svg#takeoff-airplane-icon-pdf"></use>
+            </svg>
+          </div>
+          <div>
+            <span class="block text-[#6D6D6D] text-xs font-interregular">From:</span>
+            <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929]">(${fromCode})</span></span>
+          </div>
+        </div>
+        <div class="w-1/2 flex gap-x-2 items-center">
+          <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
+            <svg class="scale-150 origin-center" width="24" height="23">
+              <use href="./images/pdf-sprite-icons.svg#landing-airplane-icon-pdf"></use>
+            </svg>
+          </div>
+          <div>
+            <span class="block text-[#6D6D6D] text-xs font-interregular">To:</span>
+            <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929]">(${toCode})</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="h-[25px] w-full bg-[#EAEAEA] absolute bottom-0 left-0 right-0 rounded-[4px]">
+        <ul class="flex justify-between px-2">
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Date:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${routeDate.mstring}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Exit Time:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${etime}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Flight NO:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${routecode}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Arrival Time:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${atime}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Airline:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${airline}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Flight Class:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${flightclass}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  `;
+    }
+
+    function renderCipInfoSection(cip) {
+      return `
+
+
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden">
+        <div class="flex justify-between items-center py-[6px] px-2">
+          <div class="w-1/3 flex gap-x-2 items-center">
+            <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Lounge:</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${cip.loungename || '-'}</span>
+          </div>
+          <div class="w-2/3 flex gap-x-2 items-center">
+            <ul class="flex justify-between px-2 gap-x-5">
+              <li>
+                <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Airport:</span>
+                <span class="text-[#292929] text-sm text-nowrap font-danamedium">${cip.airportname || '-'}</span>
+              </li>
+              <li>
+                <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Airline:</span>
+                <span class="text-[#292929] text-sm text-nowrap font-danamedium">${cip.airline || '-'}</span>
+              </li>
+              <li>
+                <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Flight No:</span>
+                <span class="text-[#292929] text-sm text-nowrap font-danamedium">${cip.routecode || '-'}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <hr class="w-[98%] mx-auto" />
+
+        <div class="flex justify-between items-center py-[6px] px-2">
+          <div class="w-full flex gap-x-2 items-center">
+            <ul class="flex justify-between gap-x-2 w-full flex-wrap">
+              <li class="flex items-center gap-x-2">
+                <svg class="scale-150" width="12" height="11">
+                  <use href="./images/pdf-sprite-icons.svg#pin-icon-pdf"></use>
+                </svg>
+                <span class="text-[#6D6D6D] text-xs font-danaregular">City:</span>
+                <span class="text-[#292929] text-sm font-danamedium">${cip.route || '-'}</span>
+              </li>
+              <li class="flex items-center gap-x-2">
+                <svg class="scale-150" width="12" height="11">
+                  <use href="./images/pdf-sprite-icons.svg#check-in-icon-pdf"></use>
+                </svg>
+                <span class="text-[#6D6D6D] text-xs font-danaregular">Date:</span>
+                <span class="text-[#292929] text-sm font-danamedium">${cip.routeDate?.mstring || '-'}</span>
+              </li>
+              <li class="flex items-center gap-x-2">
+                <svg class="scale-150" width="12" height="11">
+                  <use href="./images/pdf-sprite-icons.svg#clock-icon-pdf"></use>
+                </svg>
+                <span class="text-[#6D6D6D] text-xs font-danaregular">Time:</span>
+                <span class="text-[#292929] text-sm font-danamedium">${cip.time || '-'}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  `;
+    }
+
+    function renderHotelInfoSection(room) {
+      if (!room) return '';
+
+      const {
+        hotelName = '',
+        hotelStar = '',
+        cityName = '',
+        roomNumber = '',
+        roomType = '',
+        fromDate = {},
+        toDate = {},
+        passengersRoom = {},
+        service = '',
+      } = room;
+
+      // تبدیل تعداد مسافر به رشته‌ای مثل "1 Adult 1 children"
+      const passengersTextParts = [];
+      if (passengersRoom.adult) passengersTextParts.push(`${passengersRoom.adult} Adult${passengersRoom.adult > 1 ? 's' : ''}`);
+      if (passengersRoom.child) passengersTextParts.push(`${passengersRoom.child} Children`);
+      else {
+        // اگر کلید child اصلی نباشه، بررسی کلیدهای دیگر (child Withbed, child Withoutbed)
+        if (passengersRoom['child Withbed']) passengersTextParts.push(`${passengersRoom['child Withbed']} Children With Bed`);
+        if (passengersRoom['child Withoutbed']) passengersTextParts.push(`${passengersRoom['child Withoutbed']} Children Without Bed`);
+      }
+      if (passengersRoom.infant) passengersTextParts.push(`${passengersRoom.infant} Infant${passengersRoom.infant > 1 ? 's' : ''}`);
+      if (passengersRoom['extra Adult']) passengersTextParts.push(`${passengersRoom['extra Adult']} Extra Adult${passengersRoom['extra Adult'] > 1 ? 's' : ''}`);
+
+      const passengersText = passengersTextParts.join(' ') || '-';
+
+      // تبدیل تاریخ از mstring به فرمت yyyy/mm/dd
+      function formatDate(dateObj) {
+        if (!dateObj?.mstring) return '-';
+        return dateObj.mstring.replace(/-/g, '/');
+      }
+
+      const checkInDate = formatDate(fromDate);
+      const checkOutDate = formatDate(toDate);
+
+      return `
+
+  <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden">
+    <div class="flex justify-between items-center py-[6px] px-2 ">
+      <div class="w-1/3 flex gap-x-2 items-center">
+        <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Hotel:</span>
+        <span class="text-[#292929] text-sm text-nowrap font-danamedium">${hotelName}</span>
+      </div>
+      <div class="w-2/3 flex gap-x-2 items-center">
+        <ul class="flex justify-between px-2 gap-x-5">
+          <li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Grade:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${hotelStar} star</span></li>
+          <li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Services:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${service}</span></li>
+          <li><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Room Type:</span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${roomType}</span></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="w-[98%] mx-auto" />
+    <div class="flex justify-between items-center py-[6px] px-2 ">
+      <div class="w-full flex gap-x-2 items-center">
+        <ul class="flex justify-between gap-x-2 w-full flex-wrap">
+          <li class="flex items-center gap-x-2">
+            <svg class=" scale-150" width="12" height="11">
+              <use href="./images/pdf-sprite-icons.svg#pin-icon-pdf"></use>
+            </svg>
+            <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">city :</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${cityName}</span>
+          </li>
+          <li class="flex items-center gap-x-2">
+            <svg class=" scale-150" width="12" height="11">
+              <use href="./images/pdf-sprite-icons.svg#small-bed-icon-pdf"></use>
+            </svg>
+            <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Room :</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${roomNumber}</span>
+          </li>
+          <li class="flex items-center gap-x-2">
+            <svg class=" scale-150" width="12" height="11">
+              <use href="./images/pdf-sprite-icons.svg#user-icon-pdf"></use>
+            </svg>
+            <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Passengers :</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${passengersText}</span>
+          </li>
+          <li class="flex items-center gap-x-2">
+            <svg class=" scale-150" width="12" height="11">
+              <use href="./images/pdf-sprite-icons.svg#check-in-icon-pdf"></use>
+            </svg>
+            <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Check in :</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${checkInDate}</span>
+          </li>
+          <li class="flex items-center gap-x-2">
+            <span class="-scale-x-100">
+              <svg class="scale-150 " width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#check-in-icon-pdf"></use>
+              </svg>
+            </span>
+            <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Check out :</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${checkOutDate}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div></div>
+  `;
+    }
+
+    function renderInsuranceInfoSection(insurance) {
+      return `
+
+    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden">
+      <div class="flex justify-between items-center py-[6px] px-2">
+        <div class="w-full flex gap-x-2 items-center">
+          <ul class="flex justify-between gap-x-2 w-full flex-wrap">
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#pin-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Country:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${insurance.country}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#user-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Name:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${insurance.name}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Duration:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${insurance.duration.duration} ${insurance.duration.durationtype}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#check-in-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Provider:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${insurance.Provider}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+    }
+
+    function renderServiceInfoSection(service) {
+      return `
+    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden">
+      <div class="flex justify-between items-center py-[6px] px-2">
+        <div class="w-full flex gap-x-2 items-center">
+          <ul class="flex justify-between gap-x-2 w-full flex-wrap">
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#bulleted-list-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Service:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${service.servicename}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#location-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">City:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${service.servicecityname}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular">Date:</span>
+              <span class="text-[#292929] text-sm text-nowrap font-danamedium">${service.servicedate.sstring}</span>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+    }
+
+    function renderVisaInfoSection(visa) {
+      return `
+    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden">
+      <div class="flex justify-between items-center py-[6px] px-2">
+        <div class="w-full flex gap-x-2 items-start flex-col">
+          <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#bulleted-list-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] font-danaregular">Visa Name:</span>
+              <span class="text-[#292929] font-danamedium">${visa.visaname}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#location-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] font-danaregular">Country:</span>
+              <span class="text-[#292929] font-danamedium">${visa.visacountry}</span>
+            </li>
+            <li class="flex items-center gap-x-2">
+              <svg class="scale-150" width="12" height="11">
+                <use href="./images/pdf-sprite-icons.svg#calendar-icon-pdf"></use>
+              </svg>
+              <span class="text-[#6D6D6D] font-danaregular">Date:</span>
+              <span class="text-[#292929] font-danamedium">${visa.visadate?.sstring || '-'}</span>
+            </li>
+            <li><span class="text-[#6D6D6D] font-danaregular">Application:</span> ${visa.application}</li>
+            <li><span class="text-[#6D6D6D] font-danaregular">Type:</span> ${visa.visatype}</li>
+            <li><span class="text-[#6D6D6D] font-danaregular">Visit:</span> ${visa.visit_log}</li>
+            <li><span class="text-[#6D6D6D] font-danaregular">Validity:</span> ${visa.validity_duration?.time} ${visa.validity_duration?.months}</li>
+            <li><span class="text-[#6D6D6D] font-danaregular">Documents:</span>
+                <div class="divide-x inline-block">
+${visa.documents?.map((doc, index, arr) =>
+        `<span class="inline-block mx-1">${doc.name1}${index < arr.length - 1 ? ',' : ''}</span>`
+      ).join('') || ''}
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    `;
+    }
+
+//     function renderTrainInfoSection(trainRouteWrapper) {
+//         console.log(trainRouteWrapper)
+
+//   const {
+//     route: {
+//       route: routeName,
+//       routeDate,
+//       etime,
+//       atime,
+//       trainid,
+//       trainimage,
+//       startairport,
+//       endairport,
+//       routecode,
+//       class: trainClass
+//     }
+//   } = trainRouteWrapper;
+
+
+//   const fromStation = '';
+//   // `${startairport?.airport} / ${startairport?.startotherinfo?.city || ''}`;
+//   const fromCode = '';
+//   // startairport?.startotherinfo?.shortname || '';
+
+//   const toStation = '';
+//   // `${endairport.airport} / ${endairport.endotherinfo?.city || ''}`;
+//   const toCode = '';
+//   // endairport.endotherinfo?.shortname || '';
+
+//   return `
+//     <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative pb-[25px] overflow-hidden">
+//       <div class="flex justify-between p-[6px]">
+//         <div class="w-1/2 flex gap-x-2 items-center">
+//           <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
+//             <svg class="scale-150 origin-center" width="24" height="23">
+//               <use href="./images/pdf-sprite-icons.svg#train-departure-icon"></use>
+//             </svg>
+//           </div>
+//           <div>
+//             <span class="block text-[#6D6D6D] text-xs font-interregular">From:</span>
+//             <span class="text-black text-xs font-danamedium">${fromStation} <span class="text-[#292929]">(${fromCode})</span></span>
+//           </div>
+//         </div>
+//         <div class="w-1/2 flex gap-x-2 items-center">
+//           <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
+//             <svg class="scale-150 origin-center" width="24" height="23">
+//               <use href="./images/pdf-sprite-icons.svg#train-arrival-icon"></use>
+//             </svg>
+//           </div>
+//           <div>
+//             <span class="block text-[#6D6D6D] text-xs font-interregular">To:</span>
+//             <span class="text-black text-xs font-danamedium">${toStation} <span class="text-[#292929]">(${toCode})</span></span>
+//           </div>
+//         </div>
+//       </div>
+//       <div class="h-[25px] w-full bg-[#EAEAEA] absolute bottom-0 left-0 right-0 rounded-[4px]">
+//         <ul class="flex justify-between px-2">
+//           <li>
+//             <span class="text-[#6D6D6D] text-xs font-danaregular">Date:</span>
+//             <span class="text-[#292929] text-sm font-danamedium">${routeDate}</span>
+//           </li>
+//           <li>
+//             <span class="text-[#6D6D6D] text-xs font-danaregular">Departure Time:</span>
+//             <span class="text-[#292929] text-sm font-danamedium">${etime}</span>
+//           </li>
+//           <li>
+//             <span class="text-[#6D6D6D] text-xs font-danaregular">Train No:</span>
+//             <span class="text-[#292929] text-sm font-danamedium">${routecode}</span>
+//           </li>
+//           <li>
+//             <span class="text-[#6D6D6D] text-xs font-danaregular">Arrival Time:</span>
+//             <span class="text-[#292929] text-sm font-danamedium">${atime}</span>
+//           </li>
+//           <li>
+//             <span class="text-[#6D6D6D] text-xs font-danaregular">Train:</span>
+//             <span class="text-[#292929] text-sm font-danamedium">${trainid}</span>
+//           </li>
+//           <li>
+//             <span class="text-[#6D6D6D] text-xs font-danaregular">Class:</span>
+//             <span class="text-[#292929] text-sm font-danamedium">${trainClass}</span>
+//           </li>
+//         </ul>
+//       </div>
+//     </div>
+//   `;
+// }
+
+    function renderTrainInfoSection(route) {
+      const {
+        route: routeName,
+        routeDate,
+        etime,
+        atime,
+        trainid,
+        trainimage,
+        startairport,
+        endairport,
+        routecode,
+      } = route;
+
+      const trainclass = route.class;
+
+      const fromAirport = `${startairport.airport} / ${startairport.startotherinfo.city}`;
+      const fromCode = startairport.startotherinfo.shortname;
+
+      const toAirport = `${endairport.airport} / ${endairport.endotherinfo.city}`;
+      const toCode = endairport.endotherinfo.shortname;
+
+      return `
+
+    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative pb-[25px] overflow-hidden">
+      <div class="flex justify-between p-[6px]">
+        <div class="w-1/2 flex gap-x-2 items-center">
+          <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
+                <img src="${trainimage}" width="36" height="36" alt="${trainid}" />
+
+          </div>
+          <div>
+            <span class="block text-[#6D6D6D] text-xs font-interregular">From:</span>
+            <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929]">(${fromCode})</span></span>
+          </div>
+        </div>
+        <div class="w-1/2 flex gap-x-2 items-center">
+          <div>
+            <span class="block text-[#6D6D6D] text-xs font-interregular">To:</span>
+            <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929]">(${toCode})</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="h-[25px] w-full bg-[#EAEAEA] absolute bottom-0 left-0 right-0 rounded-[4px]">
+        <ul class="flex justify-between px-2">
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Date:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${routeDate.mstring}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Exit Time:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${etime}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Route Code :</span>
+            <span class="text-[#292929] text-sm font-danamedium">${routecode}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Arrival Time:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${atime}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Train Name:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${trainid}</span>
+          </li>
+          <li>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">Class:</span>
+            <span class="text-[#292929] text-sm font-danamedium">${trainclass}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  `;
+    }
+
+    function renderProducts(products) {
+      return products.map(product => {
+
+
+
+        if(globalInvoiceType != 8 && globalInvoiceType != 9){
+          console.log(globalInvoiceType , "testttttttttttttttttttttttttttttttttttttttttt flight")
+        if (product.departure) {
+          return product.departure.map(item => renderFlightInfoSection(item.route)).join('');
+        }
+
+        if (product.return) {
+          return product.return.map(item => renderFlightInfoSection(item.route)).join('');
+        }
+      }
+
+      if(globalInvoiceType == 8 || globalInvoiceType == 9){
+
+        if (product.departure) {
+          return product.departure.map(item => renderTrainInfoSection(item.route)).join('');
+        }
+
+        if (product.return) {
+          return product.return.map(item => renderTrainInfoSection(item.route)).join('');
+        }
+      }
+
+
+
+
+        if (product.hotel) {
+          return renderHotelInfoSection(product.hotel.room);
+        }
+
+        if (product.insurance) {
+          return renderInsuranceInfoSection(product.insurance);
+        }
+
+        if (product.departure?.[0]?.cip) {
+          return renderCipInfoSection(product.departure[0].cip);
+        }
+
+        if (product.return?.[0]?.cip) {
+          return renderCipInfoSection(product.return[0].cip);
+        }
+
+        if (product.service?.service) {
+          return renderServiceInfoSection(product.service?.service);
+        }
+        if (product.visa?.visa) {
+          return renderVisaInfoSection(product.visa?.visa);
+        }
+
+
+
+        return ''; // fallback
+      }).join('');
+    }
+
+    function renderAllProducts(products) {
+      if (!Array.isArray(products) || products.length === 0) return '<p>هیچ محصولی یافت نشد.</p>';
+
+      const flights = [];
+      const returns = [];
+      const hotels = [];
+      const insurances = [];
+      const cips = [];
+      const services = [];
+      const visa = [];
+      const traindeparture = [];
+      const trainreturn = [];
+
+
+      for (const product of products) {
+
+
+        if(globalInvoiceType == 8 || globalInvoiceType == 9){
+          if (product?.departure?.length) {
+            for (const item of product.departure) {
+              if (item?.route) traindeparture.push(item.route);
+            }
+          }
+          if (product?.return?.length) {
+            for (const item of product.return) {
+              if (item?.route) trainreturn.push(item.route);
+            }
+          }
+
+        }
+
+
+        if(globalInvoiceType != 8 && globalInvoiceType != 9){
+          if (product?.departure?.length) {
+            for (const item of product.departure) {
+              if (item?.route) flights.push(item.route);
+              if (item?.cip) cips.push(item.cip);
+            }
+          }
+          if (product?.return?.length) {
+            for (const item of product.return) {
+              if (item?.route) returns.push(item.route);
+            }
+          }
+        }
+
+
+        if (product?.hotel?.room) hotels.push(product.hotel.room);
+        if (product?.insurance) insurances.push(product.insurance);
+
+        if (product?.service?.length) {
+          for (const item of product.service) {
+            if (item?.service) services.push(item.service);
+          }
+        }
+        if (product?.visa?.length) {
+          for (const item of product.visa) {
+            if (item?.visa) visa.push(item.visa);
+          }
+        }
+
+
+
+      }
+
+      let html = '';
+
+      if (traindeparture.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#airplane-icon-pdf"></use>
+        </svg>
+        <span>Departure Train</span>
+      </h2>
+      ${traindeparture.map(route => renderTrainInfoSection(route)).join('')}
+    </section>`;
+      }
+
+      if (trainreturn.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#airplane-icon-pdf"></use>
+        </svg>
+        <span>Return Train</span>
+      </h2>
+      ${trainreturn.map(route => renderTrainInfoSection(route)).join('')}
+    </section>`;
+      }
+
+
+      if (flights.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#airplane-icon-pdf"></use>
+        </svg>
+        <span>Departure Flights</span>
+      </h2>
+      ${flights.map(route => renderFlightInfoSection(route)).join('')}
+    </section>`;
+      }
+
+      if (returns.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#airplane-icon-pdf"></use>
+        </svg>
+        <span>Return Flights</span>
+      </h2>
+      ${returns.map(route => renderFlightInfoSection(route)).join('')}
+    </section>`;
+      }
+
+
+
+
+      if (hotels.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#bulleted-list-icon-pdf"></use>
+        </svg>
+        <span>List of Rooms</span>
+      </h2>
+      ${hotels.map(room => renderHotelInfoSection(room)).join('')}
+    </section>`;
+      }
+
+      if (insurances.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#shield-icon-pdf"></use>
+        </svg>
+        <span>Travel Insurance</span>
+      </h2>
+      ${insurances.map(ins => renderInsuranceInfoSection(ins)).join('')}
+    </section>`;
+      }
+
+      if (cips.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#vip-icon-pdf"></use>
+        </svg>
+        <span>CIP Services</span>
+      </h2>
+      ${cips.map(cip => renderCipInfoSection(cip)).join('')}
+    </section>`;
+      }
+
+
+      if (services.length) {
+        html += `
+  <section class="dir-ltr mt-4">
+    <h2 class="text-base font-danabold flex items-center gap-x-2">
+      <svg class="h-5" width="17" height="17">
+        <use href="./images/pdf-sprite-icons.svg#tour-icon-pdf"></use>
+      </svg>
+      <span>Service</span>
+    </h2>
+    ${services.map(service => renderServiceInfoSection(service)).join('')}
+  </section>`;
+      }
+
+      if (visa.length) {
+        html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#passport-icon-pdf"></use>
+        </svg>
+        <span>Visa Services</span>
+      </h2>
+      ${visa.map(v => renderVisaInfoSection(v)).join('')}
+    </section>`;
+      }
+      
+      
+
+
+      return html;
+    }
+
+function renderPassengers(passengers, $data) {
+  const invoiceType = $data?.invoiceDetails?.invoicetype;
+  const grouped = {};
+
+  passengers.forEach(({ passengerinfo }) => {
+    const rawRoomNum = passengerinfo.roomnumber ?? passengerinfo.roomid ?? "";
+    const roomNum = parseInt(rawRoomNum);
+    const finalRoomNum = isNaN(roomNum) ? null : roomNum;
+
+    if (finalRoomNum !== null) {
+      if (!grouped[finalRoomNum]) grouped[finalRoomNum] = [];
+      grouped[finalRoomNum].push(passengerinfo);
+    }
+  });
+
+  const genderMap = { "0": "Female", "1": "Male" };
+  const typeMap = { "1": "Child", "2": "Adult", "3": "Infant" };
+
+  let html = "";
+
+  const hasRooms = Object.keys(grouped).length > 0;
+
+  // ✨ اگر هیچ اتاقی وجود ندارد ولی اطلاعات مسافر وجود دارد، یک جدول کلی برای مسافران نمایش بده
+  if (!hasRooms && passengers.length > 0) {
+    html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#person-info-icon-pdf"></use>
+        </svg>
+        <span>اطلاعات مسافر</span>
+      </h2>
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative p-2 overflow-hidden">
+        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+          <thead>
+            <tr>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">First Name</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Last Name</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Date of Birth</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">National Code</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Passport No</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Passport Expiry</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Issue Country</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Gender</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Age Type</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
+    passengers.forEach(({ passengerinfo: pax, costinfo }) => {
+      const formattedCost = Number(costinfo?.cost ?? 0).toLocaleString("en-US");
+      html += `
+        <tr>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.fullname.firstname}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.fullname.lastname}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.birthdate?.S_birthdate ?? ""}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.nationalcode}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.passportcode}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.passportexpiration}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.countryofresidence?.ecountryname ?? pax.countryofpassportissue?.ecountryname ?? ""}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${genderMap[pax.gender]}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${typeMap[pax.type]}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${formattedCost}</td>
+        </tr>
+      `;
+    });
+
+    html += `
+          </tbody>
+        </table>
+      </div>
+    </section>
+    `;
+    return html;
+  }
+
+  // ✨ در غیر اینصورت، مثل قبل بر اساس اتاق‌ها نمایش بده
+  Object.entries(grouped).forEach(([roomNum, paxList]) => {
+    html += `
+    <section class="dir-ltr mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2">
+        <svg class="h-5" width="17" height="17">
+          <use href="./images/pdf-sprite-icons.svg#large-bed-icon-pdf"></use>
+        </svg>
+        <span>Room ${+roomNum + 1}</span>
+      </h2>
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative p-2 overflow-hidden">
+        <table class="w-full text-left border-separate border-spacing-y-2 border-none">
+          <thead>
+            <tr>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Name:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Surname:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Date of Birth</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">National Code:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Passport No:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Expiration Date of Passport:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Gender:</th>
+              <th class="text-[#6D6D6D] text-xs font-danaregular">Age Range:</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
+    paxList.forEach(pax => {
+      html += `
+        <tr>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.fullname.firstname}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.fullname.lastname}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.birthdate?.S_birthdate ?? ""}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.nationalcode}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.passportcode}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${pax.passportexpiration}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${genderMap[pax.gender]}</td>
+          <td class="text-[#292929] text-xs font-danamedium">${typeMap[pax.type]}</td>
+        </tr>
+      `;
+    });
+
+    html += `
+          </tbody>
+        </table>
+      </div>
+    </section>
+    `;
+  });
+
+  return html;
+}
+
+  </script>
+
+</body>
+
+</html>

@@ -78,13 +78,15 @@ async function getLocalizedText(dir, faText, enText) {
     return isRTL ? faText : enText;
 }
 async function checkSection(input) {
-
+    console.log(input)
 
     // اگر ورودی null یا undefined یا رشته خالی بود
     if (
         input === null ||
         input === undefined ||
-        (typeof input === 'string' && input.trim() === '')
+        (typeof input === 'string' && input.trim() === '') ||
+                (Array.isArray(input) && input.length === 0)
+
     ) {
         return 'hidden';
     }
@@ -103,6 +105,9 @@ async function checkSection(input) {
     // در غیر اینصورت مشکلی نیست
     return '';
 }
+
+
+
 async function waitForImagesToLoad(container) {
     const images = container.querySelectorAll("img");
     const promises = [];
