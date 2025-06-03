@@ -324,3 +324,23 @@
         font-size: smaller !important;
     }
 }
+
+
+.ticketContainer {
+    background-image: url("../images/ticket_airplane-bg.png");
+    background-position: top right;
+    background-size: 70% auto;
+    background-repeat: no-repeat;
+}
+
+.ticketContainer__details {
+    background-color: #ffffffe0;
+}
+
+.ticketContainer__info {
+    background-color: #ffffffe0;
+}
+
+.ticketContainer__details__time__arrow {
+    background-color: #d1a022;
+}
