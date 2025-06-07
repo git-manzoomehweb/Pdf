@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="http://basisflydemo.ir/js/basiscore.2.39.js" type="text/javascript" data-script="basiscore"></script>
+    <script src="http://basisflydemo.ir/_js/alasql.min.js" type="text/javascript" data-script="alasql"></script>
+    <title>inline source Command - Simple</title>
+
+
+</head>
+
+<body>
+
+
+    <h1>test</h1>
+    <h1>empty source</h1>
+
+
+    <basis core="inlinesource" name="list" run="atclient">
+        <member name="star" lefttblcol="db.data1.id" righttblcol="db.data2.studentid" format="join"
+            jointype="rightjoin" />
+    </basis>
+
+
+    <basis core="inlinesource" run="atclient" name="db">
+        <member name="data1" format="join" jointype="innerjoin" lefttblcol="db.data1.title"
+            righttblcol="db.data2.title">
+        </member>
+    </basis>
+
+
+    <basis core="callback" run="AtClient" triggers="list.star"></basis>
+
+    <script>
+
+
+
+
+
+
+        $bc.setSource("db.data1", [
+            {
+                "title": "lounge تهران ( فرودگاه بین المللی امام خمینی ) / تهران",
+                "dmnid": 2475,
+                "ownerid": 7937,
+                "ownerName": "همسفر",
+                "userid": 1047350,
+                "invoicetype": "11",
+                "factorid": "572290",
+                "persons": 4,
+                "accuserid": 0,
+                "open": "0",
+                "refundable": "false",
+                "clear": "5",
+                "share": "0",
+                "cancel": "0",
+                "counterName": "-",
+                "description": "Tets Basisfly",
+                "userDescription": "تبدیل پیش قرارداد به قرارداد"
+            }
+        ]);
+        $bc.setSource("db.data2", [
+            {
+                "title": "عنوان",
+                "dmnid": "ایدی دامنه",
+                "ownerid": "شناسه مالک",
+                "ownerName": "نام مالک",
+                "userid": "شناسه کاربر",
+                "invoicetype": "نوع بلیط",
+                "factorid": "شناسه فاکتور",
+                "persons": "تعداد مسافر",
+                "accuserid": "شناسه 1",
+                "open": "باز",
+                "refundable": "قابل استرداد",
+                "clear": "پاک کردن",
+                "share": "اشتراک گذاری",
+                "cancel": "کنسل",
+                "counterName": "نام کانتر",
+                "description": "توضیحات",
+                "userDescription": "توضیحات کاربر"
+            }
+
+
+        ]);
+
+    </script>
+
+
+</body>
+
+</html>
