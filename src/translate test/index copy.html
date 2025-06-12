@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="http://basisflydemo.ir/js/basiscore.2.39.js" type="text/javascript" data-script="basiscore"></script>
+    <script src="http://basisflydemo.ir/_js/alasql.min.js" type="text/javascript" data-script="alasql"></script>
+    <title>inline source Command - Simple</title>
+
+
+</head>
+
+<body>
+
+    <div id="output">
+
+        <basis core="inlinesource" run="atclient" name="db">
+            <member name="joininglist" format="join" jointype="innerjoin" lefttblcol="db.data1.dmnid"
+                righttblcol="db.data2.dmnid">
+            </member>
+        </basis>
+
+        <basis core="print" datamembername="db.joininglist" run="atclient">
+            <face>
+                <div style="padding: 10px; border: 1px solid #ccc; margin: 5px;">
+                    @db_data1_title - @db_data2_title
+                </div>
+                <div style="padding: 10px; border: 1px solid #ccc; margin: 5px;">
+                    @db_data1_ownerid - @db_data2_ownerid
+                </div>
+                <div style="padding: 10px; border: 1px solid #ccc; margin: 5px;">
+                    @db_data1_ownerName - @db_data2_ownerName
+                </div>
+                <div style="padding: 10px; border: 1px solid #ccc; margin: 5px;">
+                    @db_data1_persons - @db_data2_persons
+                </div>
+                <div style="padding: 10px; border: 1px solid #ccc; margin: 5px;">
+                    @db_data1_description - @db_data2_description
+                </div>
+                <div style="padding: 10px; border: 1px solid #ccc; margin: 5px;">
+                    @db_data1_userDescription - @db_data2_userDescription
+                </div>
+            </face>
+        </basis>
+    </div>
+
+    <script>
+
+        $bc.setSource("db.data1", [
+            {
+                "title": "lounge تهران ( فرودگاه بین المللی امام خمینی ) / تهران",
+                "dmnid": 2475,
+                "ownerid": 7937,
+                "ownerName": "همسفر",
+                "userid": 1047350,
+                "invoicetype": "11",
+                "factorid": "572290",
+                "persons": 4,
+                "accuserid": 0,
+                "open": "0",
+                "refundable": "false",
+                "clear": "5",
+                "share": "0",
+                "cancel": "0",
+                "counterName": "-",
+                "description": "Tets Basisfly",
+                "userDescription": "تبدیل پیش قرارداد به قرارداد"
+            }
+        ]);
+
+
+        $bc.setSource("db.data2", [
+            {
+                "title": "عنوان",
+                "dmnid": 2475,
+                "ownerid": "شناسه مالک",
+                "ownerName": "نام مالک",
+                "userid": "شناسه کاربر",
+                "invoicetype": "نوع بلیط",
+                "factorid": "شناسه فاکتور",
+                "persons": "تعداد مسافر",
+                "accuserid": "شناسه 1",
+                "open": "باز",
+                "refundable": "قابل استرداد",
+                "clear": "پاک کردن",
+                "share": "اشتراک گذاری",
+                "cancel": "کنسل",
+                "counterName": "نام کانتر",
+                "description": "توضیحات",
+                "userDescription": "توضیحات کاربر"
+            }
+        ]);
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BasisCore Join Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/basiscore@latest/dist/basiscore.min.js"></script>
+</head>
+<body>
+
+
+    <!-- منطق پردازش داده -->
+    <basis core="inlinesource" name="processor">
+        <member name="data1" format="sql">
+            SELECT 
+                'title' as [key], 'lounge تهران ( فرودگاه بین المللی امام خمینی ) / تهران' as [value]
+            UNION ALL SELECT 'dmnid', '2475'
+            UNION ALL SELECT 'ownerid', '7937' 
+            UNION ALL SELECT 'ownerName', 'همسفر'
+            UNION ALL SELECT 'userid', '1047350'
+            UNION ALL SELECT 'invoicetype', '11'
+            UNION ALL SELECT 'factorid', '572290'
+            UNION ALL SELECT 'persons', '4'
+            UNION ALL SELECT 'accuserid', '0'
+            UNION ALL SELECT 'open', '0'
+            UNION ALL SELECT 'refundable', 'false'
+            UNION ALL SELECT 'clear', '5'
+            UNION ALL SELECT 'share', '0'
+            UNION ALL SELECT 'cancel', '0'
+            UNION ALL SELECT 'counterName', '-'
+            UNION ALL SELECT 'description', 'Tets Basisfly'
+            UNION ALL SELECT 'userDescription', 'تبدیل پیش قرارداد به قرارداد'
+        </member>
+        
+        <member name="data2" format="sql">
+            SELECT 
+                'title' as [key], 'عنوان' as [label]
+            UNION ALL SELECT 'dmnid', 'ایدی دامنه'
+            UNION ALL SELECT 'ownerid', 'شناسه مالک'
+            UNION ALL SELECT 'ownerName', 'نام مالک'
+            UNION ALL SELECT 'userid', 'شناسه کاربر'
+            UNION ALL SELECT 'invoicetype', 'نوع بلیط'
+            UNION ALL SELECT 'factorid', 'شناسه فاکتور'
+            UNION ALL SELECT 'persons', 'تعداد مسافر'
+            UNION ALL SELECT 'accuserid', 'شناسه 1'
+            UNION ALL SELECT 'open', 'باز'
+            UNION ALL SELECT 'refundable', 'قابل استرداد'
+            UNION ALL SELECT 'clear', 'پاک کردن'
+            UNION ALL SELECT 'share', 'اشتراک گذاری'
+            UNION ALL SELECT 'cancel', 'کنسل'
+            UNION ALL SELECT 'counterName', 'نام کانتر'
+            UNION ALL SELECT 'description', 'توضیحات'
+            UNION ALL SELECT 'userDescription', 'توضیحات کاربر'
+        </member>
+        
+        <member name="joined" format="join" 
+                lefttblcol="processor.data1.key" 
+                righttblcol="processor.data2.key" 
+                jointype="innerjoin">
+        </member>
+    </basis>
+
+    <script>
+        // روش دوم: استفاده از JavaScript
+        function createJoinWithJS() {
+            // تنظیم داده اصلی
+            const originalData = {
+                "title": "lounge تهران ( فرودگاه بین المللی امام خمینی ) / تهران",
+                "dmnid": 2475,
+                "ownerid": 7937,
+                "ownerName": "همسفر",
+                "userid": 1047350,
+                "invoicetype": "11",
+                "factorid": "572290",
+                "persons": 4,
+                "accuserid": 0,
+                "open": "0",
+                "refundable": "false",
+                "clear": "5",
+                "share": "0",
+                "cancel": "0",
+                "counterName": "-",
+                "description": "Tets Basisfly",
+                "userDescription": "تبدیل پیش قرارداد به قرارداد"
+            };
+
+            // تنظیم برچسب‌ها
+            const labels = {
+                "title": "عنوان",
+                "dmnid": "ایدی دامنه",
+                "ownerid": "شناسه مالک",
+                "ownerName": "نام مالک",
+                "userid": "شناسه کاربر",
+                "invoicetype": "نوع بلیط",
+                "factorid": "شناسه فاکتور",
+                "persons": "تعداد مسافر",
+                "accuserid": "شناسه 1",
+                "open": "باز",
+                "refundable": "قابل استرداد",
+                "clear": "پاک کردن",
+                "share": "اشتراک گذاری",
+                "cancel": "کنسل",
+                "counterName": "نام کانتر",
+                "description": "توضیحات",
+                "userDescription": "توضیحات کاربر"
+            };
+
+            // ایجاد داده‌های join شده
+            const joinedData = Object.entries(originalData).map(([key, value]) => ({
+                key: key,
+                value: value.toString(),
+                label: labels[key] || key
+            }));
+
+            // تنظیم نتیجه در BasisCore
+            $bc.setSource("db.joined", joinedData);
+            
+            console.log("Joined Data:", joinedData);
+        }
+
+        // اجرای فوری
+        createJoinWithJS();
+
+        // روش سوم: استفاده از component سفارشی
+        function advancedJoin() {
+            // استفاده از اینلاین source با SQL
+            $bc.setSource("db.rawdata", [{
+                data: JSON.stringify({
+                    "title": "lounge تهران ( فرودگاه بین المللی امام خمینی ) / تهران",
+                    "dmnid": 2475,
+                    "ownerid": 7937,
+                    "ownerName": "همسفر",
+                    "userid": 1047350,
+                    "invoicetype": "11",
+                    "factorid": "572290",
+                    "persons": 4,
+                    "accuserid": 0,
+                    "open": "0",
+                    "refundable": "false",
+                    "clear": "5",
+                    "share": "0",
+                    "cancel": "0",
+                    "counterName": "-",
+                    "description": "Tets Basisfly",
+                    "userDescription": "تبدیل پیش قرارداد به قرارداد"
+                }),
+                labels: JSON.stringify({
+                    "title": "عنوان",
+                    "dmnid": "ایدی دامنه",
+                    "ownerid": "شناسه مالک",
+                    "ownerName": "نام مالک",
+                    "userid": "شناسه کاربر",
+                    "invoicetype": "نوع بلیط",
+                    "factorid": "شناسه فاکتور",
+                    "persons": "تعداد مسافر",
+                    "accuserid": "شناسه 1",
+                    "open": "باز",
+                    "refundable": "قابل استرداد",
+                    "clear": "پاک کردن",
+                    "share": "اشتراک گذاری",
+                    "cancel": "کنسل",
+                    "counterName": "نام کانتر",
+                    "description": "توضیحات",
+                    "userDescription": "توضیحات کاربر"
+                })
+            }]);
+        }
+
+        // نمایش در کنسول
+        setTimeout(() => {
+            console.log("BasisCore loaded and data processed");
+        }, 1000);
+    </script>
+
+    <!-- نمایش با استفاده از repeater -->
+    <div style="margin-top: 20px;">
+        <h3>نمایش با Repeater:</h3>
+        <basis core="repeater" datamembername="db.joined">
+            <div style="margin: 5px 0; padding: 10px; border: 1px solid #ccc;">
+                <strong>@key:</strong> @value (@label)
+            </div>
+        </basis>
+    </div>
+</body>
+</html>

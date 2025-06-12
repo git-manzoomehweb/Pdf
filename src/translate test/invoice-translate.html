@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BasisCore Inner Join with Custom JSON Output</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .json-output {
+            background-color: #1a202c;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            background-color: #e6fffa;
+            border: 1px solid #38b2ac;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .field-group {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #f7fafc;
+            border-radius: 3px;
+        }
+        .field-label {
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .field-value {
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BasisCore Inner Join با خروجی JSON سفارشی</h1>
+        
+        <div class="section">
+            <h3>داده اصلی (db.data1)</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>عنوان</th>
+                        <td id="original-title">در حال بارگذاری...</td>
+                    </tr>
+                    <tr>
+                        <th>نام مالک</th>
+                        <td id="original-owner">در حال بارگذاری...</td>
+                    </tr>
+                    <tr>
+                        <th>ایدی دامنه</th>
+                        <td id="original-dmnid">در حال بارگذاری...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>داده ترجمه (db.data2)</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>title</th>
+                        <td id="translate-title">در حال بارگذاری...</td>
+                    </tr>
+                    <tr>
+                        <th>ownerName</th>
+                        <td id="translate-owner">در حال بارگذاری...</td>
+                    </tr>
+                    <tr>
+                        <th>dmnid</th>
+                        <td id="translate-dmnid">در حال بارگذاری...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>نتیجه نهایی Inner Join</h3>
+            <div id="formatted-result">در حال پردازش...</div>
+        </div>
+
+        <div class="section">
+            <h3>JSON خروجی</h3>
+            <div class="json-output" id="json-output">در حال تولید JSON...</div>
+        </div>
+    </div>
+
+    <!-- BasisCore Commands -->
+    
+    <!-- Step 1: Inner Join -->
+    <basis core="inlinesource" run="atclient" name="db">
+        <member name="joinedData" format="join" 
+                jointype="innerjoin" 
+                lefttblcol="db.data1.title" 
+                righttblcol="db.data2.title">
+        </member>
+    </basis>
+
+    <!-- Step 2: Process joined data and create formatted output -->
+    <basis core="callback" run="atclient" 
+           datamembername="db.joinedData" 
+           method="processJoinedData">
+    </basis>
+
+    <!-- Display original data -->
+    <basis core="list" run="atclient" datamembername="db.data1">
+        <face>
+            {{
+                document.getElementById('original-title').textContent = '@title';
+                document.getElementById('original-owner').textContent = '@ownerName';
+                document.getElementById('original-dmnid').textContent = '@dmnid';
+            }}
+        </face>
+    </basis>
+
+    <basis core="list" run="atclient" datamembername="db.data2">
+        <face>
+            {{
+                document.getElementById('translate-title').textContent = '@title';
+                document.getElementById('translate-owner').textContent = '@ownerName';
+                document.getElementById('translate-dmnid').textContent = '@dmnid';
+            }}
+        </face>
+    </basis>
+
+    <!-- Display formatted result -->
+    <basis core="list" run="atclient" datamembername="db.formattedData">
+        <face>
+            <div class="result-item">
+                <div class="field-group">
+                    <span class="field-label">@fieldName:</span>
+                    <span class="field-value">@label = @value</span>
+                </div>
+            </div>
+        </face>
+    </basis>
+
+    <script src="https://cdn.jsdelivr.net/npm/basiscore@latest/dist/basiscore.min.js"></script>
+        <script src="http://basisflydemo.ir/_js/alasql.min.js" type="text/javascript" data-script="alasql"></script>
+
+    <script>
+        // Function to process joined data and create formatted JSON
+        function processJoinedData(callbackArgument) {
+            const joinedData = callbackArgument.source.rows[0];
+            
+            // Create mapping for label fields
+            const labelMappings = {
+                'title': joinedData.db_data2_title,
+                'dmnid': joinedData.db_data2_dmnid,
+                'ownerid': joinedData.db_data2_ownerid,
+                'ownerName': joinedData.db_data2_ownerName,
+                'userid': joinedData.db_data2_userid,
+                'invoicetype': joinedData.db_data2_invoicetype,
+                'factorid': joinedData.db_data2_factorid,
+                'persons': joinedData.db_data2_persons,
+                'accuserid': joinedData.db_data2_accuserid,
+                'open': joinedData.db_data2_open,
+                'refundable': joinedData.db_data2_refundable,
+                'clear': joinedData.db_data2_clear,
+                'share': joinedData.db_data2_share,
+                'cancel': joinedData.db_data2_cancel,
+                'counterName': joinedData.db_data2_counterName,
+                'description': joinedData.db_data2_description,
+                'userDescription': joinedData.db_data2_userDescription
+            };
+
+            // Create formatted JSON object
+            const formattedJson = {
+                title: {
+                    label: labelMappings.title,
+                    value: joinedData.db_data1_title
+                },
+                dmnid: {
+                    label: labelMappings.dmnid,
+                    value: joinedData.db_data1_dmnid
+                },
+                ownerid: {
+                    label: labelMappings.ownerid,
+                    value: joinedData.db_data1_ownerid
+                },
+                ownerName: {
+                    label: labelMappings.ownerName,
+                    value: joinedData.db_data1_ownerName
+                },
+                userid: {
+                    label: labelMappings.userid,
+                    value: joinedData.db_data1_userid
+                },
+                invoicetype: {
+                    label: labelMappings.invoicetype,
+                    value: joinedData.db_data1_invoicetype
+                },
+                factorid: {
+                    label: labelMappings.factorid,
+                    value: joinedData.db_data1_factorid
+                },
+                persons: {
+                    label: labelMappings.persons,
+                    value: joinedData.db_data1_persons
+                },
+                accuserid: {
+                    label: labelMappings.accuserid,
+                    value: joinedData.db_data1_accuserid
+                },
+                open: {
+                    label: labelMappings.open,
+                    value: joinedData.db_data1_open
+                },
+                refundable: {
+                    label: labelMappings.refundable,
+                    value: joinedData.db_data1_refundable
+                },
+                clear: {
+                    label: labelMappings.clear,
+                    value: joinedData.db_data1_clear
+                },
+                share: {
+                    label: labelMappings.share,
+                    value: joinedData.db_data1_share
+                },
+                cancel: {
+                    label: labelMappings.cancel,
+                    value: joinedData.db_data1_cancel
+                },
+                counterName: {
+                    label: labelMappings.counterName,
+                    value: joinedData.db_data1_counterName
+                },
+                description: {
+                    label: labelMappings.description,
+                    value: joinedData.db_data1_description
+                },
+                userDescription: {
+                    label: labelMappings.userDescription,
+                    value: joinedData.db_data1_userDescription
+                }
+            };
+
+            // Display JSON output
+            document.getElementById('json-output').textContent = JSON.stringify(formattedJson, null, 2);
+
+            // Create formatted data for display
+            const formattedDataArray = [];
+            Object.keys(formattedJson).forEach(key => {
+                formattedDataArray.push({
+                    fieldName: key,
+                    label: formattedJson[key].label,
+                    value: formattedJson[key].value
+                });
+            });
+
+            // Set formatted data source
+            $bc.setSource("db.formattedData", formattedDataArray);
+
+            // Update formatted result display
+            let resultHtml = '';
+            Object.keys(formattedJson).forEach(key => {
+                resultHtml += `
+                    <div class="field-group">
+                        <span class="field-label">${key}:</span>
+                        <span class="field-value">"${formattedJson[key].label}" = "${formattedJson[key].value}"</span>
+                    </div>
+                `;
+            });
+            document.getElementById('formatted-result').innerHTML = resultHtml;
+
+            // Store the final result in a new source
+            $bc.setSource("db.finalResult", [formattedJson]);
+        }
+
+        // تنظیم داده‌های اولیه
+        $bc.setSource("db.data1", [
+            {
+                "title": "lounge تهران ( فرودگاه بین المللی امام خمینی ) / تهران",
+                "dmnid": 2475,
+                "ownerid": 7937,
+                "ownerName": "همسفر",
+                "userid": 1047350,
+                "invoicetype": "11",
+                "factorid": "572290",
+                "persons": 4,
+                "accuserid": 0,
+                "open": "0",
+                "refundable": "false",
+                "clear": "5",
+                "share": "0",
+                "cancel": "0",
+                "counterName": "-",
+                "description": "Tets Basisfly",
+                "userDescription": "تبدیل پیش قرارداد به قرارداد"
+            }
+        ]);
+
+        $bc.setSource("db.data2", [
+            {
+                "title": "عنوان",
+                "dmnid": "ایدی دامنه",
+                "ownerid": "شناسه مالک",
+                "ownerName": "نام مالک",
+                "userid": "شناسه کاربر",
+                "invoicetype": "نوع بلیط",
+                "factorid": "شناسه فاکتور",
+                "persons": "تعداد مسافر",
+                "accuserid": "شناسه 1",
+                "open": "باز",
+                "refundable": "قابل استرداد",
+                "clear": "پاک کردن",
+                "share": "اشتراک گذاری",
+                "cancel": "کنسل",
+                "counterName": "نام کانتر",
+                "description": "توضیحات",
+                "userDescription": "توضیحات کاربر"
+            }
+        ]);
+
+        // اجرای BasisCore
+        $bc.run();
+
+        // Add event listener for accessing final result
+        setTimeout(() => {
+            console.log('نتیجه نهایی در منبع db.finalResult ذخیره شده است');
+            console.log('برای دسترسی از $bc.util.source.tryToGetSource("db.finalresult") استفاده کنید');
+        }, 2000);
+        $bc.util.source.tryToGetSource("db.finalresult");
+    </script>
+</body>
+</html>
