@@ -86,7 +86,7 @@
         </header>
 
 
-        <main>
+        <main class="font-danaregular">
             <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]">
                 <div class="flex justify-center items-center">
                     <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
@@ -696,10 +696,13 @@
             </basis>
 
             <div
-                class="ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] shrink-0 flex flex-col justify-end items-start gap-4 ">
+                class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] shrink-0 flex flex-col justify-end items-start gap-4 ">
                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                     <layout>
-                        <div class="ticketContainer__info__details text-sm flex flex-col gap-2">@child</div>
+                        <div class="ticketContainer__info__details  text-sm flex flex-col gap-2">
+                            <h3>Price Details</h3>
+                            @child
+                        </div>
                     </layout>
                     <face>
                         <script type="text/template">
@@ -785,6 +788,13 @@
 
 
         <script>
+
+            function togglePrice(){
+                document.querySelector(".ticketContainer__info__details_PriceBox").classList.toggle("hidden")
+            }
+
+
+
             function nodata_error($data) {
                 var len = $data.length
                 var output = "";
@@ -819,7 +829,7 @@
                 var output = "";
                 var data = $data
                 for (var i = 0; i < data.length; i++) {
-                    output += `<div class=" relative ${(connection_time(data) && i == 0) ? 'mb-0' : 'mb-5'} "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px]">
+                    output += `<div class=" relative ${(connection_time(data) && (i == 0 || i != data.length-1) ) ? 'mb-0' : 'mb-5'} "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px]">
                    
                     <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6">
                         <span class="pathItem__times__start text-nowrap text-sm">
@@ -1008,40 +1018,97 @@
             //     }
 
 
-            function desc_array($data) {
-                var output = "";
-                var data = $data;
+ function desc_array($data) {
+    var output = "";
+    var data = $data;
 
-                if (data.length > 0) {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].departure !== undefined) {
-                            const depLeft = data[i].departure.left;
-                            const depRight = data[i].departure.right;
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].departure !== undefined) {
+                const depLeft = data[i].departure.left;
+                const depRight = data[i].departure.right;
 
-                            if (depLeft) {
-                                output += `<div class="text-left dir-ltr font-danaregular">${JSON.stringify(depLeft)}</div>`;
-                            }
-                            if (depRight) {
-                                output += `<div class="text-right dir-rtl font-danaregular">${depRight}</div>`;
-                            }
-                        }
-
-                        if (data[i].return !== undefined) {
-                            const retLeft = data[i].return.left;
-                            const retRight = data[i].return.right;
-
-                            if (retLeft) {
-                                output += `<div class="text-left dir-ltr font-danaregular">${retLeft}</div>`;
-                            }
-                            if (retRight) {
-                                output += `<div class="text-right dir-rtl font-danaregular">${retRight}</div>`;
-                            }
-                        }
-                    }
-
-                    document.getElementById("desc_array").innerHTML = output;
+                if (depLeft) {
+                    // پاک‌سازی داده‌ها: حذف نقل‌قول‌ها و تبدیل \n به <br>
+                    let formattedDepLeft = typeof depLeft === 'string' ? depLeft : JSON.stringify(depLeft);
+                    // حذف تگ‌های ناخواسته و کاراکترهای اضافی
+                    formattedDepLeft = formattedDepLeft
+                        .replace(/^"|"$/g, '') // حذف نقل‌قول‌های ابتدا و انتها
+                        .replace(/\\n/g, '<br>') // تبدیل \n به <br>
+                        .replace(/<font[^>]*>|<\/font>/gi, ''); // حذف تگ‌های <font>
+                    output += `<div class="text-left dir-ltr font-danaregular">${formattedDepLeft}</div>`;
+                }
+                if (depRight) {
+                    let formattedDepRight = typeof depRight === 'string' ? depRight : JSON.stringify(depRight);
+                    formattedDepRight = formattedDepRight
+                        .replace(/^"|"$/g, '')
+                        .replace(/\\n/g, '<br>')
+                        .replace(/<font[^>]*>|<\/font>/gi, '');
+                    output += `<div class="text-right dir-rtl font-danaregular">${formattedDepRight}</div>`;
                 }
             }
+
+            if (data[i].return !== undefined) {
+                const retLeft = data[i].return.left;
+                const retRight = data[i].return.right;
+
+                if (retLeft) {
+                    let formattedRetLeft = typeof retLeft === 'string' ? retLeft : JSON.stringify(retLeft);
+                    formattedRetLeft = formattedRetLeft
+                        .replace(/^"|"$/g, '')
+                        .replace(/\\n/g, '<br>')
+                        .replace(/<font[^>]*>|<\/font>/gi, '');
+                    output += `<div class="text-left dir-ltr font-danaregular">${formattedRetLeft}</div>`;
+                }
+                if (retRight) {
+                    let formattedRetRight = typeof retRight === 'string' ? retRight : JSON.stringify(retRight);
+                    formattedRetRight = formattedRetRight
+                        .replace(/^"|"$/g, '')
+                        .replace(/\\n/g, '<br>')
+                        .replace(/<font[^>]*>|<\/font>/gi, '');
+                    output += `<div class="text-right dir-rtl font-danaregular">${formattedRetRight}</div>`;
+                }
+            }
+        }
+
+        document.getElementById("desc_array").innerHTML = output;
+    }
+}
+
+            // function desc_array($data) {
+            //     var output = "";
+            //     var data = $data;
+
+            //     if (data.length > 0) {
+            //         for (var i = 0; i < data.length; i++) {
+            //             if (data[i].departure !== undefined) {
+            //                 const depLeft = data[i].departure.left;
+            //                 const depRight = data[i].departure.right;
+
+            //                 if (depLeft) {
+            //                     output += `<div class="text-left dir-ltr font-danaregular">${JSON.stringify(depLeft)}</div>`;
+            //                 }
+            //                 if (depRight) {
+            //                     output += `<div class="text-right dir-rtl font-danaregular">${depRight}</div>`;
+            //                 }
+            //             }
+
+            //             if (data[i].return !== undefined) {
+            //                 const retLeft = data[i].return.left;
+            //                 const retRight = data[i].return.right;
+
+            //                 if (retLeft) {
+            //                     output += `<div class="text-left dir-ltr font-danaregular">${retLeft}</div>`;
+            //                 }
+            //                 if (retRight) {
+            //                     output += `<div class="text-right dir-rtl font-danaregular">${retRight}</div>`;
+            //                 }
+            //             }
+            //         }
+
+            //         document.getElementById("desc_array").innerHTML = output;
+            //     }
+            // }
 
 
 

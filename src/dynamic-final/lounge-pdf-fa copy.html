@@ -25,7 +25,7 @@
         {
             "type": "list",
             "name": "q",
-            "request": "lounge_request_pdf",
+            "request": "lounge_pdf",
             "id": "[##cms.query.id##]",
             "lid": "[##cms.query.lid|(1)##]"
         }
@@ -69,31 +69,31 @@
                 <section class="w-full flex justify-between items-center dir-rtl">
                     <h2 class="font-danademibold text-base text-black">لانژ</h2>
                     <ul class="flex gap-x-4">
-                        <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                        <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl text-right font-danaregular">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-right font-danademibold">[##cms.query.id##
 ]</p></div></li></script>
                             </face>
                         </basis>
-                        <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                        <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
                                     type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl  text-right font-danaregular">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] text-right font-danademibold">@cipinfo.createDate.sstring@</p></div></li></script>
                             </face>
                         </basis>
-                        <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                        <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl  text-right font-danaregular">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@cipinfo.createHour@</p></div></li></script>
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl  text-right font-danaregular">ساعت ایجاد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@cipinfo.createHour@</p></div></li></script>
                             </face>
                         </basis>
                     </ul>
                 </section>
                 <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex items-center p-3">
-                    <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                    <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
                             <script type="text/template">{
@@ -104,7 +104,7 @@
                     </basis>
                 </section>
                 <section>
-                    <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                    <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
                             <script type="text/template">
@@ -133,7 +133,7 @@
                         </face>
                     </basis>
                 </section>
-                <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">{
@@ -147,7 +147,7 @@
 }</div></section></script>
                     </face>
                 </basis>
-                <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}" >{
@@ -163,7 +163,7 @@
 } </div></section></script>
                     </face>
                 </basis>
-                <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
+                <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >{
@@ -227,7 +227,6 @@
                 return infocard;
             }
 
-
             async function renderRules($data) {
                 const rules = $data?.pdf_description;
                 if (!rules || !Array.isArray(rules)) {
@@ -246,13 +245,16 @@
 
                     if (text) {
                         ulitem += `<li>${text
-    }</li>`;} else {
+                            }</li>`;
+                    } else {
                         console.warn(`آیتم ${index
-    } متن معتبری ندارد`, item);}
+                            } متن معتبری ندارد`, item);
+                    }
                 });
 
                 // return `<ul dir="${direction}" class="text-right">${ulitem}</ul>`;
-                return `<ul dir="${direction}" class="text-right">${fixRTLTextCompletely(ulitem)}</ul>`;
+                return `<ul dir="${direction}" class="text-right">${fixRTLTextCompletely(ulitem)
+                    }</ul>`;
             }
 
             async function renderLoungeInfo($data) {
@@ -268,55 +270,62 @@
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular">نام فرودگاه</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                ${product_info.airportName}
+                ${product_info.airportName
+                    }
                 </div>
             </div>
 
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">شهر</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                ${product_info.cityname}
+                ${product_info.cityname
+                    }
                 </div>
             </div>
 
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">ایرلاین</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                ${product_info.airline}
+                ${product_info.airline
+                    }
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">کد مسیر</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                ${product_info.routecode}
+                ${product_info.routecode
+                    }
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">تاریخ</span>
                 <div class="text-[#292929] text-sm font-danademibold dir-ltr text-left">
-                <span>${product_info.dateinfo.mstring}</span>
-                <span>(${product_info.dateinfo.sstring})</span>
+                <span>${product_info.dateinfo.mstring
+                    }</span>
+                <span>(${product_info.dateinfo.sstring
+                    })</span>
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">ساعت</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                ${product_info.time}
+                ${product_info.time
+                    }
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">نوع سفر</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                ${product_info.traveltype === "1" ? "داخلی" : "خارجی"}
+                ${product_info.traveltype === "1" ? "داخلی" : "خارجی"
+                    }
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-center">نوع پرواز</span>
                 <div class="text-[#292929] text-sm font-danademibold">
-                    <span class="inline-block">               ${product_info.flighttype === "1" ? "ورودی" : "خروجی"}
+                    <span>               ${product_info.flighttype === "1" ? "ورودی" : "خروجی"}
 </span>
-<span class="mx-1">-</span>
-                    <span class="inline-block">               ${product_info.city_flight}
+                    <span>               ${product_info.city_flight}
 </span>
                 </div>
             </div>
@@ -326,79 +335,89 @@
 
                 return Flightinfo;
             }
-
-
-
-
-
-
-
-
-
             async function renderLoungePassengerInfo($data) {
-    const cipinfo = $data?.cipinfo;
-    const passengers = $data?.passengerinfo || [];
+                const cipinfo = $data?.cipinfo;
+                const passengers = $data?.passengerinfo || [];
 
-    const parsedPassengers = passengers.map(p => {
-        const info = p.cip_passenger;
-        return {
-            name: `${info.fullname.firstname?.trim() || ''} ${info.fullname.lastname?.trim() || ''}`,
-            type: info.type || '–',
-            gender: info.gender || '–',
-            birthdate: info.birthdate?.birthdate1 || '–',
-            country: info.countryofresidence?.countryname || '–'
-        };
-    });
+                const parsedPassengers = passengers.map(p => {
+                    const info = p.cip_passenger;
+                    return {
+                        name: `${info.fullname.firstname?.trim() || ''
+                            } ${info.fullname.lastname?.trim() || ''
+                            }`,
+                        type: info.type || '–',
+                        gender: info.gender || '–',
+                        birthdate: info.birthdate?.birthdate1 || '–',
+                        country: info.countryofresidence?.countryname || '–'
+                    };
+                });
 
-    console.log(parsedPassengers);
+                console.log(parsedPassengers);
 
-    const passengerNames = parsedPassengers.map(p =>
-        `<h2 class="text-[#292929] text-sm font-danademibold text-nowrap">${p.name}</h2>`
-    ).join('');
+                const passengerNames = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-nowrap">${p.name
+                    }</h2>`
+                ).join('');
 
-    const passengerTypes = parsedPassengers.map(p =>
-        `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.type}</h2>`
-    ).join('');
+                const passengerTypes = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.type
+                    }</h2>`
+                ).join('');
 
-    const passengerCountries = parsedPassengers.map(p =>
-        `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.country}</h2>`
-    ).join('');
+                const passengerBirthdates = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold dir-ltr text-center text-nowrap">${p.birthdate
+                    }</h2>`
+                ).join('');
 
-    const passengerGender = parsedPassengers.map(p =>
-        `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.gender == "1" ? "مرد" : "زن"}</h2>`
-    ).join('');
+                const passengerCountries = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.country
+                    }</h2>`
+                ).join('');
 
-    // تولید شماره‌های ردیف
-    const rowNumbers = parsedPassengers.map((_, index) =>
-        `<h2 class="text-[#292929] text-sm font-danademibold text-center">${index + 1}</h2>`
-    ).join('');
 
-    return `
-        <h2 class="font-bold text-lg my-2 font-danabold">اطلاعات مسافران</h2>
+                const passengerGender = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.gender == "1" ? "مرد" : "زن"
+                    }</h2>`
+                ).join('');
+
+                return `
+            <h2 class="font-bold text-lg my-2 font-danabold">اطلاعات مسافران</h2>
+
         <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4">
-            <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-sm font-danaregular">ردیف</span>
-                ${rowNumbers}
-            </div>
+
+
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular">مسافران</span>
-                ${passengerNames}
+                ${passengerNames
+                    }
             </div>
+
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap text-center">نوع مسافر</span>
-                ${passengerTypes}
+                ${passengerTypes
+                    }
             </div>
+
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap text-center">جنسیت</span>
-                ${passengerGender}
+                ${passengerGender
+                    }
             </div>
+
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-sm font-danaregular text-center">ملیت</span>
-                ${passengerCountries}
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-center">تاریخ تولد</span>
+                ${passengerBirthdates
+                    }
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-center">کشور</span>
+                ${passengerCountries
+                    }
             </div>
         </div>
     `;
-}
+            }
 
             async function renderServiceInfo($data) {
                 const cipinfo = $data?.cipinfo;
