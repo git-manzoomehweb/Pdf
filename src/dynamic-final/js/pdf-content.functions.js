@@ -105,9 +105,6 @@ async function checkSection(input) {
     // در غیر اینصورت مشکلی نیست
     return '';
 }
-
-
-
 async function waitForImagesToLoad(container) {
     const images = container.querySelectorAll("img");
     const promises = [];
@@ -120,98 +117,6 @@ async function waitForImagesToLoad(container) {
         }
     });
     await Promise.all(promises);
-}
-async function DownloadPDF() {
-    console.log("generate clicked");
-
-    const element = document.querySelector('.pdf-content');
-    const headerElement = document.getElementById('pdf-header');
-    const footerElement = document.getElementById('pdf-footer');
-    const loadingElement = document.querySelector('.pdf-loading');
-
-    // ذخیره عرض اصلی
-    const originalWidth = element.style.width;
-
-    try {
-        if (loadingElement) loadingElement.classList.remove('hidden');
-
-        // تغییر عرض فقط برای خروجی PDF
-        element.style.width = '100%';
-
-        const isMobile = window.innerWidth <= 768;
-        let static_width = 300;
-        let static_y = -45;
-        let static_height = 20;
-        let header_scale = 1.5;
-        let main_scale = 1.2;
-
-        let margin = [35, 5, 35, 5];
-
-        if (isMobile) {
-            static_width = 190;
-            static_y = 10;
-            static_height = 25;
-            header_scale = 2;
-            main_scale = 1.2;
-            margin = [10, 10, 10, 10];
-        }
-
-        const opt = {
-            margin: margin,
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: {
-                scale: main_scale,
-                backgroundColor: '#ffffff',
-                useCORS: true,
-                allowTaint: true,
-                scrollX: 0,
-                scrollY: 0,
-                letterRendering: true,
-                ignoreElements: (e) => {
-                    if (['BUTTON', 'A', 'SCRIPT'].includes(e.tagName)) return true;
-                    if (e.classList.contains('pdf-loading', 'pdf-header', 'pdf-footer')) return true;
-                    return false;
-                }
-            },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait'
-            }
-        };
-
-        const [headerCanvas, footerCanvas] = await Promise.all([
-            html2canvas(headerElement, { scale: header_scale }),
-            html2canvas(footerElement, { scale: header_scale })
-        ]);
-
-        const headerImage = headerCanvas.toDataURL('image/png');
-        const footerImage = footerCanvas.toDataURL('image/png');
-
-        const maincontainer = document.querySelector("main");
-        await waitForImagesToLoad(maincontainer);
-
-        const worker = html2pdf().set(opt).from(element).toPdf();
-
-        const pdf = await worker.get('pdf');
-        const totalPages = pdf.internal.getNumberOfPages();
-        for (let i = 1; i <= totalPages; i++) {
-            pdf.setPage(i);
-            pdf.addImage(headerImage, 'PNG', static_y, 5, static_width, static_height);
-            pdf.addImage(footerImage, 'PNG', static_y, 270, static_width, static_height);
-        }
-
-        await worker.save();
-
-    } catch (err) {
-        console.error("PDF generation error:", err);
-        alert("خطا در تولید PDF.");
-    } finally {
-        // بازگرداندن عرض به حالت اولیه
-        element.style.width = originalWidth;
-
-        if (loadingElement) loadingElement.classList.add('hidden');
-    }
 }
 function formatDateToReadable(dateString) {
     const date = new Date(dateString);
@@ -1207,3 +1112,544 @@ function renderBrokerInfo_AR(broker) {
 }
 // voucher pdf AR
 
+// ----------------------------- Lounge PDF --------------------------------
+
+async function RenderInfoCardLounge($data, lang) {
+    let loungeJson = $data;
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            error: "داده‌های هتل نامعتبر است.",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            error: "Invalid hotel data provided.",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            error: "بيانات الفندق غير صالحة.",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    if (!loungeJson || !loungeJson.cipinfo) {
+        console.error("Invalid hotel data:", loungeJson);
+        return `<div class="text-red-500 ${t.textAlign}" dir="${t.dir}">${t.error}</div>`;
+    }
+
+    const cip = loungeJson.cipinfo;
+    let infocard = `<h1 class="text-lg font-danademibold text-center" dir="${t.dir}">${cip.loungename}</h1>
+        <div class="flex text-sm" dir="${t.dir}">
+            <span class="text-sm font-danademibold ${t.textAlign}">${cip.airport}</span>
+            <span class="mx-2">/</span>
+            <span class="text-sm font-danademibold ${t.textAlign}">${cip.cities}</span>
+        </div>`;
+
+    return infocard;
+}
+
+
+async function renderRulesLounge($data, lang ) {
+    const rules = $data?.pdf_description;
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            noItems: "هیچ آیتمی در pdf_description پیدا نشد",
+            invalidText: "آیتم {index} متن معتبری ندارد",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            noItems: "No items found in pdf_description",
+            invalidText: "Item {index} does not have valid text",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            noItems: "لم يتم العثور على أي عناصر في pdf_description",
+            invalidText: "العنصر {index} لا يحتوي على نص صالح",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    if (!rules || !Array.isArray(rules)) {
+        console.warn(t.noItems);
+        return null;
+    }
+
+    let direction = detectDirection(rules?.[0]?.note.text) || t.dir;
+
+    let ulitem = '';
+    rules.forEach((item, index) => {
+        const text = item?.note?.text?.trim();
+
+        if (text) {
+            ulitem += `<li>${text}</li>`;
+        } else {
+            console.warn(t.invalidText.replace("{index}", index), item);
+        }
+    });
+
+    return `<ul dir="${direction}" class="${t.textAlign}">${fixRTLTextCompletely(ulitem)}</ul>`;
+}
+
+async function renderLoungeInfo($data, lang) {
+    let product_info = $data?.product_info;
+    let Flightinfo = '';
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            title: "اطلاعات lounge",
+            airport: "نام فرودگاه",
+            city: "شهر",
+            airline: "ایرلاین",
+            routecode: "کد مسیر",
+            date: "تاریخ",
+            time: "ساعت",
+            travelType: "نوع سفر",
+            flightType: "نوع پرواز",
+            domestic: "داخلی",
+            international: "خارجی",
+            arrival: "ورودی",
+            departure: "خروجی",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            title: "Lounge Information",
+            airport: "Airport Name",
+            city: "City",
+            airline: "Airline",
+            routecode: "Route Code",
+            date: "Date",
+            time: "Time",
+            travelType: "Travel Type",
+            flightType: "Flight Type",
+            domestic: "Domestic",
+            international: "International",
+            arrival: "Arrival",
+            departure: "Departure",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            title: "معلومات الصالة",
+            airport: "اسم المطار",
+            city: "المدينة",
+            airline: "الخطوط الجوية",
+            routecode: "رمز المسار",
+            date: "التاريخ",
+            time: "الوقت",
+            travelType: "نوع السفر",
+            flightType: "نوع الرحلة",
+            domestic: "محلي",
+            international: "دولي",
+            arrival: "وصول",
+            departure: "مغادرة",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    console.log(product_info);
+
+    Flightinfo += `
+        <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4" dir="${t.dir}">
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.airport}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    ${product_info.airportName}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.city}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    ${product_info.cityname}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.airline}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    ${product_info.airline}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.routecode}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    ${product_info.routecode}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.date}</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-${t.dir} ${t.textAlign}">
+                    <span>${product_info.dateinfo.mstring}</span>
+                    ${lang === 1 ? `<span>(${product_info.dateinfo.sstring})</span>` : ''}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.time}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    ${product_info.time}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.travelType}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    ${product_info.traveltype === "1" ? t.domestic : t.international}
+                </div>
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.flightType}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                    <span class="inline-block">${product_info.flighttype === "1" ? t.arrival : t.departure}</span>
+                    <span class="mx-1">-</span>
+                    <span class="inline-block">${product_info.city_flight}</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    return Flightinfo;
+}
+
+async function renderLoungePassengerInfo($data, lang) {
+    const cipinfo = $data?.cipinfo;
+    const passengers = $data?.passengerinfo || [];
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            title: "اطلاعات مسافران",
+            row: "ردیف",
+            passengers: "مسافران",
+            type: "نوع مسافر",
+            gender: "جنسیت",
+            country: "ملیت",
+            male: "مرد",
+            female: "زن",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            title: "Passenger Information",
+            row: "Row",
+            passengers: "Passengers",
+            type: "Passenger Type",
+            gender: "Gender",
+            country: "Nationality",
+            male: "Male",
+            female: "Female",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            title: "معلومات المسافرين",
+            row: "الصف",
+            passengers: "المسافرون",
+            type: "نوع المسافر",
+            gender: "الجنس",
+            country: "الجنسية",
+            male: "ذكر",
+            female: "أنثى",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    const parsedPassengers = passengers.map(p => {
+        const info = p.cip_passenger;
+        return {
+            name: `${info.fullname.firstname?.trim() || ''} ${info.fullname.lastname?.trim() || ''}`,
+            type: info.type || '–',
+            gender: info.gender || '–',
+            birthdate: info.birthdate?.birthdate1 || '–',
+            country: info.countryofresidence?.countryname || '–'
+        };
+    });
+
+    console.log(parsedPassengers);
+
+    const passengerNames = parsedPassengers.map(p =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${p.name}</h2>`
+    ).join('');
+
+    const passengerTypes = parsedPassengers.map(p =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${p.type}</h2>`
+    ).join('');
+
+    const passengerCountries = parsedPassengers.map(p =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${p.country}</h2>`
+    ).join('');
+
+    const passengerGender = parsedPassengers.map(p =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${p.gender == "1" ? t.male : t.female}</h2>`
+    ).join('');
+
+    const rowNumbers = parsedPassengers.map((_, index) =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${index + 1}</h2>`
+    ).join('');
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4" dir="${t.dir}">
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.row}</span>
+                ${rowNumbers}
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.passengers}</span>
+                ${passengerNames}
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.type}</span>
+                ${passengerTypes}
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.gender}</span>
+                ${passengerGender}
+            </div>
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.country}</span>
+                ${passengerCountries}
+            </div>
+        </div>
+    `;
+}
+
+async function renderServiceInfoLounge($data, lang) {
+    const cipinfo = $data?.cipinfo;
+    const services = $data?.serviceinfo || [];
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            title: "اطلاعات خدمات",
+            serviceName: "نام خدمات",
+            count: "تعداد",
+            description: "توضیحات",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            title: "Service Information",
+            serviceName: "Service Name",
+            count: "Count",
+            description: "Description",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            title: "معلومات الخدمات",
+            serviceName: "اسم الخدمة",
+            count: "العدد",
+            description: "الوصف",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    const serviceNames = services.map(s =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${s.service.servicename || '–'}</h2>`
+    ).join('');
+
+    const serviceDescriptions = services.map(s =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${s.service.des_service || '–'}</h2>`
+    ).join('');
+
+    const serviceCount = services.map(s =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${s.service.count || '–'}</h2>`
+    ).join('');
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.serviceName}</span>
+                ${serviceNames}
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.count}</span>
+                ${serviceCount}
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.description}</span>
+                ${serviceDescriptions}
+            </div>
+        </div>
+    `;
+}
+
+async function renderTransferInfoLounge($data, lang ) {
+    const transfers = $data?.transferinfo || [];
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            title: "اطلاعات ترنسفر",
+            carName: "نام خودرو",
+            address: "آدرس",
+            time: "زمان",
+            phone: "شماره تماس",
+            description: "توضیحات",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            title: "Transfer Information",
+            carName: "Car Name",
+            address: "Address",
+            time: "Time",
+            phone: "Phone Number",
+            description: "Description",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            title: "معلومات النقل",
+            carName: "اسم السيارة",
+            address: "العنوان",
+            time: "الوقت",
+            phone: "رقم الهاتف",
+            description: "الوصف",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    const carNames = transfers.map(t =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${t.transfer?.car_name || '–'}</h2>`
+    ).join('');
+
+    const addresses = transfers.map(t =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${t.transfer?.address || '–'}</h2>`
+    ).join('');
+
+    const times = transfers.map(t =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${t.transfer?.time || '–'}</h2>`
+    ).join('');
+
+    const phones = transfers.map(t =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${t.transfer?.phone || '–'}</h2>`
+    ).join('');
+
+    const descriptions = transfers.map(t =>
+        `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${t.transfer?.des_transfer || '–'}</h2>`
+    ).join('');
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.carName}</span>
+                ${carNames}
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.address}</span>
+                ${addresses}
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.time}</span>
+                ${times}
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.phone}</span>
+                ${phones}
+            </div>
+            <div class="flex flex-col gap-2 col-span-full">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.description}</span>
+                ${descriptions}
+            </div>
+        </div>
+    `;
+}
+
+
+async function renderEscortInfoLounge($data, lang ) {
+    const escorts = $data?.escortinfo || [];
+
+    // تعریف ترجمه‌ها برای هر زبان
+    const translations = {
+        1: { // فارسی
+            title: "اطلاعات اسکورت",
+            escortName: "نام اسکورت",
+            gender: "جنسیت",
+            male: "مرد",
+            female: "زن",
+            dir: "rtl",
+            textAlign: "text-right"
+        },
+        2: { // انگلیسی
+            title: "Escort Information",
+            escortName: "Escort Name",
+            gender: "Gender",
+            male: "Male",
+            female: "Female",
+            dir: "ltr",
+            textAlign: "text-left"
+        },
+        3: { // عربی
+            title: "معلومات المرافق",
+            escortName: "اسم المرافق",
+            gender: "الجنس",
+            male: "ذكر",
+            female: "أنثى",
+            dir: "rtl",
+            textAlign: "text-right"
+        }
+    };
+
+    // انتخاب زبان بر اساس ورودی lang (پیش‌فرض: فارسی)
+    const t = translations[lang] || translations[1];
+
+    const escortNames = escorts.map(e => {
+        const { firsname, lastname } = e.escort || {};
+        return `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${firsname || ''} ${lastname || ''}</h2>`;
+    }).join('');
+
+    const escortGenders = escorts.map(e => {
+        const gender = e.escort?.gender === "1" ? t.male : t.female;
+        return `<h2 class="text-[#292929] text-sm font-danademibold ${t.textAlign}">${gender}</h2>`;
+    }).join('');
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
+            <div class="flex flex-col gap-2 w-1/2 justify-center items-center">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.escortName}</span>
+                ${escortNames}
+            </div>
+            <div class="flex flex-col gap-2 w-1/2 justify-center items-center">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap ${t.textAlign}">${t.gender}</span>
+                ${escortGenders}
+            </div>
+        </div>
+    `;
+}
+
+// ----------------------------- Lounge PDF --------------------------------
