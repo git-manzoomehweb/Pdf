@@ -1,0 +1,107 @@
+<basis core="call" lid="2" file="Client_CheckRkey.inc"></basis>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lounge PDF</title>
+    <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
+</head>
+
+<body class="p-0 m-0 overflow-auto" id="content">
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+        <div
+            class="dir-ltr bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute
+             top-0 left-0 right-0 bottom-0 h-fit ">
+           You do not have permission to access this page.</div>
+    </basis>
+    <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            method="post"
+            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "lounge_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(2)##]"} ]}'
+            content-type="application/json" run="atclient"></basis>
+        <header id="pdf-header" class="header h-[80px] w-auto mx-auto "><img
+                class="block h-[80px] w-auto mx-auto object-contain"
+                src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="794" height="100"
+                alt="Footer-contract-pdf" /></header>
+        <main class="dir-ltr pdf-content py-6 w-full max-w-[794px] mx-auto">
+            <div class="pdf-loading hidden ">
+                <div
+                    class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
+                    <span
+                        class="dir-ltr pointer-events-none rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 disabled:opacity-70 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong flex justify-center items-center gap-x-2">
+                        <div class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            role="status"></div>
+                        <div class="font-danamedium leading-9 ">Generating PDF...</div>
+                    </span></div>
+            </div>
+            <div class="w-[95%] mx-auto">
+                <section class="w-full flex justify-between items-center dir-ltr">
+                    <h2 class="font-danademibold text-base text-black">Lounge</h2>
+                    <ul class="flex gap-x-4">
+                        <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-ltr text-right font-danaregular">Contract number<span>:</span></h2><p class="text-base text-[#292929] text-right font-danademibold">[##cms.query.id##]</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-ltr text-right font-danaregular">Date of issue<span>:</span></h2><p class="text-base text-[#292929] text-right font-danademibold">@cipinfo.createDate.sstring@</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-ltr text-right font-danaregular">Contract time<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@cipinfo.createHour@</p></div></li></script>
+                            </face>
+                        </basis>
+                    </ul>
+                </section>
+                <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex items-center p-3">
+                    <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script
+                                type="text/template">{{ return await RenderInfoCardLounge($data, [##cms.query.lid##])}} </script>
+                        </face>
+                    </basis>
+                </section>
+                <section>
+                    <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script
+                                type="text/template">{{return await renderLoungeInfo($data , [##cms.query.lid##])}}{{return await renderLoungePassengerInfo($data, [##cms.query.lid##])}}{{return await renderServiceInfoLounge($data , [##cms.query.lid##])}}{{return await renderTransferInfoLounge($data , [##cms.query.lid##])}}{{return await renderEscortInfoLounge($data , [##cms.query.lid##])}} </script>
+                        </face>
+                    </basis>
+                </section>
+                <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}">{{ return await getLocalizedText(await detectDirection($data.pdf_description?.[0]?.note?.text || ''), "قوانین و مقررات", "Rules")}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}">{{ return await renderRulesLounge($data)}} </div></section></script>
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.lounge_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}">{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}">{{ return await fixRTLTextCompletely($data.note)}} </div></section></script>
+                    </face>
+                </basis>
+        </main>
+        <footer id="pdf-footer" class=" footer h-[80px] print:w-[595pt] print:h-[100pt] mx-auto "><img
+                class="block mx-auto h-[80px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
+                src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="794" height="100"
+                alt="Footer-contract-pdf" /></footer>
+        <basis core="call" lid="2" file="Client_BasisCore_Script.inc"></basis>
+        <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
+    </basis>
+</body>
+</html>
