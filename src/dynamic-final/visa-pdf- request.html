@@ -1,0 +1,324 @@
+<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa PDF</title>
+    <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
+    <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="p-0 m-0 overflow-auto" id="content">
+
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+        <div
+            class="dir-rtl bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
+            شما اجازه دسترسی به این صفحه را ندارید </div>
+    </basis>
+
+    <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+
+        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            method="post"
+            body='{
+                 "name": "db",
+                  "mid": "20",
+                   "member": [{ 
+                    "type": "list",
+                    "name": "q",
+                    "request": "visa_pdf",
+                    "id": "[##cms.query.id##]",
+                    "lid": "[##cms.query.lid|(1)##]"}
+                        
+                ]}'
+            content-type="application/json"
+            run="atclient"></basis>
+
+
+        <div
+            class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 max-lg:w-full max-lg:min-w-0 max-lg:max-w-full margin-btn dir-rtl">
+            <button class="flex gap-1 font-danademibold items-center my-4 font-bold text-base hover:text-[#FF0000]"
+                onclick="DownloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                    viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="9" y1="13" x2="15" y2="13" />
+                    <line x1="9" y1="17" x2="15" y2="17" />
+                </svg>دانلود PDF </button>
+        </div>
+        <header id="pdf-header" class="header h-[80px] w-auto mx-auto "><img
+                class="block h-[80px] w-auto mx-auto object-contain"
+                src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="794" height="100"
+                alt="Footer-contract-pdf" /></header>
+        <main class="dir-rtl pdf-content py-6 w-full max-w-[794px] mx-auto">
+            <div class="pdf-loading hidden ">
+                <div
+                    class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
+                    <span
+                        class="dir-rtl pointer-events-none rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white
+                         shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 
+                         focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 disabled:opacity-70 dark:shadow-black/30
+                          dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong flex justify-center items-center gap-x-2">
+                        <div class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            role="status"></div>
+                        <div class="font-danamedium leading-9 ">در حال تولید PDF...</div>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="w-[95%] mx-auto">
+                <!-- info -->
+                <section class="w-full flex justify-between items-center dir-rtl">
+                    <h2 class="font-danademibold text-base text-black">خدمات</h2>
+                    <ul class="flex gap-x-4">
+                        <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl text-right font-danaregular">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-right font-danademibold">[##cms.query.id##]</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl text-right font-danaregular">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] text-right font-danademibold">@serviceinfo.createDate.sstring@</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] dir-rtl text-right font-danaregular">ساعت ایجاد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@serviceinfo.createHour@</p></div></li></script>
+                            </face>
+                        </basis>
+                    </ul>
+                </section>
+                <section class="border-2 border-[#E3E3E3] rounded-xl my-4  p-3">
+                    <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script type="text/template">
+        {{ return await RenderServiceCard($data)}}
+                            </script>
+                        </face>
+                    </basis>
+                </section>
+                <section>
+                    <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script type="text/template">
+                                {{ return await RenderServiceCardBox($data)}} 
+                                {{ return await RenderServicePassengers($data)}} 
+                                </script>
+                        </face>
+                    </basis>
+                </section>
+                <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.pdf_description)}}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await fixRTLTextCompletely($data.pdf_description)}}</div></section></script>
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.rule?.rule || '')}}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule), "قوانین و مقررات", "Rules")}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await RenderServiceRules($data)}} </div></section></script>
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await fixRTLTextCompletely($data.note)}}</div></section></script>
+                    </face>
+                </basis>
+        </main>
+
+        <footer id="pdf-footer" class=" footer h-[80px] print:w-[595pt] print:h-[100pt] mx-auto "><img
+                class="block mx-auto h-[80px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
+                src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="794" height="100"
+                alt="Footer-contract-pdf" /></footer>
+        <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
+
+
+
+
+
+        <script>
+
+
+            async function RenderServiceCard($data) {
+                const service = $data?.serviceinfo;
+                if (!service) {
+                    console.error("serviceinfo is missing", $data);
+                    return '<div class="text-red-500">اطلاعات سرویس موجود نیست</div>';
+                }
+
+                return `
+        <h1 class="text-lg font-danademibold text-center w-full border-b-2 border-[#E3E3E3] mb-4 pb-2">${service.servicegroupname}</h1>
+
+        <div class="justify-between flex items-center">
+            <h2 class="text-lg font-danademibold text-center">${service.servicename}</h2>
+            <div class="flex justify-center gap-2 text-sm font-danaregular mt-2">
+                <div>شهر: ${service.city}</div>
+                <div>|</div>
+                <div>تاریخ: 
+                    <span class="dir-ltr inline-block mx-1">
+                        ${service.traveldate?.mstring || ''}
+                    </span>
+                    <span class="dir-ltr inline-block mx-1">
+                        (${service.traveldate?.sstring || ''})
+                    </span>
+                    </div>
+            </div>
+        </div>
+    
+    `;
+            }
+
+            // async function RenderServicePassengers($data) {
+            //     const passengers = $data?.passengerinfo;
+            //     if (!passengers || passengers.length === 0) {
+            //         return '<div class="text-gray-500">اطلاعات مسافران موجود نیست.</div>';
+            //     }
+
+            //     let items = passengers.map((p, index) => {
+            //         const info = p.service_passenger;
+            //         return `
+            //             <li class="mb-1">
+            //                 <span class="font-danabold">${index + 1}. ${info.fullname.firstname} ${info.fullname.lastname}</span>
+            //                 <span class="text-sm text-gray-600"> (${info.type === 'adult' ? 'بزرگسال' : 'کودک'}, ${info.gender === '1' ? 'آقا' : 'خانم'}, ${info.birthdate.birthdate1})</span>
+            //             </li>
+            //         `;
+            //     }).join('');
+
+            //     return `
+            //         <div class="mt-4">
+            //             <h2 class="font-danabold text-lg mb-2">مسافران</h2>
+            //             <ul class="list-disc pl-5">${items}</ul>
+            //         </div>
+            //     `;
+            // }
+
+
+            async function RenderServicePassengers($data) {
+                const passengers = $data?.passengerinfo;
+                if (!passengers || passengers.length === 0) {
+                    return '<div class="text-gray-500 mt-3">اطلاعات مسافران موجود نیست.</div>';
+                }
+
+                const parsedPassengers = passengers.map(p => {
+                    const info = p.service_passenger;
+                    return {
+                        name: `${info.fullname.firstname?.trim() || ''} ${info.fullname.lastname?.trim() || ''}`,
+                        type: info.type === 'adult' ? 'بزرگسال' : 'کودک',
+                        gender: info.gender === '1' ? 'مرد' : 'زن',
+                        birthdate: info.birthdate?.birthdate1 || '–',
+                    };
+                });
+
+                const passengerNames = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-nowrap">${p.name}</h2>`
+                ).join('');
+
+                const passengerTypes = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.type}</h2>`
+                ).join('');
+
+                const passengerGender = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold text-center">${p.gender}</h2>`
+                ).join('');
+
+                const passengerBirthdates = parsedPassengers.map(p =>
+                    `<h2 class="text-[#292929] text-sm font-danademibold dir-ltr text-center text-nowrap">${p.birthdate}</h2>`
+                ).join('');
+
+
+                return `
+        <h2 class="font-bold text-lg my-2 font-danabold">اطلاعات مسافران</h2>
+
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 overflow-x-auto">
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">مسافران</span>
+                ${passengerNames}
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap text-center">نوع مسافر</span>
+                ${passengerTypes}
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-center">جنسیت</span>
+                ${passengerGender}
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular text-center">تاریخ تولد</span>
+                ${passengerBirthdates}
+            </div>
+        </div>
+    `;
+            }
+
+            async function RenderServiceRules($data) {
+                const rule = $data?.rule?.rule;
+                if (!rule) {
+                    return '<div class="text-gray-500">قوانینی ثبت نشده است.</div>';
+                }
+
+                // تبدیل قوانین به لیست
+                const rules = rule.split(/\r?\n|\r/).filter(line => line.trim().length > 0);
+
+                let items = rules.map(r => `<li>${fixRTLTextCompletely(r)}</li>`).join('');
+
+                return `
+            <ul class="list-decimal pl-5 text-sm text-right" dir="rtl">${items}</ul>
+    `;
+            }
+
+            async function RenderServiceCardBox($data) {
+                const service = $data?.serviceinfo;
+                if (!service) return '';
+
+                return `
+            <h2 class="font-bold text-lg my-2 font-danabold">اطلاعات خدمات</h2>
+
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex flex-col gap-3 shadow-sm">
+            <div class="flex justify-between gap-4 text-sm text-[#6D6D6D] font-danaregular">
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D]">عنوان </span>
+                    <span class="text-[#292929] font-danademibold">${service.servicename}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D]">شهر</span>
+                    <span class="text-[#292929] font-danademibold">${service.city || '—'}</span>
+                </div>
+
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D]">تاریخ</span>
+                    <span class="text-[#292929] font-danademibold dir-ltr text-nowrap">${service.traveldate?.sstring || '—'}</span>
+                </div>
+            </div>
+        </div>
+    `;
+            }
+
+        </script>
+        <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
+        <script src="[##cms.cms.cdn##]/js/flight_ticket_test.js" defer></script>
+    </basis>
+
+</body>
+
+</html>
