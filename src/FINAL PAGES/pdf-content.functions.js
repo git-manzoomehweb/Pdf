@@ -101,7 +101,6 @@ async function getLocalizedText(dir, faText, enText, arText = faText, lid = 1) {
 }
 
 async function checkSection(input) {
-    console.log(input)
 
     // اگر ورودی null یا undefined یا رشته خالی بود
     if (

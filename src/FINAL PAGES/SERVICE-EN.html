@@ -1,15 +1,15 @@
-<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
+<basis core="call" lid="2" file="Client_CheckRkey.inc"></basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
 
 <head>
-    <title>Visa PDF</title>
-    <basis core="call" lid="1" file="Pdf_Taglist.inc"></basis>
+    <title>service PDF</title>
+    <basis core="call" lid="2" file="Pdf_Taglist.inc"></basis>
 </head>
 
 <body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.lid|(1)##]);">
-   
+
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
         <div class="loading-spinner"></div>
@@ -17,9 +17,6 @@
     </div>
 
     <!-- Main content -->
-
-
-
     <div class="main-content" id="main-content-wrapper">
         <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
             <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
@@ -29,12 +26,12 @@
         </basis>
         <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
             <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
-           
+
                 <div class="flex gap-2">
                     <button onclick="generatePDF()" type="button"
                         class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
                          text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2">
-            
+
                         <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -44,37 +41,38 @@
                                 d="M19.3517 7.61665L15.3929 4.05375C14.2651 3.03868 13.7012 2.53114 13.0092 2.26562L13 5.00011C13 7.35713 13 8.53564 13.7322 9.26787C14.4645 10.0001 15.643 10.0001 18 10.0001H21.5801C21.2175 9.29588 20.5684 8.71164 19.3517 7.61665Z"
                                 fill="#FFF" />
                         </svg>
-            
+
                         Download PDF
-                    </button>           
-            
+                    </button>
+
                 </div>
             </div>
 
-
-        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
-            method="post"
-            body='{
-                 "name": "db",
-                  "mid": "20",
-                   "member": [{ 
-                    "type": "list",
-                    "name": "q",
-                    "request": "visa_pdf",
-                    "id": "[##cms.query.id##]",
-                    "lid": "[##cms.query.lid|(1)##]"}
-                        
-                ]}'
-            content-type="application/json"
-            run="atclient">
-        </basis>
+            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+                method="post" body='{
+            "name": "db",
+            "mid": "20",
+            "member": [
+                {
+                "type": "list",
+                "name": "q",
+                "request": "service_pdf",
+                "id": "[##cms.query.id##]",
+                "lid": "[##cms.query.lid|(1)##]",
+                "sid": "[##cms.query.productid##]",
+                "transferid": "[##cms.query.transferid##]",
+                "type": "[##cms.query.type##]"
+                }
+            ]
+        }' content-type="application/json" run="atclient">
+            </basis>
 
             <header id="pdf-header" class="header h-[80px] w-auto mx-auto "><img
                     class="block h-[80px] w-auto mx-auto object-contain"
                     src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
-                
+
                 <div class="pdf-loading hidden ">
                     <div
                         class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
@@ -89,71 +87,75 @@
                 </div>
                 <div class="w-[95%] mx-auto">
                     <section class="w-full flex !justify-between items-center max-[794px]:flex-wrap max-sm:flex-col max-sm:flex-wrap" id="header-section">
-                        <h2 class="font-danademibold text-base text-black" id="main-title">ویزا</h2>
+                        <h2 class="font-danademibold text-base text-black" id="main-title">خدمات</h2>
                         <ul class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
-                            <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                            <basis core="print" datamembername="db.service_pdf" run="atclient">
                                 <layout>@child </layout>
                                 <face>
                                     <script
-                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2"><h2 class="text-sm font-normal text-[#202020]  !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929]  !text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
+                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
                                 </face>
                             </basis>
                             <basis core="group" name="persian" if="[##cms.query.lid##] = 1">
-                                <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                                <basis core="print" datamembername="db.service_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
                                         <script
-                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2"><h2 class="text-sm font-normal text-[#202020]  !text-center font-danaregular" 
-                                                id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929]  !text-center font-danademibold">@visainfo.createDate.sstring@ (@visainfo.createDate.mstring@)</p></div></li></script>
+                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
+                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@serviceinfo.createDate.sstring@ (@serviceinfo.createDate.mstring@)</p></div></li></script>
                                     </face>
                                 </basis>
-                            
+
                             </basis>
                             <basis core="group" name="no-persian" if="[##cms.query.lid##] <> 1">
-                                <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                                <basis core="print" datamembername="db.service_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
                                         <script
-                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2"><h2 class="text-sm font-normal text-[#202020]  !text-center font-danaregular" id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929]  !text-center font-danademibold">@visainfo.createDate.mstring@</p></div></li></script>
+                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
+                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@serviceinfo.createDate.mstring@</p></div></li></script>
                                     </face>
                                 </basis>
                             </basis>
-                             
-
-                            <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                            <basis core="print" datamembername="db.service_pdf" run="atclient">
                                 <layout>@child </layout>
                                 <face>
                                     <script
-                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2"><h2 class="text-sm font-normal text-[#202020]  !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@visainfo.createHour@</p></div></li></script>
+                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@serviceinfo.createHour@</p></div></li></script>
                                 </face>
                             </basis>
                         </ul>
                     </section>
-                    <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex items-center p-3 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center">
-                        <basis core="print" datamembername="db.visa_pdf" run="atclient">
-                            <layout>@child </layout>
-                            <face>
-                                <script
-                                    type="text/template">{{ return await RenderInfoCardVisa($data, [##cms.query.lid##])}} </script>
-                            </face>
-                        </basis>
-                    </section>
                     <section>
-                        <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                        <basis core="print" datamembername="db.service_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
-                                <script  type="text/template">
-                                    {{return await renderVisaInfo($data , [##cms.query.lid##])}}
-                                    {{return await renderVisaPassengerInfo($data, [##cms.query.lid##])}}
+                                <script type="text/template">
+                                {{ return await RenderServiceCardBox($data , [##cms.query.lid##])}} 
+                                {{ return await RenderServicePassengers($data , [##cms.query.lid##])}} 
                                 </script>
                             </face>
                         </basis>
                     </section>
-                    <basis core="print" datamembername="db.visa_pdf" run="atclient">
+                    <basis core="print" datamembername="db.service_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
                             <script
-                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" id="note-title">{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##cms.query.lid##])}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">{{ return await fixRTLTextCompletely($data.note)}} </div></section></script>
+                                type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirection($data.pdf_description)}}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await fixRTLTextCompletely($data.pdf_description , [##cms.query.lid##])}}</div></section></script>
+                        </face>
+                    </basis>
+                    <basis core="print" datamembername="db.service_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script
+                                type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.rule?.rule || '')}}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule), "قوانین و مقررات", "Rules")}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await renderServiceRules($data)}} </div></section></script>
+                        </face>
+                    </basis>
+                    <basis core="print" datamembername="db.service_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script
+                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await fixRTLTextCompletely($data.note , [##cms.query.lid##])}}</div></section></script>
                         </face>
                     </basis>
             </main>
@@ -163,10 +165,9 @@
                     alt="Footer-contract-pdf" />
             </footer>
     </div>
-    </basis>
-
-    <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
-    <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
-    <script src="[##cms.cms.cdn##]/js/pdf-visa.functions.js" defer></script>
+        </basis>
+        <basis core="call" lid="2" file="Client_BasisCore_Script.inc"></basis>
+        <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
+        <script src="[##cms.cms.cdn##]/js/pdf-service.functions.js" defer></script>
 </body>
 </html>

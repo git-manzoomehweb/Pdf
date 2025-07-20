@@ -25,7 +25,7 @@ function initializePageLanguage(lid) {
       loadingText: "در حال بارگذاری...",
       pdfLoadingText: "در حال تولید PDF...",
       textAlign: "text-right",
-      justifyContent: "justify-end",
+      justifyContent: "!justify-end",
     },
     2: {
       // انگلیسی
@@ -39,7 +39,7 @@ function initializePageLanguage(lid) {
       loadingText: "Loading...",
       pdfLoadingText: "Generating PDF...",
       textAlign: "text-left",
-      justifyContent: "justify-start",
+      justifyContent: "!justify-start",
     },
     3: {
       // عربی
@@ -53,7 +53,7 @@ function initializePageLanguage(lid) {
       loadingText: "جاري التحميل...",
       pdfLoadingText: "جاري إنشاء PDF...",
       textAlign: "text-right",
-      justifyContent: "justify-end",
+      justifyContent: "!justify-end",
     },
   };
 
@@ -89,7 +89,7 @@ function initializePageLanguage(lid) {
   if (headerSection) {
     headerSection.setAttribute("dir", t.dir);
     headerSection.className =
-      headerSection.className.replace(/(justify-start|justify-end)/g, "") +
+      headerSection.className.replace(/(!justify-start|!justify-end)/g, "") +
       ` ${t.justifyContent}`;
   }
 
@@ -291,7 +291,6 @@ setTimeout(() => {
 
 // Hook برای basis system - زمانی که API اجرا شد
 window.onBasisApiComplete = function () {
-  console.log("Basis API completed");
   apiDataLoaded = true;
   checkAllResourcesLoaded();
 };
@@ -300,7 +299,6 @@ window.onBasisApiComplete = function () {
 window.addEventListener("load", function () {
   setTimeout(() => {
     if (!apiDataLoaded) {
-      console.log("Window load event triggered");
       apiDataLoaded = true;
       checkAllResourcesLoaded();
     }
@@ -309,7 +307,6 @@ window.addEventListener("load", function () {
 
 async function RenderInfoCardVisa($data, lang) {
   let VisaJson = $data;
-console.log($data , VisaJson.visainfo)
   // تعریف ترجمه‌ها برای هر زبان
   const translations = {
     1: {
@@ -422,6 +419,8 @@ async function renderVisaInfo($data, lang) {
       dir: "rtl",
       textAlign: "text-right",
       marginside: "mr-4",
+            centerText: "text-center"
+
     },
     2: {
       // انگلیسی
@@ -437,6 +436,8 @@ async function renderVisaInfo($data, lang) {
       dir: "ltr",
       textAlign: "text-left",
       marginside: "ml-4",
+            centerText: "text-center"
+
     },
     3: {
       // عربی
@@ -452,6 +453,8 @@ async function renderVisaInfo($data, lang) {
       dir: "rtl",
       textAlign: "text-right",
       marginside: "mr-4",
+            centerText: "text-center"
+
     },
   };
 
@@ -460,66 +463,65 @@ async function renderVisaInfo($data, lang) {
 
   // تبدیل آرایه مدارک به لیست HTML
   const documentsList = product_info?.documents?.length
-    ? `<ul class="list-disc pr-4 ${t.textAlign}">${
+    ? `<ul class="list-disc pr-4 ${t.centerText}">${
         product_info.documents
           .map((doc) => `<li class="text-[#292929] text-sm font-danademibold">${doc.name1 || "–"}</li>`)
           .join("")
       }</ul>`
     : "–";
 
-  console.log(product_info);
 
   return `
         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
-        <div class="bg-[#F4FBF9] rounded-xl p-4 ">
-        <div class="flex justify-between gap-4 " dir="${t.dir}">
+        <div class="bg-[#F4F4F4] rounded-xl p-4 ">
+        <div class="flex justify-between gap-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center" dir="${t.dir}">
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.visaName}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.visaName}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText}">
                     ${product_info.visaname || "–"}
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.country}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.country}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText}">
                     ${product_info.visacountry || "–"}
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.application}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.application}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText}">
                     ${product_info.application || "–"}
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.visaType}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.visaType}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText}">
                     ${product_info.visatype || "–"}
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.visitLog}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.visitLog}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText}">
                     ${product_info.visit_log || "–"}
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.validity}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.validity}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText}">
                     ${product_info.validity_duration ? `${product_info.validity_duration.time} ${product_info.validity_duration.months}` : "–"}
                 </div>
             </div>
             </div>
-            <div class=" flex justify-start gap-4 mt-4" dir="${t.dir}">
+            <div class=" flex !justify-start gap-4 mt-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center" dir="${t.dir}">
             <div class="gap-y-2 flex flex-col ">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.documents}</span>
-                <div class="text-[#292929] text-sm font-danademibold ${t.textAlign} ${t.marginside}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.documents}</span>
+                <div class="text-[#292929] text-sm font-danademibold ${t.centerText} ${t.marginside}">
                     ${documentsList}
                 </div>
             </div>
             <div class="gap-y-2 flex flex-col">
-                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.date}</span>
-                <div class="text-[#292929] text-sm font-danademibold dir-${t.dir} ${t.textAlign}">
+                <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.date}</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-${t.dir} ${t.centerText}">
                     <span>${product_info.dateinfo?.mstring || "–"}</span>
                     ${lang === 1 ? `<span>(${product_info.dateinfo?.sstring || "–"})</span>` : ""}
                 </div>
@@ -541,7 +543,7 @@ async function renderVisaPassengerInfo($data, lang) {
       row: "ردیف <br/> NO",
       passengers: "نام / نام خانوادگی <br/> SURNAME / NAME",
       fathername: "نام پدر <br/> Father Name",
-      gender: "جنسیت <br/> SEX",
+      gender: "جنسیت <br/> Gender",
       birthdate: "تاریخ تولد <br/> Birthdate",
       nationality: "ملیت <br/> Nationality",
       countryOfBirth: "کشور محل تولد <br/> Country of Birth",
@@ -559,7 +561,7 @@ async function renderVisaPassengerInfo($data, lang) {
       row: "Row",
       passengers: "Surname / Name",
       fathername: "Father Name",
-      gender: "Sex",
+      gender: "Gender",
       birthdate: "Birthdate",
       nationality: "Nationality",
       countryOfBirth: "Country of Birth",
@@ -608,7 +610,6 @@ async function renderVisaPassengerInfo($data, lang) {
     };
   });
 
-  console.log(parsedPassengers);
 
   const passengerNames = parsedPassengers
     .map((p) => `<h2 class="text-[#292929] text-sm font-danademibold ${t.centerText}">${p.name}</h2>`)
@@ -648,7 +649,7 @@ async function renderVisaPassengerInfo($data, lang) {
 
   return `
         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
-        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-2" dir="${t.dir}">
+        <div class="bg-[#F4F4F4] rounded-xl p-4 flex justify-between gap-2 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center" dir="${t.dir}">
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.row}</span>
                 ${rowNumbers}
@@ -756,7 +757,7 @@ async function renderVisaPassengerInfo($data, lang) {
 
 //   return `
 //         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
-//         <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
+//         <div class="bg-[#F4F4F4] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
 //             <div class="flex flex-col gap-2">
 //                 <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.serviceName}</span>
 //                 ${serviceNames}
@@ -863,7 +864,7 @@ async function renderVisaPassengerInfo($data, lang) {
 
 //   return `
 //         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
-//         <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
+//         <div class="bg-[#F4F4F4] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
 //             <div class="flex flex-col gap-2">
 //                 <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.carName}</span>
 //                 ${carNames}
@@ -946,7 +947,7 @@ async function renderVisaPassengerInfo($data, lang) {
 
 //   return `
 //         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
-//         <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
+//         <div class="bg-[#F4F4F4] rounded-xl p-4 mt-3 flex justify-between gap-x-4 gap-y-2" dir="${t.dir}">
 //             <div class="flex flex-col gap-2 w-1/2 justify-center items-center">
 //                 <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.textAlign}">${t.escortName}</span>
 //                 ${escortNames}
