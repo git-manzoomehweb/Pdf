@@ -137,7 +137,7 @@
                         pdfLoadingText.setAttribute('dir', t.dir);
                         pdfLoadingText.className = pdfLoadingText.className.replace(/dir-(rtl|ltr)/g, '') + ` dir-${t.dir}`;
                     }
-                }, 100);
+              }, 2000);
             }
 
             function initializeLoadingSystem() {
