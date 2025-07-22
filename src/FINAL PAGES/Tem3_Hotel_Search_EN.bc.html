@@ -1,0 +1,2211 @@
+<basis core="tracking" name="tracking" source="Monitoring" collectionname="activity" dbname="tracking"
+    addcookie="true" />
+<basis core="cookie" name="trackingid" value="[##tracking.inserted.id|(0)##]" />
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Hotel</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="">
+    <meta property="og:image" content="[##cms.cms.cdn##]/images/icon-logo.png">
+    <meta property="og:image:width" content="">
+    <meta property="og:image:height" content="">
+    <meta property="og:image:secure_url" content="[##cms.cms.cdn##]/images/icon-logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="">
+    <meta name="author" content="BasisCore">
+    <!----------------CSS FILE---------------->
+    <!----CSS MAIN STYLE---->
+    <link href="https://www.basisfly.com/css/reservation_tem3_style_res_en.css" type="text/css" rel="stylesheet" />
+    <link href="[##cms.cms.cdn##]/css/style_tem_en.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body onload="onloadFunc();" data-ownerid="[##cms.cms.ownerid##]">
+    <main class="dir-ltr">
+        <basis core="call" file="header-en.inc" />
+        <section class="content">
+            <section class="loginRegister"></section>
+            <div id="bg-popup" class="unvisible"></div>
+            <div class="message-box unvisible">
+                <i class="icon-message-box">
+                    <svg width="50pt" height="50pt" fill="#666" version="1.0" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(0 512) scale(.1 -.1)">
+                            <path
+                                d="m1958 5059c-518-43-1e3 -273-1362-649-741-772-795-1960-128-2804 30-39 105-121 166-181 338-337 774-546 1256-605 123-15 398-12 519 5 57 8 105 14 106 12 2-1 15-27 30-57 118-235 344-454 600-582 403-202 889-190 1280 32 141 81 174 132 120 185-32 33-60 31-115-6-25-16-83-50-130-73-388-197-846-171-1215 68-119 77-291 251-363 369-303 490-231 1110 175 1512 101 100 186 160 318 225 404 200 875 163 1242-96 87-62 225-200 286-285 222-314 284-722 166-1089-41-126-140-303-219-394-42-47-51-76-35-114 15-34 48-48 89-38 37 9 162 179 229 313 154 304 186 664 92 999-35 120-140 330-219 435-129 171-323 329-509 415l-85 39 5 170c16 517-142 993-465 1403-92 116-135 155-173 155-21 0-38-7-51-22-34-43-24-72 58-167 144-168 276-388 353-588 88-230 124-429 125-693 1-105-2-194-6-198s-44 0-90 9c-46 8-115 18-154 22l-71 6-6 187c-4 135-11 213-27 286-144 676-673 1185-1350 1302-64 11-153 17-270 17s-206-6-270-17c-683-118-1209-630-1352-1315-30-146-33-456-4-607 25-137 63-256 88-277 28-25 70-22 96 5 28 30 28 48-2 151-71 243-75 531-11 782 195 770 974 1261 1749 1103 144-29 233-60 381-134 414-206 703-586 801-1055 13-62 18-132 19-259v-175l-100-17c-410-73-756-315-963-674-90-157-156-367-169-537-3-47-9-91-12-97-3-5-61-15-129-21-334-31-681 63-976 263-127 85-303 264-396 402-71 104-77 110-112 113-27 2-43-3-57-17-36-36-27-71 48-183 342-509 932-786 1547-725l82 8 7-53c3-29 18-100 31-156 14-57 24-105 22-107-11-11-183-25-311-25-167 0-269 10-422 42-354 72-712 266-975 528-704 700-787 1795-197 2587 568 762 1591 1015 2445 603 119-57 248-136 341-206 26-20 55-34 72-34 39 0 69 32 69 74 0 41-31 71-171 163-307 201-630 311-1004 343-134 11-195 11-337-1z" />
+                            <path
+                                d="m2080 4260c-17-17-20-33-20-105s3-88 20-105c25-25 71-26 99-2 41 33 41 172 0 213-25 25-74 24-99-1z" />
+                            <path
+                                d="m1186 3889c-44-35-36-73 31-141 47-47 63-58 90-58 42 0 73 30 73 72 0 25-12 43-58 90-65 64-92 72-136 37z" />
+                            <path
+                                d="m2938 3852c-46-47-58-65-58-90 0-43 31-72 76-72 29 0 44 9 90 54 63 63 72 106 31 144-40 38-73 29-139-36z" />
+                            <path
+                                d="m2082 3670c-22-20-22-26-22-300 0-154-4-280-8-280s-37 30-72 66c-36 36-76 70-89 75-46 18-101-24-101-78 0-22 275-298 311-314 40-16 84 3 98 43 15 43 15 714 0 757-19 53-77 68-117 31z" />
+                            <path
+                                d="m810 2990c-30-30-27-83 6-109 22-17 41-21 101-21 65 0 77 3 98 25 30 30 32 64 4 99-19 24-26 26-105 26-71 0-87-3-104-20z" />
+                            <path
+                                d="m3245 2985c-14-13-25-36-25-50s11-37 25-50c21-22 33-25 94-25 39 0 81 5 95 11 49 23 53 104 7 128-11 6-54 11-96 11-67 0-79-3-100-25z" />
+                            <path
+                                d="m3653 2359c-48-23-89-67-110-116-10-26-13-136-13-533 0-490 0-501 21-546 35-73 118-124 204-124 81 0 157 47 198 124 22 40 22 48 25 516 2 324 0 491-8 526-13 63-67 129-124 155-56 26-140 25-193-2zm153-150c18-20 19-43 19-501v-480l-24-19c-31-25-69-24-98 3l-23 21v479c0 465 1 479 20 498 27 27 81 26 106-1z" />
+                            <path
+                                d="m1265 2172c-16-11-47-38-67-60-58-64-50-125 20-147 29-8 80 22 127 78 42 49 46 87 10 122-29 30-50 31-90 7z" />
+                            <path
+                                d="m2140 1813c-43-16-50-34-50-123 0-78 2-89 23-108 44-41 107-19 123 43 12 48-1 144-22 164-22 22-53 32-74 24z" />
+                            <path
+                                d="m3653 979c-91-45-123-109-123-249 0-115 20-174 74-215 123-94 281-63 347 68 27 51 36 175 20 245-15 62-69 128-125 153-56 26-140 25-193-2zm153-150c15-17 19-36 19-101 0-72-2-82-24-99-31-25-69-24-98 3-20 19-23 31-23 100 0 65 3 81 20 98 27 27 81 26 106-1z" />
+                        </g>
+                    </svg>
+                </i>
+                <div class="line-one font_20 font-weight">
+                    Your search has been expired
+                </div>
+                <div class="line-two">
+                    Please reload the page to get the latest rates
+                </div>
+                <button class="background-color_2 color_white font_16 border-radius cursor-pointer"
+                    onclick="window.location='/EN'">Home</button>
+                <button class="background-color_1 color_white font_16 border-radius cursor-pointer"
+                    onclick=" location.reload()">Search Again</button>
+            </div>
+            <section class="searched-container ">
+                <div class="bc-main">
+                    <div class="width_85 float-left text-left">
+                        <div class="flight-summary-info">
+                            <div class="item font_16">
+                                <span class="departure"><span class="title">City :
+                                    </span>[##cms.form.coHotel##]</span>
+                            </div>
+                            <div class="item font_15">
+                                <span class="dash"><i class="far fa-calendar-check"></i></span>
+                                <span class="title">Check In : </span><span>[##cms.form.fdate##]</span>
+                                <span class="dash"></span>
+                                <span class="title">Check Out : </span><span>[##cms.form.tdate##]</span>
+                            </div>
+                            <div class="item font_13 cursor-pointer color_white background-color_1 border-radius btn"
+                                onclick="show_research(this)">
+                                <i class="fa fa-search"></i>Modify Search
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                    <div class="width_15 float-right font_13 next-prev-container text-right">
+                        <span class="before-btn cursor-pointer background-color_white"><i
+                                class="fa fa-angle-left color_1"></i>Prev Day
+                        </span>
+                        <span class="after-btn cursor-pointer background-color_white">Next Day
+                            <i class="fa fa-angle-right color_1"></i></span>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="searched-items-container unvisible">
+                        <i class="fa fa-times close-research cursor-pointer" onclick="close_research(this)"></i>
+                        <div class="searched-items width_100 background-color_white">
+                            <form method="post" action="/Tem3_Hotel_Search_EN.bc" class="form-research has-room"
+                                id="hotel-form">
+                                <input type="hidden" value='[##cms.json.header | cms.form.roomSearch##]' class="json" />
+                                <input type="hidden" value="[##cms.form.currentdate##]" class="currentdate"
+                                    name="currentdate" />
+                                <div class="searched-item width_30 float-left has-border">
+                                    <div class="inner width_100 p-relative city">
+                                        <input type="text" oninput="city_search(this)" onclick="empty_value(this)"
+                                            required data-type='3' autocomplete="off" value="[##cms.form.coHotel##]"
+                                            name="coHotel" class="country  text-center" />
+                                        <input type="hidden" value="[##cms.form.cityid##]" class="co-id" name="cityid">
+                                        <span class="mini-loading p-absolute unvisible"><i
+                                                class="fas fa-spinner fa-spin"></i></span>
+                                        <div class="countryFlight font_12 background-color_white"></div>
+                                        <div class="searchList font_12 p-absolute unvisible">
+                                            <ul>
+                                                <li class="category-title"><span>Crowded cities</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1203548"><i
+                                                        class="flaticon-map-marker"></i><span>Tehran</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1211110"><i
+                                                        class="flaticon-map-marker"></i><span>Kish</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1177676"><i
+                                                        class="flaticon-map-marker"></i><span>Istanbul</span>
+                                                </li>
+                                                <li onclick="SelectPlace(this)" data-id="1192689"><i
+                                                        class="flaticon-map-marker"></i><span>Yerevan</span>
+                                                </li>
+                                                <li onclick="SelectPlace(this)" data-id="1211083"><i
+                                                        class="flaticon-map-marker"></i><span>Mashhad</span>
+                                                </li>
+                                                <li onclick="SelectPlace(this)" data-id="1173505"><i
+                                                        class="flaticon-map-marker"></i><span>Dubai</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1168092"><i
+                                                        class="flaticon-map-marker"></i><span>Antalya</span>
+                                                </li>
+                                                <li onclick="SelectPlace(this)" data-id="1189731"><i
+                                                        class="flaticon-map-marker"></i><span>Tbilisi</span>
+                                                </li>
+                                                <li onclick="SelectPlace(this)" data-id="1211086"><i
+                                                        class="flaticon-map-marker"></i><span>Shiraz</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1211084"><i
+                                                        class="flaticon-map-marker"></i><span>Isfahan</span>
+                                                </li>
+                                                <li onclick="SelectPlace(this)" data-id="1182348"><i
+                                                        class="flaticon-map-marker"></i><span>Moscow</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1211085"><i
+                                                        class="flaticon-map-marker"></i><span>Tabriz</span></li>
+                                                <li onclick="SelectPlace(this)" data-id="1168993"><i
+                                                        class="flaticon-map-marker"></i><span>Baku</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                                <div class="searched-item width_30 float-left has-border Basis_Date_Box">
+                                    <div class="inner width_50 float-left p-relative has-border_">
+                                        <input type="text" value="[##cms.form.fdate##]" name="fdate"
+                                            class="Basis_Date start_date"
+                                            onclick="Basis_Calendar(this,'[##cms.cms.date##]', 1)" data-active="0"
+                                            data-cache="0" readonly="true" autocomplete="off" required />
+                                        <input value="[##cms.form.mstring_tdate##]" class="mstring_tdate"
+                                            type="hidden" />
+                                    </div>
+                                    <div class="inner width_50 float-left p-relative">
+                                        <input type="text" value="[##cms.form.tdate##]" name="tdate"
+                                            class="Basis_Date end_date end_date_filled nextCalOpening"
+                                            onclick="Basis_Calendar(this,'[##cms.cms.date##]', 1)" data-active="0"
+                                            data-cache="0" readonly="true" autocomplete="off" required />
+                                        <input value="[##cms.form.mstring_fdate##]" class="mstring_fdate"
+                                            type="hidden" />
+
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                                <div class="searched-item p-relative width_20 float-left">
+                                    <div class="Wrapper-CountPassenger font_13 cursor-pointer"
+                                        onclick="show_passengers(this)">
+                                        <span class="count-room">
+                                            <span class="count">1</span>
+                                            <span>Room</span>
+                                        </span>
+                                        <span class="count-adult">
+                                            <span class="count">1</span>
+                                            <span>Adult</span>
+                                        </span>
+                                        <span class="count-child">
+                                            <span class="count split_num_1"></span>
+                                            <span>Child</span>
+                                        </span>
+                                        <div class="clr"></div>
+                                    </div>
+                                    <div class="CountPassenger room unvisible p-absolute font_11">
+                                        <div class="add-room" onclick="AddRoom(this)">Add Room
+                                        </div>
+                                        <div class="ShowRow">
+                                            <div class="contentRoom">
+                                                <div class="RoomRow">Room 1</div>
+                                                <div class="item-CountPassenger">
+                                                    <div class="first-part-CountPassenger width_50 float-left">
+                                                        Adult
+                                                        (+12)</div>
+                                                    <div class="second-part-CountPassenger width_50 float-right">
+                                                        <div class="passenger-button plus-minus"><span
+                                                                class="background-color_2 plus-btn">+</span>
+                                                        </div>
+                                                        <div class="passenger-button">
+                                                            <input type="text" name="_root.rooms__1.adultcount"
+                                                                class="adult" maxlength="4000" readonly value="1" />
+                                                        </div>
+                                                        <div class="passenger-button plus-minus"><span
+                                                                class="background-color_2  minus-btn">-</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clr"></div>
+                                                </div>
+                                                <div class="item-CountPassenger">
+                                                    <div class="first-part-CountPassenger width_50 float-left">
+                                                        Child
+                                                        (-12)</div>
+                                                    <div class="second-part-CountPassenger width_50 float-right">
+                                                        <div class="passenger-button plus-minus-ch"><span
+                                                                class="background-color_2 plus-btn">+</span>
+                                                        </div>
+                                                        <div class="passenger-button">
+                                                            <input type="text" class="child_1" maxlength="4000" readonly
+                                                                value="0" />
+                                                        </div>
+                                                        <div class="passenger-button plus-minus-ch"><span
+                                                                class="background-color_2  minus-btn">-</span>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="0" class="childcountandage"
+                                                        name="_root.rooms__1.childcountandage" />
+                                                    <div class="clr"></div>
+                                                    <div class="section-select-age"></div>
+                                                    <div class="clr"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="confirm background-color_1 color_white text-center border-radius cursor-pointer"
+                                            onclick="confirm_search(this)">Confirm</div>
+                                    </div>
+                                    <i class="icon-passenger p-absolute"><svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24">
+                                            <rect width="24" height="24" fill="" opacity="0" />
+                                            <path
+                                                d="M18.5,7.355a3.5,3.5,0,1,0-3.893,0,5.347,5.347,0,0,0-1.235.7A3.429,3.429,0,0,0,12.844,8,3.477,3.477,0,0,0,9.755,9.9a4.907,4.907,0,0,0-.923-.518,3.519,3.519,0,1,0-3.9.015A4.786,4.786,0,0,0,2,13.772v7.684a1.5,1.5,0,0,0,1.5,1.5H8.052v0l9.1-.037h3.332a1.5,1.5,0,0,0,1.5-1.5v-8.8A5.653,5.653,0,0,0,18.5,7.355Zm-4.452-2.9a2.5,2.5,0,1,1,2.5,2.5A2.5,2.5,0,0,1,14.05,4.452ZM12.844,9a2.482,2.482,0,1,1-2.485,2.482A2.488,2.488,0,0,1,12.844,9ZM4.351,6.473A2.517,2.517,0,1,1,6.868,8.987,2.518,2.518,0,0,1,4.351,6.473ZM3.507,21.958a.5.5,0,0,1-.5-.5V13.772A3.848,3.848,0,0,1,6.9,9.986a3.95,3.95,0,0,1,2.515.907,3.35,3.35,0,0,0-.06.588,3.476,3.476,0,0,0,1.555,2.894,4.787,4.787,0,0,0-2.862,4.373v3.211Zm5.545-3.211a3.792,3.792,0,0,1,7.584,0v3.176h-.193l-.014,0-7.377.031Zm11.935,2.679a.5.5,0,0,1-.5.5H17.636V18.747a4.784,4.784,0,0,0-2.861-4.372,3.458,3.458,0,0,0-.211-5.9,4.227,4.227,0,0,1,1.988-.5,4.552,4.552,0,0,1,4.435,4.652Z"
+                                                transform="translate(0 0.016)" fill="#000" />
+                                        </svg>
+                                    </i>
+                                </div>
+                                <div class="searched-item width_20 float-left">
+                                    <button type="submit"
+                                        class="submit-form  font_13 cursor-pointer color_white background-color_1 width_100">Search
+                                    </button>
+                                </div>
+                                <div class="clr"></div>
+                            </form>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clr"></div>
+
+            </section>
+
+            <section class="result-search-container">
+                <div class="bc-main">
+                    <div class="waiting-search hotel_stracture">
+                        <div class="loading-container">
+                            <div class="loading"></div>
+                            <div class="loading-img"><img src="[##cms.cms.cdn##]/images/logo.png" width="" height=""
+                                    alt="logo" /></div>
+                        </div>
+                        <p class="loading-text">Looking for the best hotels ...</p>
+                        <div class="waiting-content width_30 float-left">
+                            <div class="stract-filters float-left width_95 ">
+                                <div class="stract-filter stract-effect">
+                                    <div class="stract-filter-head"></div>
+                                    <div class="stract-filter-row">
+                                        <div class="stract-filter-item"></div>
+                                        <div class="stract-filter-item"></div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                                <div class="stract-filter stract-effect">
+                                    <div class="stract-filter-head"></div>
+                                    <div class="stract-filter-row">
+                                        <div class="stract-filter-item"></div>
+                                        <div class="stract-filter-item"></div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                                <div class="stract-filter stract-effect">
+                                    <div class="stract-filter-head"></div>
+                                    <div class="stract-filter-row">
+                                        <div class="stract-filter-item"></div>
+                                        <div class="stract-filter-item"></div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                                <div class="stract-filter stract-effect">
+                                    <div class="stract-filter-head"></div>
+                                    <div class="stract-filter-row">
+                                        <div class="stract-filter-item"></div>
+                                        <div class="stract-filter-item"></div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="waiting-content width_70 float-right ">
+                            <div class="stract-sort-box">
+                                <div class="stract-sort-title float-right stract-effect"></div>
+                                <ul class="stract-sort-items d-flex border-radius float-left stract-effect">
+                                    <li class="p-relative width_33"></li>
+                                    <li class="p-relative width_33"></li>
+                                    <li class="p-relative width_33"></li>
+                                </ul>
+                            </div>
+                            <div class="stract-result-item stract-effect">
+                                <div class="stract-result-info p-relative">
+                                    <div class="stract-first-col width_70 float-left p-relative">
+                                        <div class="stract-d-flex">
+                                            <div class="stract-img-item"></div>
+                                            <div class="stract-infoes-item ">
+                                                <div class="stract-info-title"></div>
+                                                <div class="stract-info-item"></div>
+                                                <div class="stract-info-item"></div>
+                                                <div class="stract-info-item"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </div>
+                                    <div class="width_30 float-right">
+                                        <div class="stract-cost-item middle">
+                                            <div class="stract-cost"></div>
+                                            <div class="stract-btn-item has-margin"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                            </div>
+                            <div class="stract-result-item stract-effect">
+                                <div class="stract-result-info p-relative">
+                                    <div class="stract-first-col width_70 float-left p-relative">
+                                        <div class="stract-d-flex">
+                                            <div class="stract-img-item"></div>
+                                            <div class="stract-infoes-item ">
+                                                <div class="stract-info-title"></div>
+                                                <div class="stract-info-item"></div>
+                                                <div class="stract-info-item"></div>
+                                                <div class="stract-info-item"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </div>
+                                    <div class="width_30 float-right">
+                                        <div class="stract-cost-item middle">
+                                            <div class="stract-cost"></div>
+                                            <div class="stract-btn-item has-margin"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                            </div>
+                            <div class="stract-result-item stract-effect">
+                                <div class="stract-result-info p-relative">
+                                    <div class="stract-first-col width_70 float-left p-relative">
+                                        <div class="stract-d-flex">
+                                            <div class="stract-img-item"></div>
+                                            <div class="stract-infoes-item ">
+                                                <div class="stract-info-title"></div>
+                                                <div class="stract-info-item"></div>
+                                                <div class="stract-info-item"></div>
+                                                <div class="stract-info-item"></div>
+                                            </div>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </div>
+                                    <div class="width_30 float-right">
+                                        <div class="stract-cost-item middle">
+                                            <div class="stract-cost"></div>
+                                            <div class="stract-btn-item has-margin"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clr"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+
+                    <div id="app" class="unvisible"></div>
+
+                    <div class="clr"></div>
+                </div>
+            </section>
+        </section>
+        <!----------------JS FILE---------------->
+        <script src="[##cms.cms.cdn##]/_js/jquery/jquery-3.6.3.min.js" type="text/javascript"></script>
+        <!----------------CSS FILE---------------->
+        <link href="https://cdn.basiscore.net/basisfly.com/css/reservation_tem_calendar_en.css" defer type="text/css"
+            rel="stylesheet" />
+        <basis core="call" file="footer-en.inc" />
+        <basis core="call" file="Client_Basis_Calendar_EN.inc" />
+    </main>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            fetch("/Client_Hotel_Json.bc", {
+                method: "POST",
+                body: 'hotelid=[##cms.form.hotelid##]&cityid=[##cms.form.cityid##]&fdate=[##cms.form.fdate##]&tdate=[##cms.form.tdate##]&rooms=[##cms.json.header|cms.form.roomSearch##]&clid=2&sid=[##cms.query.sid##]'
+            }).then(response => response.text()).then(text => {
+                let Maindata = JSON.parse(text.replace(/\'/g, '"'));
+
+                if (Maindata.length !== undefined) {
+
+                    if (Maindata.some(item => item.hotelinfo.hotelsearch?.countryid === 1002236)) {
+                        Maindata.sort((a, b) => (b.hotelinfo.hotelsearch?.star || 0) - (a.hotelinfo.hotelsearch?.star || 0));
+                    } else {
+                        Maindata.sort((a, b) => a.total - b.total);
+                    }
+                }
+
+                $('.waiting-search').hide();
+                $('#app').show();
+                load_data(Maindata);
+            }).catch(error => console.error(error));
+        });</script>
+    <script defer src="https://cdn.basiscore.net/basisfly.com/js/reservation_react.production.min.js"></script>
+    <script defer src="https://cdn.basiscore.net/basisfly.com/js/reservation_react_dom.production.min.js"></script>
+    <script defer src="https://cdn.basiscore.net/basisfly.com/js/reservation_babel.min.js"></script>
+    <script defer src="https://cdn.basiscore.net/basisfly.com/js/reservation_react_paging.js"></script>
+    <script defer src="https://cdn.basiscore.net/basisfly.com/js/reservation_tem3_reSearch_en.js"
+        type="text/javascript"></script>
+    <script defer src="https://cdn.basiscore.net/basisfly.com/js/reservation_Basis_Calendar_en_js.js"
+        type="text/javascript"></script>
+    <script type="text/babel">
+        function load_data(load_data) {
+            class App extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        data: [],
+                        data_provider: [],
+                        data_currency: [],
+                        data_supplier: [],
+                        library: null,
+                        librarySecond: null,
+                        perPage: 20,
+                        currentPage: 1,
+                        currentPage2: 2,
+                        currentPage3: 3,
+                        maxPage: null,
+                        filterName: "",
+                        filterTotalF: "",
+                        filterTotalS: "",
+                        rangevalTotalF: "",
+                        rangevalTotalS: "",
+                        visibleRoom: {},
+                        loadingVisible: {},
+                        loadingVisibleBtnClose: {},
+                        roomRule: {},
+                        show_rooms_data: {},
+                        priceS: {},
+                        defaultactive: {},
+                        priceactive: {},
+                        starSort: {},
+                        staractive: {},
+                        checkkeyprice: 0,
+                        checkkeystar: 0,
+                        activedefault: "active",
+                        activeprice: "",
+                        activestar: "",
+                        state_service: "",
+                        state_stars: "",
+                        state_area: "",
+                        state_availability: "",
+                        state_checktype: "",
+                        state_checkkey: "",
+                        state_currency_unit: "",
+                        state_currency_cost: 1,
+                        state_floatdigit: "",
+                        state_active_btn: ""
+                    };
+                    this.stars = [];
+                    this.service = [];
+                    this.availability = [];
+                    this.area = [];
+                    this.handleClick = this.handleClick.bind(this);
+                    this.handleReset = this.handleReset.bind(this);
+                }
+                componentDidMount() {
+                    this.setState(state => ({
+                        ...state,
+                        data: load_data
+                    }), () => {
+                        this.reorganiseLibrary()
+                    })
+
+                    $(document).on('update_result', (event, service, stars, availability, area, checktype, checkkey) => {
+                        this.reorganiseLibrary(service, stars, availability, area, checktype, checkkey)
+                    })
+
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${'rkey'}=`);
+                    if (parts.length === 2) {
+                        fetch('/Client_User_Type.inc')
+                            .then(response => response.text())
+                            .then(user => {
+                                document.querySelector("input[name=chagencyuser]").value = user;
+                                if (user == 1) {
+                                    fetch('/Client_Provider_Library.bc')
+                                        .then(response => response.json())
+                                        .then(provider => {
+                                            this.setState({ data_provider: provider })
+                                        }).catch(error => console.error(error));
+                                    fetch('/Client_Supplier_Library.bc')
+                                        .then(response => response.json())
+                                        .then(supplier => {
+                                            this.setState({ data_supplier: supplier })
+                                        }).catch(error => console.error(error));
+                                }
+                            }).catch(error => console.error(error))
+                    }
+                    let getCurrencyObject = localStorage.getItem('currencyObject');
+                    let jsonCurrency = JSON.parse(getCurrencyObject);
+                    //bitaa
+                    if (jsonCurrency) {
+                        if (jsonCurrency.currency_unit !== "IRR") {
+                            if (jsonCurrency.floatdigit < 0) {
+                                this.setState({
+                                    state_floatdigit: 2,
+                                })
+                            } else {
+                                this.setState({
+                                    state_floatdigit: jsonCurrency.floatdigit,
+                                })
+                            }
+                        } else {
+                            this.setState({
+                                state_floatdigit: jsonCurrency.floatdigit,
+
+                            })
+                        }
+                        this.setState({
+                            state_currency_unit: jsonCurrency.currency_unit,
+                            state_currency_cost: jsonCurrency.currency_cost,
+                        })
+                    }
+
+                }
+                componentDidUpdate() {
+                    $(".grade_filter").sort(function (a, b) {
+                        a = $(".stars", a).val().replace(/,/g, '');
+                        b = $(".stars", b).val().replace(/,/g, '');
+                        return b - a;
+                    }).appendTo(".grade_results");
+                    if (document.querySelector(".currency-content")) {
+                        const fieldTemp = document.querySelector(".currency-content-list");
+                        document.querySelector(".currency-content").innerHTML = '';
+                        document.querySelector(".currency-content").appendChild(fieldTemp);
+                        document.querySelector(".currency-content-list").classList.add('currency-appended');
+                        document.querySelector(".currency-appended").classList.remove('unvisible');
+                    }
+
+                }
+                reorganiseLibrary = (service, stars, availability, area, checktype, checkkey) => {
+                    const { filterName, filterTotalF, filterTotalS, perPage, data } = this.state;
+                    let library = data;
+                    let librarySecond = data;
+                    librarySecond = _.chunk(librarySecond, perPage);
+                    this.setState({
+                        librarySecond,
+                        currentPage: 1,
+                        maxPage: librarySecond.length === 0 ? 1 : librarySecond.length
+                    })
+
+                    let defaultFilterTotalF = null;
+                    defaultFilterTotalF = filterTotalF
+                        ? (filterTotalF)
+                        : (this.renderMinFilterTotal(librarySecond));
+                    let defaultFilterTotalS = null;
+                    defaultFilterTotalS = filterTotalS
+                        ? (filterTotalS)
+                        : (this.renderMaxFilterTotal(librarySecond));
+                    if (filterTotalF !== "" || filterTotalS !== "") {
+                        let lenLibraryDef = library.length
+                        if (lenLibraryDef !== undefined) {
+                            library = library.filter(item =>
+                                item.totalCom >= defaultFilterTotalF && item.totalCom <= defaultFilterTotalS
+                            )
+                            let lenLibrary = library.length
+                            $('.result-count').text(lenLibrary)
+                        }
+                    }
+
+                    if (checktype == 'default') {
+                        library.sort((a, b) => a.total - b.total);
+                        this.setState({ activedefault: "active" })
+                        this.setState({ activeprice: "" })
+                        this.setState({ activestar: "" })
+
+                        if (this.state.priceS[0] == true) {
+                            this.setState(prevState => ({
+                                priceS: { ...prevState.priceS, [0]: !prevState.priceS[0] }
+                            }))
+                        }
+                        if (this.state.starSort[0] == true) {
+                            this.setState(prevState => ({
+                                starSort: { ...prevState.starSort, [0]: !prevState.starSort[0] }
+                            }))
+                        }
+
+
+                    }
+
+                    if (checktype == 'price') {
+                        if (checkkey == 0) {
+
+                            library.sort((a, b) => b.total - a.total);
+                            this.setState({ checkkeyprice: 1 });
+                        } else {
+                            library.sort((a, b) => a.total - b.total);
+                            this.setState({ checkkeyprice: 0 });
+                        }
+                        this.setState(prevState => ({
+                            priceS: { ...prevState.priceS, [0]: !prevState.priceS[0] }
+                        }))
+                        this.setState({ activeprice: "active" })
+                        this.setState({ activedefault: "" })
+                        this.setState({ activestar: "" })
+                        if (this.state.starSort[0] == true) {
+                            this.setState(prevState => ({
+                                starSort: { ...prevState.starSort, [0]: !prevState.starSort[0] }
+                            }))
+                        }
+
+                    }
+
+                    if (checktype == 'star') {
+                        if (checkkey == 0) {
+                            library.sort((a, b) => b.hotelinfo.hotelsearch.star - a.hotelinfo.hotelsearch.star);
+                            this.setState({ checkkeystar: 1 });
+                        } else {
+                            library.sort((a, b) => a.hotelinfo.hotelsearch.star - b.hotelinfo.hotelsearch.star);
+                            this.setState({ checkkeystar: 0 });
+                        }
+                        this.setState(prevState => ({
+                            starSort: { ...prevState.starSort, [0]: !prevState.starSort[0] }
+                        }))
+                        this.setState({ activeprice: "" })
+                        this.setState({ activedefault: "" })
+                        this.setState({ activestar: "active" })
+                        if (this.state.priceS[0] == true) {
+                            this.setState(prevState => ({
+                                priceS: { ...prevState.priceS, [0]: !prevState.priceS[0] }
+                            }))
+                        }
+                    }
+
+                    if (filterName !== "") {
+                        library = library.filter(item => {
+                            if (item.hotelinfo.name.toLowerCase().includes(filterName))
+                                return item
+
+                        }
+
+                        )
+                        let lenLibrary = library.length
+                        $('.result-count').text(lenLibrary)
+                    }
+
+
+                    if (stars !== undefined) {
+                        if (stars !== "") {
+                            stars = stars.split(",");
+                            library = library.filter(item => {
+                                if (stars.includes(this.renderStarFilter(item.hotelinfo.hotelsearch.star))) return item;
+                            })
+                        }
+                        let lenLibrary = library.length
+                        $('.result-count').text(lenLibrary)
+                    }
+
+
+                    if (service !== undefined) {
+                        if (service !== "") {
+                            service = service.split(",");
+                            library = library.filter(item => {
+                                if (service.includes(item.families[0].services.replace('.', '').toLowerCase())) return item;
+                            })
+                        }
+                        let lenLibrary = library.length
+                        $('.result-count').text(lenLibrary)
+                    }
+
+                    if (availability !== undefined) {
+                        if (availability !== "") {
+                            availability = availability.split(",");
+                            library = library.filter(item => {
+                                if (this.render_availability_filter(item.families[0]).some(r => availability.includes(r))) return item;
+
+                            })
+                        }
+
+
+                        let lenLibrary = library.length
+                        $('.result-count').text(lenLibrary)
+
+                    }
+                    if (area !== undefined) {
+                        if (area !== "") {
+                            area = area.split(",");
+                            library = library.filter(item => {
+                                if (item.hotelinfo.hotelsearch.area) {
+                                    if (area.includes(item.hotelinfo.hotelsearch.area)) return item;
+                                }
+
+                            })
+                        }
+                        let lenLibrary = library.length
+                        $('.result-count').text(lenLibrary)
+                    }
+                    let lenLibrary = library.length
+                    if (lenLibrary == undefined) {
+                        $('.result-count').text(0)
+                    } else {
+                        $('.result-count').text(lenLibrary)
+                    }
+
+                    library = _.chunk(library, perPage);
+                    this.setState({
+                        library,
+                        currentPage: 1,
+                        maxPage: library.length === 0 ? 1 : library.length
+                    })
+                }
+
+
+                renderMinFilterTotal = (librarySecond) => {
+                    return librarySecond.reduce((acc, lib) => {
+                        const libMin = Math.min(...lib.map(item => item.totalCom))
+                        return acc === undefined ? libMin : libMin < acc ? libMin : acc
+                    }, undefined)
+                }
+                renderMaxFilterTotal = (librarySecond) => {
+                    return librarySecond.reduce((acc, lib) => {
+                        const libMax = Math.max(...lib.map(item => item.totalCom))
+                        return libMax > acc ? libMax : acc
+                    }, 0)
+                }
+
+
+                renderStarFilter(element) {
+                    if (element == null) {
+                        element = 0
+                    }
+                    let elementToSting = element.toString()
+                    return elementToSting
+                }
+                render_availability_filter(element) {
+                    let elementAdd = []
+                    for (let i = 0; i < element.availablerooms.length; i++) {
+                        elementAdd.push(element.availablerooms[i].info.availability)
+                    }
+
+                    return elementAdd
+                }
+
+
+
+                // Previous Page
+                previousPage = event => {
+                    this.handleReset(event);
+                    this.handleClick(event);
+                    this.setState({
+                        currentPage: this.state.currentPage - 1,
+                        currentPage2: this.state.currentPage2 - 1,
+                        currentPage3: this.state.currentPage3 - 1
+                    });
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
+                // Next Page 
+                nextPage = event => {
+                    this.handleReset(event);
+                    this.handleClick(event);
+                    this.setState({
+                        currentPage: this.state.currentPage + 1,
+                        currentPage2: this.state.currentPage2 + 1,
+                        currentPage3: this.state.currentPage3 + 1
+                    });
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
+                // Next Page3
+                nextPage3 = event => {
+                    this.handleReset(event);
+                    this.handleClick(event);
+                    this.setState({
+                        currentPage: this.state.currentPage3,
+                        currentPage2: this.state.currentPage3 + 1,
+                        currentPage3: this.state.currentPage3 + 2
+                    });
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
+                // handle filter name
+                handleFilterName = (event) => {
+                    this.handleReset(event);
+                    const { state_service, state_stars, state_availability, state_area, state_checktype, state_checkkey } = this.state;
+                    this.setState(
+                        {
+                            filterName: event.target.value.toLowerCase()
+                        },
+                        () => {
+                            this.reorganiseLibrary(state_service, state_stars, state_availability, state_area, state_checktype, state_checkkey);
+                        }
+                    )
+
+
+                }
+                // start handle filter price
+                handleFilterTotal = (event) => {
+                    this.handleReset(event);
+                    const { state_service, state_stars, state_availability, state_area, state_checktype, state_checkkey } = this.state;
+                    let renderMax = this.renderMaxTotal()
+                    let value = event.target.value
+                    let key = event.target.getAttribute("data-key")
+                    if (key == '1') {
+                        this.setState(
+                            {
+                                filterTotalF: event.target.value,
+                                rangevalTotalF: event.target.value,
+                            },
+                            () => {
+                                this.reorganiseLibrary(state_service, state_stars, state_availability, state_area, state_checktype, state_checkkey);
+                            }
+                        )
+                    } else if (key == '2') {
+                        event.target.max = renderMax
+                        this.setState(
+                            {
+                                filterTotalS: event.target.value,
+                                rangevalTotalS: event.target.value,
+                            },
+                            () => {
+                                this.reorganiseLibrary(state_service, state_stars, state_availability, state_area, state_checktype, state_checkkey);
+                            }
+                        )
+                    }
+                } // end handle filter price
+                handleMinFilterTotal = event => {
+                    event.target.value = Math.min(event.target.value, event.target.parentNode.childNodes[2].value - 1);
+                    var value = (100 / (parseInt(event.target.max) - parseInt(event.target.min))) * parseInt(event.target.value) - (100 / (parseInt(event.target.max) - parseInt(event.target.min))) * parseInt(event.target.min);
+                    var children = event.target.parentNode.childNodes[0].childNodes;
+                    children[0].style.width = value + '%';
+                    children[2].style.left = value + '%';
+                    children[3].style.left = value + '%';
+                    children[5].childNodes[0].innerHTML = event.target.value;
+                }
+                handleMaxFilterTotal = event => {
+                    event.target.value = Math.max(event.target.value, event.target.parentNode.childNodes[1].value - (-1));
+                    var value = (100 / (parseInt(event.target.max) - parseInt(event.target.min))) * parseInt(event.target.value) - (100 / (parseInt(event.target.max) - parseInt(event.target.min))) * parseInt(event.target.min);
+                    var children = event.target.parentNode.childNodes[0].childNodes;
+                    children[1].style.width = (100 - value) + '%';
+                    children[2].style.right = (100 - value) + '%';
+                    children[4].style.left = value + '%';
+                    children[6].childNodes[0].innerHTML = event.target.value;
+                }
+
+                // handler per page
+                handlePerPage = (evt) =>
+                    this.setState({
+                        perPage: evt.target.value
+                    }, () => this.reorganiseLibrary());
+
+                // handler render of library
+                renderLibrary = () => {
+                    const { library, currentPage } = this.state;
+                    if (!library || (library && library.length === 0)) {
+                        return <div className="message-box-nodata dir-ltr">
+                            <i className="icon-message-box">
+                                <svg width="50pt" height="50pt" fill="#666" version="1.0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                    <g transform="translate(0 512) scale(.1 -.1)">
+                                        <path d="m593 5102c-100-35-171-115-193-216-8-36-10-508-8-1626l3-1575 21-46c28-60 87-119 150-150 47-23 59-24 306-29l257-5-459-430c-252-236-470-448-485-470-62-96-71-231-22-338 92-201 346-279 521-159 33 23 269 267 611 632 306 327 562 599 569 604 9 6 23 2 43-12 96-68 313-155 464-186 454-93 972 35 1285 317l51 46 1058 6 57 28c69 34 121 91 148 164 20 53 20 76 20 1633s0 1580-20 1633c-27 73-79 130-148 164l-57 28-2060 2c-1957 2-2063 2-2112-15zm4142-194c48-22 55-52 55-228v-160h-835c-908 0-877 2-903-55-15-33-15-57 0-90 26-57-5-55 903-55h835v-1296-1296l-68-68h-416-415l56 83c102 149 181 339 220 533 27 134 24 423-5 560-64 299-201 559-406 772-214 222-458 359-759 424-87 19-133 22-307 22s-220-3-307-22c-294-64-523-190-738-406-223-224-359-476-427-790-18-84-22-133-22-291 0-206 14-299 70-462 28-82 110-256 144-303 11-16 20-32 20-37s-20-25-44-46l-45-37h-341-342l-68 68v1296 1296h835c625 0 841 3 860 12 29 13 55 55 55 88s-26 75-55 88c-19 9-235 12-860 12h-835v166 166l68 68h2026c1549 0 2031-3 2051-12zm-1788-1077c282-58 509-182 693-378 454-486 454-1300-1-1787-211-226-500-362-845-396-645-65-1252 396-1381 1047-21 109-24 355-4 463 88 493 456 901 931 1032 190 53 410 59 607 19zm-1304-2478-66-74-168 166 146 134 154-152-66-74zm-293-138 84-85-50-52c-28-29-220-234-428-455-403-431-407-434-488-419-106 20-169 137-123 226 13 26 901 870 915 870 3 0 43-38 90-85z" />
+                                        <path d="m2644 4509c-25-13-54-60-54-89 0-51 49-100 100-100s100 49 100 99c0 73-80 122-146 90z" />
+                                        <path d="m2305 3320c-11-4-101-90-200-189-236-237-234-207-27-414l152-152-140-140c-146-146-176-188-165-233 8-34 338-369 381-388 17-7 42-10 55-7s93 73 177 157l152 151 153-151c83-84 163-154 176-157s35-1 50 4c40 15 379 358 386 391 10 46-19 87-165 233l-140 140 152 152c207 208 210 176-32 418-115 115-194 186-210 190-47 10-83-14-228-158l-142-141-143 141c-169 168-185 178-242 153zm185-384c147-147 174-165 228-151 16 4 85 64 175 153l147 146 87-87 88-87-153-153c-133-135-152-157-152-186 0-18 5-42 11-54s75-86 152-165l142-142-175-175-153 153c-151 149-154 152-197 152s-46-3-197-152l-153-153-174 174 152 155c149 150 152 155 152 197s-3 46-152 196l-152 153 84 85c47 47 87 85 89 85 3 0 71-65 151-144z" />
+                                    </g>
+                                </svg> </i>
+                            <div className="line-one font_20 font-weight text-right">
+                                No results found for your search
+                            </div>
+                            <div className="line-two text-right">
+                                To get the result, please change the date or route
+                            </div>
+                            <button className="background-color_1 color_white font_16 border-radius cursor-pointer" onClick={this.renderhomepage}>Home</button>
+                        </div>
+
+                    }
+                    return library[currentPage - 1].map((item, i) => (
+                        <div className="result-item">
+                            <form method="post" action="/Client_Show_Hotel_En_ver.2.bc" key={item._id}>
+                                <input type="hidden" value={this.state.state_currency_unit} name="rate-unit" className="rate-unit" />
+                                <input type="hidden" value={this.state.state_currency_cost} name="rate-cost" className="rate-cost" />
+                                <input type="hidden" value={this.state.state_floatdigit} name="rate-floatdigit" className="rate-floatdigit" />
+                                <input type="hidden" value="[##cms.form.cityid##]" name="cityid" />
+                                <input type="hidden" value="[##cms.form.coHotel##]" name="coHotel" />
+                                <input type="hidden" value="[##cms.form.hotelname##]" name="hotelname" />
+                                <input type="hidden" value='[##cms.json.header|cms.form.roomSearch##]' name="roomSearch" />
+                                <input type="hidden" value="[##cms.form.fdate##]" name="fdate" />
+                                <input type="hidden" value="[##cms.form.tdate##]" name="tdate" />
+                                <input type="hidden" value="Tem3" name="checkpreurl" />
+                                <input type="hidden" value={item.nights} name="nightLink" className="nightLink" />
+                                <input type="hidden" value={item.supplier} name="supplier" />
+                                <input type="hidden" value={item.hotelinfo.hotelsearch.hotelid} name="hotelid" />
+                                {this.renderOptionIdFirst(item)}
+                                {this.renderproviderId(item.id)}
+                                {this.renderprovider(item)}
+                                {this.renderid(item)}
+                                {this.renderadultsFirst(item)}
+                                {this.renderchildwithbedFirst(item)}
+                                {this.renderchildwithoutbedFirst(item)}
+                                {this.renderinfantFirst(item)}
+                                {this.renderroomidFirst(item)}
+                                <div className="result-info p-relative">
+                                    <div className="first-col width_70 float-left p-relative">
+                                        <div className="d-flex">
+                                            <div className="img-item text-center">
+                                                {this.renderImgHotel(item)}
+                                            </div>
+                                            <div className="infoes-item ">
+                                                <div className="title font_18 color_font font-weight" style={{ marginBottom: "1em" }}>{item.hotelinfo.name}</div>
+                                                <img src={(`https://cdn.basiscore.net/basisfly.com/images/${item.hotelinfo.hotelsearch.star}-rate.png`)} className="hotel-rate" width="80" height="16" alt="rate" />
+                                                <div className="hotel-location color_gray font_13"><i className="fa fa-map-marked"></i><span>{item.hotelinfo.hotelsearch.ecountryname}</span><span>,</span><span>{item.hotelinfo.hotelsearch.ecityname}</span></div>
+                                                <ul className="font_12 brief-info">
+                                                    <li>{this.renderRoomtypeFirst(item)}<span className="answer-services">({this.renderservicesFirst(item)})</span></li>
+                                                    <li>{this.renderavailabFirst(item)}</li>
+                                                    {this.renderviewnameFirst(item.hotelinfo.information.viewname)}
+                                                    {this.renderArea(item.hotelinfo.hotelsearch)}
+                                                    {this.renderProviderName(item)}
+                                                    {this.renderSupplierName(item)}
+                                                </ul>
+                                                <span
+                                                    className="details-btn font_12 color_2 text-center cursor-pointer" data-active={`${this.state.state_active_btn[i] ? "1" : "0"}`}
+                                                    onClick={e => this.select_room(e, item, i)}>Change Room
+                                                </span>
+                                                <div className="clr"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="width_30 float-right p-relative">
+                                        {this.renderCommission(item, i)}
+                                        {this.renderEnablePoint(item)}
+                                    </div>
+                                    <div className="clr"></div>
+                                    <div key={i} className={`room-loading ${!this.state.loadingVisible[i] ? "unvisible" : "visible"}`}>
+                                        <div id="ballsWaveG">
+                                            <div id="ballsWaveG_1" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_2" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_3" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_4" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_5" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_6" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_7" className="ballsWaveG"></div>
+                                            <div id="ballsWaveG_8" className="ballsWaveG"></div>
+                                        </div>
+                                    </div>
+                                    <div key={i} className={`details-row p-relative ${!this.state.visibleRoom[i] ? "unvisible" : "visible"}`}>
+                                        <div className="details-item backgroud-color rooms-content" >
+                                            <div className="close-btn" onClick={() => this.closeRooms(i)}><span className="fa fa-times cursor-pointer"></span></div>
+                                            <div className="clr"></div>
+                                            {this.show_rooms(i, item)}
+                                            <form method="post" action='/Client_Hotel_Information_en.bc' className="text-center more-rooms--content" target="_blank">
+                                                {this.renderproviderid_hotelInfo(item)}
+                                                <input type="hidden" value={item.families[0].optionId} name="optionId-hotel" />
+                                                <input type="hidden" value={item.hotelinfo.hotelsearch.hotelid} name="hotelid" />
+                                                <input type="hidden" value={item.id.usedforid} name="usedforid" />
+                                                <input type="hidden" value="[##cms.form.cityid##]" name="cityid" />
+                                                <input type="hidden" value="[##cms.form.coHotel##]" name="coHotel" />
+                                                <input type="hidden" value='[##cms.json.header|cms.form.roomSearch##]' name="roomSearch" />
+                                                <input type="hidden" value="[##cms.form.fdate##]" name="fdate" />
+                                                <input type="hidden" value="[##cms.form.tdate##]" name="tdate" />
+                                                <input type="hidden" value="2" name="clid" />
+                                                <input type="hidden" value="[##cms.form.currentdate##]" class="currentdate" name="currentdate" />
+                                                {this.renderpassengerscount(item)}
+                                                {this.hotel_information_moneytype(item)}
+                                                <input type="hidden" value="" name="chagencyuser" />
+                                                <button type="submit" className="cursor-pointer more-rooms-link" >Show All Rooms</button>
+                                            </form>
+                                            <div className="clr"></div>
+                                        </div>
+                                    </div>
+                                    <div className="clr"></div>
+                                </div>
+                            </form>
+                        </div>
+                    ))
+                }
+
+
+                render() {
+                    const { library, currentPage, perPage, maxPage, rangevalTotalF, rangevalTotalS, librarySecond } = this.state;
+                    let defaultRangeTotalF = null;
+                    defaultRangeTotalF = rangevalTotalF
+                        ? (<span>{new Intl.NumberFormat('en-US').format(rangevalTotalF)}</span>)
+                        : (<span>{new Intl.NumberFormat('en-US').format(this.renderMinTotal())}</span>);
+                    let defaultRangeTotalS = null;
+                    defaultRangeTotalS = rangevalTotalS
+                        ? (<span>{new Intl.NumberFormat('en-US').format(rangevalTotalS)}</span>)
+                        : (<span>{new Intl.NumberFormat('en-US').format(this.renderMaxTotal())}</span>);
+
+                    return (
+                        <div>
+                            <div className="currency-content-list unvisible">
+                                <div className="currency-selected cursor-pointer" data-active="0" onClick={() => this.currency_selected_list()}><span>{this.localStorage_getCurrency()}{this.localStorage_expire()}</span></div>
+                                {this.renderCurrencyRate()}
+                            </div>
+                            <aside className="sidebar-content width_30 float-left">
+                                <div className="filters-container float-left width_95">
+                                    <p><span className="font-weight result-count">{this.renderCount()}</span> hotels has been found.</p>
+                                    <p className="section-timer">Left Time : <span id="timer" className="font-weight EnNum font_20">00:00:00</span></p>
+                                    <div className="filter-container">
+                                        <p className="filter-head"><span className="font_14 float-left">Hotel Name</span>
+                                            <div className="clr"></div>
+                                        </p>
+                                        <div className="filter-row">
+                                            <ul className="filter-body  text-center font_13">
+                                                <li className="width_100">
+                                                    <input value={this.state.filterName} onChange={((e) => this.handleFilterName(e))} placeholder="Enter Hotel Name" className="inner filter-name-hotel"
+                                                    />
+                                                </li>
+                                                <div className="clr"></div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="filter-container filter-star">
+                                        <p className="filter-head"><span className="font_14 float-left">Hotel Rate</span>
+                                            <div className="clr"></div>
+                                        </p>
+                                        <div className="filter-row">
+                                            <ul className="filter-body text-center font_13">
+                                                <li className="width_50 float-left">
+                                                    <div className="inner p-relative">
+                                                        <input type="checkbox" value="0,1,2" className="checkbox-click" data-filter="stars" onChange={((e) => this.handleChange(e))} defaultChecked={this.props.defaultChecked} />
+                                                        <label>
+                                                            <div className="icon"><i className="fa fa-star"></i><i className="fa fa-star"></i></div>
+                                                            <div className="text">
+                                                                <p> 2 Star Or Less</p>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li className="width_50 float-left">
+                                                    <div className="inner p-relative">
+                                                        <input type="checkbox" value="3" className="checkbox-click" data-filter="stars" onChange={((e) => this.handleChange(e))} defaultChecked={this.props.defaultChecked} />
+                                                        <label>
+                                                            <div className="icon"><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i></div>
+                                                            <div className="text">
+                                                                <p> 3 Star</p>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li className="width_50 float-left">
+                                                    <div className="inner p-relative">
+                                                        <input type="checkbox" value="4" className="checkbox-click" data-filter="stars" onChange={((e) => this.handleChange(e))} defaultChecked={this.props.defaultChecked} />
+                                                        <label>
+                                                            <div className="icon"><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i></div>
+                                                            <div className="text">
+                                                                <p>  4 Star</p>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li className="width_50 float-left">
+                                                    <div className="inner p-relative">
+                                                        <input type="checkbox" value="5" className="checkbox-click" data-filter="stars" onChange={((e) => this.handleChange(e))} defaultChecked={this.props.defaultChecked} />
+                                                        <label>
+                                                            <div className="icon"><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i></div>
+                                                            <div className="text">
+                                                                <p>  5 Star</p>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <div className="clr"></div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {this.ShowFilterHotel()}
+                                    <div className="filter-container">
+                                        <p className="filter-head"><span className="font_14 float-left">Price Range</span>
+                                            <div className="clr"></div>
+                                        </p>
+                                        <div className="content-filter p-relative">
+                                            <div className="range-distance">
+                                                <div>
+                                                    <div className="inverse-left"></div>
+                                                    <div className="inverse-right"></div>
+                                                    <div className="range-length background-color_1"></div>
+                                                    <span className="thumb-range thumb-range1"></span>
+                                                    <span className="thumb-range thumb-range2"></span>
+                                                    <div class="rangevalFirst_2 p-absolute font_11">{defaultRangeTotalF}<span class="font_10 unit_content">{this.ShowUnit_filter()}</span></div>
+                                                    <div class="rangevalSecond_2 p-absolute font_11">{defaultRangeTotalS}<span class="font_10 unit_content">{this.ShowUnit_filter()}</span></div>
+                                                </div>
+                                                <input type="range" defaultValue={this.renderMinTotal() || 0} max={this.renderMaxTotal() || 999999999} min={this.renderMinTotal() || 0} step="1" onInput={this.handleMinFilterTotal} onChange={this.handleFilterTotal} data-key="1" data-value="1_T" />
+                                                <input type="range" defaultValue={this.renderMaxTotal() || 999999999} max={this.renderMaxTotal() || 999999999} min={this.renderMinTotal() || 0} step="1" onInput={this.handleMaxFilterTotal} onChange={this.handleFilterTotal} data-key="2" data-value="2_T" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </aside>
+                            <div className="result-content width_70 float-right">
+                                <div className="sort-box hotel">
+                                    <span className="sort-title font_13 width_10 float-left">Sorting :</span>
+                                    <ul className="sort-items d-flex background-color_white border-radius float-right">
+                                        <li className={`p-relative font_13 cursor-pointer text-center width_33 after-notactive ${this.state.activedefault}`} data-type="default" data-key="0" onClick={((e) => this.handleChange(e))}> Default</li>
+                                        <li className={`p-relative font_13 cursor-pointer text-center width_33 ${this.state.activeprice} ${!this.state.priceS[0] ? "after-notactive" : "after-active"}`} data-type="price" data-key={this.state.checkkeyprice} onClick={((e) => this.handleChange(e))}> Price</li>
+                                        <li className={`p-relative font_13 cursor-pointer text-center width_33 ${this.state.activestar} ${!this.state.starSort[0] ? "after-notactive" : "after-active"} `} data-type="star" data-key={this.state.checkkeystar} onClick={((e) => this.handleChange(e))}> Star</li>
+                                    </ul>
+                                    <div className="clr"></div>
+                                </div>
+
+                                <div className="clr"></div>
+                                <div className="result-items hotel">
+                                    {this.renderLibrary()}
+                                    <ul id="page-numbers">
+                                        <li className="nexprev">
+                                            {currentPage !== 1 && (
+                                                <button onClick={this.previousPage}><i className="fa fa-backward"></i></button>
+                                            )}
+                                        </li>
+                                        <li className="controls-active background-color_2 font-weight">{this.state.currentPage}</li>
+                                        {(this.state.currentPage2 < maxPage) && (<li className="controls" onClick={this.nextPage}>{this.state.currentPage2}</li>
+                                        )}
+                                        {(this.state.currentPage3 < maxPage) && (<li className="controls" onClick={this.nextPage3}>{this.state.currentPage3}</li>
+                                        )}
+                                        <li className="restControls">...</li>
+                                        <li className="controls">{this.state.maxPage}</li>
+                                        <li className="nexprev">
+                                            {(this.state.currentPage < maxPage) && (<button onClick={this.nextPage}><i className="fa fa-forward"></i></button>
+                                            )}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    )
+                }
+
+                renderMinTotal = () => {
+                    const { librarySecond, state_currency_cost, state_floatdigit } = this.state;
+                    if (!librarySecond || (librarySecond && librarySecond.length === 0)) {
+                        return ''
+                    }
+                    return librarySecond.reduce((acc, lib) => {
+                        if (state_floatdigit == '') {
+                            const libMin = Math.min(...lib.map(item => item.totalCom))
+                            return acc === undefined ? libMin : libMin < acc ? libMin : acc
+                        } else {
+                            const libMin = Math.min(...lib.map(item => this.renderTotal(item.totalCom, state_currency_cost, state_floatdigit)))
+                            return acc === undefined ? libMin : libMin < acc ? libMin : acc
+                        }
+
+                    }, undefined)
+                }
+                renderMaxTotal = () => {
+                    const { librarySecond, state_currency_cost, state_floatdigit } = this.state;
+                    if (!librarySecond || (librarySecond && librarySecond.length === 0)) {
+                        return ''
+                    }
+                    return librarySecond.reduce((acc, lib) => {
+                        if (state_floatdigit == '') {
+                            const libMax = Math.max(...lib.map(item => item.totalCom))
+                            return libMax > acc ? libMax : acc
+                        } else {
+                            const libMax = Math.max(...lib.map(item => this.renderTotal(item.totalCom, state_currency_cost, state_floatdigit)))
+                            return libMax > acc ? libMax : acc
+                        }
+
+                    }, 0)
+                }
+
+                ShowFilterHotel() {
+                    let element = this.state.data;
+                    if (!element) return null;
+                    return <div><div className="filter-container filter-service">
+                        <p className="filter-head"><span className="font_14 float-left">Service Hotel</span>
+                            <div className="clr"></div>
+                        </p>
+                        <div className="filter-row">
+                            <ul className="filter-body text-center font_13">
+                                {this.renderservice(element)}
+                                <div className="clr"></div>
+                            </ul>
+                        </div>
+
+                    </div>
+                        <div className="filter-container unvisible hotel-area">
+                            <p className="filter-head"><span className="font_14 float-left">Area Hotel</span>
+                                <div className="clr"></div>
+                            </p>
+                            <div className="filter-row">
+                                <ul className="filter-body stop-items text-center font_13">
+                                    {this.renderAreaFilter(element)}
+                                    <div className="clr"></div>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="filter-container availability">
+                            <p className="filter-head"><span className="font_14 float-left">Status Hotel</span>
+                                <div className="clr"></div>
+                            </p>
+                            <div className="filter-row">
+                                <ul className="filter-body text-center font_13">
+                                    {this.renderallavailability(element)}
+                                    <div className="clr"></div>
+                                </ul>
+                            </div>
+                        </div></div>
+
+                }
+                ShowUnit_filter() {
+                    let element = this.state.data;
+                    if (!element) return null;
+                    if (element.length !== undefined) {
+                        return [...(new Set(element.map(x => this.renderUnit(x.moneytype, this.state.state_currency_unit))))]
+                    }
+                }
+                renderservice(element) {
+                    if (element.length !== undefined) {
+                        let sentences = [...(new Set(element.map(d => d['families']).flat().map((info) => info['services'].replace('.', '').toLowerCase())))]
+                        let singleSentence = sentences.map(s => <React.Fragment>
+                            <li className="width_50 float-left">
+                                <div className="inner p-relative">
+                                    <input type="checkbox" value={s} className="checkbox-click" data-filter="services" onChange={(e) => this.handleChange(e)} defaultChecked={this.props.defaultChecked} />
+                                    <label><div className="text"> {this.renderserviceNameFilter(s)}</div> </label> </div> </li></React.Fragment>);
+                        let output = singleSentence
+                        return (
+                            output
+                        )
+                    }
+                }
+                renderserviceNameFilter(element) {
+                    if (element == 'ro') {
+                        return <p className="has-not"><div className="icon"><i className="fa fa-coffee"></i><i className="far fa-spoon"></i></div>No Meal</p>
+                    } else if (element == 'bb') {
+                        return <p><div className="icon"><i className="fa fa-coffee"></i></div>With Breakfast</p>
+                    } else if (element == 'hb') {
+                        return <p><div className="icon"><i className="fa fa-coffee"></i><i className="far fa-spoon"></i></div>Half Board</p>
+                    } else {
+                        return <p><div className="icon"><i className="fa fa-hotel"></i></div>{element}</p>
+
+
+                    }
+
+                }
+                renderserviceName(element) {
+                    if (element == 'R.O' || element == 'RO') {
+                        return 'No Meal'
+                    } else if (element == 'B.B' || element == 'BB') {
+                        return 'With Breakfast'
+                    } else if (element == 'H.B' || element == 'HB') {
+                        return 'Half Board'
+                    } else {
+                        return element
+                    }
+
+                }
+                renderallavailability(element) {
+                    if (element.length !== undefined) {
+                        let sentences = [...(new Set(element.map(d => d['families']).flat().map(info => info['availablerooms']).flat().map(info => info['info']['availability'])))]
+                        let singleSentence = sentences.map((s) => {
+                            if (s == 'onrequest') {
+                                return <React.Fragment><li className="width_50 float-left">
+                                    <div className="inner p-relative">
+                                        <input type="checkbox" value={s} className="checkbox-click" data-filter="all_availability" onChange={(e) => this.handleChange(e)} defaultChecked={this.props.defaultChecked} />
+                                        <label><div className="text"><p>On Request</p></div> </label> </div> </li> </React.Fragment>
+                            } else {
+                                return <React.Fragment><li className="width_50 float-left">
+                                    <div className="inner p-relative">
+                                        <input type="checkbox" value={s} className="checkbox-click" data-filter="all_availability" onChange={(e) => this.handleChange(e)} defaultChecked={this.props.defaultChecked} />
+                                        <label><div className="text"><p>Available</p></div> </label> </div> </li> </React.Fragment>
+                            }
+                        });
+                        let output = singleSentence
+                        return (
+                            output
+                        )
+                    }
+                }
+                renderAreaFilter(element) {
+                    let indents = [];
+                    if (element.length !== undefined) {
+                        let sentences = [...(new Set(element.map(d => d['hotelinfo']['hotelsearch']['area'])))]
+                        for (let i = 0; i < sentences.length; i++) {
+                            document.querySelector(".hotel-area").classList.remove("unvisible");
+                            if (sentences[i] !== undefined) {
+                                let singleSentence = <div className="filter-body"><div className="section-input_list p-relative" data-index="1"><input type="checkbox" value={sentences[i]} className="p-absolute" data-filter="area" onChange={((e) => this.handleChange(e))} defaultChecked={this.props.defaultChecked} /><label><span className="checkbox"><div className="text-checkbox">{sentences[i]}</div></span></label></div><div className="clr"></div></div>
+                                let output = singleSentence
+                                indents.push(singleSentence)
+                            }
+
+                        }
+                        return (
+                            indents
+                        )
+
+                    }
+                }
+
+                handleChange = (event) => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    this.handleReset(event);
+                    let checktype = event.target.getAttribute("data-type")
+                    let checkkey = event.target.getAttribute("data-key")
+                    let isChecked = event.target.checked
+                    let value = event.target.value
+                    let data_attribute = event.target.getAttribute("data-filter");
+                    switch (data_attribute) {
+                        case 'stars':
+                            if (isChecked) {
+                                event.target.closest("div").setAttribute("class", "inner p-relative active");
+                                this.stars.push(value + ',')
+                            } else {
+                                event.target.closest("div").setAttribute("class", "inner p-relative");
+                                this.stars.splice(this.stars.indexOf(value + ','), 1)
+                            }
+                            break;
+                        case 'services':
+                            if (isChecked) {
+                                event.target.closest("div").setAttribute("class", "inner p-relative active");
+                                this.service.push(value + ',')
+                            } else {
+                                event.target.closest("div").setAttribute("class", "inner p-relative");
+                                this.service.splice(this.service.indexOf(value + ','), 1)
+                            }
+                            break;
+                        case 'all_availability':
+                            if (isChecked) {
+                                event.target.closest("div").setAttribute("class", "inner p-relative active");
+                                this.availability.push(value + ',')
+                            } else {
+                                event.target.closest("div").setAttribute("class", "inner p-relative");
+                                this.availability.splice(this.availability.indexOf(value + ','), 1)
+                            }
+                            break;
+                        case 'area':
+                            if (isChecked) {
+                                this.area.push(value + ',')
+                            } else {
+                                this.area.splice(this.area.indexOf(value + ','), 1)
+                            }
+                            break;
+                    }
+                    $(document).trigger('update_result', [this.service.join(), this.stars.join(), this.availability.join(), this.area.join(), checktype, checkkey]);
+                    this.setState({
+                        state_service: this.service.join(),
+                        state_stars: this.stars.join(),
+                        state_availability: this.availability.join(),
+                        state_area: this.area.join(),
+                        state_checktype: checktype,
+                        state_checkkey: checkkey,
+                    })
+                }
+
+                renderCount(element) {
+                    let maxPage = this.state.maxPage
+                    let len = this.renderLibrary().length
+                    let sum = len * maxPage
+                    sum = sum || 0
+                    if (sum == '0') {
+                        $("#page-numbers").hide()
+                        $(".message-box-nodata").show()
+
+                    } else {
+                        $("#page-numbers").show()
+                        $(".message-box-nodata").hide()
+                    }
+
+                }
+                renderhomepage = event => {
+                    return window.location = '/EN'
+                }
+                renderResearch = event => {
+                    return location.reload()
+                }
+
+                showLoading = (e, elem, val) => {
+                    this.setState(prevState => ({
+                        loadingVisible: { ...prevState.loadingVisible, [val]: !prevState.loadingVisible[val] }
+                    }))
+                };
+                select_room = (e, element, i) => {
+                    let active_btn = this.state.state_active_btn[i];
+                    let provider = element.id.provider
+                    let optionId = element.families[0].optionId
+                    let mainprovider = 0
+                    if (provider == undefined) {
+                        mainprovider = "0"
+                    } else {
+                        mainprovider = element.id.provider
+                    }
+                    if (active_btn == '' || active_btn == undefined) {
+                        this.setState(prevState => ({
+                            state_active_btn: { ...prevState.state_active_btn, [i]: !prevState.state_active_btn[i] },
+                        }))
+                        this.showLoading(e, element, i);
+                        setTimeout(() => {
+                            fetch('/Client_Hotel_ShowAllRooms.bc?clid=2', {
+                                method: 'POST',
+                                body: `sid=[##cms.query.sid##]&mainprovider=${JSON.stringify(mainprovider)}&optionId=${encodeURIComponent(optionId)} `
+                            })
+                                .then(response => response.text())
+                                .then(text => {
+                                    let Maindata = JSON.parse(text.replace(/\'/g, '"'))
+                                    this.setState(prevState => ({
+                                        show_rooms_data: {
+                                            ...prevState.show_rooms_data,
+                                            [i]: Maindata.families.slice(0, 10),
+                                        },
+                                        visibleRoom: { ...prevState.visibleRoom, [i]: !prevState.visibleRoom[i] },
+                                        loadingVisible: { ...prevState.loadingVisible, [i]: "" }
+                                    }))
+                                }).catch(error => console.error(error))
+
+                        }, 1000);
+                    }
+                }
+                show_rooms(i, item) {
+                    let element = this.state.show_rooms_data[i];
+                    if (!element) return null;
+                    if (element.length > 0) {
+                        let indents = [];
+                        for (let j = 0; j < element.length; j++) {
+                            let index = 0;
+                            let numF = i;
+                            let numS = j;
+                            let stingF = numF.toString();
+                            let stingS = numS.toString();
+                            index = stingF + stingS
+                            indents.push(<div className="item-details-hotel"><form method="post" action="/Client_Show_Hotel_En_ver.2.bc">
+                                <input type="hidden" value={this.state.state_currency_unit} name="rate-unit" className="rate-unit" />
+                                <input type="hidden" value={this.state.state_currency_cost} name="rate-cost" className="rate-cost" />
+                                <input type="hidden" value={this.state.state_floatdigit} name="rate-floatdigit" className="rate-floatdigit" />
+                                {this.renderOptionId(element[j])}
+                                {this.renderadults(element[j])}
+                                {this.renderchildwithbed(element[j])}
+                                {this.renderchildwithoutbed(element[j])}
+                                {this.renderinfant(element[j])}
+                                {this.renderroomid(element[j])}
+                                {this.renderid(element[j])}
+                                {this.renderproviderId(element[j].id)}
+                                {this.renderprovider(element[j])}
+                                {this.renderhotelidRooms(element[j])}
+                                {this.rendernightsRooms(element[j])}
+                                {this.rendersupplierRooms(element[j])}
+                                <input type="hidden" value="[##cms.form.cityid##]" name="cityid" />
+                                <input type="hidden" value="[##cms.form.coHotel##]" name="coHotel" />
+                                <input type="hidden" value="[##cms.form.hotelname##]" name="hotelname" />
+                                <input type="hidden" value='[##cms.json.header|cms.form.roomSearch##]' name="roomSearch" className="roomSearch" />
+                                <input type="hidden" value="[##cms.form.fdate##]" name="fdate" />
+                                <input type="hidden" value="[##cms.form.tdate##]" name="tdate" />
+                                <div className="d-flex">
+                                    <div className="col-details-row width_40 font_12">
+                                        <ul>
+                                            <li>{this.renderRoomtype(element[j])}<span className="answer-services">({this.renderserviceName(element[j].services)})</span></li>
+                                            <li>{this.renderavailability(element[j])}</li>
+                                            {this.renderviewnameRooms(element[j])}
+                                            {this.renderProviderName(element[j])}
+                                            {this.renderSupplierNameRooms(element[j])}
+                                            {this.renderEnablePointRooms(element[j])}
+                                        </ul>
+                                    </div>
+                                    <div className="col-details-row width_20 font_13 text-center">
+                                        <p><span className="details-btn color_1 cursor-pointer btn-rule" key={index} onClick={e => this.handleruleRoom(e, element[j], index)}>Rules & Condition</span></p>
+                                    </div>
+                                    <div className="col-details-row width_40 text-right cost-item">
+                                        <p className="btn-item">{this.renderBtn(j)}</p>
+                                    </div>
+                                </div>
+                                <div className="cost-info d-flex flex-justify">
+                                    <div>{this.renderCommissionRooms(element[j], item.moneytype)}</div>
+                                    <div><span className="color_gray font_12">Total: </span>
+                                        <span className="font_18">{new Intl.NumberFormat('en-US').format(this.renderTotal(element[j].totalCom, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                            className="color_gray font_11 unit">{this.renderUnit(item.moneytype, this.state.state_currency_unit)}</span></div>
+                                </div>
+
+                            </form>
+                                <div className="clr"></div>
+                                <div key={index} className={`${!this.state.loadingVisible[index] ? "unvisible" : "visible"}`}>
+                                    <div id="ballsWaveG">
+                                        <div id="ballsWaveG_1" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_2" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_3" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_4" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_5" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_6" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_7" className="ballsWaveG"></div>
+                                        <div id="ballsWaveG_8" className="ballsWaveG"></div>
+                                    </div>
+                                </div>
+                                <div key={index} className={`close-btn cursor-pointer ${!this.state.loadingVisibleBtnClose[index] ? "unvisible" : "visible"}`} onClick={() => this.CloseRuleRoom(index)}><span className="fa fa-times"></span></div>
+                                <div className="clr"></div>
+                                <div dir="auto" key={index} className={`text-justify font_13 max-height roomRule-${index}`}>{this.state.roomRule[index]}</div>
+                            </div>
+                            )
+                        }
+                        return (
+                            indents
+                        )
+                    }
+
+                    else {
+                        return null
+                    }
+                }
+
+                closeRooms = (elem) => {
+                    this.setState(prevState => ({
+                        visibleRoom: { ...prevState.visibleRoom, [elem]: "" },
+                        state_active_btn: { ...prevState.state_active_btn, [elem]: "" },
+                    }))
+                }
+                renderImgHotel(element) {
+                    let imghotel_garanti = element.hotelinfo.hotelsearch.hotelimage
+                    let imghotel_ws = element.hotelinfo.hotelsearch.webserviceimage
+                    if (imghotel_garanti == '') {
+                        return <div className="image-container">
+                            <form method="post" action='/Client_Hotel_Information_en.bc' target="_blank">
+                                {this.renderproviderid_hotelInfo(element)}
+                                <input type="hidden" value={element.families[0].optionId} name="optionId-hotel" />
+                                <input type="hidden" value={element.hotelinfo.hotelsearch.hotelid} name="hotelid" />
+                                <input type="hidden" value={element.id.usedforid} name="usedforid" />
+                                <input type="hidden" value="[##cms.form.cityid##]" name="cityid" />
+                                <input type="hidden" value="[##cms.form.coHotel##]" name="coHotel" />
+                                <input type="hidden" value='[##cms.json.header|cms.form.roomSearch##]' name="roomSearch" />
+                                <input type="hidden" value="[##cms.form.fdate##]" name="fdate" />
+                                <input type="hidden" value="[##cms.form.tdate##]" name="tdate" />
+                                <input type="hidden" value="2" name="clid" />
+                                <input type="hidden" value="[##cms.form.currentdate##]" class="currentdate" name="currentdate" />
+                                {this.renderpassengerscount(element)}
+                                {this.hotel_information_moneytype(element)}
+                                <input type="hidden" value="" name="chagencyuser" />
+                                <button type="submit" className="cursor-pointer" ><img src={imghotel_ws} width="190" height="190" alt="" /><div className="overlay p-absolute"><span className="expand p-absolute">+</span></div></button>
+                            </form>
+                        </div>
+                    } else {
+                        return <div className="image-container">
+                            <form method="post" action='/Client_Hotel_Information_en.bc' target="_blank">
+                                {this.renderproviderid_hotelInfo(element)}
+                                <input type="hidden" value={element.families[0].optionId} name="optionId-hotel" />
+                                <input type="hidden" value={element.hotelinfo.hotelsearch.hotelid} name="hotelid" />
+                                <input type="hidden" value={element.id.usedforid} name="usedforid" />
+                                <input type="hidden" value="[##cms.form.cityid##]" name="cityid" />
+                                <input type="hidden" value="[##cms.form.coHotel##]" name="coHotel" />
+                                <input type="hidden" value='[##cms.json.header|cms.form.roomSearch##]' name="roomSearch" />
+                                <input type="hidden" value="[##cms.form.fdate##]" name="fdate" />
+                                <input type="hidden" value="[##cms.form.tdate##]" name="tdate" />
+                                <input type="hidden" value="2" name="clid" />
+                                <input type="hidden" value="[##cms.form.currentdate##]" class="currentdate" name="currentdate" />
+                                {this.renderpassengerscount(element)}
+                                {this.hotel_information_moneytype(element)}
+                                <input type="hidden" value="" name="chagencyuser" />
+                                <button type="submit" className="cursor-pointer" ><img src={imghotel_garanti} width="190" height="190" alt="" /><div className="overlay p-absolute"><span className="expand p-absolute">+</span></div></button>
+                            </form>
+                        </div>
+                    }
+                }
+
+                renderpassengerscount(element) {
+                    let info = [##cms.json.header | cms.form.roomSearch##];
+                    let valueAdded = 0;
+                    let valueAdded2 = 0;
+                    let rooncount = info.rooms.length;
+                    let sum = 0;
+                    for (let i = 0; i < info.rooms.length; i++) {
+                        let adultcount = parseInt(info.rooms[i].adultcount);
+                        valueAdded += adultcount;
+                        let childcountandage = info.rooms[i].childcountandage
+                        let spl = childcountandage.split(",");
+                        let childcount = parseInt(spl[0]);
+                        valueAdded2 += childcount;
+                    }
+                    valueAdded = parseInt(valueAdded)
+                    valueAdded2 = parseInt(valueAdded2)
+                    return <div><input type="hidden" value={valueAdded} name="hotel_info_adultcount" />
+                        <input type="hidden" value={valueAdded2} name="hotel_info_childcount" />
+                        <input type="hidden" value={rooncount} name="hotel_info_roomcount" /></div>
+                }
+                hotel_information_moneytype(element) {
+                    let moneytype = element.moneytype
+                    if (moneytype !== undefined) {
+                        return <input type="hidden" value={moneytype} name="moneytype" />;
+                    }
+                }
+                renderRoomtype(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        indents.push(<span className="answer-info">{element.availablerooms[i].info.room}</span>)
+                    }
+                    return (indents)
+                }
+                renderavailability(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        if (element.availablerooms[i].info.availability == 'onrequest') {
+                            indents.push(<span className="answer-info text-capitalize">on request</span>)
+                        } else {
+                            indents.push(<span className="answer-info text-capitalize">{element.availablerooms[i].info.availability}</span>)
+                        }
+
+                    }
+                    return (indents)
+                }
+                renderArea(element) {
+                    if (element.area) {
+                        return <li><span className="answer-info text-capitalize">{element.area}</span></li>;
+                    } else {
+                        return '';
+                    }
+                }
+
+                renderProviderName(element) {
+                    if (this.state.data_provider.length == 0) {
+                        return ''
+                    } else {
+                        if (element.id.provider == undefined) {
+                            const providerName = this.state.data_provider
+                                .filter((x) => x.id === 0)
+                                .map((x) => x.name);
+                            return <li className="provider-content" ><span className="question-info">webservice : </span><span className="answer-info">{providerName}</span></li>;
+                        } else {
+                            const providerName = this.state.data_provider
+                                .filter((x) => x.id === parseInt(element.id.provider.provider_id))
+                                .map((x) => x.name);
+                            return <li className="provider-content"><span className="question-info">webservice : </span><span className="answer-info">{providerName}</span></li>;
+                        }
+                    }
+                }
+                renderSupplierName(element) {
+                    if (this.state.data_supplier.length == 0) {
+                        return ''
+                    } else {
+                        if (element.infoForMapping.hotelDmnid == undefined) {
+                            if (parseInt(element.infoForMapping.provider.dmnid) !== parseInt(element.dmnid)) {
+                                const supplierName = this.state.data_supplier
+                                    .filter((x) => x.id === parseInt(element.infoForMapping.provider.dmnid))
+                                    .map((x) => x.name);
+                                return <li className="supplier-content"><span className="answer-info">{supplierName}</span></li>;
+                            } else {
+                                return ''
+                            }
+
+                        } else {
+                            if (parseInt(element.infoForMapping.hotelDmnid) !== parseInt(element.dmnid)) {
+                                const supplierName = this.state.data_supplier
+                                    .filter((x) => x.id === parseInt(element.infoForMapping.hotelDmnid))
+                                    .map((x) => x.name);
+                                return <li className="supplier-content"><span className="answer-info">{supplierName}</span></li>;
+                            } else {
+                                return ''
+                            }
+
+                        }
+                    }
+                }
+                renderSupplierNameRooms(element) {
+                    if (this.state.data_supplier.length == 0) {
+                        return ''
+                    } else {
+                        if (element.main_dmnid == undefined) {
+                            if (element.supplier == 0) {
+                                const supplierName = this.state.data_supplier
+                                    .filter((x) => x.id === parseInt(element.id.provider.dmnid))
+                                    .map((x) => x.name);
+                                return <li className="supplier-content"><span className="answer-info">{supplierName}</span></li>;
+                            } else {
+                                const supplierName = this.state.data_supplier
+                                    .filter((x) => x.id === parseInt(element.supplier))
+                                    .map((x) => x.name);
+                                return <li className="supplier-content"><span className="answer-info">{supplierName}</span></li>;
+                            }
+
+
+                        } else {
+                            const supplierName = this.state.data_supplier
+                                .filter((x) => x.id === parseInt(element.main_dmnid))
+                                .map((x) => x.name);
+                            return <li className="supplier-content"><span className="answer-info">{supplierName}</span></li>;
+                        }
+                    }
+                }
+                renderEnablePointRooms(element) {
+                    if (element.enable_point == '1') {
+                        return <li><span className="answer-info text-capitalize"><span style={{marginRight:'0.3rem'}}>Club Point</span><span>{element.club_point}</span></span></li>
+                    }
+                }
+                renderCommissionRooms(element, moneytype) {
+                    if (element.commissioncost !== 0) {
+                        return <span><span className="commission-rooms"><span className="color_gray font_12">Price For {element.nights} Nights :</span>
+                            <span className="font_14">{new Intl.NumberFormat('en-US').format(this.renderTotal(element.totalPrice, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                className="color_gray font_11 unit">{this.renderUnit(moneytype, this.state.state_currency_unit)}</span></span><span className="commission-rooms">-</span><span className="commission-rooms"><span className="color_gray font_12">Commission :</span>
+                                <span className="font_14">{new Intl.NumberFormat('en-US').format(this.renderTotal(element.commissioncost, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                    className="color_gray font_11 unit">{this.renderUnit(moneytype, this.state.state_currency_unit)}</span></span></span>;
+                    }
+                }
+
+                renderOptionId(element) {
+                    return <input type="hidden" value={element.optionId} name="optionId" />
+                }
+                renderOptionIdFirst(element) {
+                    let indents = [];
+                    indents.push(<input type="hidden" value={element.families[0].optionId} name="optionId" />)
+                    return (indents)
+                }
+
+                renderRoomtypeFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        indents.push(<span className="answer-info">{element.families[0].availablerooms[i].info.room}</span>)
+                    }
+                    return (indents)
+
+                }
+                renderavailabFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        if (element.families[0].availablerooms[i].info.availability == 'onrequest') {
+                            indents.push(<span className="answer-info text-capitalize">on request</span>)
+                        } else {
+                            indents.push(<span className="answer-info text-capitalize">{element.families[0].availablerooms[i].info.availability}</span>)
+                        }
+
+                    }
+                    return (indents)
+                }
+                renderviewnameFirst(element) {
+                    if (element == '' || element == '-') {
+                        return ''
+                    } else {
+                        return <li><span className="answer-info text-capitalize">{element}</span> </li>
+                    }
+
+                }
+                renderservicesFirst(element) {
+                    let indents = [];
+                    indents.push(<span className="answer-service">{this.renderserviceName(element.families[0].services)}</span>)
+                    return (
+                        indents
+                    )
+
+                }
+                renderadultsFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.adults`} value={element.families[0].availablerooms[i].info.adults} />)
+                    }
+                    return (indents)
+
+                }
+                renderchildwithbedFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.childwithbed`} value={element.families[0].availablerooms[i].info.withbed} />)
+                    }
+                    return (indents)
+                }
+                renderchildwithoutbedFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.childwithoutbed`} value={element.families[0].availablerooms[i].info.withoutbed} />)
+                    }
+                    return (indents)
+
+                }
+                renderinfantFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.infant`} value={element.families[0].availablerooms[i].info.infant} />)
+                    }
+                    return (indents)
+
+                }
+                renderroomidFirst(element) {
+                    let lenavailablerooms = element.families[0].availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.roomid`} value={element.families[0].availablerooms[i].info.roomid} />)
+                    }
+                    return (indents)
+
+                }
+
+                renderadults(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.adults`} value={element.availablerooms[i].info.adults} />)
+                    }
+                    return (indents)
+
+                }
+                renderchildwithbed(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.childwithbed`} value={element.availablerooms[i].info.withbed} />)
+                    }
+                    return (indents)
+
+                }
+                renderchildwithoutbed(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.childwithoutbed`} value={element.availablerooms[i].info.withoutbed} />)
+                    }
+                    return (indents)
+                }
+                renderinfant(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.infant`} value={element.availablerooms[i].info.infant} />)
+                    }
+                    return (indents)
+
+                }
+                renderroomid(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        let idx = i
+                        indents.push(<input type="hidden" name={`_root.rooms__${idx}.roomid`} value={element.availablerooms[i].info.roomid} />)
+                    }
+                    return (indents)
+                }
+                renderprovider(element) {
+                    let provider = element.id.provider
+                    if (provider == undefined) {
+                        return '';
+                    } else {
+                        return <input type="hidden" value={JSON.stringify(provider)} name="mainprovider" />
+                    }
+                }
+                renderproviderId(element) {
+                    let provider = element.provider
+                    if (provider == undefined) {
+                        return <input type="hidden" value="0" name="provider" />;
+                    }
+                    else {
+                        let providerId = element.provider.provider_id
+                        return <input type="hidden" value={providerId} name="provider" />;
+                    }
+                }
+                renderid(element) {
+                    let id = element.id
+                    if (typeof id === 'string') {
+                        return <input type="hidden" value={id} name="productid" />
+                    } else if (typeof id === 'object') {
+                        return <input type="hidden" value={id.hotelId} name="productid" />
+                    }
+                }
+                renderhotelidRooms(element) {
+                    let hotelIdFamily = element.id.hotelId
+                    if (hotelIdFamily == undefined) {
+                        return <input type="hidden" value={element.hotelid} name="hotelid" />
+                    } else {
+                        return <input type="hidden" value={hotelIdFamily} name="hotelid" />
+                    }
+                }
+                rendernightsRooms(element) {
+                    let hotelIdFamily = element.id.hotelId
+                    return <input type="hidden" value={element.nights} name="nightLink" />
+                }
+                rendersupplierRooms(element) {
+                    let hotelIdFamily = element.id.hotelId
+                    return <input type="hidden" value={element.supplier} name="supplier" />
+                }
+                rendermoneytype(element) {
+                    let hotelIdFamily = element.id.hotelId
+                    if (hotelIdFamily == undefined) {
+                        return element.moneytype
+                    } else {
+                        return 'Rial'
+                    }
+                }
+                renderviewnameRooms(element) {
+                    let lenavailablerooms = element.availablerooms.length
+                    let indents = [];
+                    for (let i = 0; i < lenavailablerooms; i++) {
+                        if (element.availablerooms[i].info.viewname == '' || element.availablerooms[i].info.viewname == '-' || element.availablerooms[i].info.viewname == undefined) {
+                            indents.push()
+                        } else {
+                            indents.push(<li><span className="answer-info text-capitalize">{element.availablerooms[i].info.viewname}</span> </li>)
+                        }
+
+                    }
+                    return (indents)
+
+                }
+
+                renderBtn(j) {
+                    if (j == 0) {
+                        return <button type="submit" className="color_white border-radius font_15 cursor-pointer selected">Selected</button>
+                    } else {
+                        return <button type="submit" className="color_white border-radius font_15 cursor-pointer">Book The Room</button>
+                    }
+                }
+
+
+
+                handleruleRoom = (e, element, index) => {
+                    let provider = element.id.provider
+                    let optionId = element.optionId
+                    let supplier = element.supplier
+                    let mainprovider = 0
+                    if (provider == undefined) {
+                        mainprovider = "0"
+                    } else {
+                        mainprovider = element.id.provider
+                    }
+                    this.showLoading(e, element, index);
+
+                    fetch("/Client_Room_Rule.bc", {
+                        method: "POST",
+                        body: `sid=[##cms.query.sid##]&mainprovider=${JSON.stringify(mainprovider)}&optionId=${encodeURIComponent(optionId)}&supplier=${supplier}`
+                    }).then(response => response.text()).then(text => {
+                        document.querySelector(`.roomRule-${index}`).innerHTML = text
+                        this.setState(prevState => ({
+                            loadingVisible: { ...prevState.loadingVisible, [index]: "" },
+                            loadingVisibleBtnClose: { ...prevState.loadingVisibleBtnClose, [index]: !prevState.loadingVisibleBtnClose[index] }
+                        }))
+                    }).catch(error => console.error(error))
+                }
+
+                CloseRuleRoom = (index) => {
+                    this.setState(prevState => ({
+                        roomRule: { ...prevState.roomRule, [index]: '' },
+                        loadingVisibleBtnClose: { ...prevState.loadingVisibleBtnClose, [index]: "" },
+                    }))
+                }
+
+                renderpassenger(passenger) {
+                    let info = [##cms.json.header | cms.form.roomSearch##]
+                    let valueAdded = 0;
+                    let valueAdded2 = 0;
+                    let sum = 0;
+                    for (let i = 0; i < info.rooms.length; i++) {
+                        let adultcount = parseInt(info.rooms[i].adultcount);
+                        valueAdded += adultcount;
+                        let childcountandage = info.rooms[i].childcountandage
+                        let spl = childcountandage.split(",");
+                        let childcount = parseInt(spl[0]);
+                        valueAdded2 += childcount;
+                    }
+                    valueAdded = parseInt(valueAdded)
+                    valueAdded2 = parseInt(valueAdded2)
+                    sum = valueAdded2 + valueAdded
+                    return sum
+                }
+
+                renderproviderid_hotelInfo(element) {
+                    let provider = element.id.provider
+                    if (provider == undefined) {
+                        return <input type="hidden" value="0" name="provider-hotel" />;
+                    }
+                    else {
+                        let providerId = element.id.provider.provider_id
+                        return <input type="hidden" value={providerId} name="provider-hotel" />;
+                    }
+                }
+                //bitaa
+                renderTotal(element, currency_cost, floatdigit) {
+                    if (floatdigit == '') {
+                        return element * currency_cost;
+                    } else {
+                        let toString_element = (element * currency_cost).toString();
+                        if (floatdigit >= 0) {
+                            if (toString_element.indexOf('.') > -1) {
+                                let parseFloat_element = parseFloat(toString_element).toFixed(floatdigit).toString();
+                                let parseFloat_element_split = parseFloat_element.split('.');
+                                if (parseFloat_element_split[1].indexOf('0') > -1) {
+                                    return parseFloat(element * currency_cost).toFixed(1).toString();
+                                } else {
+                                    return parseFloat(element * currency_cost).toFixed(floatdigit).toString();
+                                }
+                            } else {
+                                return parseFloat(element * currency_cost).toFixed(floatdigit).toString();
+                            }
+                        } else {
+                            let multiplier = Math.pow(10, Math.abs(floatdigit));
+                            let parseFloat_element = Math.round(toString_element * multiplier) / multiplier;
+                            return parseFloat_element;
+                        }
+                    }
+                }
+                renderUnit(element, currency_unit) {
+                    if (currency_unit == '') {
+                        return element;
+                    } else {
+                        return currency_unit;
+                    }
+
+                }
+                renderCommission(element, i) {
+                    if (element.commissioncost == 0) {
+                        return <div className="cost-item middle text-center">
+                            <div>
+                                <div className="color_gray font_11">Price For {element.nights} Nights</div>
+                                <span
+                                    className="item-cost color_5 font_20 font-weight">{new Intl.NumberFormat('en-US').format(this.renderTotal(element.total, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                        className="color_gray font_11 unit">{this.renderUnit(element.moneytype, this.state.state_currency_unit)}</span></div>
+
+                            <div className="btn-item has-margin_">
+                                <button type="button" data-active={`${this.state.state_active_btn[i] ? "1" : "0"}`} onClick={e => this.select_room(e, element, i)}
+                                    className="color_white border-radius font_15 cursor-pointer">Book Hotel</button>
+                            </div>
+                            <div className="clr"></div>
+                        </div>;
+                    } else {
+                        return <div className="cost-item text-center">
+                            <div>
+                                <div className="color_gray font_11">Price For {element.nights} Nights</div>
+                                <span
+                                    className="item-cost color_5 font_20 font-weight">{new Intl.NumberFormat('en-US').format(this.renderTotal(element.total, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                        className="color_gray font_11 unit">{this.renderUnit(element.moneytype, this.state.state_currency_unit)}</span></div>
+                            <div>
+                                <span className="color_gray font_11">Commission :</span><span
+                                    className="item-cost color_5 font_20 font-weight">{new Intl.NumberFormat('en-US').format(this.renderTotal(element.commissioncost, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                        className="color_gray font_11 unit">{this.renderUnit(element.moneytype, this.state.state_currency_unit)}</span></div><div>
+                                <span className="color_gray font_11">Total :</span><span
+                                    className="item-cost color_5 font_20 font-weight">{new Intl.NumberFormat('en-US').format(this.renderTotal(element.totalCom, this.state.state_currency_cost, this.state.state_floatdigit))}</span><span
+                                        className="color_gray font_11 unit">{this.renderUnit(element.moneytype, this.state.state_currency_unit)}</span></div>
+
+                            <div className="btn-item has-margin_">
+                                <button type="button" data-active={`${this.state.state_active_btn[i] ? "1" : "0"}`} onClick={e => this.select_room(e, element, i)}
+                                    className="color_white border-radius font_15 cursor-pointer">Book Hotel</button>
+                            </div>
+                            <div className="clr"></div>
+                        </div>;
+
+
+                    }
+                }
+                renderEnablePoint(element) {
+                    if (element.enable_point == '1') {
+                        return <div className="club_point font_10 text-center p-absolute border-radius"><span>{element.club_point}</span><span>Club Point</span></div>
+                    }
+                }
+                handleClick(event) {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                    })
+                    this.setState({
+                        currentPage: Number(event.target.id)
+                    })
+                }
+
+                handleReset(event) {
+                    let maxPage = this.state.maxPage
+                    let len = this.renderLibrary().length
+                    let Multi = len * maxPage
+                    for (let i = 0; i <= Multi; i++) {
+                        this.setState(prevState => ({
+                            visibleRoom: { ...prevState.visibleRoom, [i]: "" },
+                            state_active_btn: { ...prevState.state_active_btn, [i]: "" },
+                        }))
+                    }
+                }
+                localStorage_getCurrency = () => {
+                    let getCurrencyObject = localStorage.getItem('currencyObject');
+                    let jsonCurrency = JSON.parse(getCurrencyObject);
+                    if (jsonCurrency) {
+                        return jsonCurrency.currency_unit
+                    } else {
+                        return '--Currency--'
+                    }
+                }
+                localStorage_expire = () => {
+                    const { state_currency_unit, state_currency_cost, state_floatdigit } = this.state
+                    let getCurrencyObject = localStorage.getItem('currencyObject');
+                    let jsonCurrency = JSON.parse(getCurrencyObject);
+                    if (jsonCurrency) {
+                        var timer = setInterval(() => {
+                            if (new Date().getTime() - jsonCurrency.time >= jsonCurrency.expire) {
+                                localStorage.removeItem('currencyObject');
+                                document.querySelector(".currency-selected").innerText = '--Currency--';
+                                document.querySelector(".currency-selected").setAttribute("data-active", 0);
+                                clearInterval(timer);
+                                this.setState({
+                                    state_currency_unit: "",
+                                    state_currency_cost: 1,
+                                    state_floatdigit: "",
+                                });
+                                console.log('localStorage has ex pired');
+                            }
+                        }, 1000)
+                    }
+                }
+                currency_selected_list = () => {
+                    if (document.querySelector(".currency-selected").getAttribute("data-active") == 0) {
+                        document.querySelector(".currency-loading").classList.toggle("unvisible");
+                        fetch('/Client_Currency_Rate.bc')
+                            .then(response => response.text())
+                            .then(text => {
+                                this.setState({ data_currency: JSON.parse(text.replace(/\'/g, '"')) });
+                                document.querySelector(".currency-loading").classList.toggle("unvisible");
+                                document.querySelector(".currency-selected").setAttribute("data-active", 1);
+                                document.querySelector(".currency-list").classList.toggle("unvisible");
+                            }).catch(error => console.error(error))
+
+                    } else {
+                        document.querySelector(".currency-list").classList.toggle("unvisible");
+                    }
+
+                }
+                renderCurrencyRate() {
+                    let element = this.state.data_currency;
+                    if (!element) return null;
+                    return <div className="currency-list unvisible float-left font_12 p-absolute"><ul>{this.renderRate(element.rate, element.floatdigit)}</ul></div>
+                }
+                renderRate(element, floatdigit) {
+                    if (element !== undefined) {
+                        let indents = [];
+                        for (let i = 0; i < element.length; i++) {
+                            indents.push(<li className="" onClick={e => this.select_currency_list(e, element[i], floatdigit)}>{element[i].rate_unit}</li>)
+                        }
+                        return (
+                            indents
+                        )
+                    }
+                }
+
+                //bitaa
+                select_currency_list = (e, element, floatdigit) => {
+                    if (element.rate_unit !== "IRR") {
+                        if (floatdigit < 0) {
+                            this.setState({
+                                state_floatdigit: 2,
+                            })
+                        } else {
+                            this.setState({
+                                state_floatdigit: floatdigit,
+                            })
+                        }
+                    } else {
+                        this.setState({
+                            state_floatdigit: floatdigit,
+
+                        })
+                    }
+                    this.setState({
+                        state_currency_unit: element.rate_unit,
+                        state_currency_cost: element.rate_cost,
+                    });
+                    document.querySelector(".currency-list").classList.toggle("unvisible");
+                    document.querySelector(".currency-selected").innerText = element.rate_unit;
+                    localStorage_setCurrency(element.rate_unit, element.rate_cost, floatdigit) //-----THIS FUNCTION IS WRITTEN IN CORE.MIN.JS
+
+                }
+
+            }
+            ReactDOM.render(<App />, document.getElementById('app'))
+        }
+    </script>
+</body>
+
+</html>

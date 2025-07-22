@@ -7,17 +7,17 @@
     <title>Voucher PDF</title>
     <basis core="call" lid="1" file="Pdf_Taglist.inc"></basis>
     <style>
-        p {
+        /* p {
             text-align: justify !important;
             break-inside: avoid;
-        }
+        } */
 
         .pdf-content {
             margin: 0 auto;
             padding: 15px;
             box-sizing: border-box;
             min-width: 794px !important;
-            min-height: 1697px !important;
+            /* min-height: 1697px !important; */
             position: relative;
             page-break-inside: avoid;
         }
@@ -241,7 +241,10 @@
             </footer>
     </div>
 
-    <script src="[##cms.cms.cdn##]/js/flight_ticket_test.js" defer></script>
+    </basis>
+
+    <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
+
     <script>
         function setFixedViewport() {
             const metaViewport = document.querySelector('meta[name="viewport"]');
@@ -336,8 +339,6 @@
         }
 
     </script>
-    </basis>
-
     <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
     <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
     <script src="[##cms.cms.cdn##]/js/pdf-voucher.functions.js" defer></script>
