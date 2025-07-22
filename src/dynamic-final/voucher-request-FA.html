@@ -1,6 +1,7 @@
 <basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
 <!DOCTYPE html>
 <html lang="fa">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +9,115 @@
     <link rel="stylesheet" href="[##cms.cms.cdn##]/css/pdf-ui.min.css">
     <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
 </head>
+
 <body class="p-0 m-0 overflow-auto" id="content">
-    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'"><div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">شما اجازه دسترسی به این صفحه را ندارید </div></basis>
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+        <div
+            class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit ">
+            شما اجازه دسترسی به این صفحه را ندارید </div>
+    </basis>
     <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
-        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]" method="post" body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(1)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}' content-type="application/json" run="atclient"></basis>
-        <header id="pdf-header" class="header h-[100px] w-auto mx-auto "><img class="block h-[100px] w-auto mx-auto object-contain" src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" /></header>
-        <main  class="dir-rtl pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
-            <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]"><div class="flex justify-center items-center"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div></div></div>
+        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            method="post"
+            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(1)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}'
+            content-type="application/json" run="atclient"></basis>
+        <header id="pdf-header" class="header h-[100px] w-auto mx-auto "><img
+                class="block h-[100px] w-auto mx-auto object-contain"
+                src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="1060" height="100"
+                alt="Footer-contract-pdf" /></header>
+        <main
+            class="dir-rtl pdf-content py-6 w-full max-w-screen-xl mx-auto print:w-[595pt] print:min-h-[calc(842pt-150pt)] print:max-w-none print:overflow-hidden print:shadow-none">
+            <div class="pdf-loading hidden fixed z-[99] w-full h-full pt-[20%] bg-[#8d8d8d8c]">
+                <div class="flex justify-center items-center">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+                </div>
+            </div>
             <div class="w-[95%] mx-auto">
                 <!-- info -->
-                <section class="w-full flex justify-between items-center "><h2 class="font-danademibold text-base text-black"><span>کوپن</span><span class="mx-1">/ </span><span>اقامت</span></h2><ul class="flex gap-x-4"><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">شماره قرارداد :</h2><p class="text-base text-[#292929] text-left font-danademibold">@refnumber@</p></div></li></script></face></basis><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">تاریخ صدور :</h2><p class="text-base text-[#292929] text-left font-danademibold">@createDate.sstring@</p></div></li></script></face></basis><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">ساعت ایجاد :</h2><p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p></div></li></script></face></basis></ul></section>
-                <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex p-3"><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template">{{ return await RenderInfoCard($data)}} </script></face></basis></section>
-                <section><basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template">{{ return await renderRooms($data)}} </script></face></basis></section>
-                <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="mt-3{{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-xl my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription)}}">@HotelDescription@ </div></section></script></face></basis>
-                <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="{{return await checkSection($data.pdf_description[0]?.note.text)}}"><h2 class="font-bold text-xl my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description[0]?.note.text)}}" >{{ return await getLocalizedText(await detectDirection($data.pdf_description[0].note.text), "قوانین و مقررات", "Rules")}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular">{{ return await renderRules($data)}} </div></section></script></face></basis>
-                <basis core="print" datamembername="db.voucher_pdf" run="atclient"><layout>@child </layout><face><script type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-xl my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">@note@ </div></section></script></face></basis>
+                <section class="w-full flex justify-between items-center ">
+                    <h2 class="font-danademibold text-base text-black"><span>کوپن</span><span class="mx-1">/
+                        </span><span>اقامت</span></h2>
+                    <ul class="flex gap-x-4">
+                        <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">شماره قرارداد :</h2><p class="text-base text-[#292929] text-left font-danademibold">@refnumber@</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">تاریخ صدور :</h2><p class="text-base text-[#292929] text-left font-danademibold">@createDate.sstring@</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
+                                    type="text/template"><li><div><h2 class="text-sm font-normal text-[#202020] font-danaregular">ساعت ایجاد :</h2><p class="text-base text-[#292929] text-center font-danademibold">@createHour@</p></div></li></script>
+                            </face>
+                        </basis>
+                    </ul>
+                </section>
+                <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex p-3">
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script type="text/template">
+                                {{ return await RenderInfoCard($data)}} 
+                            </script>
+                        </face>
+                    </basis>
+                </section>
+                <section>
+                    <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                            <script type="text/template">
+                                {{ return await renderRooms($data)}} 
+                            </script>
+                        </face>
+                    </basis>
+                </section>
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="mt-3{{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-xl my-2 font-danabold " dir="{{return await detectDirection($data.HotelDescription)}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.HotelDescription)}}">@HotelDescription@ </div></section></script>
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="{{return await checkSection($data.pdf_description[0]?.note.text)}}"><h2 class="font-bold text-xl my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description[0]?.note.text)}}" >{{ return await getLocalizedText(await detectDirection($data.pdf_description[0].note.text), "قوانین و مقررات", "Rules")}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular">{{ return await renderRules($data)}} </div></section></script>
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
+                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-xl my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note")}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">@note@ </div></section></script>
+                    </face>
+                </basis>
         </main>
-        <div class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 max-lg:w-full max-lg:min-w-0 max-lg:max-w-full margin-btn dir-rtl"><button class="flex gap-1 font-danademibold items-center my-4 font-bold text-base hover:text-[#FF0000]" onclick="DownloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="15" y2="17" /></svg>دانلود PDF </button></div>
-        <footer id="pdf-footer" class=" footer h-[100px] print:w-[595pt] print:h-[100pt] mx-auto "><img class="block mx-auto h-[100px] print:w-[595pt] print:h-[100pt] w-auto object-contain" src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="1060" height="100" alt="Footer-contract-pdf" /></footer>
+        <div
+            class="text-sm max-w-screen-md min-w-[900px] mx-auto mt-8 max-lg:w-full max-lg:min-w-0 max-lg:max-w-full margin-btn dir-rtl">
+            <button class="flex gap-1 font-danademibold items-center my-4 font-bold text-base hover:text-[#FF0000]"
+                onclick="DownloadPDF()"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                    viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="9" y1="13" x2="15" y2="13" />
+                    <line x1="9" y1="17" x2="15" y2="17" />
+                </svg>دانلود PDF </button></div>
+        <footer id="pdf-footer" class=" footer h-[100px] print:w-[595pt] print:h-[100pt] mx-auto "><img
+                class="block mx-auto h-[100px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
+                src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="1060" height="100"
+                alt="Footer-contract-pdf" /></footer>
         <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
         <script>
             function detectDirection(text) {
@@ -254,20 +346,8 @@
                 return stars;
             }
 
-            function formatDateToReadable(dateString) {
-                const date = new Date(dateString);
-                const options = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit'
-                };
-                const formatted = date.toLocaleDateString('en-US', options);
-                const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
-                return `${day} ${month} ${year}<span class="mx-1"> / </span>${weekday}`;
-            }
 
-            async function renderRooms($data) {
+                        async function renderRooms($data) {
                 let hotelinfo = $data?.hotelinfo;
                 let roominfo = $data?.rooms;
                 let roomcontent = '';
@@ -344,6 +424,21 @@
 
                 return roomcontent;
             }
+
+            
+            function formatDateToReadable(dateString) {
+                const date = new Date(dateString);
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit'
+                };
+                const formatted = date.toLocaleDateString('en-US', options);
+                const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
+                return `${day} ${month} ${year}<span class="mx-1"> / </span>${weekday}`;
+            }
+
 
             function escapeXML(str) {
                 return str.replace(/&/g, "&amp;")
@@ -496,7 +591,7 @@
                                 const totalPages = pdf.internal.getNumberOfPages();
                                 for (let i = 1; i <= totalPages; i++) {
                                     pdf.setPage(i);
-                                    pdf.addImage(headerImage, 'PNG', static_y, 5, static_width, static_height); 
+                                    pdf.addImage(headerImage, 'PNG', static_y, 5, static_width, static_height);
                                     pdf.addImage(footerImage, 'PNG', static_y, 270, static_width, static_height);
                                 }
                             });
@@ -516,4 +611,5 @@
         <script src="[##cms.cms.cdn##]/js/flight_ticket_test.js" defer></script>
     </basis>
 </body>
+
 </html>

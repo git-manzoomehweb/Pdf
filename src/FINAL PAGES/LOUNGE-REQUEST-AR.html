@@ -8,7 +8,7 @@
     <basis core="call" lid="3" file="Pdf_Taglist.inc"></basis>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.lid|(1)##]);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid(2);">
    
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -54,8 +54,8 @@
             <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]" method="post"
              body='{ "name": "db", "mid": "20", "member": [ { "type": "list", "name": "q", "request": "lounge_request_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(3)##]"} ]}' 
              content-type="application/json" run="atclient"></basis>
-            <header id="pdf-header" class="header h-[80px] w-auto mx-auto "><img
-                    class="block h-[80px] w-auto mx-auto object-contain"
+            <header id="pdf-header" class="header max-w-[794px] mx-auto "><img
+                    class="block max-w-[794px] mx-auto object-contain"
                     src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
@@ -119,7 +119,7 @@
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template">{{ return await RenderInfoCardLounge($data, [##cms.query.lid##])}} </script>
+                                    type="text/template">{{ return await RenderInfoCardLounge($data, 2)}} </script>
                             </face>
                         </basis>
                     </section>
@@ -128,7 +128,7 @@
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template">{{return await renderLoungeInfo($data , [##cms.query.lid##])}}{{return await renderLoungePassengerInfo($data, [##cms.query.lid##])}}{{return await renderServiceInfoLounge($data , [##cms.query.lid##])}}{{return await renderTransferInfoLounge($data , [##cms.query.lid##])}}{{return await renderEscortInfoLounge($data , [##cms.query.lid##])}} </script>
+                                    type="text/template">{{return await renderLoungeInfo($data , 2)}}{{return await renderLoungePassengerInfo($data, 2)}}{{return await renderServiceInfoLounge($data , 2)}}{{return await renderTransferInfoLounge($data , 2)}}{{return await renderEscortInfoLounge($data , 2)}} </script>
                             </face>
                         </basis>
                     </section>
@@ -136,19 +136,19 @@
                         <layout>@child </layout>
                         <face>
                             <script
-                                type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}" id="rules-title">{{ return await getLocalizedText(await detectDirection($data.pdf_description?.[0]?.note?.text || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##cms.query.lid##])}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}">{{ return await renderRulesLounge($data, [##cms.query.lid##])}} </div></section></script>
+                                type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}" id="rules-title">{{ return await getLocalizedText(await detectDirection($data.pdf_description?.[0]?.note?.text || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", 2)}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}">{{ return await renderRulesLounge($data, 2)}} </div></section></script>
                         </face>
                     </basis>
                     <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
                             <script
-                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" id="note-title">{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##cms.query.lid##])}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">{{ return await fixRTLTextCompletely($data.note)}} </div></section></script>
+                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" id="note-title">{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", 2)}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">{{ return await cleanHtmlText($data.note)}} </div></section></script>
                         </face>
                     </basis>
             </main>
-            <footer id="pdf-footer" class=" footer h-[80px] print:w-[595pt] print:h-[100pt] mx-auto "><img
-                    class="block mx-auto h-[80px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
+            <footer id="pdf-footer" class=" footer max-w-[794px] print:w-[595pt] print:h-[100pt] mx-auto "><img
+                    class="block mx-auto max-w-[794px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
                     src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" />
             </footer>
