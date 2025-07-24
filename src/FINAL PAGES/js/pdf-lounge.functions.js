@@ -461,7 +461,7 @@ async function renderLoungeInfo($data, lang) {
         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${
     t.dir
   }">${t.title}</h2>
-        <div class="bg-[#F4F4F4] rounded-xl p-4 flex justify-between gap-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center " dir="${
+        <div class="bg-[#F4F4F4] rounded-xl p-4 flex justify-between gap-1 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center " dir="${
           t.dir
         }">
             <div class="gap-y-2 flex flex-col">
@@ -491,10 +491,10 @@ async function renderLoungeInfo($data, lang) {
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-sm font-danaregular text-nowrap  ${t.centerText}">${t.date}</span>
                 <div class="text-[#292929] text-sm font-danademibold dir-${ t.dir} ${t.centerText}">
-                    <span>${product_info.dateinfo.mstring}</span>
+                    <span class="!text-center block">${product_info.dateinfo.mstring}</span>
                     ${
                       lang === 1
-                        ? `<span>(${product_info.dateinfo.sstring})</span>`
+                        ? `<span class="!text-center block">(${product_info.dateinfo.sstring})</span>`
                         : ""
                     }
                 </div>

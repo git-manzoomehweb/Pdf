@@ -4,7 +4,7 @@ let loadingStartTime = Date.now();
 let isContentLoaded = false;
 let isMinTimeElapsed = false;
 let apiDataLoaded = false;
-const MIN_LOADING_TIME = 2000; // 2 ثانیه حداقل
+const MIN_LOADING_TIME = 4000; // 2 ثانیه حداقل
 let mainlid;
 
 function setlid(lid) {
@@ -153,7 +153,7 @@ function initializePageLanguage(lid) {
         pdfLoadingText.className.replace(/dir-(rtl|ltr)/g, "") +
         ` dir-${t.dir}`;
     }
-  }, 2000);
+  }, 4000);
 }
 
 function initializeLoadingSystem() {
@@ -257,13 +257,20 @@ function checkLoadingComplete() {
 function hideLoadingScreen() {
   const loadingScreen = document.getElementById("main-loading-screen");
   const mainContent = document.getElementById("main-content-wrapper");
+  const mainContentpdf = document.getElementById("main-content");
 
   if (loadingScreen && mainContent) {
     loadingScreen.classList.add("hidden");
+    mainContent.classList.add("loaded");
+    loadingScreen.style.display = "none";
 
     setTimeout(() => {
-      mainContent.classList.add("loaded");
-      loadingScreen.style.display = "none";
+      if(mainlid == 2){
+        mainContentpdf.classList.add("dir-ltr");
+      }else{
+        mainContentpdf.classList.add("dir-rtl");
+      }
+
     }, 500);
   }
 }
@@ -328,10 +335,10 @@ async function RenderInfoCard($data, lid = 1) {
     // Language-specific content
     const content = {
         1: { // Farsi
-            checkInLabel: "زمان ورود / Check In",
-            checkOutLabel: "زمان خروج / Check Out", 
-            nightLabel: "تعداد شب‌ها / Nights",
-            roomLabel: "تعداد اتاق‌ها / Rooms",
+            checkInLabel: 'زمان ورود <span class="mx-1" >/</span> Check In',
+            checkOutLabel: 'زمان خروج <span class="mx-1" >/</span> Check Out', 
+            nightLabel: 'تعداد شب‌ها <span class="mx-1" >/</span> Nights',
+            roomLabel: 'تعداد اتاق‌ها <span class="mx-1" >/</span> Rooms',
             starLabel: "ستاره",
             borderClass: "border-r-2 border-[#E3E3E3] pr-3",
             cityDisplay: hotel.country,
@@ -377,7 +384,7 @@ async function RenderInfoCard($data, lid = 1) {
     const lang = content[lid] || content[1];
 
     let infocard = `
-    <div class="w-[55%] ">
+    <div class="w-[55%] max-md:w-full">
     <div class="flex leading-5 gap-x-3">
         <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden" >
             <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="/${hotelImageName}"
@@ -407,7 +414,7 @@ async function RenderInfoCard($data, lid = 1) {
                         
     </div>
     </div>
-    <div class="w-[45%] ${lang.borderClass}">
+    <div class="w-[45%] ${lang.borderClass} max-md:border-x-0 max-md:w-full">
     <ul class="flex flex-col gap-y-2">
         <li>
             <h2 class="text-base font-danademibold">${lang.checkInLabel}</h2>
@@ -487,6 +494,190 @@ function RenderRateHotel(starCount) {
     return stars;
 }
 
+// async function renderRooms($data, lid = 1) {
+//   let hotelinfo = $data?.hotelinfo;
+//   let roominfo = $data?.rooms;
+//   let roomcontent = '';
+
+//   const labels = {
+//       1: { // Farsi
+//           room: 'اطلاعات مسافران - اتاق <span class="mx-1" >/</span> PASSENGERS AND ROOMS',
+//           roomType: "نوع اتاق<br />Room Type",
+//           services: "خدمات<br />Board", 
+//           passengers: "مسافران<br />Passengers",
+//           passengerType: "جنسیت<br />Gender",
+//           nationality: "ملیت<br />Nationality",
+//           status: "وضعیت<br />Status",
+//           transferTitle: ' اطلاعات ترنسفر به ازای هر مسافر <span class="mx-1" >/</span> TRANSFER DETAILS ',
+//           passengerName: "نام مسافر<br />Passenger Name",
+//           arrivalAirport: "فرودگاه ورود<br />Arrival Airport",
+//           arrivalFlightNo: "شماره پرواز ورود<br />Arrival Flight No",
+//           departureAirport: "فرودگاه خروج<br />Departure Airport",
+//           departureFlightNo: "شماره پرواز خروج<br />Departure Flight No",
+//           wrapClass: "text-nowrap",
+//           centerClass: "!text-center",
+//           direction: 'dir="rtl"',
+//           textAlign: "text-right"
+//       },
+//       2: { // English
+//           room: "PASSENGERS AND ROOMS",
+//           roomType: "Room type",
+//           services: "Board",
+//           passengers: "Passenger", 
+//           passengerType: "Gender",
+//           nationality: "Nationality",
+//           status: "Status",
+//           transferTitle: "TRANSFER DETAILS",
+//           passengerName: "Passenger Name",
+//           arrivalAirport: "Arrival Airport",
+//           arrivalFlightNo: "Arrival Flight No",
+//           departureAirport: "Departure Airport", 
+//           departureFlightNo: "Departure Flight No",
+//           wrapClass: "",
+//           centerClass: "!text-center",
+//           direction: "",
+//           textAlign: "text-left"
+//       },
+//       3: { // Arabic
+//           room: "الركاب والغرف الغرفة", 
+//           roomType: "نوع الغرفة",
+//           services: "خدمات",
+//           passengers: "الركاب",
+//           passengerType: "الجنس", 
+//           nationality: "الجنسية",
+//           status: "حالة",
+//           transferTitle: "تفاصيل النقل",
+//           passengerName: "اسم الراكب",
+//           arrivalAirport: "مطار الوصول",
+//           arrivalFlightNo: "رقم رحلة الوصول",
+//           departureAirport: "مطار المغادرة",
+//           departureFlightNo: "رقم رحلة المغادرة",
+//           wrapClass: "text-nowrap",
+//           centerClass: "!text-center",
+//           direction: 'dir="rtl"',
+//           textAlign: "text-right"
+//       }
+//   };
+
+//   const lang = labels[lid] || labels[1];
+
+//   // جمع‌آوری همه مسافران با transfer برای جدول نهایی
+//   let allTransfers = [];
+  
+//   // اضافه کردن عنوان فقط یکبار
+//   roomcontent += `<h2 class="font-bold text-lg my-2 font-danabold">${lang.room}</h2>`;
+  
+//   roominfo.forEach((room , index) => {
+//       const parsedPassengers = room.passengers.map(p => {
+//           const typeRaw = p.type || '';
+//           // const typeMatch = typeRaw.match(/^([^\(]+)(?:\s*\((.+)\))?/);
+//           // const passengerGender = typeMatch?.[1]?.trim() || '–';
+//           const passengerNationality = p.countryofresidence?.ecountryname || '–';
+
+//           return {
+//               name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
+//               gender: typeRaw,
+//               nationality: passengerNationality,
+//               transfer: p.transfer_data || null
+//           };
+//       });
+
+//       const passengerNames = parsedPassengers.map(p =>
+//           `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass} ${lang.wrapClass}">${p.name}</h2>`
+//       ).join('');
+
+//       const passengerGenders = parsedPassengers.map(p =>
+//           `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass}">${p.gender}</h2>`
+//       ).join('');
+
+//       const passengerNationalities = parsedPassengers.map(p =>
+//           `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass} ${lang.wrapClass}">${p.nationality}</h2>`
+//       ).join('');
+
+//       roomcontent += `
+//       <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4 max-md:flex-col max-md:justify-center max-md:items-center   ${index > 0 ? 'mt-3' : ''} ${lid === 2 ? 'flex-wrap' : ''}">
+//           <div class="gap-y-2 flex flex-col">
+//               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.roomType}</span>
+//               <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)] ${lang.centerClass}">${room.roomtype.trim()}</div>
+//           </div>
+
+//           <div class="gap-y-2 flex flex-col">
+//               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ">${lang.services}</span>
+//               <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)] ${lang.centerClass}">
+//                   ${escapeXML(hotelinfo.services)}
+//               </div>
+//           </div>
+
+//           <div class="gap-y-2 flex flex-col">
+//               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}" >${lang.passengers}</span>
+//               ${passengerNames}
+//           </div>
+
+//           <div class="gap-y-2 flex flex-col">
+//               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.wrapClass} ${lang.centerClass}">${lang.passengerType}</span>
+//               ${passengerGenders}
+//           </div>
+
+//           <div class="gap-y-2 flex flex-col">
+//               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}">${lang.nationality}</span>
+//               ${passengerNationalities}
+//           </div>
+
+//           <div class="gap-y-2 flex flex-col">
+//               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}">${lang.status}</span>
+//               <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)] ${lang.centerClass}">
+//                   ${room.onrequest === "1" ? "On Request" : "Available"}
+//               </div>
+//           </div>
+//       </div>
+//       `;
+
+//       // جمع‌آوری transfers برای جدول نهایی
+//       const transfers = parsedPassengers.filter(p => p.transfer);
+//       transfers.forEach(p => {
+//           allTransfers.push(p);
+//       });
+//   });
+
+//   // اگر transfer وجود دارد، جدول جامع ایجاد کن
+//   if (allTransfers.length > 0) {
+//       roomcontent += `
+//       <h3 class="font-bold text-lg my-2 font-danabold">${lang.transferTitle}</h3>
+//       <div class="bg-[#F8F8F8] rounded-xl p-4 overflow-x-auto" ${lang.direction}>
+//           <table class="w-full border-collapse">
+//               <thead>
+//                   <tr >
+//                       <td class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.passengerName}</td>
+//                       <td class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.arrivalAirport}</td>
+//                       <td class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.arrivalFlightNo}</td>
+//                       <td class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.departureAirport}</td>
+//                       <td class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.departureFlightNo}</td>
+//                   </tr>
+//               </thead>
+//               <tbody>`;
+
+//       allTransfers.forEach((passenger, index) => {           
+//           roomcontent += `
+//                   <tr >
+//                       <td class="p-1 text-[#292929] text-sm font-danademibold !text-center">${passenger.name}</td>
+//                       <td class="p-1 text-[#292929] text-sm font-danademibold !text-center">${passenger.transfer?.airport_arrival || '–'}</td>
+//                       <td class="p-1 text-[#292929] text-sm font-danademibold !text-center">${passenger.transfer?.arrival_flight_number || '–'}</td>
+//                       <td class="p-1 text-[#292929] text-sm font-danademibold !text-center">${passenger.transfer?.airport_departure || '–'}</td>
+//                       <td class="p-1 text-[#292929] text-sm font-danademibold !text-center">${passenger.transfer?.departure_flight_number || '–'}</td>
+//                   </tr>`;
+//       });
+
+//       roomcontent += `
+//               </tbody>
+//           </table>
+//       </div>`;
+//   }
+
+//   return roomcontent;
+// }
+
+
+
 async function renderRooms($data, lid = 1) {
   let hotelinfo = $data?.hotelinfo;
   let roominfo = $data?.rooms;
@@ -494,21 +685,21 @@ async function renderRooms($data, lid = 1) {
 
   const labels = {
       1: { // Farsi
-          room: " اطلاعات مسافران - اتاق / PASSENGERS AND ROOMS",
+          room: 'اطلاعات مسافران - اتاق <span class="mx-1" >/</span> PASSENGERS AND ROOMS',
           roomType: "نوع اتاق<br />Room Type",
           services: "خدمات<br />Board", 
           passengers: "مسافران<br />Passengers",
           passengerType: "جنسیت<br />Gender",
           nationality: "ملیت<br />Nationality",
           status: "وضعیت<br />Status",
-          transferTitle: " اطلاعات ترنسفر به ازای هر مسافر/ TRANSFER DETAILS ",
+          transferTitle: ' اطلاعات ترنسفر به ازای هر مسافر <span class="mx-1" >/</span> TRANSFER DETAILS ',
           passengerName: "نام مسافر<br />Passenger Name",
           arrivalAirport: "فرودگاه ورود<br />Arrival Airport",
           arrivalFlightNo: "شماره پرواز ورود<br />Arrival Flight No",
           departureAirport: "فرودگاه خروج<br />Departure Airport",
           departureFlightNo: "شماره پرواز خروج<br />Departure Flight No",
           wrapClass: "text-nowrap",
-          centerClass: "text-center",
+          centerClass: "!text-center",
           direction: 'dir="rtl"',
           textAlign: "text-right"
       },
@@ -527,7 +718,7 @@ async function renderRooms($data, lid = 1) {
           departureAirport: "Departure Airport", 
           departureFlightNo: "Departure Flight No",
           wrapClass: "",
-          centerClass: "",
+          centerClass: "!text-center",
           direction: "",
           textAlign: "text-left"
       },
@@ -546,7 +737,7 @@ async function renderRooms($data, lid = 1) {
           departureAirport: "مطار المغادرة",
           departureFlightNo: "رقم رحلة المغادرة",
           wrapClass: "text-nowrap",
-          centerClass: "text-center",
+          centerClass: "!text-center",
           direction: 'dir="rtl"',
           textAlign: "text-right"
       }
@@ -588,7 +779,7 @@ async function renderRooms($data, lid = 1) {
       ).join('');
 
       roomcontent += `
-      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4 ${index > 0 ? 'mt-3' : ''} ${lid === 2 ? 'flex-wrap' : ''}">
+      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4 max-md:flex-col max-md:justify-center max-md:items-center   ${index > 0 ? 'mt-3' : ''} ${lid === 2 ? 'flex-wrap' : ''}">
           <div class="gap-y-2 flex flex-col">
               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.roomType}</span>
               <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)] ${lang.centerClass}">${room.roomtype.trim()}</div>
@@ -632,50 +823,71 @@ async function renderRooms($data, lid = 1) {
       });
   });
 
-  // اگر transfer وجود دارد، جدول جامع ایجاد کن
+  // اگر transfer وجود دارد، یک box جامع ایجاد کن
   if (allTransfers.length > 0) {
-      roomcontent += `
-      <h3 class="font-bold text-lg my-2 font-danabold">${lang.transferTitle}</h3>
-      <div class="bg-[#F8F8F8] rounded-xl p-4 overflow-x-auto" ${lang.direction}>
-          <table class="w-full border-collapse">
-              <thead>
-                  <tr >
-                      <td class="text-[#6D6D6D] text-sm font-danaregular text-center">${lang.passengerName}</td>
-                      <td class="text-[#6D6D6D] text-sm font-danaregular text-center">${lang.arrivalAirport}</td>
-                      <td class="text-[#6D6D6D] text-sm font-danaregular text-center">${lang.arrivalFlightNo}</td>
-                      <td class="text-[#6D6D6D] text-sm font-danaregular text-center">${lang.departureAirport}</td>
-                      <td class="text-[#6D6D6D] text-sm font-danaregular text-center">${lang.departureFlightNo}</td>
-                  </tr>
-              </thead>
-              <tbody>`;
+      roomcontent += `<h3 class="font-bold text-lg my-2 font-danabold">${lang.transferTitle}</h3>`;
 
-      allTransfers.forEach((passenger, index) => {           
-          roomcontent += `
-                  <tr >
-                      <td class="p-1 text-[#292929] text-sm font-danademibold text-center">${passenger.name}</td>
-                      <td class="p-1 text-[#292929] text-sm font-danademibold text-center">${passenger.transfer?.airport_arrival || '–'}</td>
-                      <td class="p-1 text-[#292929] text-sm font-danademibold text-center">${passenger.transfer?.arrival_flight_number || '–'}</td>
-                      <td class="p-1 text-[#292929] text-sm font-danademibold text-center">${passenger.transfer?.airport_departure || '–'}</td>
-                      <td class="p-1 text-[#292929] text-sm font-danademibold text-center">${passenger.transfer?.departure_flight_number || '–'}</td>
-                  </tr>`;
-      });
+      // ایجاد آرایه‌های جداگانه برای هر ستون
+      const transferNames = allTransfers.map(p =>
+          `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass} ${lang.wrapClass}">${p.name}</h2>`
+      ).join('');
+
+      const transferArrivalAirports = allTransfers.map(p =>
+          `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass}">${p.transfer?.airport_arrival || '–'}</h2>`
+      ).join('');
+
+      const transferArrivalFlights = allTransfers.map(p =>
+          `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass} ${lang.wrapClass}">${p.transfer?.arrival_flight_number || '–'}</h2>`
+      ).join('');
+
+      const transferDepartureAirports = allTransfers.map(p =>
+          `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass}">${p.transfer?.airport_departure || '–'}</h2>`
+      ).join('');
+
+      const transferDepartureFlights = allTransfers.map(p =>
+          `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass} ${lang.wrapClass}">${p.transfer?.departure_flight_number || '–'}</h2>`
+      ).join('');
 
       roomcontent += `
-              </tbody>
-          </table>
+      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4 max-md:flex-col max-md:justify-center max-md:items-center ${lid === 2 ? 'flex-wrap' : ''}" ${lang.direction}>
+          <div class="gap-y-2 flex flex-col">
+              <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.passengerName}</span>
+              ${transferNames}
+          </div>
+
+          <div class="gap-y-2 flex flex-col">
+              <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.arrivalAirport}</span>
+              ${transferArrivalAirports}
+          </div>
+
+          <div class="gap-y-2 flex flex-col">
+              <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.arrivalFlightNo}</span>
+              ${transferArrivalFlights}
+          </div>
+
+          <div class="gap-y-2 flex flex-col">
+              <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.departureAirport}</span>
+              ${transferDepartureAirports}
+          </div>
+
+          <div class="gap-y-2 flex flex-col">
+              <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.departureFlightNo}</span>
+              ${transferDepartureFlights}
+          </div>
       </div>`;
   }
 
   return roomcontent;
 }
 
+
 function renderFlightInfo(flightinfo, lid = 1) {
   if (!flightinfo || Object.keys(flightinfo).length === 0 ) return '';
 
   const labels = {
       1: { // Farsi
-          departureFlight: "پرواز رفت / DEPARTURE FLIGHT",
-          returnFlight: "پرواز برگشت / RETURN FLIGHT",
+          departureFlight: 'پرواز رفت <span class="mx-1" >/</span> DEPARTURE FLIGHT',
+          returnFlight: 'پرواز برگشت <span class="mx-1" >/</span> RETURN FLIGHT',
           airline: "ایرلاین<br />Airline",
           flightNumber: "شماره پرواز<br />Flight Number",
           date: "تاریخ<br />Date",
@@ -712,7 +924,7 @@ function renderFlightInfo(flightinfo, lid = 1) {
 
   const renderSegment = (title, flight) => `
       <h2 class="font-bold text-lg my-2 font-danabold">${title}</h2>
-      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4" ${lang.direction}>
+      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4 max-md:flex-col max-md:justify-center max-md:items-center  " ${lang.direction}>
           <div class="flex flex-col">
               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerText}">${lang.airline}</span>
               <div class="text-[#292929] text-sm font-danademibold ${lang.centerText}">${flight.airlines}</div>
@@ -774,7 +986,7 @@ function renderBrokerInfo(broker, lid = 1) {
 
     const labels = {
         1: { // Farsi
-            broker: "ترنسفر / TRANSFER",
+            broker: 'ترنسفر <span class="mx-1" >/</span> TRANSFER',
             brokerName: "نام ترنسفر<br />Transfer Name",
             country: "کشور<br />Country", 
             managerName: "نام مدیر<br />Manager Name",
@@ -818,28 +1030,28 @@ function renderBrokerInfo(broker, lid = 1) {
 
     return `
         <h2 class="font-bold text-lg my-2 font-danabold">${lang.broker}</h2>
-        <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4" ${lang.direction}>
+        <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-4 max-md:flex-col max-md:justify-center max-md:items-center  " ${lang.direction}>
             <div class="flex flex-col w-1/2">
                 <span class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.board}</span>
                 <div class="text-[#292929] text-sm font-danademibold !text-center">${b.board}</div>
             </div>
             <div class="flex flex-col w-1/2">
                 <span class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.phone}</span>
-                <div class="text-[#292929] text-sm font-danademibold !text-center">${(b.phone || []).map(p => p.number).join(', ')}</div>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr !text-center">${(b.phone || []).map(p => p.number).join(', ')}</div>
             </div>
         </div>
 
         ${transfer.name || transfer.tel ? `
         <h3 class="font-bold text-lg my-2 font-danabold">${lang.transfer}</h3>
         <div class="bg-[#F8F8F8] rounded-xl flex flex-col gap-2">
-            <div class="flex gap-4 p-3 rounded-lg justify-between">
+            <div class="flex gap-4 p-3 rounded-lg justify-between max-md:flex-col max-md:justify-center max-md:items-center">
                 <div class="flex flex-col w-1/2 ">
                     <span class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.name}</span>
                     <div class="text-[#292929] text-sm font-danademibold !text-center">${transfer.name || '–'}</div>
                 </div>
                 <div class="flex flex-col w-1/2 ">
                     <span class="text-[#6D6D6D] text-sm font-danaregular !text-center">${lang.phone}</span>
-                    <div class="text-[#292929] text-sm font-danademibold !text-center">${transfer.tel || '–'}</div>
+                    <div class="text-[#292929] text-sm font-danademibold dir-ltr !text-center">${transfer.tel || '–'}</div>
                 </div>
             </div>
         </div>` : ''}

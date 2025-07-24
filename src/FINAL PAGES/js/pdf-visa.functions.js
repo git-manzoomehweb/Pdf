@@ -22,8 +22,8 @@ function initializePageLanguage(lid) {
       issueDate: "تاریخ صدور",
       contractTime: "ساعت قرارداد",
       accessDenied: "شما اجازه دسترسی به این صفحه را ندارید",
-      loadingText: "در حال بارگذاری...",
-      pdfLoadingText: "در حال تولید PDF...",
+      loadingText: "در حال بارگذاری",
+      pdfLoadingText: "در حال تولید PDF",
       textAlign: "text-right",
       justifyContent: "!justify-end",
     },
@@ -36,8 +36,8 @@ function initializePageLanguage(lid) {
       issueDate: "Issue Date",
       contractTime: "Contract Time",
       accessDenied: "You do not have permission to access this page",
-      loadingText: "Loading...",
-      pdfLoadingText: "Generating PDF...",
+      loadingText: "Loading",
+      pdfLoadingText: "Generating PDF",
       textAlign: "text-left",
       justifyContent: "!justify-start",
     },
@@ -50,8 +50,8 @@ function initializePageLanguage(lid) {
       issueDate: "تاريخ الإصدار",
       contractTime: "وقت العقد",
       accessDenied: "ليس لديك إذن للوصول إلى هذه الصفحة",
-      loadingText: "جاري التحميل...",
-      pdfLoadingText: "جاري إنشاء PDF...",
+      loadingText: "جاري التحميل",
+      pdfLoadingText: "جاري إنشاء PDF",
       textAlign: "text-right",
       justifyContent: "!justify-end",
     },
@@ -69,16 +69,16 @@ function initializePageLanguage(lid) {
   const pdfLoadingText = document.getElementById("pdf-loading-text");
   const mainLoadingText = document.getElementById("main-loading-text");
 
-  if (htmlRoot) {
-    htmlRoot.setAttribute("lang", t.lang);
-    htmlRoot.setAttribute("dir", t.dir);
-  }
+  // if (htmlRoot) {
+  //   htmlRoot.setAttribute("lang", t.lang);
+  //   htmlRoot.setAttribute("dir", t.dir);
+  // }
 
-  if (body) {
-    body.setAttribute("dir", t.dir);
-    body.className =
-      body.className.replace(/dir-(rtl|ltr)/g, "") + ` dir-${t.dir}`;
-  }
+  // if (body) {
+  //   body.setAttribute("dir", t.dir);
+  //   body.className =
+  //     body.className.replace(/dir-(rtl|ltr)/g, "") + ` dir-${t.dir}`;
+  // }
 
   if (mainContent) {
     mainContent.setAttribute("dir", t.dir);
@@ -465,7 +465,7 @@ async function renderVisaInfo($data, lang) {
   const documentsList = product_info?.documents?.length
     ? `<ul class="list-disc pr-4 ${t.centerText}">${
         product_info.documents
-          .map((doc) => `<li class="text-[#292929] text-sm font-danademibold">${doc.name1 || "–"}</li>`)
+          .map((doc) => `<li class="text-[#292929] text-sm font-danademibold  ${t.textAlign} ">${doc.name1 || "–"}</li>`)
           .join("")
       }</ul>`
     : "–";

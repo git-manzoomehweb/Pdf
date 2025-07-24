@@ -91,6 +91,22 @@ function detectDirection(text) {
     return rtlChars.test(text) ? 'rtl' : 'ltr';
 }
 
+function detectDirectionlid(lid) {
+        switch (lid) {
+      case 1:
+        return 'rtl' ;
+        break;
+      case 2:
+        return 'ltr' ;
+        break;
+      case 3:
+        return 'rtl' ;
+        break;
+      default:
+        return 'rtl' ;
+    }
+}
+
 function extractFilenameFromUrl(url) {
     if (!url) return "";
     try {

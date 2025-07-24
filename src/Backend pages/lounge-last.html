@@ -1,15 +1,82 @@
-<basis core="call" lid="3" file="Client_CheckRkey.inc"></basis>
+<basis core="call"  file="Client_CheckRkey.inc"></basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
 
 <head>
     <title>Lounge PDF</title>
-    <basis core="call" lid="3" file="Pdf_Taglist.inc"></basis>
+    <basis core="call"  file="Pdf_Taglist.inc"></basis>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        p {
+            text-align: justify !important;
+            break-inside: avoid;
+        }
+
+        .pdf-content {
+            margin: 0 auto;
+            padding: 15px;
+            box-sizing: border-box;
+            min-width: 794px !important;
+            /* min-height: 1697px !important; */
+            position: relative;
+            page-break-inside: avoid;
+        }
+
+        /* Force page break before these elements */
+        .page-break-before {
+            page-break-before: always;
+        }
+
+        /* Force page break after these elements */
+        .page-break-after {
+            page-break-after: always;
+        }
+
+        table {
+            page-break-inside: auto;
+            page-break-before: avoid;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        .avoid-break {
+            break-inside: avoid;
+        }
+
+        /* Or use the more modern equivalent */
+        @media print {
+            .avoid-break {
+                break-inside: avoid;
+            }
+
+            .break-before {
+                break-before: page;
+            }
+
+            .break-after {
+                break-after: page;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pdf-content {
+                margin: 0 auto;
+                padding: 15px;
+                box-sizing: border-box;
+                min-width: unset !important;
+                position: relative;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
 </head>
 
 <body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.lid|(1)##]);">
-   
+
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
         <div class="loading-spinner"></div>
@@ -18,22 +85,24 @@
 
     <!-- Main content -->
 
-
-
     <div class="main-content" id="main-content-wrapper">
         <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
-            <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
+            <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
                 id="access-denied-message">
                 شما اجازه دسترسی به این صفحه را ندارید
             </div>
         </basis>
         <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            method="post"
+            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "lounge_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(1)##]"} ]}'
+            content-type="application/json" run="atclient"></basis>
             <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
-           
+
                 <div class="flex gap-2">
                     <button onclick="generatePDF()" type="button"
                         class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
-                         text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2">
+                         text-sm px-5 py-2.5 !text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2">
 
                         <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -64,17 +133,14 @@
 
                 </div>
             </div>
-            
-            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
-                method="post"
-                body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "lounge_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(3)##]"} ]}'
-                content-type="application/json" run="atclient"></basis>
-            <header id="pdf-header" class="header max-w-[794px] mx-auto "><img
-                    class="block max-w-[794px] mx-auto object-contain"
-                    src="[##cms.cms.cdn##]/images/Header-contract-pdf.jpg" width="794" height="100"
+
+
+            <header id="pdf-header" class="header max-w-[794px]  mx-auto "><img
+                    class="block max-w-[794px]  mx-auto object-contain"
+                    src="/images/Header-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
-                
+
                 <div class="pdf-loading hidden ">
                     <div
                         class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
@@ -88,10 +154,11 @@
                     </div>
                 </div>
                 <div class="w-[95%] mx-auto">
-                    <section class="w-full flex !justify-between items-center max-[794px]:flex-wrap max-sm:flex-col max-sm:flex-wrap" id="header-section">
+                    <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
+                        id="header-section">
                         <h2 class="font-danademibold text-base text-black" id="main-title">لانژ</h2>
                         <ul class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
-                            
+
                             <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                                 <layout>@child </layout>
                                 <face>
@@ -105,10 +172,10 @@
                                     <face>
                                         <script
                                             type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
-                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@cipinfo.createDate.sstring@ (@cipinfo.createDate.mstring@)</p></div></li></script>
+                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@cipinfo.createDate.sstring@ (@cipinfo.createDate.mstring@)</p></div></li></script>
                                     </face>
                                 </basis>
-                            
+
                             </basis>
                             <basis core="group" name="no-persian" if="[##cms.query.lid##] <> 1">
                                 <basis core="print" datamembername="db.lounge_pdf" run="atclient">
@@ -116,17 +183,15 @@
                                     <face>
                                         <script
                                             type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
-                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@cipinfo.createDate.mstring@</p></div></li></script>
+                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@cipinfo.createDate.mstring@</p></div></li></script>
                                     </face>
                                 </basis>
                             </basis>
-                             
-
                             <basis core="print" datamembername="db.lounge_pdf" run="atclient">
                                 <layout>@child </layout>
                                 <face>
                                     <script
-                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] text-center font-danademibold">@cipinfo.createHour@</p></div></li></script>
+                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@cipinfo.createHour@</p></div></li></script>
                                 </face>
                             </basis>
                         </ul>
@@ -164,16 +229,123 @@
                         </face>
                     </basis>
             </main>
-            <footer id="pdf-footer" class=" footer max-w-[794px] print:w-[595pt] print:h-[100pt] mx-auto "><img
-                    class="block mx-auto max-w-[794px] print:w-[595pt] print:h-[100pt] w-auto object-contain"
-                    src="[##cms.cms.cdn##]/images/Footer-contract-pdf.jpg" width="794" height="100"
+            <footer id="pdf-footer" class=" footer max-w-[794px]  print:w-[595pt] print:h-[100pt] mx-auto "><img
+                    class="block mx-auto max-w-[794px]  print:w-[595pt] print:h-[100pt] w-auto object-contain"
+                    src="/images/Footer-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" />
             </footer>
     </div>
+
+    <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
+    <script>
+        function setFixedViewport() {
+            const pdfContent = document.querySelector('.pdf-content');
+            if (pdfContent) {
+                pdfContent.setAttribute('style', 'min-width: 794px !important;');
+            }
+
+            const metaViewport = document.querySelector('meta[name="viewport"]');
+            if (metaViewport) {
+                metaViewport.setAttribute('content', 'width=794, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no');
+            }
+
+            if (pdfContent && pdfContent.classList.contains('max-w-[794px]')) {
+                pdfContent.classList.remove('max-w-[794px]');
+            }
+        }
+
+        function resetViewport() {
+            window.location.reload();
+        }
+
+        async function generatePDF() {
+            setFixedViewport();
+            const element = document.querySelector('.pdf-content');
+            const headerElement = document.querySelector('#pdf-header').querySelector("img");
+            const footerElement = document.querySelector('#pdf-footer').querySelector("img");
+            const loadingElement = document.querySelector('.pdf-loading');
+
+            try {
+                if (loadingElement) loadingElement.classList.remove('hidden');
+
+                const pdfConfig = document.querySelector('.pdf-config');
+                const pdfFileName = pdfConfig.querySelector('#name');
+                const isSetHeader = pdfConfig.querySelector('#header');
+
+                var window_Width = element.scrollWidth;
+                if (window.innerWidth < 768) {
+                    window_Width -= 100;
+                }
+
+                const opt = {
+                    margin: [30, 10, 30, 10],
+                    filename: pdfFileName.value || "reservationDoc.pdf",
+                    image: { type: 'jpeg', quality: 1 },
+                    html2canvas: {
+                        scale: 1,
+                        width: 794,
+                        windowWidth: window_Width,
+                        useCORS: true,
+                        backgroundColor: '#ffffff',
+                        scrollX: 0,
+                        scrollY: 0,
+                        letterRendering: true,
+                        ignoreElements: (el) =>
+                            ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+                            el.classList.contains('pdf-loading'),
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait',
+                        hotfixes: ['px_scaling']
+                    },
+                    pagebreak: {
+                        mode: ['css', 'legacy'], // Use both CSS and legacy mode
+                        before: '.page-break-before',
+                        after: '.page-break-after',
+                        avoid: '.avoid-break'
+                    }
+                };
+
+                const headerCanvas = await html2canvas(headerElement, { scale: 2 });
+                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+
+                const headerImage = headerCanvas.toDataURL('image/png');
+                const footerImage = footerCanvas.toDataURL('image/png');
+
+                // ایجاد PDF از عنصر
+                const worker = html2pdf().set(opt).from(element).toPdf();
+
+                // افزودن هدر و فوتر به تمام صفحات
+                worker.get('pdf').then((pdf) => {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        if (isSetHeader.value == 1) {
+                            pdf.addImage(headerImage, 'PNG', 0, 5, 210, 18);  // x, y, width, height
+                            pdf.addImage(footerImage, 'PNG', 0, 277, 210, 18);
+                        }
+                    }
+                });
+
+                await worker.save();
+            } catch (err) {
+                console.error('PDF generation failed:', err);
+                alert('خطا در تولید PDF.');
+            } finally {
+                resetViewport();
+                if (loadingElement) loadingElement.classList.add('hidden');
+            }
+        }
+
+    </script>
+
     </basis>
 
-    <basis core="call" lid="3" file="Client_BasisCore_Script.inc"></basis>
+    <basis core="call"  file="Client_BasisCore_Script.inc"></basis>
     <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
     <script src="[##cms.cms.cdn##]/js/pdf-lounge.functions.js" defer></script>
 </body>
+
 </html>
