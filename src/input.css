@@ -374,3 +374,8 @@
             opacity: 1;
         }
 /* loading */
+
+
+.flex-one{
+    flex: 1;
+}
