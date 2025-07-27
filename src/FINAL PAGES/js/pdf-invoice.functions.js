@@ -963,6 +963,53 @@ case '4': { // Tour
     case '6': // Flight + Hotel + Insurance
       return renderCostTableByProduct(priceDetails);
 
+
+      case '10': { // Tour
+  const sections = [];
+  const allRowsData = [];
+
+  // بررسی کنیم که roomPrice واقعاً آرایه است
+  if (Array.isArray(priceDetails.roomPrice)) {
+    priceDetails.roomPrice.forEach(roomObj => {
+      const roomData = roomObj?.room;
+      if (!roomData) return;
+
+      // حالا برای هر نوع مسافر داخل roomData بگرد
+      Object.entries(roomData).forEach(([passengerType, list]) => {
+        if (Array.isArray(list)) {
+          list.forEach(entry => {
+            const passenger = entry?.[passengerType];
+            if (!passenger) return;
+
+            const { roomIndex, count, perperson, total, unit } = passenger;
+
+            allRowsData.push({
+              [t.roomtitle]: `${t.room} ${roomIndex || 1}`,
+              [t.passengerType]: passengerType,
+              [t.count]: count,
+              [t.perPerson]: perperson,
+              [t.total]: total,
+              [t.unit]: unit
+            });
+          });
+        }
+      });
+    });
+  }
+
+  if (allRowsData.length > 0) {
+    sections.push(`
+      ${startSection(t.passengerPricing)}
+        ${renderMultipleRows(
+          [t.roomtitle, t.passengerType, t.count, t.perPerson, t.total, t.unit],
+          allRowsData
+        )}
+      ${endSection()}
+    `);
+  }
+
+  return sections.join('');
+}
     case '11': { // Lounge
       const sections = [];
 

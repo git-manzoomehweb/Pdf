@@ -128,18 +128,21 @@
                     </button>
 
                     <basis core="print" datamembername="db.invoice_pdf" run="atclient">
-                        <layout>
-                            <div class="pdf-config">
-                                @child
-                            </div>
-                        </layout>
-                        <face>
-                            <script type="text/template">
-                                <input type="hidden" id="name" value="@passengerinfo[0].cip_passenger.fullname.firstname@ @passengerinfo[0].cip_passenger.fullname.lastname@" />
-                                <input type="hidden" id="header" value="[##cms.query.letterhead|(1)##]" />
-                            </script>
-                        </face>
+                      <layout>
+                        <div class="pdf-config">
+                          @child
+                        </div>
+                      </layout>
+                    
+                      <face>
+                        <script type="text/template">
+                        <input type="hidden" id="name"
+                          value="@passengers[0].passengerinfo.fullname.firstname@ @passengers[0].passengerinfo.fullname.lastname@" />
+                        <input type="hidden" id="header" value="[##cms.query.letterhead|(1)##]" />
+                        </script>
+                      </face>
                     </basis>
+
 
                 </div>
             </div>
