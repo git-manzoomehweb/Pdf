@@ -79,63 +79,63 @@
     font-display: swap;
     font-family: 'Dana_FANum_black';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-black.woff) format('woff'), url(./_fonts/DanaFaNum-black.woff2) format('woff2'), url(./_fonts/dana-fanum-black.eot) format('embedded-opentype')
+    src: url(../../_fonts/DanaFaNum-black.woff) format('woff'), url(../../_fonts/DanaFaNum-black.woff2) format('woff2'), url(../../_fonts/dana-fanum-black.eot) format('embedded-opentype')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_bold';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-bold.woff) format('woff'), url(./_fonts/DanaFaNum-bold.woff2) format('woff2')
+    src: url(../../_fonts/DanaFaNum-bold.woff) format('woff'), url(../../_fonts/DanaFaNum-bold.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_demibold';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-demibold.woff) format('woff'), url(./_fonts/DanaFaNum-demibold.woff2) format('woff2')
+    src: url(../../_fonts/DanaFaNum-demibold.woff) format('woff'), url(../../_fonts/DanaFaNum-demibold.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_extrabold';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-extrabold.woff) format('woff'), url(./_fonts/DanaFaNum-extrabold.woff2) format('woff2')
+    src: url(../../_fonts/DanaFaNum-extrabold.woff) format('woff'), url(../../_fonts/DanaFaNum-extrabold.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_light';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-light.woff) format('woff'), url(./_fonts/DanaFaNum-light.woff2) format('woff2'), url(./_fonts/dana-fanum-light.eot) format('embedded-opentype')
+    src: url(../../_fonts/DanaFaNum-light.woff) format('woff'), url(../../_fonts/DanaFaNum-light.woff2) format('woff2'), url(../../_fonts/dana-fanum-light.eot) format('embedded-opentype')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_medium';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-medium.woff) format('woff'), url(./_fonts/DanaFaNum-medium.woff2) format('woff2'), url(./_fonts/dana-fanum-medium.eot) format('embedded-opentype')
+    src: url(../../_fonts/DanaFaNum-medium.woff) format('woff'), url(../../_fonts/DanaFaNum-medium.woff2) format('woff2'), url(../../_fonts/dana-fanum-medium.eot) format('embedded-opentype')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_regular';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-regular.woff) format('woff'), url(./_fonts/DanaFaNum-regular.woff2) format('woff2')
+    src: url(../../_fonts/DanaFaNum-regular.woff) format('woff'), url(../../_fonts/DanaFaNum-regular.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_thin';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-thin.woff) format('woff'), url(./_fonts/DanaFaNum-thin.woff2) format('woff2')
+    src: url(../../_fonts/DanaFaNum-thin.woff) format('woff'), url(../../_fonts/DanaFaNum-thin.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_FANum_ultrabold';
     font-style: normal;
-    src: url(./_fonts/DanaFaNum-ultrabold.woff) format('woff'), url(./_fonts/DanaFaNum-ultrabold.woff2) format('woff2')
+    src: url(../../_fonts/DanaFaNum-ultrabold.woff) format('woff'), url(../../_fonts/DanaFaNum-ultrabold.woff2) format('woff2')
 }
 
 
@@ -143,102 +143,106 @@
     font-display: swap;
     font-family: 'Dana_black';
     font-style: normal;
-    src: url(./_fonts/Dana-black.woff) format('woff'), url(./_fonts/Dana-black.woff2) format('woff2')
+    src: url(../../_fonts/Dana-black.woff) format('woff'), url(../../_fonts/Dana-black.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_bold';
     font-style: normal;
-    src: url(./_fonts/Dana-bold.woff) format('woff'), url(./_fonts/Dana-bold.woff2) format('woff2')
+    src: url(../../_fonts/Dana-bold.woff) format('woff'), url(../../_fonts/Dana-bold.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_demibold';
     font-style: normal;
-    src: url(./_fonts/Dana-DemiBold.woff) format('woff'), url(./_fonts/Dana-DemiBold.woff2) format('woff2')
+    src: url(../../_fonts/Dana-DemiBold.woff) format('woff'), url(../../_fonts/Dana-DemiBold.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_extrabold';
     font-style: normal;
-    src: url(./_fonts/Dana-extrabold.woff) format('woff'), url(./_fonts/Dana-extrabold.woff2) format('woff2')
+    src: url(../../_fonts/Dana-extrabold.woff) format('woff'), url(../../_fonts/Dana-extrabold.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_light';
     font-style: normal;
-    src: url(./_fonts/Dana-light.woff) format('woff'), url(./_fonts/Dana-light.woff2) format('woff2')
+    src: url(../../_fonts/Dana-light.woff) format('woff'), url(../../_fonts/Dana-light.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_medium';
     font-style: normal;
-    src: url(./_fonts/Dana-medium.woff) format('woff'), url(./_fonts/Dana-medium.woff2) format('woff2')
+    src: url(../../_fonts/Dana-medium.woff) format('woff'), url(../../_fonts/Dana-medium.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_regular';
     font-style: normal;
-    src: url(./_fonts/Dana-regular.woff) format('woff'), url(./_fonts/Dana-regular.woff2) format('woff2')
+    src: url(../../_fonts/Dana-regular.woff) format('woff'), url(../../_fonts/Dana-regular.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_thin';
     font-style: normal;
-    src: url(./_fonts/Dana-thin.woff) format('woff'), url(./_fonts/Dana-thin.woff2) format('woff2')
+    src: url(../../_fonts/Dana-thin.woff) format('woff'), url(../../_fonts/Dana-thin.woff2) format('woff2')
 }
 
 @font-face {
     font-display: swap;
     font-family: 'Dana_ultrabold';
     font-style: normal;
-    src: url(./_fonts/Dana-ultrabold.woff) format('woff'), url(./_fonts/Dana-ultrabold.woff2) format('woff2')
+    src: url(../../_fonts/Dana-ultrabold.woff) format('woff'), url(../../_fonts/Dana-ultrabold.woff2) format('woff2')
 }
 
 
 
 
 
-/* @font-face{font-display:swap;font-family:'Dana_FANum_black';font-style:normal;src:url(./_fonts/DanaFaNum-black.woff) format('woff'),url(./_fonts/DanaFaNum-black.woff2) format('woff2'),url(./_fonts/dana-fanum-black.eot) format('embedded-opentype')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_bold'; font-style:normal;src:url(./_fonts/DanaFaNum-bold.woff) format('woff'),url(./_fonts/DanaFaNum-bold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_demibold'; font-style:normal;src:url(./_fonts/DanaFaNum-demibold.woff) format('woff'),url(./_fonts/DanaFaNum-demibold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_extrabold'; font-style:normal;src:url(./_fonts/DanaFaNum-extrabold.woff) format('woff'),url(./_fonts/DanaFaNum-extrabold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_light'; font-style:normal;src:url(./_fonts/DanaFaNum-light.woff) format('woff'),url(./_fonts/DanaFaNum-light.woff2) format('woff2'),url(./_fonts/dana-fanum-light.eot) format('embedded-opentype')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_medium';font-style:normal;src:url(./_fonts/DanaFaNum-medium.woff) format('woff'),url(./_fonts/DanaFaNum-medium.woff2) format('woff2'),url(./_fonts/dana-fanum-medium.eot) format('embedded-opentype')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_regular';font-style:normal;src:url(./_fonts/DanaFaNum-regular.woff) format('woff'),url(./_fonts/DanaFaNum-regular.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_thin';font-style:normal;src:url(./_fonts/DanaFaNum-thin.woff) format('woff'),url(./_fonts/DanaFaNum-thin.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Dana_FANum_ultrabold';font-style:normal;src:url(./_fonts/DanaFaNum-ultrabold.woff) format('woff'),url(./_fonts/DanaFaNum-ultrabold.woff2) format('woff2')}
+/* @font-face{font-display:swap;font-family:'Dana_FANum_black';font-style:normal;src:url(../../_fonts/DanaFaNum-black.woff) format('woff'),url(../../_fonts/DanaFaNum-black.woff2) format('woff2'),url(../../_fonts/dana-fanum-black.eot) format('embedded-opentype')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_bold'; font-style:normal;src:url(../../_fonts/DanaFaNum-bold.woff) format('woff'),url(../../_fonts/DanaFaNum-bold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_demibold'; font-style:normal;src:url(../../_fonts/DanaFaNum-demibold.woff) format('woff'),url(../../_fonts/DanaFaNum-demibold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_extrabold'; font-style:normal;src:url(../../_fonts/DanaFaNum-extrabold.woff) format('woff'),url(../../_fonts/DanaFaNum-extrabold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_light'; font-style:normal;src:url(../../_fonts/DanaFaNum-light.woff) format('woff'),url(../../_fonts/DanaFaNum-light.woff2) format('woff2'),url(../../_fonts/dana-fanum-light.eot) format('embedded-opentype')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_medium';font-style:normal;src:url(../../_fonts/DanaFaNum-medium.woff) format('woff'),url(../../_fonts/DanaFaNum-medium.woff2) format('woff2'),url(../../_fonts/dana-fanum-medium.eot) format('embedded-opentype')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_regular';font-style:normal;src:url(../../_fonts/DanaFaNum-regular.woff) format('woff'),url(../../_fonts/DanaFaNum-regular.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_thin';font-style:normal;src:url(../../_fonts/DanaFaNum-thin.woff) format('woff'),url(../../_fonts/DanaFaNum-thin.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Dana_FANum_ultrabold';font-style:normal;src:url(../../_fonts/DanaFaNum-ultrabold.woff) format('woff'),url(../../_fonts/DanaFaNum-ultrabold.woff2) format('woff2')}
   
 
-  @font-face{font-display:swap;font-family:'Dana_black';font-style:normal;src:url(./_fonts/Dana-black.eot) format('embedded-opentype'),url(./_fonts/Dana-black.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_bold'; font-style:normal;src:url(./_fonts/Dana-bold.eot) format('embedded-opentype'),url(./_fonts/Dana-bold.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_demibold'; font-style:normal;src:url(./_fonts/Dana-demibold.eot) format('embedded-opentype'),url(./_fonts/Dana-demibold.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_extrabold'; font-style:normal;src:url(./_fonts/Dana-extrabold.eot) format('embedded-opentype'),url(./_fonts/Dana-extrabold.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_light'; font-style:normal;src:url(./_fonts/Dana-light.eot) format('embedded-opentype'),url(./_fonts/Dana-light.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_medium';font-style:normal;src:url(./_fonts/Dana-medium.eot) format('embedded-opentype'),url(./_fonts/Dana-medium.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_regular';font-style:normal;src:url(./_fonts/Dana-regular.eot) format('embedded-opentype'),url(./_fonts/Dana-regular.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_thin';font-style:normal;src:url(./_fonts/Dana-thin.eot) format('embedded-opentype'),url(./_fonts/Dana-thin.ttf) format('truetype')}
-  @font-face{font-display:swap;font-family:'Dana_ultrabold';font-style:normal;src:url(./_fonts/Dana-ultrabold.eot) format('embedded-opentype'),url(./_fonts/Dana-ultrabold.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_black';font-style:normal;src:url(../../_fonts/Dana-black.eot) format('embedded-opentype'),url(../../_fonts/Dana-black.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_bold'; font-style:normal;src:url(../../_fonts/Dana-bold.eot) format('embedded-opentype'),url(../../_fonts/Dana-bold.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_demibold'; font-style:normal;src:url(../../_fonts/Dana-demibold.eot) format('embedded-opentype'),url(../../_fonts/Dana-demibold.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_extrabold'; font-style:normal;src:url(../../_fonts/Dana-extrabold.eot) format('embedded-opentype'),url(../../_fonts/Dana-extrabold.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_light'; font-style:normal;src:url(../../_fonts/Dana-light.eot) format('embedded-opentype'),url(../../_fonts/Dana-light.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_medium';font-style:normal;src:url(../../_fonts/Dana-medium.eot) format('embedded-opentype'),url(../../_fonts/Dana-medium.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_regular';font-style:normal;src:url(../../_fonts/Dana-regular.eot) format('embedded-opentype'),url(../../_fonts/Dana-regular.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_thin';font-style:normal;src:url(../../_fonts/Dana-thin.eot) format('embedded-opentype'),url(../../_fonts/Dana-thin.ttf) format('truetype')}
+  @font-face{font-display:swap;font-family:'Dana_ultrabold';font-style:normal;src:url(../../_fonts/Dana-ultrabold.eot) format('embedded-opentype'),url(../../_fonts/Dana-ultrabold.ttf) format('truetype')}
 
 
 
-  @font-face{font-display:swap;font-family:'Inter_black';font-style:normal;src:url(./_fonts/Inter-black.woff) format('woff'),url(./_fonts/Inter-black.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_bold'; font-style:normal;src:url(./_fonts/Inter-bold.woff) format('woff'),url(./_fonts/Inter-bold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_semibold'; font-style:normal;src:url(./_fonts/Inter-semibold.woff) format('woff'),url(./_fonts/Inter-semibold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_extrabold'; font-style:normal;src:url(./_fonts/Inter-extrabold.woff) format('woff'),url(./_fonts/Inter-extrabold.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_light'; font-style:normal;src:url(./_fonts/Inter-light.woff) format('woff'),url(./_fonts/Inter-light.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_medium';font-style:normal;src:url(./_fonts/Inter-medium.woff) format('woff'),url(./_fonts/Inter-medium.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_regular';font-style:normal;src:url(./_fonts/Inter-regular.woff) format('woff'),url(./_fonts/Inter-regular.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_thin';font-style:normal;src:url(./_fonts/Inter-thin.woff) format('woff'),url(./_fonts/Inter-thin.woff2) format('woff2')}
-  @font-face{font-display:swap;font-family:'Inter_ultrabold';font-style:normal;src:url(./_fonts/Inter-ultrabold.woff) format('woff'),url(./_fonts/Inter-ultrabold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_black';font-style:normal;src:url(../../_fonts/Inter-black.woff) format('woff'),url(../../_fonts/Inter-black.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_bold'; font-style:normal;src:url(../../_fonts/Inter-bold.woff) format('woff'),url(../../_fonts/Inter-bold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_semibold'; font-style:normal;src:url(../../_fonts/Inter-semibold.woff) format('woff'),url(../../_fonts/Inter-semibold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_extrabold'; font-style:normal;src:url(../../_fonts/Inter-extrabold.woff) format('woff'),url(../../_fonts/Inter-extrabold.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_light'; font-style:normal;src:url(../../_fonts/Inter-light.woff) format('woff'),url(../../_fonts/Inter-light.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_medium';font-style:normal;src:url(../../_fonts/Inter-medium.woff) format('woff'),url(../../_fonts/Inter-medium.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_regular';font-style:normal;src:url(../../_fonts/Inter-regular.woff) format('woff'),url(../../_fonts/Inter-regular.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_thin';font-style:normal;src:url(../../_fonts/Inter-thin.woff) format('woff'),url(../../_fonts/Inter-thin.woff2) format('woff2')}
+  @font-face{font-display:swap;font-family:'Inter_ultrabold';font-style:normal;src:url(../../_fonts/Inter-ultrabold.woff) format('woff'),url(../../_fonts/Inter-ultrabold.woff2) format('woff2')}
    */
+
+
+
+   html,:host{font-family: Dana_regular !important;}
 
 
 .dir-rtl {
