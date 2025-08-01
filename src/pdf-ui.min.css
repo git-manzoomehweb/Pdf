@@ -1,3 +1,5 @@
+/* 2025/01/08 */
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -1086,6 +1088,10 @@ video {
   width: 100%;
 }
 
+.min-w-28 {
+  min-width: 7rem;
+}
+
 .min-w-3 {
   min-width: 0.75rem;
 }
@@ -1117,10 +1123,6 @@ video {
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
-}
-
-.min-w-28 {
-  min-width: 7rem;
 }
 
 .max-w-7xl {
@@ -1621,6 +1623,10 @@ video {
   background-color: rgb(253 224 71 / var(--tw-bg-opacity, 1));
 }
 
+.\!bg-none {
+  background-image: none !important;
+}
+
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1672,6 +1678,11 @@ video {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.px-2\.5 {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
 }
 
 .px-3 {
@@ -1732,6 +1743,10 @@ video {
 .py-\[6px\] {
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.pb-0 {
+  padding-bottom: 0px;
 }
 
 .pb-1 {
@@ -1796,10 +1811,6 @@ video {
 
 .pt-\[20\%\] {
   padding-top: 20%;
-}
-
-.pb-0 {
-  padding-bottom: 0px;
 }
 
 .text-left {
@@ -2653,8 +2664,26 @@ html,:host{
 }
 
 @media (max-width: 794px) {
+  .max-\[794px\]\:w-full {
+    width: 100%;
+  }
+
+  .max-\[794px\]\:min-w-full {
+    min-width: 100%;
+  }
+
   .max-\[794px\]\:flex-wrap {
     flex-wrap: wrap;
+  }
+
+  .max-\[794px\]\:gap-x-1 {
+    -moz-column-gap: 0.25rem;
+         column-gap: 0.25rem;
+  }
+
+  .max-\[794px\]\:px-1 {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
 }
 
@@ -2675,12 +2704,12 @@ html,:host{
     height: auto;
   }
 
-  .max-md\:w-full {
-    width: 100%;
+  .max-md\:w-3\/12 {
+    width: 25%;
   }
 
-  .max-md\:border-collapse {
-    border-collapse: collapse;
+  .max-md\:w-full {
+    width: 100%;
   }
 
   .max-md\:flex-col {
@@ -2707,10 +2736,6 @@ html,:host{
     text-wrap: wrap;
   }
 
-  .max-md\:border {
-    border-width: 1px;
-  }
-
   .max-md\:border-x-0 {
     border-left-width: 0px;
     border-right-width: 0px;
@@ -2720,6 +2745,11 @@ html,:host{
     border-top-width: 1px;
   }
 
+  .max-md\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .max-md\:pb-0 {
     padding-bottom: 0px;
   }
@@ -2727,9 +2757,30 @@ html,:host{
   .max-md\:pt-2 {
     padding-top: 0.5rem;
   }
+
+  .max-md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media not all and (min-width: 640px) {
+  .max-sm\:right-\[-3px\] {
+    right: -3px;
+  }
+
+  .max-sm\:top-\[-12px\] {
+    top: -12px;
+  }
+
+  .max-sm\:me-0 {
+    margin-inline-end: 0px;
+  }
+
+  .max-sm\:mr-1 {
+    margin-right: 0.25rem;
+  }
+
   .max-sm\:mt-4 {
     margin-top: 1rem;
   }
@@ -2740,6 +2791,38 @@ html,:host{
 
   .max-sm\:hidden {
     display: none;
+  }
+
+  .max-sm\:h-4 {
+    height: 1rem;
+  }
+
+  .max-sm\:h-5 {
+    height: 1.25rem;
+  }
+
+  .max-sm\:h-6 {
+    height: 1.5rem;
+  }
+
+  .max-sm\:h-8 {
+    height: 2rem;
+  }
+
+  .max-sm\:w-4 {
+    width: 1rem;
+  }
+
+  .max-sm\:w-5 {
+    width: 1.25rem;
+  }
+
+  .max-sm\:w-6 {
+    width: 1.5rem;
+  }
+
+  .max-sm\:w-8 {
+    width: 2rem;
   }
 
   .max-sm\:w-full {
@@ -2758,6 +2841,18 @@ html,:host{
     justify-content: center;
   }
 
+  .max-sm\:gap-1 {
+    gap: 0.25rem;
+  }
+
+  .max-sm\:gap-2 {
+    gap: 0.5rem;
+  }
+
+  .max-sm\:gap-4 {
+    gap: 1rem;
+  }
+
   .max-sm\:gap-x-2 {
     -moz-column-gap: 0.5rem;
          column-gap: 0.5rem;
@@ -2767,13 +2862,56 @@ html,:host{
     padding: 0.5rem !important;
   }
 
+  .max-sm\:p-2 {
+    padding: 0.5rem;
+  }
+
+  .max-sm\:px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
   .max-sm\:px-3 {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
 
+  .max-sm\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .max-sm\:py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
   .max-sm\:pl-0 {
     padding-left: 0px;
+  }
+
+  .max-sm\:text-\[10px\] {
+    font-size: 10px;
+  }
+
+  .max-sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .max-sm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .max-sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .max-sm\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 }
 

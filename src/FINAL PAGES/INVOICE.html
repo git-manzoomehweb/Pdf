@@ -74,7 +74,7 @@
     </style>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.lid|(1)##]);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.langid|(1)##]);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -148,8 +148,8 @@
             </div>
 
 
-            <header id="pdf-header" class="header max-w-[794px]  mx-auto "><img
-                    class="block max-w-[794px]  mx-auto object-contain  w-full"
+            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
+                    class="block max-w-[794px] w-full mx-auto object-contain"
                     src="/images/Header-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
@@ -183,7 +183,7 @@
           <face>
             <script type="text/template">
               {{return await setInvoiceType($data.invoiceDetails.invoicetype)}}
-              {{return await renderInvoiceDetails($data , [##cms.query.lid|(1)##])}}
+              {{return await renderInvoiceDetails($data , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -194,7 +194,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderAllProducts($data.products , [##cms.query.lid|(1)##] )}}
+              {{return await renderAllProducts($data.products , [##cms.query.langid|(1)##] )}}
             </script>
           </face>
         </basis>
@@ -204,7 +204,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderPassengers($data.passengers , $data , [##cms.query.lid|(1)##])}}
+              {{return await renderPassengers($data.passengers , $data , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -214,7 +214,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderPriceDetailsSection($data , $data.priceDetails , [##cms.query.lid|(1)##])}}
+              {{return await renderPriceDetailsSection($data , $data.priceDetails , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -223,7 +223,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderBillSection($data.bill , [##cms.query.lid|(1)##])}}
+              {{return await renderBillSection($data.bill , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -234,17 +234,17 @@
           </layout>
           <face>
             <script type="text/template">
-              {{return await renderDescription($data , [##cms.query.lid|(1)##])}}
+              {{return await renderDescription($data , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
       </div>
     </main>
-            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full  print:w-[595pt] print:h-[100pt] mx-auto "><img
-                    class="block mx-auto max-w-[794px]  print:w-[595pt] print:h-[100pt] w-full object-contain"
+            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                    class="block mx-auto max-w-[794px]  w-full object-contain"
                     src="/images/Footer-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" />
-    </footer>
+            </footer>
     </div>
 
   </basis>
@@ -285,10 +285,13 @@
                 const pdfFileName = pdfConfig.querySelector('#name');
                 const isSetHeader = pdfConfig.querySelector('#header');
 
-                var window_Width = element.scrollWidth;
-                if (window.innerWidth < 768) {
-                    window_Width -= 100;
-                }
+var window_Width = element.scrollWidth;
+
+if (window.innerWidth < 768) {
+
+    window_Width = 768;
+
+}
 
                 const opt = {
                     margin: [30, 10, 30, 10],

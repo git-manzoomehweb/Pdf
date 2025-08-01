@@ -147,8 +147,8 @@
             </div>
 
 
-            <header id="pdf-header" class="header max-w-[794px]  mx-auto "><img
-                    class="block max-w-[794px]  mx-auto object-contain w-full"
+            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
+                    class="block max-w-[794px] w-full mx-auto object-contain"
                     src="/images/Header-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
@@ -179,7 +179,7 @@
                                         type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2"><h2 class="text-sm font-normal text-[#202020]  !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929]  !text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
                                 </face>
                             </basis>
-                            <basis core="group" name="persian" if="[##cms.query.lid##] = 1">
+                            <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
                                 <basis core="print" datamembername="db.visa_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
@@ -190,7 +190,7 @@
                                 </basis>
                             
                             </basis>
-                            <basis core="group" name="no-persian" if="[##cms.query.lid##] <> 1">
+                            <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
                                 <basis core="print" datamembername="db.visa_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>

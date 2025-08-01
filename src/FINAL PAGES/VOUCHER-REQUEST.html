@@ -75,7 +75,7 @@
     </style>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.lid|(1)##]);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid(2);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -135,8 +135,8 @@
             </div>
 
 
-            <header id="pdf-header" class="header max-w-[794px] w-full  mx-auto "><img
-                    class="block max-w-[794px]  mx-auto object-contain  w-full"
+            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
+                    class="block max-w-[794px] w-full mx-auto object-contain"
                     src="/images/Header-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
@@ -167,7 +167,7 @@
                                         type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
                                 </face>
                             </basis>
-                            <basis core="group" name="persian" if="[##cms.query.lid##] = 1">
+                            <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
                                 <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
@@ -178,7 +178,7 @@
                                 </basis>
 
                             </basis>
-                            <basis core="group" name="no-persian" if="[##cms.query.lid##] <> 1">
+                            <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
                                 <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
@@ -203,7 +203,7 @@
                             <layout>@child </layout>
                             <face>
                                 <script
-                                    type="text/template">{{ return await RenderInfoCard($data  , [##cms.query.lid##] )}} </script>
+                                    type="text/template">{{ return await RenderInfoCard($data  , 2 )}} </script>
                             </face>
                         </basis>
                     </section>
@@ -212,9 +212,9 @@
                             <layout>@child </layout>
                             <face>
                                 <script type="text/template">
-                                {{ return await renderRooms($data  , [##cms.query.lid##])}} 
-                                {{ return await renderFlightInfo($data.flightinfo  , [##cms.query.lid##])}} 
-                                {{ return await renderBrokerInfo($data.broker  , [##cms.query.lid##])}} 
+                                {{ return await renderRooms($data  , 2)}} 
+                                {{ return await renderFlightInfo($data.flightinfo  , 2)}} 
+                                {{ return await renderBrokerInfo($data.broker  , 2)}} 
                             </script>
                             </face>
                         </basis>
@@ -223,26 +223,26 @@
                         <layout>@child</layout>
                         <face>
                             <script
-                                type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid([##cms.query.lid##])}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks" ,"ملاحظات" , [##cms.query.lid##] )}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.HotelDescription)}}" >{{ return await cleanHtmlText($data.HotelDescription) }}</div></section></script>
+                                type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid(2)}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks" ,"ملاحظات" , 2 )}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.HotelDescription)}}" >{{ return await cleanHtmlText($data.HotelDescription) }}</div></section></script>
                         </face>
                     </basis>
                     <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
                             <script
-                                type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}" id="rules-title">{{ return await getLocalizedText(await detectDirection($data.pdf_description?.[0]?.note?.text || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##cms.query.lid##])}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}">{{ return await renderRules($data, [##cms.query.lid##])}} </div></section></script>
+                                type="text/template"><section class="{{return await checkSection($data.pdf_description?.[0]?.note?.text || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}" id="rules-title">{{ return await getLocalizedText(await detectDirection($data.pdf_description?.[0]?.note?.text || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", 2)}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.pdf_description?.[0]?.note?.text || '')}}">{{ return await renderRules($data, 2)}} </div></section></script>
                         </face>
                     </basis>
                     <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
                             <script
-                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" id="note-title">{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "NOTE", "ملاحظة", [##cms.query.lid##])}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">{{ return await cleanHtmlText($data.note)}} </div></section></script>
+                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirection($data.note)}}" id="note-title">{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "NOTE", "ملاحظة", 2)}} </h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8  max-sm:px-3 text-justify font-danaregular" dir="{{return await detectDirection($data.note)}}">{{ return await cleanHtmlText($data.note)}} </div></section></script>
                         </face>
                     </basis>
             </main>
-            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full  print:w-[595pt] print:h-[100pt] mx-auto "><img
-                    class="block mx-auto max-w-[794px]  print:w-[595pt] print:h-[100pt] w-full object-contain"
+            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                    class="block mx-auto max-w-[794px]  w-full object-contain"
                     src="/images/Footer-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" />
             </footer>
@@ -286,10 +286,13 @@
                 const pdfFileName = pdfConfig.querySelector('#name');
                 const isSetHeader = pdfConfig.querySelector('#header');
 
-                var window_Width = element.scrollWidth;
-                if (window.innerWidth < 768) {
-                    window_Width -= 100;
-                }
+var window_Width = element.scrollWidth;
+
+if (window.innerWidth < 768) {
+
+    window_Width = 768;
+
+}
 
                 const opt = {
                     margin: [30, 10, 30, 10],

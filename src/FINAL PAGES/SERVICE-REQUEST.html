@@ -148,10 +148,10 @@
             </div>
 
 
-            <header id="pdf-header" class="header max-w-[794px]  mx-auto "><img
-                    class="block max-w-[794px]  mx-auto object-contain w-full"
-                src="/images/Header-contract-pdf.jpg" width="794" height="100"
-                alt="Footer-contract-pdf" /></header>
+            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
+                    class="block max-w-[794px] w-full mx-auto object-contain"
+                    src="/images/Header-contract-pdf.jpg" width="794" height="100"
+                    alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
             <div class="pdf-loading hidden ">
@@ -178,7 +178,7 @@
                                         type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
                             </face>
                         </basis>
-                            <basis core="group" name="persian" if="[##cms.query.lid##] = 1">
+                            <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
                         <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
@@ -189,7 +189,7 @@
                         </basis>
 
                             </basis>
-                            <basis core="group" name="no-persian" if="[##cms.query.lid##] <> 1">
+                            <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
                         <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
@@ -223,27 +223,27 @@
                     <layout>@child </layout>
                     <face>
                         <script
-                                type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid([##cms.query.lid##]) }}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await cleanHtmlText($data.pdf_description , [##cms.query.lid##])}}</div></section></script>
+                                type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid([##cms.query.langid##]) }}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await cleanHtmlText($data.pdf_description , [##cms.query.langid##])}}</div></section></script>
                     </face>
                 </basis>
                 <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script
-                                type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##cms.query.lid##]) }}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##cms.query.lid##])}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await renderServiceRules($data)}} </div></section></script>
+                                type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##cms.query.langid##]) }}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##cms.query.langid##])}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await renderServiceRules($data)}} </div></section></script>
                     </face>
                 </basis>
                 <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script
-                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##cms.query.lid##]) }}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##cms.query.lid##])}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await cleanHtmlText($data.note , [##cms.query.lid##])}}</div></section></script>
+                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##cms.query.langid##]) }}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##cms.query.langid##])}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await cleanHtmlText($data.note , [##cms.query.langid##])}}</div></section></script>
                     </face>
                 </basis>
         </main>
-            <footer id="pdf-footer" class=" footer max-w-[794px]  print:w-[595pt] print:h-[100pt] mx-auto "><img
-                    class="block mx-auto max-w-[794px]  print:w-[595pt] print:h-[100pt] w-full object-contain"
-                src="/images/Footer-contract-pdf.jpg" width="794" height="100"
+            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                    class="block mx-auto max-w-[794px]  w-full object-contain"
+                    src="/images/Footer-contract-pdf.jpg" width="794" height="100"
                     alt="Footer-contract-pdf" />
             </footer>
     </div>
