@@ -74,7 +74,7 @@
     </style>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid(2);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid(2 , [##cms.query.langid##]);">
    
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -102,7 +102,7 @@
                     "name": "q",
                     "request": "visa_pdf",
                     "id": "[##cms.query.id##]",
-                    "lid": "[##cms.query.lid|(1)##]"}
+                    "lid": "[##cms.query.langid|(1)##]"}
                         
                 ]}'
             content-type="application/json"

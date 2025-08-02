@@ -267,6 +267,14 @@
                                         Passenger:
                                     </h4>
                                     <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
+                                                {{
+                                                    try{
+                                                         return await passenger_gender($data.passenger.gender);
+                                                    }catch (e){
+                                                        return '';
+                                                    }
+                                                }}
+
                                         @passenger.name@
                                     </span>
                                 </div>
@@ -307,7 +315,7 @@
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        id="from-to-yellow-bar" class=" ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
                                         @child</div>
                                 </layout>
                                 <face>
@@ -407,6 +415,13 @@
                                         Passenger:
                                     </h4>
                                     <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
+                                                                                        {{
+                                                    try{
+                                                         return await passenger_gender($data.passenger.gender);
+                                                    }catch (e){
+                                                        return '';
+                                                    }
+                                                }}
                                         @passenger.name@
                                     </span>
                                 </div>
@@ -449,7 +464,7 @@
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        id="from-to-yellow-bar" class=" ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
                                         @child</div>
                                 </layout>
                                 <face>
@@ -540,7 +555,7 @@
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        id="from-to-yellow-bar" class=" ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
                                         @child</div>
                                 </layout>
                                 <face>
@@ -639,6 +654,13 @@
                                         Passenger :
                                     </h4>
                                     <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
+                                                                                        {{
+                                                    try{
+                                                         return await passenger_gender($data.passenger.gender);
+                                                    }catch (e){
+                                                        return '';
+                                                    }
+                                                }}
                                         @passenger.name@
                                     </span>
                                 </div>
@@ -682,7 +704,7 @@
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        id="from-to-yellow-bar" class=" ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
                                         @child</div>
                                 </layout>
                                 <face>
@@ -884,7 +906,7 @@
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        id="from-to-yellow-bar" class=" ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
                                         @child</div>
                                 </layout>
                                 <face>
@@ -965,17 +987,42 @@
                                 <h3 class="font-danabold max-sm:text-base" >Price Details</h3>
                                 <div>
                                     <span class="inline-block ticketContainer__info__details__title max-sm:text-sm">
-                                        Base Price: <span class="ml-1.5">@passenger.price.base@  @passenger.price.unit@</span>
+                                        Base Price: <span class="mx-1">
+                                            
+                                            {{ try{
+                                                return await formatPrice($data.passenger.price.base);
+                                            }catch (e){
+                                                return '';
+                                            }
+                                            }}
+
+                                              @passenger.price.unit@</span>
                                     </span>
                                 </div>
                                 <div>
                                     <span class="inline-block ticketContainer__info__details__title max-sm:text-sm">
-                                        Tax: <span class="ml-1.5">@passenger.price.tax@  @passenger.price.unit@</span>
+                                        Tax: <span class="mx-1">
+                                            {{ try{
+                                                return await formatPrice( $data.passenger.price.tax);
+                                            }catch (e){
+                                                return '';
+                                            }
+                                            }}
+
+                                            @passenger.price.unit@</span>
                                     </span>
                                 </div>
                                 <div>
                                     <span class="inline-block ticketContainer__info__details__title max-sm:text-sm">
-                                        Total: <span class="ml-1.5">@passenger.price.total@  @passenger.price.unit@</span>
+                                        Total: <span class="mx-1">
+                                            {{ try{
+                                                return await formatPrice($data.passenger.price.total);
+                                            }catch (e){
+                                                return '';
+                                            }
+                                            }}
+
+                                             @passenger.price.unit@</span>
                                     </span>
                                 </div>
                             </div>

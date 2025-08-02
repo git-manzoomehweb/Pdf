@@ -766,7 +766,7 @@ async function renderTransferInfoLounge($data, lang) {
     1: {
       // فارسی
       title: "اطلاعات ترنسفر",
-      carName: "نام خودرو <br/> Car Name",
+      carName: "نام ترنسفر<br/> Transfer Name",
       address: "آدرس <br/> Address",
       time: "زمان <br/> Time",
       phone: "شماره تماس <br/> Phone Number",
@@ -778,7 +778,7 @@ async function renderTransferInfoLounge($data, lang) {
     2: {
       // انگلیسی
       title: "Transfer Information",
-      carName: "Car Name",
+      carName: "Transfer Name",
       address: "Address",
       time: "Time",
       phone: "Phone Number",
@@ -790,7 +790,7 @@ async function renderTransferInfoLounge($data, lang) {
     3: {
       // عربی
       title: "معلومات النقل",
-      carName: "اسم السيارة",
+      carName: "اسم النقل",
       address: "العنوان",
       time: "الوقت",
       phone: "رقم الهاتف",

@@ -6,9 +6,11 @@ let isMinTimeElapsed = false;
 let apiDataLoaded = false;
 const MIN_LOADING_TIME = 2000; // 2 ثانیه حداقل
 let mainlid;
+let langid ;
 
-function setlid(lid) {
+function setlid(lid , langidpage) {
   mainlid = lid;
+  langid = langidpage;
 }
 
 function initializePageLanguage(lid) {
@@ -471,6 +473,7 @@ async function renderVisaInfo($data, lang) {
     : "–";
 
 
+    console.log(langid);
   return `
         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
         <div class="bg-[#F4F4F4] rounded-xl p-4 ">
@@ -522,9 +525,7 @@ async function renderVisaInfo($data, lang) {
             <div class="gap-y-2 flex flex-col">
                 <span class="text-[#6D6D6D] text-xs font-danaregular text-nowrap ${t.centerText}">${t.date}</span>
                 <div class="text-[#292929] text-sm font-danademibold dir-${t.dir} ${t.centerText}">
-                    <span>${product_info.dateinfo?.mstring || "–"}</span>
-                    ${lang === 1 ? `<span>(${product_info.dateinfo?.sstring || "–"})</span>` : ""}
-                </div>
+                <span>${product_info.dateinfo?.mstring || "–"}</span> ${langid == 1 ? '<span>(' + (product_info.dateinfo?.sstring || "–") + ')</span>' : ""}                </div>
             </div>
         </div>
         </div>

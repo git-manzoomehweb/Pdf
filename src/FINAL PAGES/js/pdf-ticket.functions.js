@@ -13,6 +13,20 @@ function setlid(lid, invoice = null) {
   invoiceType = invoice;
 }
 
+function barDirection(lid) {
+    if (lid == 2) {
+      document.getElementById()
+        return `dir-ltr`
+    } else {
+        return `dir-rtl`
+    }
+}
+
+
+function formatPrice(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function initializePageLanguage(lid, invoice = null) {
   const translations = {
     1: {
@@ -728,7 +742,7 @@ async function route_array($data , invoicetype) {
                                 <span>${data[i].route.routecode}</span>
                             </span>
                             |
-                            <span class="flex gap-1 items-center max-sm:hidden">
+                            <span class="flex gap-1 items-center">
                                 <span>${data[i].route.class} - ${data[i].route.classCode}</span>
                             </span>
                             |
@@ -747,7 +761,7 @@ async function route_array($data , invoicetype) {
                    
                     <div class="ticketContainer__details__path__item__times pathItem__times relative flex flex-nowrap justify-end flex-col items-center w-1/6 max-md:w-3/12">
                         
-                        <div class="absolute -top-[19px] max-md:static max-md:mb-2">
+                        <div class="absolute -top-[19px] text-center">
                             <span class="text-xs text-gray-500 font-danabold max-sm:text-[10px]">Travel Time</span>
                             <span class="pathItem__times__duration flex items-center gap-1 text-xs text-gray-500 max-sm:text-[10px]">
                                 <svg width="12" height="12" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
