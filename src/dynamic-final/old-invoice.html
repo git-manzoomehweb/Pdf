@@ -1,9 +1,12 @@
-<span class="siteurl" style="visibility:hidden"><p>[##site.address.domain##]</p></span>
+<span class="siteurl" style="visibility:hidden">
+    <p>[##site.address.domain##]</p>
+</span>
 <basis core="dbsource" source="hosting" name="site">
     <member name="address" type="list" request="siteaddress" />
 </basis>
 <basis core="group" name="check-version" if="'[##cms.cms.server_main_version##]' = '4'">
-    <basis core="dbsource" name="db" source="trustloginapi" rkey="[##cms.query.rkey|cms.cookie.rkey##]" request="checkrkey">
+    <basis core="dbsource" name="db" source="trustloginapi" rkey="[##cms.query.rkey|cms.cookie.rkey##]"
+        request="checkrkey">
         <member name="checkrkey" type="view" />
     </basis>
     <basis core="group" if="[##db.checkrkey.userid|(0)##]=0  ">
@@ -40,7 +43,6 @@
                     content: "\a";
                     white-space: pre;
                 }
-
             </style>
         </body>
 
@@ -742,7 +744,8 @@
                                     </col>
                                 </colgroup>
 
-                              <caption class="invoice_caption"><span>جزئیات تور </span> / <span>TOUR INFORMATION </span></caption>
+                                <caption class="invoice_caption"><span>جزئیات تور </span> / <span>TOUR INFORMATION
+                                    </span></caption>
                                 <tbody>@child</tbody>
                             </table>
                         </face>
@@ -1739,7 +1742,7 @@
 
                 <!-- bill ################################################################################################# -->
                 <basis:14 core="group" if="[##db.InvoiceType.Value##] in ('10','4')">
-                  
+
                     <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id" parentidcol="parentid"
                         nullvalue="null">
                         <face
@@ -2069,7 +2072,7 @@
                         </face>
                         <face filter="Field in ('title')">
 
-                            <div style="font-weight:bold;">@value : </div> 
+                            <div style="font-weight:bold;">@value : </div>
 
 
                         </face>
@@ -2078,23 +2081,22 @@
                         </face>
                         <face filter="type in ('Array','object')">@Child</face>
                     </basis>
-                    <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id"
-                    parentidcol="parentid"
-                    nullvalue="null">
-                    <face filter="Field in ('baggage','pdf_description','invoiceDetails')"></face>
-                    <face filter="Field in ('tour_description') and value not in ('[]')">
-                        <div class="pdf_description">
-                            @child
-                        </div>
-                    </face>
-                    <face filter="Field in ('title')">
-                        <div style="font-weight:bold;">@value : </div>
-                    </face>
-                    <face filter="Field in ('text')">
-                        @value
-                    </face>
-                    <face filter="type in ('Array','object')">@Child</face>
-                </basis>
+                    <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id" parentidcol="parentid"
+                        nullvalue="null">
+                        <face filter="Field in ('baggage','pdf_description','invoiceDetails')"></face>
+                        <face filter="Field in ('tour_description') and value not in ('[]')">
+                            <div class="pdf_description">
+                                @child
+                            </div>
+                        </face>
+                        <face filter="Field in ('title')">
+                            <div style="font-weight:bold;">@value : </div>
+                        </face>
+                        <face filter="Field in ('text')">
+                            @value
+                        </face>
+                        <face filter="type in ('Array','object')">@Child</face>
+                    </basis>
                 </basis:14>
                 <basis:15 core="group" if="[##db.InvoiceType.Value##] in ('3')">
                     <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id" parentidcol="parentid"
@@ -2153,7 +2155,7 @@
                         </face>
                         <face filter="Field in ('title')">
 
-                            <div style="font-weight:bold;">@value : </div> 
+                            <div style="font-weight:bold;">@value : </div>
 
 
                         </face>
@@ -2272,11 +2274,18 @@
                     strong {
                         color: #CE0E0E
                     }
-                    thead { display: table-header-group; }
-                    
-                    tfoot { display: table-row-group; }
-                    
-                    tr { page-break-inside: avoid; }
+
+                    thead {
+                        display: table-header-group;
+                    }
+
+                    tfoot {
+                        display: table-row-group;
+                    }
+
+                    tr {
+                        page-break-inside: avoid;
+                    }
 
                     .clr {
                         clear: both;
@@ -2383,9 +2392,11 @@
         </basis>
     </basis>
 </basis>
+
 <basis core="group" name="check-version" if="'[##cms.cms.server_main_version##]' <> '4'">
     <basis core="call" file="Panel-HeaderPdf.inc" />
-    <basis core="dbsource" name="db" source="trustloginapi" rkey="[##cms.query.rkey|cms.cookie.rkey##]" request="checkrkey">
+    <basis core="dbsource" name="db" source="trustloginapi" rkey="[##cms.query.rkey|cms.cookie.rkey##]"
+        request="checkrkey">
         <member name="checkrkey" type="view" />
     </basis>
     <basis core="group" if="[##db.checkrkey.userid|(0)##]=0  ">
@@ -2732,7 +2743,7 @@
                     </basis>
                 </basis:2>
 
- 
+
 
 
 
@@ -4123,7 +4134,7 @@
 
                 <!-- bill ################################################################################################# -->
                 <basis:14 core="group" if="[##db.InvoiceType.Value##] in ('10','4')">
-                 
+
                     <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id" parentidcol="parentid"
                         nullvalue="null">
                         <face
@@ -4408,7 +4419,7 @@
                         </face>
                         <face filter="Field in ('title')">
 
-                            <div style="font-weight:bold;">@value : </div> 
+                            <div style="font-weight:bold;">@value : </div>
 
 
                         </face>
@@ -4417,23 +4428,22 @@
                         </face>
                         <face filter="type in ('Array','object')">@Child</face>
                     </basis>
-                    <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id"
-                    parentidcol="parentid"
-                    nullvalue="null">
-                    <face filter="Field in ('baggage','pdf_description','invoiceDetails')"></face>
-                    <face filter="Field in ('tour_description') and value not in ('[]')">
-                        <div class="pdf_description">
-                            @child
-                        </div>
-                    </face>
-                    <face filter="Field in ('title')">
-                        <div style="font-weight:bold;">@value : </div>
-                    </face>
-                    <face filter="Field in ('text')">
-                        @value
-                    </face>
-                    <face filter="type in ('Array','object')">@Child</face>
-                </basis>
+                    <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id" parentidcol="parentid"
+                        nullvalue="null">
+                        <face filter="Field in ('baggage','pdf_description','invoiceDetails')"></face>
+                        <face filter="Field in ('tour_description') and value not in ('[]')">
+                            <div class="pdf_description">
+                                @child
+                            </div>
+                        </face>
+                        <face filter="Field in ('title')">
+                            <div style="font-weight:bold;">@value : </div>
+                        </face>
+                        <face filter="Field in ('text')">
+                            @value
+                        </face>
+                        <face filter="type in ('Array','object')">@Child</face>
+                    </basis>
                 </basis:14>
                 <basis:15 core="group" if="[##db.InvoiceType.Value##] in ('3')">
                     <basis core="tree" datamembername="db.InvoiceView_Tree" idcol="id" parentidcol="parentid"
@@ -4491,7 +4501,7 @@
                         </face>
                         <face filter="Field in ('title')">
 
-                            <div style="font-weight:bold;">@value : </div> 
+                            <div style="font-weight:bold;">@value : </div>
 
 
                         </face>
@@ -4549,7 +4559,7 @@
                         </face>
                         <face filter="Field in ('title')">
 
-                            <div style="font-weight:bold;">@value : </div> 
+                            <div style="font-weight:bold;">@value : </div>
 
 
                         </face>
@@ -4613,12 +4623,18 @@
                     strong {
                         color: #CE0E0E
                     }
-                    
-                    thead { display: table-header-group; }
-                    
-                    tfoot { display: table-row-group; }
-                    
-                    tr { page-break-inside: avoid; }
+
+                    thead {
+                        display: table-header-group;
+                    }
+
+                    tfoot {
+                        display: table-row-group;
+                    }
+
+                    tr {
+                        page-break-inside: avoid;
+                    }
 
 
                     .clr {

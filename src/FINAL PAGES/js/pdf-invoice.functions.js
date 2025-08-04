@@ -305,6 +305,15 @@ function setInvoiceType(type) {
 const invoiceTranslations = {
 1: {
     // فارسی
+
+    tourDetailsTitle: "جزئیات تور / Tour Details",
+    tourType: "نوع تور / Tour Type",
+    appropriate: "مناسب برای / Appropriate For", 
+    tourServices: "خدمات تور / Tour Services",
+    difficulty: "سطح سختی / Difficulty Level",
+    itinerary: "برنامه سفر / Itinerary",
+    day: "روز",
+
     dir: "rtl",
     textAlign: "text-right",
     centerText: "text-center",
@@ -372,6 +381,8 @@ const invoiceTranslations = {
     departureTrain: " یکطرفه قطار اطلاعات / One-Way Train Information ",
     returnTrain: " دوطرفه قطار اطلاعات / Return Train Information " ,
     routeCode: "کد مسیر ",
+    routeCodeFlight: "شماره پرواز",
+    routeCodeTrain: "شماره قطار",
     trainName: "نام قطار",
     class: "کلاس",
     // Insurance
@@ -440,6 +451,14 @@ const invoiceTranslations = {
   },
   2: {
     // English
+    tourDetailsTitle: "Tour Details",
+    tourType: "Tour Type",
+    appropriate: "Appropriate For",
+    tourServices: "Tour Services", 
+    difficulty: "Difficulty Level",
+    itinerary: "Itinerary",
+    day: "Day",
+
     dir: "ltr",
     textAlign: "text-left",
     centerText: "text-center",
@@ -505,6 +524,8 @@ const invoiceTranslations = {
     departureTrain: "One-Way Train Information",
     returnTrain: "Return Train Information",
     routeCode: "Route Code",
+    routeCodeFlight: "Flight NO",
+    routeCodeTrain: "Train NO",
     trainName: "Train Name",
     class: "Class",
 
@@ -574,6 +595,15 @@ const invoiceTranslations = {
   },
   3: {
     // Arabic
+
+    tourDetailsTitle: "تفاصيل الجولة",
+    tourType: "نوع الجولة",
+    appropriate: "مناسب لـ",
+    tourServices: "خدمات الجولة",
+    difficulty: "مستوى الصعوبة", 
+    itinerary: "برنامج الرحلة",
+    day: "يوم",
+
     dir: "rtl",
     textAlign: "text-right",
     centerText: "text-center",
@@ -639,6 +669,9 @@ const invoiceTranslations = {
     departureTrain: "معلومات القطار - ذهاب",
     returnTrain: "معلومات القطار - عودة",
     routeCode: "رمز المسار",
+    routeCodeFlight: "رقم الرحلة",
+        routeCodeTrain: "رقم القطار",
+
     trainName: "اسم القطار",
     class: "الدرجة",
 
@@ -769,6 +802,127 @@ function renderBillSection(bill = {}, lid = 1) {
 
 
 
+function renderTourDetailsSection(tourDetails, lid = 1) {
+  const t = getTranslation(lid);
+  if (!tourDetails) return '';
+
+  let html = `
+    <section class="dir-${t.dir} mt-4">
+      <h2 class="text-base font-danabold flex items-center gap-x-2">
+        <svg id="bulleted-list-icon-pdf" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2557 12.0376H5.7557C5.36399 12.0376 5.04736 12.3542 5.04736 12.7459C5.04736 13.1376 5.36399 13.4543 5.7557 13.4543H14.2557C14.6474 13.4543 14.9641 13.1376 14.9641 12.7459C14.9641 12.3542 14.6474 12.0376 14.2557 12.0376Z" fill="#292929"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2557 7.7876H5.7557C5.36399 7.7876 5.04736 8.10422 5.04736 8.49593C5.04736 8.88764 5.36399 9.20426 5.7557 9.20426H14.2557C14.6474 9.20426 14.9641 8.88764 14.9641 8.49593C14.9641 8.10422 14.6474 7.7876 14.2557 7.7876Z" fill="#292929"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.7557 4.95426H14.2557C14.6474 4.95426 14.9641 4.63764 14.9641 4.24593C14.9641 3.85422 14.6474 3.5376 14.2557 3.5376H5.7557C5.36399 3.5376 5.04736 3.85422 5.04736 4.24593C5.04736 4.63764 5.36399 4.95426 5.7557 4.95426Z" fill="#292929"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2.92934 3.35352C2.43705 3.35352 2.03613 3.75656 2.03613 4.25309C2.03613 4.74468 2.43705 5.14489 2.92934 5.14489C3.42163 5.14489 3.82326 4.74468 3.82326 4.25309C3.82326 3.75656 3.42163 3.35352 2.92934 3.35352Z" fill="#292929"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2.92934 7.70312C2.43705 7.70312 2.03613 8.10333 2.03613 8.59563C2.03613 9.08721 2.43705 9.48813 2.92934 9.48813C3.42163 9.48813 3.82326 9.08721 3.82326 8.59563C3.82326 8.10333 3.42163 7.70312 2.92934 7.70312Z" fill="#292929"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2.92934 11.8535C2.43705 11.8535 2.03613 12.2566 2.03613 12.7531C2.03613 13.2447 2.43705 13.6449 2.92934 13.6449C3.42163 13.6449 3.82326 13.2447 3.82326 12.7531C3.82326 12.2566 3.42163 11.8535 2.92934 11.8535Z" fill="#292929"/>
+        </svg>
+        <span>${t.tourDetailsTitle}</span>
+      </h2>
+  `;
+
+  // Tour Types Section
+  if (tourDetails.type && tourDetails.type.length > 0) {
+    html += `
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <div class="w-full ${t.textAlign} flex justify-between gap-x-2 max-md:justify-center max-md:flex-col">
+          <div class="text-[#6D6D6D] text-sm font-danamedium mb-2 max-md:w-full w-1/2 ">${t.tourType}</div>
+          <div class="flex-col justify-center items-center max-md:w-full w-1/2">
+            ${tourDetails.type.map(item => `
+              <div class="text-[#292929] text-xs font-danamedium bg-white rounded-md px-3 py-1 border border-[#E8E8E8] flex-1 text-center w-full my-2">
+                ${item.servicename || '-'}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Appropriate For Section
+  if (tourDetails.appropriate && tourDetails.appropriate.length > 0) {
+    html += `
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <div class="w-full ${t.textAlign} flex justify-between gap-x-2 max-md:justify-center max-md:flex-col">
+          <div class="text-[#6D6D6D] text-sm font-danamedium mb-2 max-md:w-full w-1/2 ">${t.appropriate}</div>
+          <div class="flex-col justify-center items-center max-md:w-full w-1/2">
+            ${tourDetails.appropriate.map(item => `
+              <div class="text-[#292929] text-xs font-danamedium bg-white rounded-md px-3 py-1 border border-[#E8E8E8] flex-1 text-center w-full my-2">
+                ${item.servicename || '-'}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Services Section
+  if (tourDetails.service11 && tourDetails.service11.length > 0) {
+    html += `
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <div class="w-full ${t.textAlign} flex justify-between gap-x-2 max-md:justify-center max-md:flex-col">
+          <div class="text-[#6D6D6D] text-sm font-danamedium mb-2 max-md:w-full w-1/2 ">${t.tourServices}</div>
+          <div class="flex-col justify-center items-center max-md:w-full w-1/2">
+            ${tourDetails.service11.map(item => `
+              <div class="text-[#292929] text-xs font-danamedium bg-white rounded-md px-3 py-1 border border-[#E8E8E8] flex-1 text-center w-full my-2">
+                ${item.servicename || '-'}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Difficulty Section
+  if (tourDetails.diff && tourDetails.diff.length > 0) {
+    html += `
+      <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <div class="w-full ${t.textAlign} flex justify-between gap-x-2 max-md:justify-center max-md:flex-col">
+          <div class="text-[#6D6D6D] text-sm font-danamedium mb-2 max-md:w-full w-1/2 ">${t.difficulty}</div>
+          <div class="flex-col justify-center items-center max-md:w-full w-1/2">
+            ${tourDetails.diff.map(item => `
+              <div class="text-[#292929] text-xs font-danamedium bg-white rounded-md px-3 py-1 border border-[#E8E8E8] flex-1 text-center w-full my-2">
+                ${item.servicename || '-'}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Journey/Itinerary Section
+  if (tourDetails.journey && tourDetails.journey.length > 0) {
+    html += `
+      <div class="my-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+        <div class="w-full ${t.textAlign}">
+          <div class="text-[#6D6D6D] text-sm font-danamedium mb-3">${t.itinerary}</div>
+          <div class="space-y-3">
+            ${tourDetails.journey.map((day, index) => `
+              <div class="bg-white rounded-md p-3 border border-[#E8E8E8] my-2">
+                <div class="text-[#292929] text-sm font-danabold mb-2 flex items-center gap-2">
+                  <span class="bg-[#EAEAEA] text-xs rounded-full w-6 h-6 flex items-center justify-center font-dana_FANum_demibold">
+                    ${index + 1}
+                  </span>
+                  ${day.journeytitle || `${t.day} ${index + 1}`}
+                </div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular leading-relaxed">
+                  ${day.journeydesc || '-'}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  html += `</section>`;
+  return html;
+}
+
 function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
   const t = getTranslation(lid);
   const type = $data?.invoiceDetails?.invoicetype;
@@ -827,55 +981,63 @@ function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
 </section>
 `;
 
-  const renderCostTableByProduct = ({
-    flight = 0,
-    hotel = 0,
-    insurance = 0,
-    service = 0,
-    transfer = 0,
-    visa = 0,
-    total = 0,
-    unit = '-'
-  }) => `
+const renderCostTableByProduct = ({
+  flight = 0,
+  hotel = 0,
+  insurance = 0,
+  service = 0,
+  transfer = 0,
+  visa = 0,
+  total = 0,
+  unit = '-'
+}) => {
+  const items = [
+    { label: t.flight, value: flight },
+    { label: t.hoteltitle, value: hotel },
+    { label: t.insurance, value: insurance },
+    { label: t.service, value: service },
+    { label: t.transfer, value: transfer },
+    { label: t.visa, value: visa },
+    { label: t.totalCost, value: total },
+    { label: t.unit, value: unit, isUnit: true },
+  ];
+
+  const headerRow = items
+    .filter(item => item.isUnit || item.value !== 0)
+    .map(item => `
+      <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">
+        ${item.label}
+      </div>
+    `).join('');
+
+  const valueRow = items
+    .filter(item => item.isUnit || item.value !== 0)
+    .map(item => `
+      <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">
+        ${item.isUnit ? item.value : formatPrice(item.value)}
+      </div>
+    `).join('');
+
+  return `
 <section class="dir-${t.dir} mt-4">
   <h2 class="text-base font-danabold flex items-center gap-x-2">
-<svg id="coins-icon-pdf" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.45249 8.28039C5.08416 8.23081 4.72291 8.15289 4.36874 8.03248C4.08541 7.94039 3.80916 7.81998 3.54708 7.64289C3.47624 7.60039 3.41249 7.54373 3.33458 7.48706V9.15873C3.32749 9.36414 3.38416 9.52706 3.49749 9.66164C3.66041 9.86706 3.85874 9.99456 4.07124 10.1008C4.37583 10.2566 4.69458 10.3558 5.02041 10.4337C5.33916 10.5046 5.65791 10.5471 5.97666 10.5683C6.17499 10.5825 6.37333 10.5896 6.57166 10.5825C6.57874 10.0866 6.57874 9.39956 6.57874 9.22248L6.57166 8.34414C6.20333 8.35831 5.82791 8.32998 5.45249 8.28039Z" fill="#292929"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.33882 11.326C5.0484 11.2765 4.75798 11.2127 4.47465 11.1348C4.14173 11.0427 3.82298 10.901 3.5184 10.6885C3.46173 10.646 3.39798 10.6035 3.33423 10.554C3.33423 10.5894 3.33423 11.6873 3.32715 12.2044C3.32715 12.4523 3.40507 12.6294 3.53965 12.7781C3.69548 12.9552 3.87965 13.0685 4.0709 13.1677C4.41798 13.3377 4.77215 13.444 5.1334 13.5148C5.4734 13.5856 5.82048 13.621 6.16756 13.6352C6.30215 13.6423 6.43673 13.6423 6.57132 13.6423C6.5784 13.1819 6.5784 12.2752 6.5784 12.0556V11.404C6.50756 11.411 6.42965 11.411 6.35882 11.411C6.01882 11.411 5.67882 11.3898 5.33882 11.326Z" fill="#292929"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.84542 5.72323C9.08626 5.67365 9.32709 5.63115 9.57501 5.60282V4.46948C9.50417 4.52615 9.44042 4.56865 9.37667 4.61823C8.86667 4.95115 8.32126 5.10698 7.76167 5.21323C7.49959 5.25573 7.23751 5.28407 6.97541 5.30532C6.46541 5.34782 5.96249 5.33365 5.45249 5.26282C5.08416 5.21323 4.72291 5.13532 4.36874 5.0149C4.08541 4.92282 3.80916 4.8024 3.54708 4.62532C3.47624 4.57573 3.41249 4.52615 3.33458 4.46948V6.14115C3.32749 6.33948 3.38416 6.5024 3.49749 6.64407C3.66041 6.84948 3.85874 6.97698 4.07124 7.08323C4.37583 7.23906 4.69458 7.33823 5.02041 7.41614C5.33916 7.48698 5.65791 7.52947 5.97666 7.55072C6.18208 7.56489 6.38749 7.57198 6.58583 7.56489C6.59291 7.33114 6.66374 7.0549 6.86916 6.78573C7.10292 6.48115 7.37209 6.30407 7.58459 6.18365C7.94584 5.98532 8.34959 5.83657 8.84542 5.72323Z" fill="#292929"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.53391 3.63441C3.71382 3.83771 3.92703 3.96379 4.14803 4.06862C4.54753 4.25846 4.96261 4.36187 5.38266 4.42916C5.73824 4.48654 6.09524 4.51487 6.38282 4.50991C7.05432 4.51062 7.64933 4.44333 8.23583 4.26908C8.52837 4.18196 8.81312 4.06791 9.08087 3.88871C9.2275 3.79025 9.36491 3.67479 9.47045 3.50691C9.61141 3.2845 9.61354 3.02525 9.47045 2.80566C9.42158 2.73058 9.36491 2.66116 9.304 2.60237C9.07662 2.38208 8.81454 2.25387 8.54537 2.14833C8.06583 1.96062 7.57354 1.86783 7.07486 1.82604C6.39486 1.76866 5.7177 1.79771 5.04478 1.94646C4.67928 2.0265 4.32086 2.13912 3.97945 2.32966C3.79741 2.43166 3.62386 2.55208 3.48432 2.73837C3.36816 2.8935 3.30016 3.06987 3.34903 3.29158C3.3802 3.43183 3.45032 3.54021 3.53391 3.63441Z" fill="#292929"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M13.6712 12.1025C13.6457 12.1217 13.6329 12.1323 13.6195 12.1415C13.4721 12.2357 13.3291 12.3412 13.1768 12.4206C12.6399 12.7032 12.0753 12.8342 11.5008 12.9115C11.1531 12.9582 10.8038 12.9731 10.4539 12.9702C10.1118 12.9681 9.76968 12.9469 9.4311 12.8874C9.14281 12.8357 8.85523 12.7698 8.57048 12.6912C8.23756 12.5991 7.91527 12.4602 7.61422 12.2492C7.55472 12.2074 7.49522 12.1635 7.42722 12.1139C7.42722 12.15 7.43218 13.2444 7.42439 13.7664C7.42156 14.0087 7.49877 14.1879 7.63477 14.338C7.79273 14.5123 7.97689 14.6292 8.16885 14.7255C8.51027 14.8969 8.86514 15.0003 9.2271 15.074C9.56993 15.1434 9.91489 15.1824 10.2613 15.1951C10.8584 15.2171 11.452 15.176 12.0406 15.0372C12.3792 14.9571 12.7114 14.8495 13.0273 14.6717C13.2079 14.5704 13.3794 14.45 13.5189 14.2658C13.6202 14.1319 13.674 13.9761 13.6726 13.7834C13.6691 13.2515 13.6712 12.1408 13.6712 12.1025Z" fill="#292929"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7.58965 11.2204C7.75328 11.4258 7.95374 11.5533 8.16269 11.6609C8.4694 11.8189 8.78815 11.9174 9.11257 11.9917C9.4299 12.0647 9.74936 12.1093 10.0702 12.1299C10.6907 12.1702 11.3084 12.1376 11.9225 12.0066C12.2958 11.9273 12.662 11.8147 13.0112 11.6213C13.1982 11.5186 13.376 11.3953 13.5198 11.2062C13.6204 11.0737 13.6742 10.92 13.6728 10.7295C13.6686 10.1933 13.6693 9.07907 13.6679 9.05215C13.5977 9.10244 13.534 9.15061 13.4695 9.19452C12.9631 9.53382 12.4148 9.68965 11.8559 9.79023C11.5953 9.83698 11.3325 9.86461 11.0697 9.88657C10.5618 9.92907 10.0539 9.90923 9.54749 9.84123C9.18128 9.79165 8.81861 9.71302 8.46161 9.59332C8.17899 9.4984 7.90274 9.38082 7.64349 9.20444C7.57407 9.15698 7.50536 9.10527 7.42674 9.04932C7.42674 9.08473 7.43028 10.1911 7.42532 10.7196C7.4239 10.9221 7.48057 11.0836 7.58965 11.2204Z" fill="#292929"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.07369 6.90877C7.89164 7.01006 7.7181 7.13117 7.57856 7.31746C7.46239 7.47259 7.39439 7.64896 7.44327 7.87067C7.47444 8.01092 7.54456 8.11929 7.62814 8.2135C7.80806 8.41679 8.02127 8.54288 8.24227 8.64771C8.64177 8.83754 9.05685 8.94096 9.4776 9.00825C9.83248 9.06492 10.1895 9.09396 10.4771 9.089C11.1486 9.08971 11.7436 9.02242 12.3301 8.84817C12.6226 8.76104 12.9081 8.647 13.1751 8.46779C13.3217 8.36934 13.4591 8.25388 13.5654 8.086C13.7056 7.86358 13.7078 7.60434 13.5647 7.38475C13.5158 7.30967 13.4591 7.24025 13.3982 7.18146C13.1716 6.96118 12.9088 6.83297 12.6396 6.72743C12.1608 6.53972 11.6678 6.44693 11.1691 6.40514C10.4891 6.34777 9.81194 6.37681 9.13902 6.52556C8.77352 6.6056 8.4151 6.71822 8.07369 6.90877Z" fill="#292929"/>
-</svg>
+    <svg id="coins-icon-pdf" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">...</svg>
     <span>${t.costTableByProduct}</span>
   </h2>
   <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
     <div class="w-full ${t.textAlign}">
-      <div class="flex gap-1 mb-2  max-md:flex-col max-md:justify-center max-md:items-center">
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.flight}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.hoteltitle}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.insurance}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.service}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.transfer}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.visa}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.totalCost}</div>
-        <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] max-md:w-full text-center my-1">${t.unit}</div>
+      <div class="flex gap-1 mb-2 max-md:flex-col max-md:justify-center max-md:items-center">
+        ${headerRow}
       </div>
-      <div class="flex gap-2  max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(flight)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(hotel)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(insurance)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(service)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(transfer)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(visa)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-danamedium flex-1">${formatPrice(total)}</div>
-        <div class="text-[#292929] text-xs w-[12%] max-md:w-full text-center my-1 font-dana_FANum_medium flex-1">${unit}</div>
+      <div class="flex gap-2 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
+        ${valueRow}
       </div>
     </div>
   </div>
 </section>
 `;
+};
+
 
   switch (type) {
     // case '3': { // Hotel Room Price
@@ -914,6 +1076,13 @@ function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
 case '4': { // Tour
   const sections = [];
   const allRowsData = [];
+
+  //   const tourDetailsSection = $data.products ? 
+  //   renderTourDetailsSection($data.products.find(p => p.tourDetails)?.tourDetails, lid) : '';
+  
+  // if (tourDetailsSection) {
+  //   sections.push(tourDetailsSection);
+  // }
 
   // بررسی کنیم که roomPrice واقعاً آرایه است
   if (Array.isArray(priceDetails.roomPrice)) {
@@ -968,6 +1137,13 @@ case '4': { // Tour
   const sections = [];
   const allRowsData = [];
 
+  //   const tourDetailsSection = $data.products ? 
+  //   renderTourDetailsSection($data.products.find(p => p.tourDetails)?.tourDetails, lid) : '';
+  
+  // if (tourDetailsSection) {
+  //   sections.push(tourDetailsSection);
+  // }
+  
   // بررسی کنیم که roomPrice واقعاً آرایه است
   if (Array.isArray(priceDetails.roomPrice)) {
     priceDetails.roomPrice.forEach(roomObj => {
@@ -1375,7 +1551,7 @@ function renderFlightInfoSection(route, lid = 1) {
         <span class="text-[#292929] text-sm font-danamedium mx-1">${atime}</span>
       </div>
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCode} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeFlight} : </span>
         <span class="text-[#292929] text-sm font-danamedium mx-1">${routecode}</span>
       </div>
       <div>
@@ -1949,7 +2125,7 @@ function renderTrainInfoSection(route, lid = 1) {
             <span class="text-[#292929] text-sm font-danamedium mx-1">${atime}</span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCode} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeTrain} : </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${routecode}</span>
           </div>
           <div>
@@ -1971,7 +2147,6 @@ function renderProducts(products, lid = 1) {
     console.log(product)
 
     if (globalInvoiceType != 8 && globalInvoiceType != 9) {
-      console.log(globalInvoiceType, "testttttttttttttttttttttttttttttttttttttttttt flight")
       if (product.departure) {
         return product.departure.map(item => renderFlightInfoSection(item.route, lid)).join('');
       }
@@ -2022,6 +2197,23 @@ function renderProducts(products, lid = 1) {
   }).join('');
 }
 
+
+function renderTourDetailsIfExists($data, lid = 1) {
+  // فقط برای invoice type های 4 و 10
+  if (globalInvoiceType != '4' && globalInvoiceType != '10') {
+    return '';
+  }
+
+  const tourDetailsProduct = $data.products ? 
+    $data.products.find(product => product.tourDetails) : null;
+  
+  if (tourDetailsProduct && tourDetailsProduct.tourDetails) {
+    return renderTourDetailsSection(tourDetailsProduct.tourDetails, lid);
+  }
+  
+  return '';
+}
+
 function renderAllProducts(products, lid = 1) {
   const t = getTranslation(lid);
   if (!Array.isArray(products) || products.length === 0) return `<p>${lid === 1 ? 'هیچ محصولی یافت نشد.' : lid === 2 ? 'No products found.' : 'لم يتم العثور على أي منتجات.'}</p>`;
@@ -2036,6 +2228,10 @@ function renderAllProducts(products, lid = 1) {
   const visa = [];
   const traindeparture = [];
   const trainreturn = [];
+
+
+
+
 
   for (const product of products) {
     if (globalInvoiceType == 8 || globalInvoiceType == 9) {
@@ -2082,6 +2278,10 @@ function renderAllProducts(products, lid = 1) {
   }
 
   let html = '';
+
+
+
+
 
   if (traindeparture.length) {
     html += `
@@ -2225,6 +2425,13 @@ function renderAllProducts(products, lid = 1) {
       </h2>
       ${visa.map(v => renderVisaInfoSection(v, lid)).join('')}
     </section>`;
+  }
+
+  if (globalInvoiceType == '4' || globalInvoiceType == '10') {
+    const tourDetailsProduct = products.find(product => product.tourDetails);
+    if (tourDetailsProduct && tourDetailsProduct.tourDetails) {
+      html += renderTourDetailsSection(tourDetailsProduct.tourDetails, lid);
+    }
   }
 
   return html;

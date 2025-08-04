@@ -7,6 +7,8 @@ let apiDataLoaded = false;
 const MIN_LOADING_TIME = 4000; // 4 ثانیه حداقل
 let mainlid;
 let invoiceType;
+let  translations;
+
 
 function setlid(lid, invoice = null) {
   mainlid = lid;
@@ -15,10 +17,17 @@ function setlid(lid, invoice = null) {
 
 function barDirection(lid) {
     if (lid == 2) {
-      document.getElementById()
         return `dir-ltr`
     } else {
         return `dir-rtl`
+    }
+}
+
+function barArrowRotation(lid){
+    if (lid == 2) {
+        return `rotate-0`
+    } else {
+        return `rotate-180`
     }
 }
 
@@ -28,7 +37,7 @@ function formatPrice(num) {
 }
 
 function initializePageLanguage(lid, invoice = null) {
-  const translations = {
+  translations = {
     1: {
       // فارسی
       lang: "fa",
@@ -186,6 +195,7 @@ function initializePageLanguage(lid, invoice = null) {
 
   const t = translations[lid] || translations[1];
   window.currentTranslations = t;
+  console.log("currentTranslations" , window.currentTranslations);
 
   // تنظیم attributes اصلی HTML
   const mainContent = document.getElementById("main-content-wrapper");
@@ -437,16 +447,44 @@ function togglePrice(element) {
 }
 
 // بهبود فانکشن‌های موجود برای پشتیبانی از ترجمه
-function passenger_type($data) {
-  const t = window.currentTranslations || translations[2];
-  if ($data == 0) {
-    return t.infant;
-  } else if ($data == 1) {
-    return t.child;
-  } else if ($data == 2) {
-    return t.adult;
+// function passenger_type(typedata , lid) {
+//   console.log(typedata , "passenger_type" , lid );
+//   const trns = translations[lid];
+//   console.log(trns);
+//   if (typedata == "0") {
+//     return trns.infant;
+//   } else if (typedata == "1") {
+//     return trns.child;
+//   } else if (typedata == "2") {
+//     return trns.adult;
+//   }
+// }
+
+function passenger_type(typedata, lid) {
+  // console.log(typedata, "passenger_type", lid);
+  
+  // بررسی موجودیت translations[lid]
+  if (!translations[lid]) {
+    // console.error(`Translation for lid ${lid} not found.`);
+    return; // یا یک مقدار پیش‌فرض بازگردانید
+  }
+
+  const trns = translations[lid];
+  // console.log(trns);
+
+  // بررسی مقدار typedata و اجرای کد مربوطه
+  if (typedata == "0") {
+    return trns.infant;
+  } else if (typedata == "1") {
+    return trns.child;
+  } else if (typedata == "2") {
+    return trns.adult;
+  } else {
+    // console.warn("Invalid typedata:", typedata);
+    return; // یا مقدار پیش‌فرض
   }
 }
+
 
 function initializeLoadingSystem() {
   // شروع تایمر حداقل زمان

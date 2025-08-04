@@ -388,11 +388,11 @@ async function RenderInfoCard($data, lid = 1) {
     <div class="flex leading-5 gap-x-3">
         <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden" >
             <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="/${hotelImageName}"
-                alt="${hotel.hotelname}" />
+                alt="${escapeXML(hotel.hotelname)}" />
         </figure>
         <div class="flex flex-col gap-y-1">
             <h2 class="text-lg font-danademibold">
-                ${hotel.hotelname}
+                ${escapeXML(hotel.hotelname)}
             </h2>
             <div class="flex items-center">
                 ${RenderRateHotel(hotel.star)}
@@ -456,6 +456,50 @@ async function RenderInfoCard($data, lid = 1) {
     return infocard;
 }
 
+// async function renderRules($data, lid = 1) {
+//     const rules = $data?.pdf_description;
+//     if (!rules || !Array.isArray(rules)) {
+//         console.warn("هیچ آیتمی در pdf_description پیدا نشد");
+//         return null;
+//     }
+
+//     let direction = detectDirection(rules?.[0]?.note.text);
+//     let ulitem = '';
+    
+//     rules.forEach((item, index) => {
+//         const text = item?.note?.text?.trim();
+//         if (text) {
+//             ulitem += `<li>${text}</li>`;
+//         } else {
+//             console.warn(`آیتم ${index} متن معتبری ندارد`, item);
+//         }
+//     });
+
+//     // Apply RTL text fix for Farsi and Arabic
+//     if (lid === 1 || lid === 3) {
+//         return `<ul dir="${direction}" class="text-right">${fixRTLTextCompletely(ulitem)}</ul>`;
+//     } else {
+//         return `<ul dir="${direction}">${ulitem}</ul>`;
+//     }
+// }
+
+
+function sanitizeHtml(input) {
+    // لیستی از تگ‌های مجاز برای خروجی
+    const allowedTags = [
+        'a', 'b', 'i', 'u', 'ul', 'ol', 'li', 'strong', 'em', 'br', 'p', 'span', 'div', 'img', 'hr', 'table', 'tr', 'td', 'th', 'thead', 'tbody', 'footer', 'header'
+    ];
+
+    // استفاده از regex برای پاک‌سازی تگ‌های غیرمجاز
+    return input.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, (match, tag) => {
+        if (allowedTags.includes(tag.toLowerCase())) {
+            return match; // اگر تگ مجاز است، آن را به همون صورت بگذار
+        } else {
+            return ''; // در غیر این صورت، تگ را حذف کن
+        }
+    });
+}
+
 async function renderRules($data, lid = 1) {
     const rules = $data?.pdf_description;
     if (!rules || !Array.isArray(rules)) {
@@ -469,19 +513,22 @@ async function renderRules($data, lid = 1) {
     rules.forEach((item, index) => {
         const text = item?.note?.text?.trim();
         if (text) {
-            ulitem += `<li>${text}</li>`;
+            // قبل از اضافه کردن به ul، سانیتایز می‌کنیم
+            const sanitizedText = sanitizeHtml(text);
+            ulitem += `<li>${sanitizedText}</li>`;
         } else {
             console.warn(`آیتم ${index} متن معتبری ندارد`, item);
         }
     });
 
-    // Apply RTL text fix for Farsi and Arabic
+    // اعمال اصلاحات برای متن RTL
     if (lid === 1 || lid === 3) {
         return `<ul dir="${direction}" class="text-right">${fixRTLTextCompletely(ulitem)}</ul>`;
     } else {
         return `<ul dir="${direction}">${ulitem}</ul>`;
     }
 }
+
 
 function RenderRateHotel(starCount) {
     let stars = '';

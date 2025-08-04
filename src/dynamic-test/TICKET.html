@@ -17,6 +17,7 @@
             padding: 15px;
             box-sizing: border-box;
             min-width: 794px !important;
+            /* min-height: 1697px !important; */
             position: relative;
             page-break-inside: avoid;
         }
@@ -45,11 +46,13 @@
             break-inside: avoid;
         }
 
+
         .train-icon {
             width: 32px;
             margin-left: -108%;
             margin-top: -11%;
         }
+
 
         /* Or use the more modern equivalent */
         @media print {
@@ -89,6 +92,7 @@
     </div>
 
     <!-- Main content -->
+
     <div class="main-content" id="main-content-wrapper">
         <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
             <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
@@ -100,9 +104,11 @@
 
             <basis core="group" if="'[##cms.query.tid##]'='Error'">
                 <div class="text-base font-bold mb-5 text-center text-red-500">
-                    Ticket number is not available, please contact the site support 
-                </div>
+                    Ticket number is not available, please
+                    contact the site support </div>
             </basis>
+
+
 
             <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
                 method="post" body='{
@@ -118,13 +124,19 @@
 }' content-type="application/json" run="atclient">
             </basis>
 
-            <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:flex-col max-sm:gap-4 max-md:px-4">
-                <span class="font-danabold text-xl max-sm:text-lg">Electronic Ticket</span>
 
-                <div class="flex gap-2 max-sm:flex-col max-sm:w-full">
+
+            <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center">
+                <span class="font-danabold text-xl">Electronic Ticket</span>
+
+
+
+
+
+                <div class="flex gap-2">
                     <button onclick="generatePDF()" type="button"
                         class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
-                         text-sm px-5 py-2.5 !text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2 max-sm:justify-center max-sm:me-0">
+                         text-sm px-5 py-2.5 !text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2">
 
                         <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -135,6 +147,7 @@
                                 d="M19.3517 7.61665L15.3929 4.05375C14.2651 3.03868 13.7012 2.53114 13.0092 2.26562L13 5.00011C13 7.35713 13 8.53564 13.7322 9.26787C14.4645 10.0001 15.643 10.0001 18 10.0001H21.5801C21.2175 9.29588 20.5684 8.71164 19.3517 7.61665Z"
                                 fill="#FFF" />
                         </svg>
+
                         Download PDF
                     </button>
 
@@ -152,8 +165,9 @@
                         </face>
                     </basis>
 
+
                     <button onclick="togglePrice(this)" type="button"
-                        class="book-w-[150px] text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 me-2 mb-2 max-sm:justify-center max-sm:me-0">
+                        class="book-w-[150px] text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 me-2 mb-2">
                         <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -164,13 +178,17 @@
                             Hide Price
                         </span>
                     </button>
+
+
                 </div>
             </div>
 
-            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto max-sm:px-4">
-                <img class="block max-w-[794px] w-full mx-auto object-contain" src="/images/Header-contract-pdf.jpg"
+
+            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
+                    class="block max-w-[794px] w-full mx-auto object-contain" src="/images/Header-contract-pdf.jpg"
                     width="794" height="100" alt="Footer-contract-pdf" />
             </header>
+
 
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
@@ -189,42 +207,46 @@
 
                 <!-- head section -->
                 <div
-                    class="w-[95%] header pt-10 lg:pt-5 pb-5 lg:pb-7 max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto max-sm:w-full max-sm:px-2">
+                    class="w-[95%] header pt-10 lg:pt-5 pb-5 lg:pb-7 max-w-screen-md min-w-[794px] max-[794px]:min-w-full  mx-auto">
 
                     <!-- container (max-width) -->
                     <h1 class="invisible">E-ticket</h1>
                     <div
-                        class="flex flex-wrap justify-between items-center max-w-screen-md min-w-[794px] max-[794px]:min-w-full w-full mx-auto max-sm:justify-center max-sm:gap-4">
+                        class="flex flex-wrap justify-between items-center max-w-screen-md min-w-[794px] max-[794px]:min-w-full w-full mx-auto ">
+                        <!-- logo -->
+                        <!-- <img class="haeder__logo w-16 lg:w-[94px]" src="images/logo.png" alt="company logo"> -->
+
                         <!-- ticket details -->
                         <div
-                            class="haeder__details__container flex gap-4 lg:gap-7 text-sm max-md:flex-col max-md:justify-center max-md:items-center max-md:w-full max-sm:gap-2">
+                            class="haeder__details__container flex gap-4 lg:gap-7 text-sm max-md:flex-col max-md:justify-center max-md:items-center max-md:w-full">
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>@child</layout>
                                 <face>
                                     <script type="text/template">
                                 <div class="header__details__container__item text-center">
-                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular max-sm:text-xs">invoice number</h3>
-                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold max-sm:text-xs">[##cms.query.id##]</span>
+                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular">invoice number</h3>
+                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold">[##cms.query.id##]</span>
                                 </div>
     
                                 <div class="header__details__container__item text-center">
-                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular max-sm:text-xs">PNR Code</h3>
-                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold max-sm:text-xs">@refnumber@</span>
+                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular">PNR Code</h3>
+                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold">@refnumber@</span>
                                 </div>
     
                                 <div class="header__details__container__item text-center">
-                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular max-sm:text-xs">ETicket Number</h3>
-                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold max-sm:text-xs">@ticketid@</span>
+                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular">ETicket Number</h3>
+                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold">@ticketid@</span>
                                 </div>
                 
                                 <div class="header__details__container__item text-center">
-                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular max-sm:text-xs">Date Of issue:</h3>
-                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold max-sm:text-xs">@date.invoicecreatedate@</span>
+                                    <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular">Date Of issue:</h3>
+                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold">@date.invoicecreatedate@</span>
                                 </div>
                               
                             </script>
                                 </face>
                             </basis>
+
                         </div>
                     </div>
 
@@ -257,36 +279,29 @@
                         <div class="ticketContainer__details w-full">
 
                             <!-- ticket details (passenger name, flight number and etc. ) -->
-                            <div class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
+                            <div class="ticketContainer__details__head flex justify-start p-4 items-center">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-                                <div class="ticketContainer__details__head__item w-1/2 max-sm:w-full">
-                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                <div class="ticketContainer__details__head__item w-1/2">
+                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
                                         Passenger:
                                     </h4>
-                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
-                                                {{
-                                                    try{
-                                                         return await passenger_gender($data.passenger.gender);
-                                                    }catch (e){
-                                                        return '';
-                                                    }
-                                                }}
-
+                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full">
                                         @passenger.name@
                                     </span>
                                 </div>
     
-                                <div class="w-1/2 max-sm:w-full">
+                                <div class="w-1/2">
+                
                                     <div class="ticketContainer__details__head__item">
-                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
                                             Age
                                         </h4>
-                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
                                             <svg width="18" height="18" viewBox="0 0 12 12" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg" class="max-sm:w-4 max-sm:h-4">
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M10 9.29948C10 7.93947 8.16931 7.58697 6 7.58697C3.84269 7.58697 2 7.92697 2 9.28748C2 10.6475 3.83119 11 6 11C8.15731 11 10 10.66 10 9.29948Z"
                                                     fill="black" />
@@ -294,10 +309,10 @@
                                                     d="M8.64699 3.64553C8.64699 2.17701 7.46955 1 6 1C4.53095 1 3.35301 2.17701 3.35301 3.64553C3.35301 5.11404 4.53095 6.29155 6 6.29155C7.46955 6.29155 8.64699 5.11404 8.64699 3.64553Z"
                                                     fill="black" />
                                             </svg>
-                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center">
                                                 {{
                                                     try{
-                                                         return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
+                                                         return await passenger_type($data.passenger.type , [##cms.query.langid##]);
                                                     }catch (e){
                                                         return '';
                                                     }
@@ -315,13 +330,13 @@
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1">
                                         @child</div>
                                 </layout>
                                 <face>
                                     <script type="text/template">
                             <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1_717)">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M12.9967 4.04383C12.4616 3.83566 11.7331 3.91 11.0456 4.24442C10.4088 4.55709 9.78484 4.91151 9.11998 5.26178C8.30949 4.65771 7.48892 4.07605 6.6662 3.49506C6.1033 3.09873 5.55654 2.99132 5.04397 3.17539C4.75521 3.27773 4.48568 3.41493 4.22368 3.54778C4.11657 3.60258 4.0077 3.65757 3.89561 3.71157C3.7801 3.76681 3.69244 3.86712 3.65247 3.98997C3.6128 4.11145 3.62499 4.24437 3.6862 4.35748L5.30417 7.34695C4.95632 7.53815 4.54275 7.7678 4.13505 7.99418C3.77818 8.19254 3.42503 8.3883 3.12222 8.55566L2.87823 8.10715C2.75308 7.88034 2.46796 7.79743 2.24155 7.9221C2.01504 8.04589 1.93134 8.33197 2.0565 8.55878L2.48153 9.33888C3.41411 11.0117 4.96594 11.4859 6.63407 10.6058C8.41206 9.6675 10.3557 8.61404 12.7506 7.2883C13.0439 7.12684 13.3203 6.90271 13.537 6.63508C13.9201 6.162 14.1135 5.55465 13.8625 4.92513C13.6961 4.50402 13.3965 4.19867 12.9967 4.04383Z"
@@ -337,7 +352,7 @@
                                     </defs>
                                 </svg>
             
-                                <span id="flightDate" class=" text-sm max-sm:text-xs">
+                                <span id="flightDate" class=" text-sm">
                                     {{
                                         try{
                                             return await convertDateFormat($data.products[0].departure[0].route.routeDate.mstring);
@@ -347,15 +362,17 @@
                                     }}
                                 </span>
                                 |
-                                <span id="flightTime" class=" text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
+                                <span id="flightTime" class=" text-sm">@products[0].departure[0].route.etime@</span>
                             </div>
     
-                            <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
-                                <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+    
+                            <div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative">
+                                <img class="absolute right-[-6px] top-[-15px] z-[9]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                             </div>
+    
     
                             <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z"
                                         fill="#2F2F2F" />
@@ -375,8 +392,9 @@
                                 </face>
                             </basis>
 
+
                             <!-- flight path  -->
-                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
@@ -393,10 +411,11 @@
                                 </basis>
                             </div>
                         </div>
+                        <!-- ticket info (right section of ticket) -->
                     </div>
                 </basis>
 
-                <!-- btb (round trip) -->
+                <!-- btb -->
                 <basis core="group" name="roundtrip" if="[##cms.query.invoice##]=2">
                     <div
                         class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
@@ -405,35 +424,29 @@
                         <div class="ticketContainer__details w-full">
 
                             <!-- ticket details (passenger name, flight number and etc. ) -->
-                            <div class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
+                            <div class="ticketContainer__details__head flex justify-start p-4 items-center">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-                                <div class="ticketContainer__details__head__item w-1/2 max-sm:w-full">
-                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                <div class="ticketContainer__details__head__item w-1/2">
+                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
                                         Passenger:
                                     </h4>
-                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
-                                                                                        {{
-                                                    try{
-                                                         return await passenger_gender($data.passenger.gender);
-                                                    }catch (e){
-                                                        return '';
-                                                    }
-                                                }}
+                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full">
                                         @passenger.name@
                                     </span>
                                 </div>
     
-                                <div class="w-1/2 max-sm:w-full">
+                                <div class="w-1/2">
+                
                                     <div class="ticketContainer__details__head__item">
-                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
                                             Age
                                         </h4>
-                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
                                             <svg width="18" height="18" viewBox="0 0 12 12" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg" class="max-sm:w-4 max-sm:h-4">
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M10 9.29948C10 7.93947 8.16931 7.58697 6 7.58697C3.84269 7.58697 2 7.92697 2 9.28748C2 10.6475 3.83119 11 6 11C8.15731 11 10 10.66 10 9.29948Z"
                                                     fill="black" />
@@ -441,10 +454,10 @@
                                                     d="M8.64699 3.64553C8.64699 2.17701 7.46955 1 6 1C4.53095 1 3.35301 2.17701 3.35301 3.64553C3.35301 5.11404 4.53095 6.29155 6 6.29155C7.46955 6.29155 8.64699 5.11404 8.64699 3.64553Z"
                                                     fill="black" />
                                             </svg>
-                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center">
                                                 {{
                                                     try{
-                                                         return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
+                                                         return await passenger_type($data.passenger.type);
                                                     }catch (e){
                                                         return '';
                                                     }
@@ -458,19 +471,19 @@
                                 </basis>
                             </div>
                             <div
-                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
+                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm">
                                 Departure : </div>
                             <!-- flight and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1">
                                         @child</div>
                                 </layout>
                                 <face>
                                     <script type="text/template">
                             <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1_717)">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M12.9967 4.04383C12.4616 3.83566 11.7331 3.91 11.0456 4.24442C10.4088 4.55709 9.78484 4.91151 9.11998 5.26178C8.30949 4.65771 7.48892 4.07605 6.6662 3.49506C6.1033 3.09873 5.55654 2.99132 5.04397 3.17539C4.75521 3.27773 4.48568 3.41493 4.22368 3.54778C4.11657 3.60258 4.0077 3.65757 3.89561 3.71157C3.7801 3.76681 3.69244 3.86712 3.65247 3.98997C3.6128 4.11145 3.62499 4.24437 3.6862 4.35748L5.30417 7.34695C4.95632 7.53815 4.54275 7.7678 4.13505 7.99418C3.77818 8.19254 3.42503 8.3883 3.12222 8.55566L2.87823 8.10715C2.75308 7.88034 2.46796 7.79743 2.24155 7.9221C2.01504 8.04589 1.93134 8.33197 2.0565 8.55878L2.48153 9.33888C3.41411 11.0117 4.96594 11.4859 6.63407 10.6058C8.41206 9.6675 10.3557 8.61404 12.7506 7.2883C13.0439 7.12684 13.3203 6.90271 13.537 6.63508C13.9201 6.162 14.1135 5.55465 13.8625 4.92513C13.6961 4.50402 13.3965 4.19867 12.9967 4.04383Z"
@@ -486,7 +499,7 @@
                                     </defs>
                                 </svg>
             
-                                <span id="flightDate" class=" text-sm max-sm:text-xs">
+                                <span id="flightDate" class=" text-sm">
                                     {{
                                         try{
                                             return await convertDateFormat($data.products[0].departure[0].route.routeDate.mstring);
@@ -496,15 +509,17 @@
                                     }}
                                 </span>
                                 |
-                                <span id="flightTime" class=" text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
+                                <span id="flightTime" class=" text-sm">@products[0].departure[0].route.etime@</span>
                             </div>
     
-                            <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
-                                <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+    
+                            <div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative">
+                                <img class="absolute right-[-6px] top-[-15px] z-[9]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                             </div>
+    
     
                             <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z"
                                         fill="#2F2F2F" />
@@ -524,8 +539,9 @@
                                 </face>
                             </basis>
 
+
                             <!-- flight path  -->
-                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
@@ -542,26 +558,25 @@
                                 </basis>
                             </div>
                         </div>
+                        <!-- ticket info (right section of ticket) -->
                     </div>
-                    
-                    <!-- Return section -->
                     <div
                         class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
                             <div
-                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
-                                Return : 
-                            </div>
+                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm">
+                                Return
+                                : </div>
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1">
                                         @child</div>
                                 </layout>
                                 <face>
                                     <script type="text/template">
                             <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1_717)">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M12.9967 4.04383C12.4616 3.83566 11.7331 3.91 11.0456 4.24442C10.4088 4.55709 9.78484 4.91151 9.11998 5.26178C8.30949 4.65771 7.48892 4.07605 6.6662 3.49506C6.1033 3.09873 5.55654 2.99132 5.04397 3.17539C4.75521 3.27773 4.48568 3.41493 4.22368 3.54778C4.11657 3.60258 4.0077 3.65757 3.89561 3.71157C3.7801 3.76681 3.69244 3.86712 3.65247 3.98997C3.6128 4.11145 3.62499 4.24437 3.6862 4.35748L5.30417 7.34695C4.95632 7.53815 4.54275 7.7678 4.13505 7.99418C3.77818 8.19254 3.42503 8.3883 3.12222 8.55566L2.87823 8.10715C2.75308 7.88034 2.46796 7.79743 2.24155 7.9221C2.01504 8.04589 1.93134 8.33197 2.0565 8.55878L2.48153 9.33888C3.41411 11.0117 4.96594 11.4859 6.63407 10.6058C8.41206 9.6675 10.3557 8.61404 12.7506 7.2883C13.0439 7.12684 13.3203 6.90271 13.537 6.63508C13.9201 6.162 14.1135 5.55465 13.8625 4.92513C13.6961 4.50402 13.3965 4.19867 12.9967 4.04383Z"
@@ -577,7 +592,7 @@
                                     </defs>
                                 </svg>
             
-                                <span id="flightDate" class=" text-sm max-sm:text-xs">
+                                <span id="flightDate" class=" text-sm">
                                     {{
                                         try{
                                             return await convertDateFormat($data.products[1].return[0].route.routeDate.mstring);
@@ -587,15 +602,17 @@
                                     }}
                                 </span>
                                 |
-                                <span id="flightTime" class=" text-sm max-sm:text-xs">@products[1].return[0].route.etime@</span>
+                                <span id="flightTime" class=" text-sm">@products[1].return[0].route.etime@</span>
                             </div>
     
-                            <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
-                                <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+    
+                            <div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative">
+                                <img class="absolute right-[-6px] top-[-15px] z-[9]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                             </div>
+    
     
                             <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z"
                                         fill="#2F2F2F" />
@@ -615,7 +632,7 @@
                                 </face>
                             </basis>
 
-                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
@@ -644,35 +661,29 @@
                         <div class="ticketContainer__details w-full">
 
                             <!-- ticket details (passenger name, flight number and etc. ) -->
-                            <div class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
+                            <div class="ticketContainer__details__head flex justify-start p-4 items-center">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-                                <div class="ticketContainer__details__head__item w-1/2 max-sm:w-full">
-                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                <div class="ticketContainer__details__head__item w-1/2">
+                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
                                         Passenger :
                                     </h4>
-                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
-                                                                                        {{
-                                                    try{
-                                                         return await passenger_gender($data.passenger.gender);
-                                                    }catch (e){
-                                                        return '';
-                                                    }
-                                                }}
+                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full">
                                         @passenger.name@
                                     </span>
                                 </div>
     
-                                <div class="w-1/2 max-sm:w-full">
+                                <div class="w-1/2">
+     
                                     <div class="ticketContainer__details__head__item">
-                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
                                             Age
                                         </h4>
-                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
                                             <svg width="18" height="18" viewBox="0 0 12 12" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg" class="max-sm:w-4 max-sm:h-4">
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M10 9.29948C10 7.93947 8.16931 7.58697 6 7.58697C3.84269 7.58697 2 7.92697 2 9.28748C2 10.6475 3.83119 11 6 11C8.15731 11 10 10.66 10 9.29948Z"
                                                     fill="black" />
@@ -680,10 +691,10 @@
                                                     d="M8.64699 3.64553C8.64699 2.17701 7.46955 1 6 1C4.53095 1 3.35301 2.17701 3.35301 3.64553C3.35301 5.11404 4.53095 6.29155 6 6.29155C7.46955 6.29155 8.64699 5.11404 8.64699 3.64553Z"
                                                     fill="black" />
                                             </svg>
-                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center">
                                                 {{
                                                 try{
-                                                     return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
+                                                     return await passenger_type($data.passenger.type);
                                                 }catch (e){
                                                     return '';
                                                 }
@@ -697,20 +708,20 @@
                                 </basis>
                             </div>
                             <div
-                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
-                                Route 1 : 
-                            </div>
+                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm">
+                                Route 1
+                                : </div>
                             <!-- flight and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1">
                                         @child</div>
                                 </layout>
                                 <face>
                                     <script type="text/template">
                             <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1_717)">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M12.9967 4.04383C12.4616 3.83566 11.7331 3.91 11.0456 4.24442C10.4088 4.55709 9.78484 4.91151 9.11998 5.26178C8.30949 4.65771 7.48892 4.07605 6.6662 3.49506C6.1033 3.09873 5.55654 2.99132 5.04397 3.17539C4.75521 3.27773 4.48568 3.41493 4.22368 3.54778C4.11657 3.60258 4.0077 3.65757 3.89561 3.71157C3.7801 3.76681 3.69244 3.86712 3.65247 3.98997C3.6128 4.11145 3.62499 4.24437 3.6862 4.35748L5.30417 7.34695C4.95632 7.53815 4.54275 7.7678 4.13505 7.99418C3.77818 8.19254 3.42503 8.3883 3.12222 8.55566L2.87823 8.10715C2.75308 7.88034 2.46796 7.79743 2.24155 7.9221C2.01504 8.04589 1.93134 8.33197 2.0565 8.55878L2.48153 9.33888C3.41411 11.0117 4.96594 11.4859 6.63407 10.6058C8.41206 9.6675 10.3557 8.61404 12.7506 7.2883C13.0439 7.12684 13.3203 6.90271 13.537 6.63508C13.9201 6.162 14.1135 5.55465 13.8625 4.92513C13.6961 4.50402 13.3965 4.19867 12.9967 4.04383Z"
@@ -726,7 +737,7 @@
                                     </defs>
                                 </svg>
             
-                                <span id="flightDate" class=" text-sm max-sm:text-xs">
+                                <span id="flightDate" class=" text-sm">
                                     {{
                                         try{
                                             return await convertDateFormat($data.products[0].segment[0].route.routeDate.mstring);
@@ -736,15 +747,17 @@
                                     }}
                                 </span>
                                 |
-                                <span id="flightTime" class=" text-sm max-sm:text-xs">@products[0].segment[0].route.etime@</span>
+                                <span id="flightTime" class=" text-sm">@products[0].segment[0].route.etime@</span>
                             </div>
     
-                            <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
-                                <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+    
+                            <div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative">
+                                <img class="absolute right-[-6px] top-[-15px] z-[9]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                             </div>
+    
     
                             <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
-                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z"
                                         fill="#2F2F2F" />
@@ -765,7 +778,7 @@
                             </basis>
 
                             <!-- flight path  -->
-                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
@@ -782,9 +795,8 @@
                                 </basis>
                             </div>
                         </div>
+                        <!-- ticket info (right section of ticket) -->
                     </div>
-                    
-                    <!-- Multiple routes for multicity -->
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>@child</layout>
                         <face>
@@ -799,259 +811,258 @@
                 </script>
                         </face>
                     </basis>
+
+
                 </basis>
 
                 <!-- One way Train -->
                 <basis core="group" name="train-oneway" if="[##cms.query.invoice##]=8">
                     <div
-                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
                             <!-- ticket details (passenger name, train number and etc. ) -->
                             <div
-                                class="ticketContainer__details__head flex justify-between p-4 items-center max-[794px]:flex-wrap max-md:flex-col max-md:justify-center max-sm:p-2 max-sm:gap-2">
+                                class="ticketContainer__details__head flex justify-between p-4 items-center max-[794px]:flex-wrap max-md:flex-col max-md:justify-center">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
-                                        <script type="text/template"> 
-                                            <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
-                                                    Passenger:
-                                                </h4>
-                                                <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
-                                                    {{
-                                                        try{
-                                                             return await passenger_gender($data.passenger.gender);
-                                                        }catch (e){
-                                                            return '';
-                                                        }
-                                                    }}
-                                                    @passenger.name@
-                                                </span>
-                                            </div>
-                                            
-                                            <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
-                                                    Age:
-                                                </h4>
-                                                <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
-                                                    <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
-                                                        {{
-                                                            try{
-                                                                 return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
-                                                            }catch (e){
-                                                                return '';
-                                                            }
-                                                        }}
-                                                    </span>
-                                                </span>
-                                            </div>
+                                        <script type="text/template"> <div class="ticketContainer__details__head__item ">
+								<h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
+                                        Passenger:
+                                    </h4>
+								<span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full">
+                                                                                    {{
+                                                    try{
+                                                         return await passenger_gender($data.passenger.gender);
+                                                    }catch (e){
+                                                        return '';
+                                                    }
+                                                }}
+                                        @passenger.name@
+                                    </span>
+							</div>
+								<div class="ticketContainer__details__head__item">
+									<h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
+                                            Age:
+                                        </h4>
+									<span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
+										<span id="cargoWeight" class=" text-sm font-danademibold text-center">
+                                                {{
+                                                    try{
+                                                         return await passenger_type($data.passenger.type);
+                                                    }catch (e){
+                                                        return '';
+                                                    }
+                                                }}
+                                            </span>
+									</span>
+								</div>
 
-                                            <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
-                                                    National Code:
-                                                </h4>
-                                                <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
-                                                    <span class=" text-sm font-danademibold text-center max-sm:text-xs">
-                                                        @passenger.nationalCode@
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </script>
+								<div class="ticketContainer__details__head__item">
+									<h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
+                                            National Code:
+                                        </h4>
+									<span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
+										<span class=" text-sm font-danademibold text-center">
+                                            @passenger.nationalCode@
+                                        </span>
+									</span>
+								</div>
+
+                                						</script>
                                     </face>
                                 </basis>
 
+
+
                                 <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
+
+
                                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
-                                        <layout></layout>
+                                        <layout>
+                                        </layout>
+
                                         <face>
                                             <script type="text/template">
-                                                <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
-                                                        Birthdate:
-                                                    </h4>
-                                                    <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
-                                                        <span class=" text-sm font-danademibold text-center max-sm:text-xs">
-                                                            @passenger.birthdate.sstring@ <span>( @passenger.birthdate.mstring@)</span>
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </script>
+                                                                            <div class="ticketContainer__details__head__item">
+                                    <h4
+                                        class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
+                                        Birthdate:
+                                    </h4>
+                                    <span
+                                        class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
+                                        <span class=" text-sm font-danademibold text-center">
+                                            @passenger.birthdate.sstring@ <span>( @passenger.birthdate.mstring@)</span>
+                                        </span>
+                                    </span>
+                                </div>
+                                        </script>
                                         </face>
                                     </basis>
+
                                 </basis>
-                                
                                 <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
+
                                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
-                                        <layout></layout>
+                                        <layout>
+                                        </layout>
+
                                         <face>
                                             <script type="text/template">
-                                                <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
-                                                        Birthdate:
-                                                    </h4>
-                                                    <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
-                                                        <span class=" text-sm font-danademibold text-center max-sm:text-xs">
-                                                            @passenger.birthdate.mstring@
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </script>
+                                                                            <div class="ticketContainer__details__head__item">
+                                    <h4
+                                        class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center">
+                                        Birthdate:
+                                    </h4>
+                                    <span
+                                        class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center">
+                                        <span class=" text-sm font-danademibold text-center">
+                                            @passenger.birthdate.mstring@
+                                        </span>
+                                    </span>
+                                </div>
+                                        </script>
                                         </face>
                                     </basis>
+
                                 </basis>
+
                             </div>
-                            
                             <!-- train and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
                                     <div
-                                        id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1">
                                         @child</div>
                                 </layout>
                                 <face>
-                                    <script type="text/template"> 
-                                        <div class="ticketContainer__details__time__train flex items-center gap-2 shrink-0">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="#2F2F2F" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#2F2F2F" class="max-sm:w-5 max-sm:h-5">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/>
-                                                </g>
-                                            </svg>
-                                            <span id="trainDate" class=" text-sm max-sm:text-xs">
-                                                @products[0].departure[0].route.routeDate.sstring@
-                                            </span>
-                                            |
-                                            <span id="trainTime" class=" text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
-                                        </div>
-                                        
-                                        <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
-                                            <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
-                                        </div>
-                                        
-                                        <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
-                                            <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="23" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#2F2F2F" class="max-sm:w-5 max-sm:h-5">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <g id="SVGRepo_iconCarrier"> 
-                                                    <path fill="#231F20" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24 C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24 C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"/> 
-                                                </g>
-                                            </svg>
-                                            {{
-                                                try{
-                                                    return await arrive_date_info($data.products[0].departure , [##cms.query.invoice##]);
-                                                }catch (e){
-                                                    return '';
-                                                }
-                                            }}
-                                        </div>
-                                    </script>
+                                    <script type="text/template"> <div class="ticketContainer__details__time__train flex items-center gap-2 shrink-0">
+							<svg
+								xmlns="http://www.w3.org/2000/svg" fill="#2F2F2F" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#2F2F2F">
+								<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+								<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+								<g id="SVGRepo_iconCarrier">
+									<path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/>
+								</g>
+							</svg>
+							<span id="trainDate" class=" text-sm">
+                                    @products[0].departure[0].route.routeDate.sstring@
+                                </span>
+                                |
+                                
+							<span id="trainTime" class=" text-sm">@products[0].departure[0].route.etime@</span>
+						</div>
+						<div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative">
+							<img class="absolute right-[-6px] top-[-15px] z-[9]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+						</div>
+						<div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
+
+<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="23" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#2F2F2F">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <path fill="#231F20" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24 C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24 C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"/> </g>
+
+</svg>
+
+                                {{
+                                    try{
+                                        return await arrive_date_info($data.products[0].departure , [##cms.query.invoice##]);
+                                    }catch (e){
+                                        return '';
+                                    }
+                                }}
+                            
+						</div>
+					</script>
                                 </face>
                             </basis>
-                            
                             <!-- train path  -->
-                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-                                            {{ try{
-                                                return await route_array($data.products[0].departure , [##cms.query.invoice##]);
-                                            }catch (e){
-                                                return '';
-                                            }
-                                            }}
-                                        </script>
+                          {{ try{
+                                        return await route_array($data.products[0].departure , [##cms.query.invoice##]);
+                                    }catch (e){
+                                        return '';
+                                    }
+                                }}
+                        </script>
                                     </face>
                                 </basis>
                             </div>
                         </div>
+                        <!-- ticket info (right section of ticket) -->
                     </div>
                 </basis>
 
-                <!-- Price Details Section -->
+
+
+
                 <div
-                    class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
+                    class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 ">
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>
-                            <div class="ticketContainer__info__details  flex flex-col w-full max-sm:flex-col max-sm:gap-4">
-                                <div class="text-sm flex justify-between items-start gap-2 w-full max-sm:flex-col max-sm:gap-4">
+                            <div class="ticketContainer__info__details  flex flex-col w-full">
+                                <div class="text-sm flex justify-between items-start gap-2 w-full ">
                                     @child
                                 </div>
                             </div>
                         </layout>
                         <face>
                             <script type="text/template">
-                            <div class="w-1/2 max-sm:w-full">
-                                <h3 class="font-danabold max-sm:text-base" >Price Details</h3>
-                                <div>
-                                    <span class="inline-block ticketContainer__info__details__title max-sm:text-sm">
-                                        Base Price: <span class="mx-1">
-                                            
-                                            {{ try{
-                                                return await formatPrice($data.passenger.price.base);
-                                            }catch (e){
-                                                return '';
-                                            }
-                                            }}
+                            <div class="w-1/2">
+                                                            <h3 class="font-danabold" >Price Details</h3>
 
-                                              @passenger.price.unit@</span>
+                                <div>
+                                    <span class="inline-block ticketContainer__info__details__title">
+                                        Base Price: <span class="ml-1.5">@passenger.price.base@  @passenger.price.unit@</span>
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="inline-block ticketContainer__info__details__title max-sm:text-sm">
-                                        Tax: <span class="mx-1">
-                                            {{ try{
-                                                return await formatPrice( $data.passenger.price.tax);
-                                            }catch (e){
-                                                return '';
-                                            }
-                                            }}
-
-                                            @passenger.price.unit@</span>
+                                    <span class="inline-block ticketContainer__info__details__title">
+                                        Tax: <span class="ml-1.5">@passenger.price.tax@  @passenger.price.unit@</span>
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="inline-block ticketContainer__info__details__title max-sm:text-sm">
-                                        Total: <span class="mx-1">
-                                            {{ try{
-                                                return await formatPrice($data.passenger.price.total);
-                                            }catch (e){
-                                                return '';
-                                            }
-                                            }}
-
-                                             @passenger.price.unit@</span>
+                                    <span class="inline-block ticketContainer__info__details__title">
+                                        Total: <span class="ml-1.5">@passenger.price.total@  @passenger.price.unit@</span>
                                     </span>
                                 </div>
+
                             </div>
-                            
-                            <div class="w-1/2 max-sm:w-full">
-                                <h3 class="font-danabold max-sm:text-base" >Extra Service</h3>
-                                {{ 
-                                try {
-                                    return await baggages_array($data.baggages);
-                                    }catch (e) {
-                                        return "";
-                                    }
-                                }}
+                            <div class="w-1/2">
+                                                        <h3 class="font-danabold" >Extra Service</h3>
+
+                            {{ 
+                            try {
+                                return await baggages_array($data.baggages);
+                                }catch (e) {
+                                    return "";
+                                }
+                            }}
+                        
                             </div>
                 </script>
                         </face>
                     </basis>
                 </div>
-                
-                <!-- Fare Conditions Section -->
                 <div
-                    class="fare_conditions max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
-                    <h3 class="my-4 font-bold text-base fare-condition max-sm:text-sm">Fare Conditions</h3>
+                    class="fare_conditions max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full">
+                    <h3 class="my-4 font-bold text-base fare-condition">Fare Conditions</h3>
                     <div id="desc_array"></div>
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>@child</layout>
                         <face>
                             <script type="text/template">
+
                        <div>
+                    
                         {{ 
                             try {
                                 return await pdf_desc_array($data.pdf_description);
@@ -1074,127 +1085,128 @@
 
             </main>
 
-            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto max-sm:px-4">
-                <img class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
+            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                    class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
                     width="794" height="100" alt="Footer-contract-pdf" />
             </footer>
 
+
         </basis>
 
-        <!-- Scripts -->
+
         <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
+        <script>
+            function setFixedViewport() {
+                const pdfContent = document.querySelector('.pdf-content');
+                if (pdfContent) {
+                    pdfContent.setAttribute('style', 'min-width: 794px !important;');
+                }
 
-            <script>
-        function setFixedViewport() {
-            const pdfContent = document.querySelector('.pdf-content');
-            if (pdfContent) {
-                pdfContent.setAttribute('style', 'min-width: 794px !important;');
+                const metaViewport = document.querySelector('meta[name="viewport"]');
+                if (metaViewport) {
+                    metaViewport.setAttribute('content', 'width=794, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no');
+                }
+
+                if (pdfContent && pdfContent.classList.contains('max-w-[794px]')) {
+                    pdfContent.classList.remove('max-w-[794px]');
+                }
             }
 
-            const metaViewport = document.querySelector('meta[name="viewport"]');
-            if (metaViewport) {
-                metaViewport.setAttribute('content', 'width=794, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no');
+            function resetViewport() {
+                window.location.reload();
             }
 
-            if (pdfContent && pdfContent.classList.contains('max-w-[794px]')) {
-                pdfContent.classList.remove('max-w-[794px]');
-            }
-        }
+            async function generatePDF() {
+                setFixedViewport();
+                const element = document.querySelector('.pdf-content');
+                const headerElement = document.querySelector('#pdf-header').querySelector("img");
+                const footerElement = document.querySelector('#pdf-footer').querySelector("img");
+                const loadingElement = document.querySelector('.pdf-loading');
 
-        function resetViewport() {
-            window.location.reload();
-        }
+                try {
+                    if (loadingElement) loadingElement.classList.remove('hidden');
 
-        async function generatePDF() {
-            setFixedViewport();
-            const element = document.querySelector('.pdf-content');
-            const headerElement = document.querySelector('#pdf-header').querySelector("img");
-            const footerElement = document.querySelector('#pdf-footer').querySelector("img");
-            const loadingElement = document.querySelector('.pdf-loading');
+                    const pdfConfig = document.querySelector('.pdf-config');
+                    const pdfFileName = pdfConfig.querySelector('#name');
+                    const isSetHeader = pdfConfig.querySelector('#header');
 
-            try {
-                if (loadingElement) loadingElement.classList.remove('hidden');
-
-                const pdfConfig = document.querySelector('.pdf-config');
-                const pdfFileName = pdfConfig.querySelector('#name');
-                const isSetHeader = pdfConfig.querySelector('#header');
-
-var window_Width = element.scrollWidth;
-
-if (window.innerWidth < 768) {
-
-    window_Width = 768;
-
-}
-
-                const opt = {
-                    margin: [30, 10, 30, 10],
-                    filename: pdfFileName.value || "reservationDoc.pdf",
-                    image: { type: 'jpeg', quality: 1 },
-                    html2canvas: {
-                        scale: 1,
-                        width: 794,
-                        windowWidth: window_Width,
-                        useCORS: true,
-                        backgroundColor: '#ffffff',
-                        scrollX: 0,
-                        scrollY: 0,
-                        letterRendering: true,
-                        ignoreElements: (el) =>
-                            ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
-                            el.classList.contains('pdf-loading'),
-                    },
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'portrait',
-                        hotfixes: ['px_scaling']
-                    },
-                    pagebreak: {
-                        mode: ['css', 'legacy'], // Use both CSS and legacy mode
-                        before: '.page-break-before',
-                        after: '.page-break-after',
-                        avoid: '.avoid-break'
+                    var window_Width = element.scrollWidth;
+                    if (window.innerWidth < 768) {
+                        window_Width -= 100;
                     }
-                };
 
-                const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
-
-                const headerImage = headerCanvas.toDataURL('image/png');
-                const footerImage = footerCanvas.toDataURL('image/png');
-
-                // ایجاد PDF از عنصر
-                const worker = html2pdf().set(opt).from(element).toPdf();
-
-                // افزودن هدر و فوتر به تمام صفحات
-                worker.get('pdf').then((pdf) => {
-                    const totalPages = pdf.internal.getNumberOfPages();
-                    for (let i = 1; i <= totalPages; i++) {
-                        pdf.setPage(i);
-                        if (isSetHeader.value == 1) {
-                            pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
-                            pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);
+                    const opt = {
+                        margin: [30, 10, 30, 10],
+                        filename: pdfFileName.value || "reservationDoc.pdf",
+                        image: { type: 'jpeg', quality: 1 },
+                        html2canvas: {
+                            scale: 1,
+                            width: 794,
+                            windowWidth: window_Width,
+                            useCORS: true,
+                            backgroundColor: '#ffffff',
+                            scrollX: 0,
+                            scrollY: 0,
+                            letterRendering: true,
+                            ignoreElements: (el) =>
+                                ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+                                el.classList.contains('pdf-loading'),
+                        },
+                        jsPDF: {
+                            unit: 'mm',
+                            format: 'a4',
+                            orientation: 'portrait',
+                            hotfixes: ['px_scaling']
+                        },
+                        pagebreak: {
+                            mode: ['css', 'legacy'], // Use both CSS and legacy mode
+                            before: '.page-break-before',
+                            after: '.page-break-after',
+                            avoid: '.avoid-break'
                         }
-                    }
-                });
+                    };
 
-                await worker.save();
-            } catch (err) {
-                console.error('PDF generation failed:', err);
-                alert('خطا در تولید PDF.');
-            } finally {
-                resetViewport();
-                if (loadingElement) loadingElement.classList.add('hidden');
+                    const headerCanvas = await html2canvas(headerElement, { scale: 2 });
+                    const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+
+                    const headerImage = headerCanvas.toDataURL('image/png');
+                    const footerImage = footerCanvas.toDataURL('image/png');
+
+                    // ایجاد PDF از عنصر
+                    const worker = html2pdf().set(opt).from(element).toPdf();
+
+                    // افزودن هدر و فوتر به تمام صفحات
+                    worker.get('pdf').then((pdf) => {
+                        const totalPages = pdf.internal.getNumberOfPages();
+                        for (let i = 1; i <= totalPages; i++) {
+                            pdf.setPage(i);
+                            if (isSetHeader.value == 1) {
+                                pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
+                                pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);
+                            }
+                        }
+                    });
+
+                    await worker.save();
+                } catch (err) {
+                    console.error('PDF generation failed:', err);
+                    alert('خطا در تولید PDF.');
+                } finally {
+                    resetViewport();
+                    if (loadingElement) loadingElement.classList.add('hidden');
+                }
             }
-        }
 
-    </script>
+        </script>
 
         <basis core="call" file="Client_BasisCore_Script.inc"></basis>
         <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
+
         <script src="[##cms.cms.cdn##]/js/pdf-ticket.functions.js" defer></script>
-    </div>
+
+
+
+
 </body>
 
 </html>
