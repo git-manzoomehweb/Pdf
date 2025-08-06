@@ -13,6 +13,8 @@ let  translations;
 function setlid(lid, invoice = null) {
   mainlid = lid;
   invoiceType = invoice;
+  ensureTranslationsReady(); // اضافه کردن این خط
+
 }
 
 function barDirection(lid) {
@@ -460,30 +462,100 @@ function togglePrice(element) {
 //   }
 // }
 
-function passenger_type(typedata, lid) {
-  // console.log(typedata, "passenger_type", lid);
+// async function passenger_type(typedata, lid) {
+//   // console.log(typedata, "passenger_type", lid);
   
-  // بررسی موجودیت translations[lid]
-  if (!translations[lid]) {
-    // console.error(`Translation for lid ${lid} not found.`);
-    return; // یا یک مقدار پیش‌فرض بازگردانید
-  }
+//   // بررسی موجودیت translations[lid]
+//   if (!translations[lid]) {
+//     // console.error(`Translation for lid ${lid} not found.`);
+//     return; // یا یک مقدار پیش‌فرض بازگردانید
+//   }
 
-  const trns = translations[lid];
-  // console.log(trns);
+//   const trns = translations[lid];
+//   // console.log(trns);
 
-  // بررسی مقدار typedata و اجرای کد مربوطه
-  if (typedata == "0") {
-    return trns.infant;
-  } else if (typedata == "1") {
-    return trns.child;
-  } else if (typedata == "2") {
-    return trns.adult;
-  } else {
-    // console.warn("Invalid typedata:", typedata);
-    return; // یا مقدار پیش‌فرض
+//   // بررسی مقدار typedata و اجرای کد مربوطه
+//   if (typedata == "0") {
+//     return trns.infant;
+//   } else if (typedata == "1") {
+//     return trns.child;
+//   } else if (typedata == "2") {
+//     return trns.adult;
+//   } else {
+//     // console.warn("Invalid typedata:", typedata);
+//     return; // یا مقدار پیش‌فرض
+//   }
+// }
+
+
+async function passenger_type(typedata, lid) {
+  try {
+      // تابع helper برای انتظار تا translations آماده شود
+      const waitForTranslations = async (maxWait = 5000) => {
+          const startTime = Date.now();
+          while (!translations && (Date.now() - startTime) < maxWait) {
+              await new Promise(resolve => setTimeout(resolve, 100));
+          }
+          return translations;
+      };
+
+      // صبر تا translations آماده شود
+      await waitForTranslations();
+
+      // مقدار پیش‌فرض
+      const defaultValue = "مسافر";
+      
+      // بررسی پارامترها
+      if (typedata == null || typedata === undefined || typedata === '') {
+          console.warn("typedata is invalid:", typedata);
+          return defaultValue;
+      }
+      
+      if (!lid || (Array.isArray(lid) && lid.length === 0)) {
+          console.warn("lid is invalid:", lid);
+          return defaultValue;
+      }
+      
+      // تبدیل lid به عدد اگر آرایه است
+      const lidValue = Array.isArray(lid) ? lid[0] : lid;
+      
+      // بررسی موجودیت translations
+      if (!translations || !translations[lidValue]) {
+          console.warn(`Translation for lid ${lidValue} not found`);
+          return defaultValue;
+      }
+      
+      const trns = translations[lidValue];
+      
+      // تبدیل typedata به string برای مقایسه دقیق‌تر
+      const type = String(typedata).trim();
+      
+      // بازگرداندن مقدار بر اساس نوع با fallback
+      switch (type) {
+          case "0":
+              return trns.infant || "نوزاد";
+          case "1":
+              return trns.child || "کودک";
+          case "2":
+              return trns.adult || "بزرگسال";
+          default:
+              console.warn("Invalid typedata:", typedata);
+              return defaultValue;
+      }
+      
+  } catch (e) {
+      console.error("Error in passenger_type:", e);
+      // fallback بر اساس typedata
+      const type = String(typedata || '').trim();
+      switch (type) {
+          case "0": return "نوزاد";
+          case "1": return "کودک"; 
+          case "2": return "بزرگسال";
+          default: return "مسافر";
+      }
   }
 }
+
 
 
 function initializeLoadingSystem() {
@@ -539,26 +611,53 @@ function checkFontsLoaded() {
   return new Promise((resolve) => setTimeout(resolve, 500));
 }
 
+// function checkContentLoaded() {
+//   const checkApiInterval = setInterval(() => {
+//     const hasApiContent = document.querySelector(
+//       '[datamembername="db.ticket_pdf"]' // برای ticket
+//     );
+//     const hasGeneratedContent = document.querySelector("h1");
+
+//     if (hasApiContent && hasGeneratedContent) {
+//       apiDataLoaded = true;
+//       clearInterval(checkApiInterval);
+//       checkAllResourcesLoaded();
+//     }
+//   }, 100);
+
+//   setTimeout(() => {
+//     if (!apiDataLoaded) {
+//       apiDataLoaded = true;
+//       clearInterval(checkApiInterval);
+//       checkAllResourcesLoaded();
+//     }
+//   }, 10000);
+// }
+
 function checkContentLoaded() {
   const checkApiInterval = setInterval(() => {
-    const hasApiContent = document.querySelector(
-      '[datamembername="db.ticket_pdf"]' // برای ticket
-    );
-    const hasGeneratedContent = document.querySelector("h1");
+      const hasApiContent = document.querySelector('[datamembername="db.ticket_pdf"]');
+      const hasGeneratedContent = document.querySelector("h1");
+      const hasPassengerData = window.$data?.passenger?.type; // اضافه کردن این چک
 
-    if (hasApiContent && hasGeneratedContent) {
-      apiDataLoaded = true;
-      clearInterval(checkApiInterval);
-      checkAllResourcesLoaded();
-    }
+      if (hasApiContent && hasGeneratedContent && hasPassengerData) {
+          apiDataLoaded = true;
+          clearInterval(checkApiInterval);
+          
+          // اطمینان از آماده بودن translations
+          ensureTranslationsReady();
+          
+          checkAllResourcesLoaded();
+      }
   }, 100);
 
   setTimeout(() => {
-    if (!apiDataLoaded) {
-      apiDataLoaded = true;
-      clearInterval(checkApiInterval);
-      checkAllResourcesLoaded();
-    }
+      if (!apiDataLoaded) {
+          apiDataLoaded = true;
+          clearInterval(checkApiInterval);
+          ensureTranslationsReady(); // اضافه کردن این خط
+          checkAllResourcesLoaded();
+      }
   }, 10000);
 }
 
@@ -751,7 +850,7 @@ async function route_array($data , invoicetype) {
     } else {
         // کد پرواز با کلاس‌های ریسپانسیو
         for (var i = 0; i < data.length; i++) {
-            output += `<div class=" relative ${(connection_time(data) && (i == 0 || i != data.length-1) ) ? 'mb-0' : 'mb-5'} ">
+            output += `<div class=" relative ${(connection_time(data[i].route.connectionTime) !== ' ' && (i == 0 || i !== data.length-1) ) ? 'mb-0' : 'mb-5'} ">
                 <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                    
                     <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
@@ -761,7 +860,7 @@ async function route_array($data , invoicetype) {
                     </div>
 
                     <div class="ticketContainer__details__path__item__path pathItem__path flex  flex-col items-center relative border-l-2 border-dashed border-gray-400 w-2.5">
-                        <img class="max-w-none absolute right-0 z-10 ${(connection_time(data) && i == 0) ? '' : 'hidden'}" src="/images/airplane-route.png" width="17" height="23" alt="airplane-route"/>
+                        <img class="max-w-none absolute right-0 z-10 ${(connection_time(data[i].route.connectionTime) !== ' ' || i == 0) ? '' : 'hidden'}" src="/images/airplane-route.png" width="17" height="23" alt="airplane-route"/>
                     </div>
 
                     <div class="ticketContainer__details__path__item__details pathItem__details w-4/6 px-2.5">
@@ -769,7 +868,7 @@ async function route_array($data , invoicetype) {
                         
                         <span class="pathItem__details__airport text-xs text-gray-500 font-danaregular max-sm:text-[10px]">${data[i].route.startairport.airport}<span class="text-sm mx-1 font-danabold max-sm:text-xs">(${data[i].route.startairport.startotherinfo.shortname})</span></span>
 
-                        <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 mt-1 absolute max-md:static top-16 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
+                        <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 mt-1 absolute max-md:static top-12 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
                             <span class="flex gap-1 items-center">
                                 <img class="mr-2.5 max-sm:mr-1 max-sm:w-8 max-sm:h-8" src="/${data[i].route.airlineimage}" width="50" height="50" alt="${data[i].route.airline}"/>
                                 <span class="max-sm:hidden">${data[i].route.airline}</span>
@@ -893,6 +992,7 @@ function desc_array($data) {
 }
 
 function connection_time($data) {
+  console.log($data , "connection_timeeeeeeeeeeeeeeeeeeeeeeee")
     var output = "";
     var data = $data
     if (data !== undefined) {
@@ -918,6 +1018,8 @@ function connection_time($data) {
             </div>`
         }
         return output;
+    }else{
+      return '';
     }
 }
 
@@ -1031,4 +1133,56 @@ function convertDateFormat($data) {
     const month = monthNames[parseInt(parts[1]) - 1];
     const day = parts[2];
     return `${day} ${month} ${year}`;
+}
+
+// تابع برای به‌روزرسانی عناصر سن بعد از لود شدن کامل
+function updateAgeElements() {
+  const ageElements = document.querySelectorAll('#cargoWeight');
+  
+  ageElements.forEach(async (element) => {
+      if (element.textContent.trim() === '' || element.textContent.trim() === '-') {
+          try {
+              // دوباره تلاش برای دریافت مقدار
+              const typeData = window.$data?.passenger?.type;
+              if (typeData) {
+                  const result = await passenger_type(typeData, [mainlid]);
+                  if (result) {
+                      element.textContent = result;
+                  }
+              }
+          } catch (e) {
+              console.error('Error updating age element:', e);
+          }
+      }
+  });
+}
+
+// اجرای به‌روزرسانی بعد از لود کامل
+window.addEventListener('load', () => {
+  setTimeout(updateAgeElements, 1000);
+  setTimeout(updateAgeElements, 3000); // دوباره بررسی کنیم
+});
+
+// اضافه کردن این تابع به ابتدای فایل JavaScript
+function ensureTranslationsReady() {
+  if (!translations) {
+      // اگر translations موجود نیست، یک نسخه پیش‌فرض ایجاد کنیم
+      translations = {
+          1: {
+              adult: "بزرگسال",
+              child: "کودک", 
+              infant: "نوزاد"
+          },
+          2: {
+              adult: "Adult",
+              child: "Child",
+              infant: "Infant"
+          },
+          3: {
+              adult: "بالغ",
+              child: "طفل",
+              infant: "رضيع"
+          }
+      };
+  }
 }

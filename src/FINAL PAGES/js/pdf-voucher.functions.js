@@ -748,6 +748,9 @@ async function renderRooms($data, lid = 1) {
           wrapClass: "text-nowrap",
           centerClass: "!text-center",
           direction: 'dir="rtl"',
+          adult: "بزرگسال",
+          child: "کودک",
+          infant: "نوزاد",
           textAlign: "text-right"
       },
       2: { // English
@@ -767,6 +770,9 @@ async function renderRooms($data, lid = 1) {
           wrapClass: "",
           centerClass: "!text-center",
           direction: "",
+          adult: "Adult",
+          child: "Child",
+          infant: "Infant",
           textAlign: "text-left"
       },
       3: { // Arabic
@@ -786,6 +792,9 @@ async function renderRooms($data, lid = 1) {
           wrapClass: "text-nowrap",
           centerClass: "!text-center",
           direction: 'dir="rtl"',
+          adult: "بالغ",
+          child: "طفل",
+          infant: "رضيع",
           textAlign: "text-right"
       }
   };
@@ -801,13 +810,28 @@ async function renderRooms($data, lid = 1) {
   roominfo.forEach((room , index) => {
       const parsedPassengers = room.passengers.map(p => {
           const typeRaw = p.type || '';
+          let genderRaw ;
+
+          switch (p.gender) {
+            case "0":
+                genderRaw = lang.infant || "نوزاد";
+            case "1":
+                genderRaw = lang.child || "کودک";
+            case "2":
+                genderRaw = lang.adult || "بزرگسال";
+            default:
+                genderRaw = "";
+        }
+
+
           // const typeMatch = typeRaw.match(/^([^\(]+)(?:\s*\((.+)\))?/);
           // const passengerGender = typeMatch?.[1]?.trim() || '–';
           const passengerNationality = p.countryofresidence?.ecountryname || '–';
 
           return {
               name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
-              gender: typeRaw,
+              age: typeRaw,
+              gender: genderRaw,
               nationality: passengerNationality,
               transfer: p.transfer_data || null
           };

@@ -294,13 +294,52 @@
                                                     d="M8.64699 3.64553C8.64699 2.17701 7.46955 1 6 1C4.53095 1 3.35301 2.17701 3.35301 3.64553C3.35301 5.11404 4.53095 6.29155 6 6.29155C7.46955 6.29155 8.64699 5.11404 8.64699 3.64553Z"
                                                     fill="black" />
                                             </svg>
-                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                            <span id="cargoWeight" class="text-sm font-danademibold text-center max-sm:text-xs">
                                                 {{
-                                                    try{
-                                                         return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
-                                                    }catch (e){
-                                                        return '';
+                                                    async function getPassengerType() {
+                                                        const maxRetries = 3;
+                                                        let retries = 0;
+                                                        
+                                                        while (retries < maxRetries) {
+                                                            try {
+                                                                if (!$data?.passenger?.type) {
+                                                                    return '-';
+                                                                }
+                                                                
+                                                                const result = await passenger_type(
+                                                                    $data.passenger.type, 
+                                                                    [##cms.query.langid|(1)##]
+                                                                );
+                                                                
+                                                                if (result && result !== 'undefined') {
+                                                                    return result;
+                                                                }
+                                                                
+                                                                // اگر نتیجه خالی بود، کمی صبر کنیم و دوباره تلاش کنیم
+                                                                await new Promise(resolve => setTimeout(resolve, 200));
+                                                                retries++;
+                                                                
+                                                            } catch (e) {
+                                                                console.error(`Attempt ${retries + 1} failed:`, e);
+                                                                retries++;
+                                                                
+                                                                if (retries < maxRetries) {
+                                                                    await new Promise(resolve => setTimeout(resolve, 300));
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                        // اگر همه تلاش‌ها ناکام بود، fallback استفاده کنیم
+                                                        const type = $data?.passenger?.type;
+                                                        switch (String(type)) {
+                                                            case "0": return "نوزاد";
+                                                            case "1": return "کودک";
+                                                            case "2": return "بزرگسال";
+                                                            default: return "-";
+                                                        }
                                                     }
+                                                    
+                                                    return await getPassengerType();
                                                 }}
                                             </span>
                                         </span>
@@ -441,13 +480,52 @@
                                                     d="M8.64699 3.64553C8.64699 2.17701 7.46955 1 6 1C4.53095 1 3.35301 2.17701 3.35301 3.64553C3.35301 5.11404 4.53095 6.29155 6 6.29155C7.46955 6.29155 8.64699 5.11404 8.64699 3.64553Z"
                                                     fill="black" />
                                             </svg>
-                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                            <span id="cargoWeight" class="text-sm font-danademibold text-center max-sm:text-xs">
                                                 {{
-                                                    try{
-                                                         return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
-                                                    }catch (e){
-                                                        return '';
+                                                    async function getPassengerType() {
+                                                        const maxRetries = 3;
+                                                        let retries = 0;
+                                                        
+                                                        while (retries < maxRetries) {
+                                                            try {
+                                                                if (!$data?.passenger?.type) {
+                                                                    return '-';
+                                                                }
+                                                                
+                                                                const result = await passenger_type(
+                                                                    $data.passenger.type, 
+                                                                    [##cms.query.langid|(1)##]
+                                                                );
+                                                                
+                                                                if (result && result !== 'undefined') {
+                                                                    return result;
+                                                                }
+                                                                
+                                                                // اگر نتیجه خالی بود، کمی صبر کنیم و دوباره تلاش کنیم
+                                                                await new Promise(resolve => setTimeout(resolve, 200));
+                                                                retries++;
+                                                                
+                                                            } catch (e) {
+                                                                console.error(`Attempt ${retries + 1} failed:`, e);
+                                                                retries++;
+                                                                
+                                                                if (retries < maxRetries) {
+                                                                    await new Promise(resolve => setTimeout(resolve, 300));
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                        // اگر همه تلاش‌ها ناکام بود، fallback استفاده کنیم
+                                                        const type = $data?.passenger?.type;
+                                                        switch (String(type)) {
+                                                            case "0": return "نوزاد";
+                                                            case "1": return "کودک";
+                                                            case "2": return "بزرگسال";
+                                                            default: return "-";
+                                                        }
                                                     }
+                                                    
+                                                    return await getPassengerType();
                                                 }}
                                             </span>
                                         </span>
@@ -680,14 +758,53 @@
                                                     d="M8.64699 3.64553C8.64699 2.17701 7.46955 1 6 1C4.53095 1 3.35301 2.17701 3.35301 3.64553C3.35301 5.11404 4.53095 6.29155 6 6.29155C7.46955 6.29155 8.64699 5.11404 8.64699 3.64553Z"
                                                     fill="black" />
                                             </svg>
-                                            <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                            <span id="cargoWeight" class="text-sm font-danademibold text-center max-sm:text-xs">
                                                 {{
-                                                try{
-                                                     return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
-                                                }catch (e){
-                                                    return '';
-                                                }
-                                            }}
+                                                    async function getPassengerType() {
+                                                        const maxRetries = 3;
+                                                        let retries = 0;
+                                                        
+                                                        while (retries < maxRetries) {
+                                                            try {
+                                                                if (!$data?.passenger?.type) {
+                                                                    return '-';
+                                                                }
+                                                                
+                                                                const result = await passenger_type(
+                                                                    $data.passenger.type, 
+                                                                    [##cms.query.langid|(1)##]
+                                                                );
+                                                                
+                                                                if (result && result !== 'undefined') {
+                                                                    return result;
+                                                                }
+                                                                
+                                                                // اگر نتیجه خالی بود، کمی صبر کنیم و دوباره تلاش کنیم
+                                                                await new Promise(resolve => setTimeout(resolve, 200));
+                                                                retries++;
+                                                                
+                                                            } catch (e) {
+                                                                console.error(`Attempt ${retries + 1} failed:`, e);
+                                                                retries++;
+                                                                
+                                                                if (retries < maxRetries) {
+                                                                    await new Promise(resolve => setTimeout(resolve, 300));
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                        // اگر همه تلاش‌ها ناکام بود، fallback استفاده کنیم
+                                                        const type = $data?.passenger?.type;
+                                                        switch (String(type)) {
+                                                            case "0": return "نوزاد";
+                                                            case "1": return "کودک";
+                                                            case "2": return "بزرگسال";
+                                                            default: return "-";
+                                                        }
+                                                    }
+                                                    
+                                                    return await getPassengerType();
+                                                }}
                                             </span>
                                         </span>
                                     </div>
@@ -835,13 +952,52 @@
                                                     Age:
                                                 </h4>
                                                 <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
-                                                    <span id="cargoWeight" class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                                    <span id="cargoWeight" class="text-sm font-danademibold text-center max-sm:text-xs">
                                                         {{
-                                                            try{
-                                                                 return await passenger_type($data.passenger.type , [##cms.query.langid|(1)##]);
-                                                            }catch (e){
-                                                                return '';
+                                                            async function getPassengerType() {
+                                                                const maxRetries = 3;
+                                                                let retries = 0;
+                                                                
+                                                                while (retries < maxRetries) {
+                                                                    try {
+                                                                        if (!$data?.passenger?.type) {
+                                                                            return '-';
+                                                                        }
+                                                                        
+                                                                        const result = await passenger_type(
+                                                                            $data.passenger.type, 
+                                                                            [##cms.query.langid|(1)##]
+                                                                        );
+                                                                        
+                                                                        if (result && result !== 'undefined') {
+                                                                            return result;
+                                                                        }
+                                                                        
+                                                                        // اگر نتیجه خالی بود، کمی صبر کنیم و دوباره تلاش کنیم
+                                                                        await new Promise(resolve => setTimeout(resolve, 200));
+                                                                        retries++;
+                                                                        
+                                                                    } catch (e) {
+                                                                        console.error(`Attempt ${retries + 1} failed:`, e);
+                                                                        retries++;
+                                                                        
+                                                                        if (retries < maxRetries) {
+                                                                            await new Promise(resolve => setTimeout(resolve, 300));
+                                                                        }
+                                                                    }
+                                                                }
+                                                                
+                                                                // اگر همه تلاش‌ها ناکام بود، fallback استفاده کنیم
+                                                                const type = $data?.passenger?.type;
+                                                                switch (String(type)) {
+                                                                    case "0": return "نوزاد";
+                                                                    case "1": return "کودک";
+                                                                    case "2": return "بزرگسال";
+                                                                    default: return "-";
+                                                                }
                                                             }
+                                                            
+                                                            return await getPassengerType();
                                                         }}
                                                     </span>
                                                 </span>
