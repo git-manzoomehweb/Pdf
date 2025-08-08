@@ -134,11 +134,25 @@
                 </div>
             </div>
 
+<!-- با استفاده از Print Command -->
+<basis datamembername="db.voucher_pdf"  core="print" run="atclient">
+    <layout>@child</layout>
+    <face>
+        <script type="text/template">
+        {{
+            if([##cms.query.letterhead##] == 1) {
+                return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
+                    <img class="block max-w-[794px] w-full mx-auto object-contain" 
+                         src="/images/Header-contract-pdf.jpg"
+                         width="794" height="100" alt="Header-contract-pdf" />
+                </header>`;
+            }
+            return '';
+        }}
+        </script>
+    </face>
+</basis>
 
-            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
-                    class="block max-w-[794px] w-full mx-auto object-contain"
-                    src="/images/Header-contract-pdf.jpg" width="794" height="100"
-                    alt="Footer-contract-pdf" /></header>
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
                 <div class="pdf-loading hidden ">
@@ -241,11 +255,22 @@
                         </face>
                     </basis>
             </main>
-            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
-                    class="block mx-auto max-w-[794px]  w-full object-contain"
-                    src="/images/Footer-contract-pdf.jpg" width="794" height="100"
-                    alt="Footer-contract-pdf" />
-            </footer>
+                        <!-- با استفاده از Print Command -->
+<basis datamembername="db.voucher_pdf"  core="print" run="atclient">
+    <layout>@child</layout>
+    <face>
+        <script type="text/template">
+        {{
+            if([##cms.query.letterhead##] == 1) {
+                return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                        class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
+                        width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
+            }
+            return '';
+        }}
+        </script>
+    </face>
+</basis>
     </div>
 
     </basis>

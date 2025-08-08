@@ -473,7 +473,6 @@ async function renderVisaInfo($data, lang) {
     : "–";
 
 
-    console.log(langid);
   return `
         <h2 class="font-bold text-lg my-2 font-danabold ${t.textAlign}" dir="${t.dir}">${t.title}</h2>
         <div class="bg-[#F4F4F4] rounded-xl p-4 ">

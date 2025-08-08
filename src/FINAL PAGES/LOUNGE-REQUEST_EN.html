@@ -1,11 +1,11 @@
-<basis core="call" lid="2"  file="Client_CheckRkey.inc"></basis>
+<basis core="call" lid="2" file="Client_CheckRkey.inc"></basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
 
 <head>
     <title>Lounge PDF</title>
-    <basis core="call" lid="2"  file="Pdf_Taglist.inc"></basis>
+    <basis core="call" lid="2" file="Pdf_Taglist.inc"></basis>
     <style>
         p {
             text-align: justify !important;
@@ -75,7 +75,7 @@
 </head>
 
 <body class="p-0 m-0 overflow-auto" id="content" onload="setlid(2);">
-   
+
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
         <div class="loading-spinner"></div>
@@ -92,19 +92,20 @@
             </div>
         </basis>
         <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
-            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]" method="post"
-             body='{ "name": "db", "mid": "20", "member": [ { "type": "list", "name": "q", "request": "lounge_request_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(1)##]"} ]}' 
-             content-type="application/json" run="atclient"></basis>
+            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+                method="post"
+                body='{ "name": "db", "mid": "20", "member": [ { "type": "list", "name": "q", "request": "lounge_request_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.lid|(1)##]"} ]}'
+                content-type="application/json" run="atclient"></basis>
 
 
 
             <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
-           
+
                 <div class="flex gap-2">
                     <button onclick="generatePDF()" type="button"
                         class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
                          text-sm px-5 py-2.5 !text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2">
-            
+
                         <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -114,10 +115,10 @@
                                 d="M19.3517 7.61665L15.3929 4.05375C14.2651 3.03868 13.7012 2.53114 13.0092 2.26562L13 5.00011C13 7.35713 13 8.53564 13.7322 9.26787C14.4645 10.0001 15.643 10.0001 18 10.0001H21.5801C21.2175 9.29588 20.5684 8.71164 19.3517 7.61665Z"
                                 fill="#FFF" />
                         </svg>
-            
+
                         Download PDF
-                    </button>           
-            
+                    </button>
+
                     <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
                         <layout>
                             <div class="pdf-config">
@@ -134,14 +135,29 @@
 
                 </div>
             </div>
-            
 
-            <header id="pdf-header" class="header max-w-[794px] w-full mx-auto "><img
-                    class="block max-w-[794px] w-full mx-auto object-contain"
-                    src="/images/Header-contract-pdf.jpg" width="794" height="100"
-                    alt="Footer-contract-pdf" /></header>
+<!-- با استفاده از Print Command -->
+<basis datamembername="db.lounge_request_pdf"  core="print" run="atclient">
+    <layout>@child</layout>
+    <face>
+        <script type="text/template">
+        {{
+            if([##cms.query.letterhead##] == 1) {
+                return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
+                    <img class="block max-w-[794px] w-full mx-auto object-contain" 
+                         src="/images/Header-contract-pdf.jpg"
+                         width="794" height="100" alt="Header-contract-pdf" />
+                </header>`;
+            }
+            return '';
+        }}
+        </script>
+    </face>
+</basis>
+
+
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
-                
+
                 <div class="pdf-loading hidden ">
                     <div
                         class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
@@ -158,8 +174,9 @@
                     <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
                         id="header-section">
                         <h2 class="font-danademibold text-base text-black" id="main-title">لانژ</h2>
-                        <ul class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
-                            
+                        <ul
+                            class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
+
                             <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
                                 <layout>@child </layout>
                                 <face>
@@ -176,7 +193,7 @@
                                                  id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@cipinfo.createDate.sstring@ (@cipinfo.createDate.mstring@)</p></div></li></script>
                                     </face>
                                 </basis>
-                            
+
                             </basis>
                             <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
                                 <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
@@ -197,12 +214,12 @@
                             </basis>
                         </ul>
                     </section>
-                    <section class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex items-center p-3 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center">
+                    <section
+                        class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex items-center p-3 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center">
                         <basis core="print" datamembername="db.lounge_request_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
-                                <script
-                                    type="text/template">{{ return await RenderInfoCardLounge($data, 2)}} </script>
+                                <script type="text/template">{{ return await RenderInfoCardLounge($data, 2)}} </script>
                             </face>
                         </basis>
                     </section>
@@ -230,11 +247,24 @@
                         </face>
                     </basis>
             </main>
-            <footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
-                    class="block mx-auto max-w-[794px]  w-full object-contain"
-                    src="/images/Footer-contract-pdf.jpg" width="794" height="100"
-                    alt="Footer-contract-pdf" />
-            </footer>
+
+                        <!-- با استفاده از Print Command -->
+<basis datamembername="db.lounge_request_pdf"  core="print" run="atclient">
+    <layout>@child</layout>
+    <face>
+        <script type="text/template">
+        {{
+            if([##cms.query.letterhead##] == 1) {
+                return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                        class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
+                        width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
+            }
+            return '';
+        }}
+        </script>
+    </face>
+</basis>
+
     </div>
 
     <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
@@ -344,7 +374,7 @@
 
     </basis>
 
-    <basis core="call" lid="2"  file="Client_BasisCore_Script.inc"></basis>
+    <basis core="call" lid="2" file="Client_BasisCore_Script.inc"></basis>
     <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
     <script src="[##cms.cms.cdn##]/js/pdf-lounge.functions.js" defer></script>
 </body>

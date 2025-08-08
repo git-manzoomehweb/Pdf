@@ -297,7 +297,6 @@ window.addEventListener("load", function () {
 let globalInvoiceType = null;
 function setInvoiceType(type) {
   globalInvoiceType = type;
-  console.log(globalInvoiceType)
 }
 
 
@@ -933,9 +932,7 @@ function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
     return isNaN(parsed) ? "-" : parsed.toLocaleString();
   };
 
-  const renderMultipleRows = (columns = [], rowsData = []) => {
-    console.log(columns, rowsData);
-    
+  const renderMultipleRows = (columns = [], rowsData = []) => {    
     const headers = columns.map(col => `
   <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 text-center my-1">${col}</div>
 `).join('');
@@ -1652,7 +1649,6 @@ function renderCipInfoSection(cip, lid = 1) {
 }
 
 function renderHotelInfoSection(room, lid = 1) {
-  console.log("renderHotelInfoSection");
   
   const t = getTranslation(lid);
   if (!room) return '';
@@ -1697,8 +1693,6 @@ function renderHotelInfoSection(room, lid = 1) {
 
   const checkInDate = lid === 1 ? `${formatDateS(fromDate) || '-'} (${formatDate(fromDate) || '-'})` : formatDate(fromDate) || '-';
   const checkOutDate = lid === 1 ? `${formatDateS(toDate) || '-'} (${formatDate(toDate) || '-'})` : formatDate(toDate) || '-';
-
-console.log(checkInDate , checkOutDate);
 
 
   return `
@@ -1767,7 +1761,6 @@ console.log(checkInDate , checkOutDate);
 }
 
 function renderTourHotelInfoSection(data, lid = 1) {
-  console.log("renderTourHotelInfoSection")
   const t = getTranslation(lid);
   if (!Array.isArray(data) || data.length === 0) return '';
 
@@ -1912,7 +1905,6 @@ function renderTourHotelInfoSection(data, lid = 1) {
 }
 
 function renderInsuranceInfoSection(insurance, lid = 1) {
-  console.log(insurance)
   const t = getTranslation(lid);
 
   if (!insurance || insurance.length === 0) {
@@ -2144,8 +2136,6 @@ function renderTrainInfoSection(route, lid = 1) {
 
 function renderProducts(products, lid = 1) {
   return products.map(product => {
-    console.log(product)
-
     if (globalInvoiceType != 8 && globalInvoiceType != 9) {
       if (product.departure) {
         return product.departure.map(item => renderFlightInfoSection(item.route, lid)).join('');
@@ -2345,7 +2335,6 @@ function renderAllProducts(products, lid = 1) {
   }
 
   if (hotels.length) {
-    console.log(hotels)
     html += `
     <section class="dir-${t.dir} mt-4">
       <h2 class="text-base font-danabold flex items-center gap-x-2 ">

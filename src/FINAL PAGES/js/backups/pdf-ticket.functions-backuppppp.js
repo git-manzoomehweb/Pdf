@@ -13,8 +13,6 @@ let  translations;
 function setlid(lid, invoice = null) {
   mainlid = lid;
   invoiceType = invoice;
-  ensureTranslationsReady(); // اضافه کردن این خط
-
 }
 
 function barDirection(lid) {
@@ -197,6 +195,7 @@ function initializePageLanguage(lid, invoice = null) {
 
   const t = translations[lid] || translations[1];
   window.currentTranslations = t;
+  console.log("currentTranslations" , window.currentTranslations);
 
   // تنظیم attributes اصلی HTML
   const mainContent = document.getElementById("main-content-wrapper");
@@ -447,76 +446,44 @@ function togglePrice(element) {
   }
 }
 
+// بهبود فانکشن‌های موجود برای پشتیبانی از ترجمه
+// function passenger_type(typedata , lid) {
+//   console.log(typedata , "passenger_type" , lid );
+//   const trns = translations[lid];
+//   console.log(trns);
+//   if (typedata == "0") {
+//     return trns.infant;
+//   } else if (typedata == "1") {
+//     return trns.child;
+//   } else if (typedata == "2") {
+//     return trns.adult;
+//   }
+// }
 
+function passenger_type(typedata, lid) {
+  // console.log(typedata, "passenger_type", lid);
+  
+  // بررسی موجودیت translations[lid]
+  if (!translations[lid]) {
+    // console.error(`Translation for lid ${lid} not found.`);
+    return; // یا یک مقدار پیش‌فرض بازگردانید
+  }
 
-async function passenger_type(typedata, lid) {
-  try {
-      // تابع helper برای انتظار تا translations آماده شود
-      const waitForTranslations = async (maxWait = 5000) => {
-          const startTime = Date.now();
-          while (!translations && (Date.now() - startTime) < maxWait) {
-              await new Promise(resolve => setTimeout(resolve, 100));
-          }
-          return translations;
-      };
+  const trns = translations[lid];
+  // console.log(trns);
 
-      // صبر تا translations آماده شود
-      await waitForTranslations();
-
-      // مقدار پیش‌فرض
-      const defaultValue = "مسافر";
-      
-      // بررسی پارامترها
-      if (typedata == null || typedata === undefined || typedata === '') {
-          console.warn("typedata is invalid:", typedata);
-          return defaultValue;
-      }
-      
-      if (!lid || (Array.isArray(lid) && lid.length === 0)) {
-          console.warn("lid is invalid:", lid);
-          return defaultValue;
-      }
-      
-      // تبدیل lid به عدد اگر آرایه است
-      const lidValue = Array.isArray(lid) ? lid[0] : lid;
-      
-      // بررسی موجودیت translations
-      if (!translations || !translations[lidValue]) {
-          console.warn(`Translation for lid ${lidValue} not found`);
-          return defaultValue;
-      }
-      
-      const trns = translations[lidValue];
-      
-      // تبدیل typedata به string برای مقایسه دقیق‌تر
-      const type = String(typedata).trim();
-      
-      // بازگرداندن مقدار بر اساس نوع با fallback
-      switch (type) {
-          case "0":
-              return trns.infant || "نوزاد";
-          case "1":
-              return trns.child || "کودک";
-          case "2":
-              return trns.adult || "بزرگسال";
-          default:
-              console.warn("Invalid typedata:", typedata);
-              return defaultValue;
-      }
-      
-  } catch (e) {
-      console.error("Error in passenger_type:", e);
-      // fallback بر اساس typedata
-      const type = String(typedata || '').trim();
-      switch (type) {
-          case "0": return "نوزاد";
-          case "1": return "کودک"; 
-          case "2": return "بزرگسال";
-          default: return "مسافر";
-      }
+  // بررسی مقدار typedata و اجرای کد مربوطه
+  if (typedata == "0") {
+    return trns.infant;
+  } else if (typedata == "1") {
+    return trns.child;
+  } else if (typedata == "2") {
+    return trns.adult;
+  } else {
+    // console.warn("Invalid typedata:", typedata);
+    return; // یا مقدار پیش‌فرض
   }
 }
-
 
 
 function initializeLoadingSystem() {
@@ -572,53 +539,26 @@ function checkFontsLoaded() {
   return new Promise((resolve) => setTimeout(resolve, 500));
 }
 
-// function checkContentLoaded() {
-//   const checkApiInterval = setInterval(() => {
-//     const hasApiContent = document.querySelector(
-//       '[datamembername="db.ticket_pdf"]' // برای ticket
-//     );
-//     const hasGeneratedContent = document.querySelector("h1");
-
-//     if (hasApiContent && hasGeneratedContent) {
-//       apiDataLoaded = true;
-//       clearInterval(checkApiInterval);
-//       checkAllResourcesLoaded();
-//     }
-//   }, 100);
-
-//   setTimeout(() => {
-//     if (!apiDataLoaded) {
-//       apiDataLoaded = true;
-//       clearInterval(checkApiInterval);
-//       checkAllResourcesLoaded();
-//     }
-//   }, 10000);
-// }
-
 function checkContentLoaded() {
   const checkApiInterval = setInterval(() => {
-      const hasApiContent = document.querySelector('[datamembername="db.ticket_pdf"]');
-      const hasGeneratedContent = document.querySelector("h1");
-      const hasPassengerData = window.$data?.passenger?.type; // اضافه کردن این چک
+    const hasApiContent = document.querySelector(
+      '[datamembername="db.ticket_pdf"]' // برای ticket
+    );
+    const hasGeneratedContent = document.querySelector("h1");
 
-      if (hasApiContent && hasGeneratedContent && hasPassengerData) {
-          apiDataLoaded = true;
-          clearInterval(checkApiInterval);
-          
-          // اطمینان از آماده بودن translations
-          ensureTranslationsReady();
-          
-          checkAllResourcesLoaded();
-      }
+    if (hasApiContent && hasGeneratedContent) {
+      apiDataLoaded = true;
+      clearInterval(checkApiInterval);
+      checkAllResourcesLoaded();
+    }
   }, 100);
 
   setTimeout(() => {
-      if (!apiDataLoaded) {
-          apiDataLoaded = true;
-          clearInterval(checkApiInterval);
-          ensureTranslationsReady(); // اضافه کردن این خط
-          checkAllResourcesLoaded();
-      }
+    if (!apiDataLoaded) {
+      apiDataLoaded = true;
+      clearInterval(checkApiInterval);
+      checkAllResourcesLoaded();
+    }
   }, 10000);
 }
 
@@ -723,7 +663,7 @@ function nodata_error($data) {
     }
 }
 
-async function arrive_date_info($data , invoicetype , lid) {
+async function arrive_date_info($data , invoicetype) {
     var len = $data.length
     var arrive_date = $data[len - 1].route.routeDate.mstring
     var arrive_date_S = $data[len - 1].route.routeDate.sstring
@@ -731,7 +671,7 @@ async function arrive_date_info($data , invoicetype , lid) {
     if(invoicetype === 8){
         return `<span id="landingDate" class=" text-sm">${arrive_date_S}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`
     }else{
-        return `<span id="landingDate" class=" text-sm">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`
+        return `<span id="landingDate" class=" text-sm">${await convertDateFormat(arrive_date)}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`
     }
 }
 
@@ -811,7 +751,7 @@ async function route_array($data , invoicetype) {
     } else {
         // کد پرواز با کلاس‌های ریسپانسیو
         for (var i = 0; i < data.length; i++) {
-            output += `<div class=" relative ${(connection_time(data[i].route.connectionTime) !== ' ' && (i == 0 || i !== data.length-1) ) ? 'mb-0' : 'mb-5'} ">
+            output += `<div class=" relative ${(connection_time(data) && (i == 0 || i != data.length-1) ) ? 'mb-0' : 'mb-5'} ">
                 <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                    
                     <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
@@ -821,7 +761,7 @@ async function route_array($data , invoicetype) {
                     </div>
 
                     <div class="ticketContainer__details__path__item__path pathItem__path flex  flex-col items-center relative border-l-2 border-dashed border-gray-400 w-2.5">
-                        <img class="max-w-none absolute right-0 z-10 ${(connection_time(data[i].route.connectionTime) !== ' ' && i == 0) ? '' : 'hidden'}" src="/images/airplane-route.png" width="17" height="23" alt="airplane-route"/>
+                        <img class="max-w-none absolute right-0 z-10 ${(connection_time(data) && i == 0) ? '' : 'hidden'}" src="/images/airplane-route.png" width="17" height="23" alt="airplane-route"/>
                     </div>
 
                     <div class="ticketContainer__details__path__item__details pathItem__details w-4/6 px-2.5">
@@ -829,7 +769,7 @@ async function route_array($data , invoicetype) {
                         
                         <span class="pathItem__details__airport text-xs text-gray-500 font-danaregular max-sm:text-[10px]">${data[i].route.startairport.airport}<span class="text-sm mx-1 font-danabold max-sm:text-xs">(${data[i].route.startairport.startotherinfo.shortname})</span></span>
 
-                        <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 mt-1 absolute max-md:static top-12 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
+                        <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 mt-1 absolute max-md:static top-16 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
                             <span class="flex gap-1 items-center">
                                 <img class="mr-2.5 max-sm:mr-1 max-sm:w-8 max-sm:h-8" src="/${data[i].route.airlineimage}" width="50" height="50" alt="${data[i].route.airline}"/>
                                 <span class="max-sm:hidden">${data[i].route.airline}</span>
@@ -978,12 +918,10 @@ function connection_time($data) {
             </div>`
         }
         return output;
-    }else{
-      return '';
     }
 }
 
-async function multi_route_array($data , invoicetype , lid) {
+async function multi_route_array($data , invoicetype) {
     var output = "";
     var data = $data
 
@@ -1005,7 +943,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
                                         </g>
                                     </svg>
-                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring , lid)}</span>
+                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring)}</span>
                                     |
                                     <span id="flightTime" class=" text-sm max-sm:text-xs">${data[i].segment[0].route.etime}</span>
                                 </div>
@@ -1022,7 +960,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
                                         </g>
                                     </svg>
-                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> | 
+                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring)}</span> | 
                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
                                 </div>
                             </div>
@@ -1054,7 +992,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring ,lid )}</span>
+                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring)}</span>
                                     |
                                     <span id="flightTime" class=" text-sm max-sm:text-xs">${data[i].segment[0].route.etime}</span>
                                 </div>
@@ -1068,7 +1006,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z" fill="#2F2F2F" />
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
                                     </svg>
-                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> | 
+                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring)}</span> | 
                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
                                 </div>
                             </div>
@@ -1084,99 +1022,13 @@ async function multi_route_array($data , invoicetype , lid) {
     }
 }
 
-// function convertDateFormat(mstring , sstring , lid) {
-//     var output = "";
-//     var dateString = mstring;
-//     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-//     const parts = dateString.split('-');
-//     const year = parts[0];
-//     const month = monthNames[parseInt(parts[1]) - 1];
-//     const day = parts[2];
-//     return `${day} ${month} ${year}`;
-// }
-
-function convertDateFormat(mstring, sstring, lid) {
-
+function convertDateFormat($data) {
+    var output = "";
+    var dateString = $data;
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    
-    // Convert Gregorian date
-    const gregorianParts = mstring.split('-');
-    const gregorianYear = gregorianParts[0];
-    const gregorianMonth = monthNames[parseInt(gregorianParts[1]) - 1];
-    const gregorianDay = gregorianParts[2];
-    const gregorianOutput = `${gregorianDay} ${gregorianMonth} ${gregorianYear}`;
-    
-    if (lid == 2 || lid == 3) {
-        return gregorianOutput;
-    } else if (lid == 1) {
-        // Convert Persian date
-        const persianParts = sstring.split('-');
-        const persianYear = persianParts[0];
-        const persianMonthNum = parseInt(persianParts[1]);
-        const persianDay = persianParts[2];
-        
-        // Persian month names
-        const persianMonthNames = [
-            "فروردین", "اردیبهشت", "خرداد", "تیر", 
-            "مرداد", "شهریور", "مهر", "آبان", 
-            "آذر", "دی", "بهمن", "اسفند"
-        ];
-        const persianMonth = persianMonthNames[persianMonthNum - 1];
-        
-        return `${persianDay} ${persianMonth} ${persianYear} (${gregorianOutput})`;
-    }
-    return gregorianOutput; // Default fallback
-}
-
-
-// تابع برای به‌روزرسانی عناصر سن بعد از لود شدن کامل
-function updateAgeElements() {
-  const ageElements = document.querySelectorAll('#cargoWeight');
-  
-  ageElements.forEach(async (element) => {
-      if (element.textContent.trim() === '' || element.textContent.trim() === '-') {
-          try {
-              // دوباره تلاش برای دریافت مقدار
-              const typeData = window.$data?.passenger?.type;
-              if (typeData) {
-                  const result = await passenger_type(typeData, [mainlid]);
-                  if (result) {
-                      element.textContent = result;
-                  }
-              }
-          } catch (e) {
-              console.error('Error updating age element:', e);
-          }
-      }
-  });
-}
-
-// اجرای به‌روزرسانی بعد از لود کامل
-window.addEventListener('load', () => {
-  setTimeout(updateAgeElements, 1000);
-  setTimeout(updateAgeElements, 3000); // دوباره بررسی کنیم
-});
-
-// اضافه کردن این تابع به ابتدای فایل JavaScript
-function ensureTranslationsReady() {
-  if (!translations) {
-      // اگر translations موجود نیست، یک نسخه پیش‌فرض ایجاد کنیم
-      translations = {
-          1: {
-              adult: "بزرگسال",
-              child: "کودک", 
-              infant: "نوزاد"
-          },
-          2: {
-              adult: "Adult",
-              child: "Child",
-              infant: "Infant"
-          },
-          3: {
-              adult: "بالغ",
-              child: "طفل",
-              infant: "رضيع"
-          }
-      };
-  }
+    const parts = dateString.split('-');
+    const year = parts[0];
+    const month = monthNames[parseInt(parts[1]) - 1];
+    const day = parts[2];
+    return `${day} ${month} ${year}`;
 }

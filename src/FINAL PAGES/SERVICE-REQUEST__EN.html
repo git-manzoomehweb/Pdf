@@ -74,7 +74,7 @@
     </style>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.langid|(1)##]);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid(2);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -85,31 +85,31 @@
     <!-- Main content -->
 
     <div class="main-content" id="main-content-wrapper">
-        <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
             <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
                 id="access-denied-message">
                 شما اجازه دسترسی به این صفحه را ندارید
             </div>
-        </basis>
-        <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
-                        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
-                method="post" body='{
+    </basis>
+    <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+                <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            method="post" body='{
             "name": "db",
             "mid": "20",
             "member": [
                 {
                 "type": "list",
                 "name": "q",
-                "request": "service_pdf",
+                "request": "service_request_pdf",
                 "id": "[##cms.query.id##]",
-                "lid": "[##cms.query.langid|(1)##]",
+                "lid": "[##cms.query.lid|(1)##]",
                 "sid": "[##cms.query.productid##]",
                 "transferid": "[##cms.query.transferid##]",
                 "type": "[##cms.query.type##]"
                 }
             ]
         }' content-type="application/json" run="atclient">
-            </basis>
+        </basis>
             <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
 
                 <div class="flex gap-2">
@@ -130,7 +130,7 @@
                         Download PDF
                     </button>
 
-                    <basis core="print" datamembername="db.service_pdf" run="atclient">
+                    <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                         <layout>
                             <div class="pdf-config">
                                 @child
@@ -149,7 +149,7 @@
 
 
 <!-- با استفاده از Print Command -->
-<basis datamembername="db.service_pdf"  core="print" run="atclient">
+<basis datamembername="db.service_request_pdf"  core="print" run="atclient">
     <layout>@child</layout>
     <face>
         <script type="text/template">
@@ -167,98 +167,99 @@
     </face>
 </basis>
 
+
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
-                <div class="pdf-loading hidden ">
-                    <div
-                        class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
-                        <span
+            <div class="pdf-loading hidden ">
+                <div
+                    class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
+                    <span
                             class="pointer-events-none rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 disabled:opacity-70 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong flex justify-center items-center gap-x-2"
                             id="pdf-loading-text">
-                            <div class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                                role="status"></div>
+                        <div class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                            role="status"></div>
                             <div class="font-danamedium leading-9" id="loading-text">در حال تولید PDF...</div>
-                        </span>
-                    </div>
+                    </span>
                 </div>
-                <div class="w-[95%] mx-auto">
+            </div>
+            <div class="w-[95%] mx-auto">
                     <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
                         id="header-section">
                         <h2 class="font-danademibold text-base text-black" id="main-title">خدمات</h2>
                         <ul class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
-                            
-                            <basis core="print" datamembername="db.service_pdf" run="atclient">
-                                <layout>@child </layout>
-                                <face>
+                        <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
                                     <script
                                         type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
-                                </face>
-                            </basis>
+                            </face>
+                        </basis>
                             <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
-                                <basis core="print" datamembername="db.service_pdf" run="atclient">
-                                    <layout>@child </layout>
-                                    <face>
-                                        <script
+                        <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                            <layout>@child </layout>
+                            <face>
+                                <script
                                             type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
                                                  id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createDate.sstring@ (@serviceinfo.createDate.mstring@)</p></div></li></script>
-                                    </face>
-                                </basis>
+                            </face>
+                        </basis>
 
                             </basis>
                             <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
-                                <basis core="print" datamembername="db.service_pdf" run="atclient">
-                                    <layout>@child </layout>
-                                    <face>
-                                        <script
-                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
-                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createDate.mstring@</p></div></li></script>
-                                    </face>
-                                </basis>
-                            </basis>
-                            <basis core="print" datamembername="db.service_pdf" run="atclient">
-                                <layout>@child </layout>
-                                <face>
-                                    <script
-                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createHour@</p></div></li></script>
-                                </face>
-                            </basis>
-                        </ul>
-                    </section>
-                    <section>
-                        <basis core="print" datamembername="db.service_pdf" run="atclient">
+                        <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
-                                <script type="text/template">
-                                {{ return await RenderServiceCardBox($data , [##cms.query.langid##])}} 
-                                {{ return await RenderServicePassengers($data , [##cms.query.langid##])}} 
-                                </script>
+                                <script
+                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
+                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createDate.mstring@</p></div></li></script>
                             </face>
                         </basis>
-                    </section>
-                    <basis core="print" datamembername="db.service_pdf" run="atclient">
+                            </basis>
+                    <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
-                            <script
+                                    <script
+                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createHour@</p></div></li></script>
+                        </face>
+                    </basis>
+                        </ul>
+                </section>
+                <section>
+                    <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                        <layout>@child </layout>
+                        <face>
+                                <script type="text/template">
+                                {{ return await RenderServiceCardBox($data , 2)}} 
+                                {{ return await RenderServicePassengers($data , 2)}} 
+                                </script>
+                        </face>
+                    </basis>
+                </section>
+                <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
                                 type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid([##cms.query.langid##]) }}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await cleanHtmlText($data.pdf_description , [##cms.query.langid##])}}</div></section></script>
-                        </face>
-                    </basis>
-                    <basis core="print" datamembername="db.service_pdf" run="atclient">
-                        <layout>@child </layout>
-                        <face>
-                            <script
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
                                 type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##cms.query.langid##]) }}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##cms.query.langid##])}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await renderServiceRules($data)}} </div></section></script>
-                        </face>
-                    </basis>
-                    <basis core="print" datamembername="db.service_pdf" run="atclient">
-                        <layout>@child </layout>
-                        <face>
-                            <script
+                    </face>
+                </basis>
+                <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script
                                 type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##cms.query.langid##]) }}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##cms.query.langid##])}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await cleanHtmlText($data.note , [##cms.query.langid##])}}</div></section></script>
-                        </face>
-                    </basis>
-            </main>
+                    </face>
+                </basis>
+        </main>
+        
                         <!-- با استفاده از Print Command -->
-<basis datamembername="db.service_pdf"  core="print" run="atclient">
+<basis datamembername="db.service_request_pdf"  core="print" run="atclient">
     <layout>@child</layout>
     <face>
         <script type="text/template">
