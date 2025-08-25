@@ -109,7 +109,7 @@
     "name": "db",
     "member": [
         {
-            "request": "ticket_pdf",
+            "request": "bus_ticket_pdf",
             "factorid": "[##cms.query.id##]",
             "ticketid": "[##cms.query.tid##]",
            "lid": "[##cms.query.langid|(1)##]"
@@ -138,7 +138,7 @@
                         Download PDF
                     </button>
 
-                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                         <layout>
                             <div class="pdf-config">
                                 @child
@@ -167,23 +167,23 @@
                 </div>
             </div>
 
-<basis datamembername="db.ticket_pdf"  core="print" run="atclient">
-    <layout>@child</layout>
-    <face>
-        <script type="text/template">
-        {{
-            if([##cms.query.letterhead##] == 1) {
-                return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
-                    <img class="block max-w-[794px] w-full mx-auto object-contain" 
-                         src="/images/Header-contract-pdf.jpg"
-                         width="794" height="100" alt="Header-contract-pdf" />
-                </header>`;
-            }
-            return '';
-        }}
-        </script>
-    </face>
-</basis>
+            <basis datamembername="db.bus_ticket_pdf"  core="print" run="atclient">
+                <layout>@child</layout>
+                <face>
+                    <script type="text/template">
+                    {{
+                        if([##cms.query.letterhead##] == 1) {
+                            return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
+                                <img class="block max-w-[794px] w-full mx-auto object-contain" 
+                                    src="/images/Header-contract-pdf.jpg"
+                                    width="794" height="100" alt="Header-contract-pdf" />
+                            </header>`;
+                        }
+                        return '';
+                    }}
+                    </script>
+                </face>
+            </basis>
 
             <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
@@ -211,7 +211,7 @@
                         <!-- ticket details -->
                         <div
                             class="haeder__details__container flex gap-4 lg:gap-7 text-sm max-md:flex-col max-md:justify-center max-md:items-center max-md:w-full max-sm:gap-2">
-                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                 <layout>@child</layout>
                                 <face>
                                     <script type="text/template">
@@ -241,7 +241,7 @@
                         </div>
                     </div>
 
-                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                         <layout>@child</layout>
                         <face>
                             <script type="text/template">
@@ -271,7 +271,7 @@
 
                             <!-- ticket details (passenger name, flight number and etc. ) -->
                             <div class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -364,7 +364,7 @@
                             </div>
 
                             <!-- flight and landing date and time (yellow section) -->
-                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                 <layout>
                                     <div
                                         id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
@@ -429,7 +429,7 @@
 
                             <!-- flight path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -458,7 +458,7 @@
 
                             <!-- ticket details (passenger name, flight number and etc. ) -->
                             <div class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -552,7 +552,7 @@
                                 class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
                                 Departure : </div>
                             <!-- flight and landing date and time (yellow section) -->
-                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                 <layout>
                                     <div
                                         id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
@@ -617,7 +617,7 @@
 
                             <!-- flight path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -643,7 +643,7 @@
                                 class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
                                 Return : 
                             </div>
-                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                 <layout>
                                     <div
                                         id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
@@ -707,7 +707,7 @@
                             </basis>
 
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -736,7 +736,7 @@
 
                             <!-- ticket details (passenger name, flight number and etc. ) -->
                             <div class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -831,7 +831,7 @@
                                 Route 1 : 
                             </div>
                             <!-- flight and landing date and time (yellow section) -->
-                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                 <layout>
                                     <div
                                         id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
@@ -896,7 +896,7 @@
 
                             <!-- flight path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -915,7 +915,7 @@
                     </div>
                     
                     <!-- Multiple routes for multicity -->
-                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                         <layout>@child</layout>
                         <face>
                             <script type="text/template">
@@ -940,7 +940,7 @@
                             <!-- ticket details (passenger name, train number and etc. ) -->
                             <div
                                 class="ticketContainer__details__head flex justify-between p-4 items-center max-[794px]:flex-wrap max-md:flex-col max-md:justify-center max-sm:p-2 max-sm:gap-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template"> 
@@ -1031,7 +1031,7 @@
                                 </basis>
 
                                 <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
-                                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                         <layout></layout>
                                         <face>
                                             <script type="text/template">
@@ -1051,7 +1051,7 @@
                                 </basis>
                                 
                                 <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
-                                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                         <layout></layout>
                                         <face>
                                             <script type="text/template">
@@ -1072,7 +1072,7 @@
                             </div>
                             
                             <!-- train and landing date and time (yellow section) -->
-                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                 <layout>
                                     <div
                                         id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-md:flex-col max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
@@ -1121,7 +1121,7 @@
                             
                             <!-- train path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
-                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
@@ -1142,7 +1142,7 @@
                 <!-- Price Details Section -->
                 <div
                     class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
-                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                         <layout>
                             <div class="ticketContainer__info__details  flex flex-col w-full max-sm:flex-col max-sm:gap-4">
                                 <div class="text-sm flex justify-between items-start gap-2 w-full max-sm:flex-col max-sm:gap-4">
@@ -1216,7 +1216,7 @@
                     class="fare_conditions max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
                     <h3 class="my-4 font-bold text-base fare-condition max-sm:text-sm">Fare Conditions</h3>
                     <div id="desc_array"></div>
-                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                    <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                         <layout>@child</layout>
                         <face>
                             <script type="text/template">
@@ -1244,7 +1244,7 @@
             </main>
 
                         <!-- با استفاده از Print Command -->
-<basis datamembername="db.ticket_pdf"  core="print" run="atclient">
+<basis datamembername="db.bus_ticket_pdf"  core="print" run="atclient">
     <layout>@child</layout>
     <face>
         <script type="text/template">
