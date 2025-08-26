@@ -1,0 +1,120 @@
+{
+    "setting": {
+        "keepalive": false
+    },
+    "sources": [
+        {
+            "options": {
+                "tableName": "db.bus_ticket_pdf",
+                "keyFieldName": null,
+                "statusFieldName": null,
+                "mergeType": 0
+            },
+            "data": [
+                {
+                    "ptype": "15",
+                    "DateInvoice": {
+                        "CreateDate": "1404-06-03",
+                        "CreateDateId": 12942,
+                        "CreateTime": "16:42"
+                    },
+                    "ExtraData": {
+                        "terminalId": "0",
+                        "saleId": "NTA1NJYX",
+                        "sale_no": "42877804"
+                    },
+                    "TicketNo": "88431441",
+                    "Count": 1,
+                    "PrintData": {
+                        "PrintDateMiladi": "2025-08-26",
+                        "PrintDate": "1404-06-04",
+                        "PrintTime": "14:07:50"
+                    },
+                    "refnumber": "NTA1NJYX",
+                    "seat_numbers": [
+                        {
+                            "seat_number": "-"
+                        }
+                    ],
+                    "passenger": {
+                        "passengerinfo": {
+                            "fullname": {
+                                "firstname": "MAHBOOBEH",
+                                "lastname": "JAMI"
+                            },
+                            "birthdate": "2001-01-18",
+                            "nationalcode": "0023863404",
+                            "passportcode": "-",
+                            "passportexpiration": "-",
+                            "countryofresidence": {
+                                "ecountryname": "Iran",
+                                "countryname": "ایران",
+                                "countryid": "1002236"
+                            },
+                            "gender": "0",
+                            "type": "2",
+                            "ticketno": "88431441"
+                        },
+                        "index": "0_1",
+                        "description": "",
+                        "costinfo": {
+                            "cost": 10.0,
+                            "basefare": 4160000.0,
+                            "tax": 0.0,
+                            "unit": "10"
+                        }
+                    },
+                    "products": {
+                        "departure": [
+                            {
+                                "route": {
+                                    "route": "تهران - رشت",
+                                    "bus_type": "vip25 مـارال تخت شو",
+                                    "startstation": {
+                                        "station": "پایانه غرب تهران",
+                                        "startotherinfo": {
+                                            "city_id": 1203548,
+                                            "city": "تهران"
+                                        }
+                                    },
+                                    "endstation": {
+                                        "station": "رشت",
+                                        "endotherinfo": {
+                                            "city_id": 1203561,
+                                            "city": "رشت"
+                                        }
+                                    },
+                                    "routeDate": {
+                                        "sstring": "1404-06-25",
+                                        "mstring": "2025-09-16"
+                                    },
+                                    "etime": "05:59",
+                                    "atime": "",
+                                    "busoperatorid": "T10",
+                                    "busoperatorname": "مارال سیر تعاونی 10",
+                                    "busoperatorimage": null,
+                                    "class": "",
+                                    "baggage": {}
+                                }
+                            }
+                        ]
+                    },
+                    "baggages": [
+                        {
+                            "departure": "میزان بار مجاز برای سفرهای داخلی ۲۰ کیلوگرم و برای سفرهای خارجی ۴۰ کیلوگرم میباشد. لطفاً در رعایت این محدودیت همکاری فرمائید."
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "departure": "تا یک ساعت مانده به حرکت با کسر ۱۰ درصد .کمتر از یک ساعت مانده به حرکت با کسر ۵۰ درصد."
+                        }
+                    ],
+                    "price": {
+                        "cost": 4160000.0,
+                        "unit": "IRR"
+                    }
+                }
+            ]
+        }
+    ]
+}

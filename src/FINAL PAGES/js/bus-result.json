@@ -1,0 +1,187 @@
+{
+            "data": [
+                {
+                    "invoiceDetails": {
+                        "title": "اتوبوس پایانه غرب تهران / رشت",
+                        "dmnid": 4948,
+                        "ownerid": 9684,
+                        "ownerName": "ملک پرواز",
+                        "userid": 1040162,
+                        "invoicetype": "15",
+                        "factorid": "611760",
+                        "persons": 1,
+                        "accuserid": 0.0,
+                        "open": "0",
+                        "refundable": "false",
+                        "clear": "6",
+                        "share": "0",
+                        "cancel": "0",
+                        "counterName": "-",
+                        "description": "-",
+                        "userDescription": ""
+                    },
+                    "invoiceDate": {
+                        "mstring": "2025-08-25",
+                        "sstring": "1404-06-03",
+                        "time": "16:42"
+                    },
+                    "travelDate": {
+                        "mstring": "<i>2025-09-16</i>",
+                        "sstring": "<i>1404-06-25</i> "
+                    },
+                    "account": {
+                        "partner_agency": {
+                            "agencyname": "basisfly",
+                            "agencymanegername": "مهدی دستمالچی",
+                            "agencytell": "+982188325011",
+                            "agencymobile": "+989358832555",
+                            "agencyaddress": "تهران-مفتح جنوبی-پایین‌تر از سمیه-نبش کوچه واحدی-پلاک2-واحد2",
+                            "agencyemail": "info@basisfly.com",
+                            "agencyweb": "https://www.basisfly.com",
+                            "agencyfax": "-",
+                            "agencyid": "6",
+                            "countryid": "1002236",
+                            "cityid": "1203548",
+                            "namecounter": "علی",
+                            "familycounter": "کلهری",
+                            "email_counter": "kalhorali1379@gmail.com",
+                            "mobile_counter": "+989019791317",
+                            "counterName": "-",
+                            "acctype": "242"
+                        }
+                    },
+                    "passengers": [
+                        {
+                            "passengerinfo": {
+                                "fullname": {
+                                    "firstname": "MAHBOOBEH",
+                                    "lastname": "JAMI"
+                                },
+                                "birthdate": {
+                                    "M_birthdate": "2001-01-18",
+                                    "S_birthdate": "1379-10-29"
+                                },
+                                "nationalcode": "0023863404",
+                                "passportcode": "-",
+                                "passportexpiration": "-",
+                                "countryofresidence": {
+                                    "ecountryname": "Iran",
+                                    "countryname": "ایران",
+                                    "countryid": "1002236"
+                                },
+                                "gender": "0",
+                                "type": "2",
+                                "ticketno": "88431441"
+                            },
+                            "index": "0_1",
+                            "description": "",
+                            "costinfo": {
+                                "cost": 10.0,
+                                "basefare": 4160000.0,
+                                "tax": 0.0,
+                                "unit": "10"
+                            }
+                        }
+                    ],
+                    "passengersvisa": [
+                        {
+                            "passengerinfo": {
+                                "fullname": {
+                                    "firstname": "MAHBOOBEH",
+                                    "lastname": "JAMI"
+                                },
+                                "birthdate": {
+                                    "M_birthdate": "2001-01-18",
+                                    "S_birthdate": "1379-10-29"
+                                },
+                                "nationalcode": "0023863404",
+                                "passportcode": "-",
+                                "passportexpiration": "-",
+                                "countryofresidence": {
+                                    "ecountryname": "Iran",
+                                    "countryname": "ایران",
+                                    "countryid": "1002236"
+                                },
+                                "gender": "0",
+                                "type": "2",
+                                "ticketno": "88431441"
+                            },
+                            "index": "0_1",
+                            "description": "",
+                            "costinfo": {
+                                "cost": 10.0,
+                                "basefare": 4160000.0,
+                                "tax": 0.0,
+                                "unit": "10"
+                            }
+                        }
+                    ],
+                    "products": [
+                        {
+                            "departure": [
+                                {
+                                    "route": {
+                                        "route": "تهران - رشت",
+                                        "routeDate": {
+                                            "id": 12964,
+                                            "mstring": "2025-09-16",
+                                            "sstring": "1404-06-25"
+                                        },
+                                        "etime": "05:59",
+                                        "atime": null,
+                                        "BusOperator": "مارال سیر تعاونی 10",
+                                        "airlineimage": null,
+                                        "startstation": {
+                                            "station": "پایانه غرب تهران",
+                                            "startotherinfo": {
+                                                "shortname": "",
+                                                "city": "تهران"
+                                            }
+                                        },
+                                        "endstation": {
+                                            "station": "رشت",
+                                            "endotherinfo": {
+                                                "shortname": "",
+                                                "city": "رشت"
+                                            }
+                                        },
+                                        "routecode": "-",
+                                        "airbaggage": "-",
+                                        "classCode": "-",
+                                        "class": "-",
+                                        "connectionTime": 0
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "priceDetails": {
+                        "adult": [
+                            {
+                                "adult": {
+                                    "special_class": "default",
+                                    "count": 1,
+                                    "perperson": "10.0",
+                                    "total": "10.0",
+                                    "unit": "ريال"
+                                }
+                            }
+                        ]
+                    },
+                    "baggages": [],
+                    "bill": {
+                        "totalprice": "4160000.0",
+                        "commission": "0.0",
+                        "coupon": {
+                            "couponcost": 0,
+                            "couponcode": "-"
+                        },
+                        "totalwithcommisions": "4160000.0",
+                        "unit": "ريال"
+                    },
+                    "creditPay": {},
+                    "tour_description": [],
+                    "pdf_description": []
+                }
+            ]
+}

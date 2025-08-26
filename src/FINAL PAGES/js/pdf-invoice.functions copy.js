@@ -443,12 +443,6 @@ const invoiceTranslations = {
     total: "مجموع <br/> Total",
     escortInfo: "اطلاعات اسکورت",
     carName: "نام خودرو",
-  // buss
-    departureBus: "اطلاعات مسیر رفت اتوبوس",
-returnBus: "اطلاعات مسیر برگشت اتوبوس",
-busOperator: "شرکت حمل و نقل",
-routeCodeBus: "کد مسیر",
-
     // Contract text
     contractText: {
       "template": "این قرارداد فی مابین خانم/آقای {buyerName} دارای شماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفرداً یا به نمایندگی تام الاختیار از سوی افراد ذیل جمعاً به تعداد {personCount} نفر که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">گردشگر</span>\" نامیده می‌شود از یک طرف و دفتر {officeName} که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">کارگزار</span>\" نامیده می‌شود، به صورت <span class=\"inline-block font-dana_FANum_demibold mx-1\">خرید اینترنتی</span> منعقد گردیده است."
@@ -592,11 +586,6 @@ routeCodeBus: "کد مسیر",
     total: "Total",
     escortInfo: "Escort Info",
     carName: "Car Name",
-
-    departureBus: "One-Way Bus Information",
-returnBus: "Return Bus Information",
-busOperator: "Bus Operator",
-routeCodeBus: "Bus No",
 
     contractText: {
       template:
@@ -743,11 +732,6 @@ routeCodeBus: "Bus No",
     total: "الإجمالي",
     escortInfo: "معلومات المرافق",
     carName: "اسم السيارة",
-
-    departureBus: "معلومات الحافلة - ذهاب",
-returnBus: "معلومات الحافلة - عودة",
-busOperator: "مشغل الحافلة",
-routeCodeBus: "رقم الحافلة",
 
     contractText: {
       template:
@@ -2121,17 +2105,8 @@ function renderTrainInfoSection(route, lid = 1) {
       <div class=" w-full bg-[#EAEAEA] bottom-0 left-0 right-0 rounded-[4px] max-md:h-auto max-md:static">
         <div class="flex justify-between px-2 ${t.textAlign} flex-wrap max-md:flex-wrap max-md:justify-center max-md:items-center max-md:flex-col">
           <div>
-
-
-
-
             <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} :</span>
-            <span class="text-[#292929] text-sm font-danamedium mx-1">
-                        ${
-              lid === 1 ? `${routeDate?.sstring || '-'} (${routeDate?.mstring || '-'})` :
-              routeDate?.mstring || '-'
-            }
-            </span>
+            <span class="text-[#292929] text-sm font-danamedium mx-1">${routeDate.mstring}</span>
           </div>
           <div>
             <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime} : </span>
@@ -2159,103 +2134,8 @@ function renderTrainInfoSection(route, lid = 1) {
   `;
 }
 
-
-function renderBusInfoSection(route, lid) {
-  const t = getTranslation(lid);
-  const {
-    route: routeName, 
-    routeDate,          
-    etime,             
-    atime,              
-    BusOperator,        
-    startstation,        
-    endstation,         
-    routecode,           
-  } = route;
-
-  const fromStation = `${startstation?.station} / ${startstation?.startotherinfo?.city || ''}`.trim();
-  const fromCode = startstation?.startotherinfo?.shortname || '';
-  const toStation = `${endstation?.station} / ${endstation?.endotherinfo?.city || ''}`.trim();
-  const toCode = endstation?.endotherinfo?.shortname || '';
-
-  return `
-    <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden max-md:overflow-auto max-md:pb-0" dir="${t.dir}">
-      <div class="flex justify-between p-[6px] max-md:flex-wrap max-md:flex-col max-md:justify-center max-md:items-center">
-        <div class="flex gap-x-2 items-center w-1/2 max-md:w-full">
-          <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
-            <!-- آیکون اتوبوس (دلخواه) -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#292929" xmlns="http://www.w3.org/2000/svg"><path d="M4 16v2a2 2 0 0 0 2 2h1v-2h10v2h1a2 2 0 0 0 2-2v-2M4 11h16v4H4v-4Zm0-5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v5H4V6Zm3 0h10"/></svg>
-          </div>
-          <div>
-            <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.from}</span>
-            <span class="text-black text-xs font-danamedium">${fromStation} ${fromCode ? `<span class="text-[#292929]">(${fromCode})</span>` : ''}</span>
-          </div>
-        </div>
-        <div class="flex gap-x-2 items-center w-1/2 max-md:w-full">
-          <div class="bg-[#EAEAEA] rounded-md w-9 h-9 flex justify-center items-center">
-            <!-- آیکون اتوبوس (دلخواه) -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#292929" xmlns="http://www.w3.org/2000/svg"><path d="M4 16v2a2 2 0 0 0 2 2h1v-2h10v2h1a2 2 0 0 0 2-2v-2M4 11h16v4H4v-4Zm0-5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v5H4V6Zm3 0h10"/></svg>
-          </div>
-          <div>
-            <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.to}</span>
-            <span class="text-black text-xs font-danamedium">${toStation} ${toCode ? `<span class="text-[#292929]">(${toCode})</span>` : ''}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="w-full bg-[#EAEAEA] bottom-0 left-0 right-0 rounded-[4px] max-md:h-auto max-md:static">
-        <div class="flex justify-between px-2 ${t.textAlign} flex-wrap max-md:flex-wrap max-md:justify-center max-md:items-center max-md:flex-col">
-          <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} :</span>
-            <span class="text-[#292929] text-sm font-danamedium mx-1 inline-block">
-            
-                                    ${
-              lid === 1 ? `${routeDate?.sstring || '-'} (${routeDate?.mstring || '-'})` :
-              routeDate?.mstring || '-'
-            }
-
-            </span>
-          </div>
-          <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime} : </span>
-            <span class="text-[#292929] text-sm font-danamedium mx-1">${etime || '-'}</span>
-          </div>
-          ${atime ? `
-          <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime} : </span>
-            <span class="text-[#292929] text-sm font-danamedium mx-1">${atime}</span>
-          </div>` : ''}
-
-          ${routecode && routecode !== '-' ? `
-          <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeBus || t.routeCode} : </span>
-            <span class="text-[#292929] text-sm font-danamedium mx-1">${routecode}</span>
-          </div>` : ''}
-
-          <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.busOperator || 'Bus Operator'} : </span>
-            <span class="text-[#292929] text-sm font-danamedium mx-1">${BusOperator || '-'}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-
 function renderProducts(products, lid = 1) {
   return products.map(product => {
-
-        // ==== BUS (invoice type 15) ====
-    if (globalInvoiceType == 15) {
-      if (product.departure) {
-        return product.departure.map(item => renderBusInfoSection(item.route, lid)).join('');
-      }
-      if (product.return) {
-        return product.return.map(item => renderBusInfoSection(item.route, lid)).join('');
-      }
-    }
-
     if (globalInvoiceType != 8 && globalInvoiceType != 9) {
       if (product.departure) {
         return product.departure.map(item => renderFlightInfoSection(item.route, lid)).join('');
@@ -2275,9 +2155,6 @@ function renderProducts(products, lid = 1) {
         return product.return.map(item => renderTrainInfoSection(item.route, lid)).join('');
       }
     }
-
-
-
 
     if (product.hotels) {
       return renderTourHotelInfoSection(product.hotels.hotel.room, lid);
@@ -2341,25 +2218,12 @@ function renderAllProducts(products, lid = 1) {
   const visa = [];
   const traindeparture = [];
   const trainreturn = [];
-  // ==== BUS buckets ====
-  const busdeparture = [];
-  const busreturn = [];
+
 
 
 
 
   for (const product of products) {
-
-            // ==== BUS ====
-    if (globalInvoiceType == 15) {
-      if (product?.departure?.length) {
-        for (const item of product.departure) if (item?.route) busdeparture.push(item.route);
-      }
-      if (product?.return?.length) {
-        for (const item of product.return) if (item?.route) busreturn.push(item.route);
-      }
-    }
-
     if (globalInvoiceType == 8 || globalInvoiceType == 9) {
       if (product?.departure?.length) {
         for (const item of product.departure) {
@@ -2373,7 +2237,7 @@ function renderAllProducts(products, lid = 1) {
       }
     }
 
-    if (globalInvoiceType != 8 && globalInvoiceType != 9 && globalInvoiceType != 15) {
+    if (globalInvoiceType != 8 && globalInvoiceType != 9) {
       if (product?.departure?.length) {
         for (const item of product.departure) {
           if (item?.route) flights.push(item.route);
@@ -2386,9 +2250,6 @@ function renderAllProducts(products, lid = 1) {
         }
       }
     }
-
-
-
 
     if (product?.hotel?.room) hotels.push(product.hotel.room);
     if (product?.hotels) tourhotels.push(product.hotels);
@@ -2409,26 +2270,6 @@ function renderAllProducts(products, lid = 1) {
   let html = '';
 
 
-
-  // ==== BUS sections ====
-  if (busdeparture.length) {
-    html += `
-    <section class="dir-${t.dir} mt-4">
-      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
-        <span>${t.departureBus || t.departureTrain}</span>
-      </h2>
-      ${busdeparture.map(route => renderBusInfoSection(route, lid)).join('')}
-    </section>`;
-  }
-  if (busreturn.length) {
-    html += `
-    <section class="dir-${t.dir} mt-4">
-      <h2 class="text-base font-danabold flex items-center gap-x-2 ">
-        <span>${t.returnBus || t.returnTrain}</span>
-      </h2>
-      ${busreturn.map(route => renderBusInfoSection(route, lid)).join('')}
-    </section>`;
-  }
 
 
 
@@ -2584,8 +2425,6 @@ function renderAllProducts(products, lid = 1) {
 
   return html;
 }
-
-
 
 function renderPassengers(passengers, $data, lid = 1) {
   const t = getTranslation(lid);

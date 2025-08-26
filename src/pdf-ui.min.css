@@ -624,8 +624,16 @@ video {
   position: sticky;
 }
 
+.-right-\[3px\] {
+  right: -3px;
+}
+
 .-top-\[19px\] {
   top: -19px;
+}
+
+.-top-\[2px\] {
+  top: -2px;
 }
 
 .bottom-0 {
@@ -2904,11 +2912,6 @@ html,:host{
   .max-sm\:px-3 {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
-  }
-
-  .max-sm\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   .max-sm\:py-3 {
