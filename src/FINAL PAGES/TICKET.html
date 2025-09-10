@@ -122,7 +122,7 @@
                 <span class="font-danabold text-xl max-sm:text-lg">Electronic Ticket</span>
 
                 <div class="flex gap-2 max-sm:flex-col max-sm:w-full">
-                    <button onclick="generatePDF()" type="button"
+                    <button onclick="generatePDF2()" type="button"
                         class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
                          text-sm px-5 py-2.5 !text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2 max-sm:justify-center max-sm:me-0">
 
@@ -167,6 +167,7 @@
                 </div>
             </div>
 
+<!-- با استفاده از Print Command -->
 <basis datamembername="db.ticket_pdf"  core="print" run="atclient">
     <layout>@child</layout>
     <face>
@@ -202,12 +203,12 @@
 
                 <!-- head section -->
                 <div
-                    class="w-[95%] header pt-10 lg:pt-5 pb-5 lg:pb-7 max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto max-sm:w-full max-sm:px-2">
+                    class="w-[95%] header pt-10 lg:pt-5 pb-5 lg:pb-7 max-w-screen-md  max-[794px]:min-w-full mx-auto max-sm:w-full max-sm:px-2">
 
                     <!-- container (max-width) -->
                     <h1 class="invisible">E-ticket</h1>
                     <div
-                        class="flex flex-wrap justify-between items-center max-w-screen-md min-w-[794px] max-[794px]:min-w-full w-full mx-auto max-sm:justify-center max-sm:gap-4">
+                        class="flex flex-wrap justify-between items-center max-w-screen-md  max-[794px]:min-w-full w-full mx-auto max-sm:justify-center max-sm:gap-4">
                         <!-- ticket details -->
                         <div
                             class="haeder__details__container flex gap-4 lg:gap-7 text-sm max-md:flex-col max-md:justify-center max-md:items-center max-md:w-full max-sm:gap-2">
@@ -264,7 +265,7 @@
                     if="[##cms.query.invoice##]<>7 and [##cms.query.invoice##]<>2 and [##cms.query.invoice##] <> 8">
                     <!-- ticket section -->
                     <div
-                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
 
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
@@ -451,7 +452,7 @@
                 <!-- btb (round trip) -->
                 <basis core="group" name="roundtrip" if="[##cms.query.invoice##]=2">
                     <div
-                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
 
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
@@ -637,7 +638,7 @@
                     
                     <!-- Return section -->
                     <div
-                        class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
                             <div
                                 class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
@@ -729,7 +730,7 @@
                 <!-- multicity -->
                 <basis core="group" name="multicity" if="[##cms.query.invoice##]=7">
                     <div
-                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
 
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
@@ -934,7 +935,7 @@
                 <!-- One way Train -->
                 <basis core="group" name="train-oneway" if="[##cms.query.invoice##]=8">
                     <div
-                        class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
                             <!-- ticket details (passenger name, train number and etc. ) -->
@@ -1141,7 +1142,7 @@
 
                 <!-- Price Details Section -->
                 <div
-                    class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
+                    class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>
                             <div class="ticketContainer__info__details  flex flex-col w-full max-sm:flex-col max-sm:gap-4">
@@ -1213,7 +1214,7 @@
                 
                 <!-- Fare Conditions Section -->
                 <div
-                    class="fare_conditions max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
+                    class="fare_conditions max-w-screen-md  max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
                     <h3 class="my-4 font-bold text-base fare-condition max-sm:text-sm">Fare Conditions</h3>
                     <div id="desc_array"></div>
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
@@ -1244,28 +1245,28 @@
             </main>
 
                         <!-- با استفاده از Print Command -->
-<basis datamembername="db.ticket_pdf"  core="print" run="atclient">
-    <layout>@child</layout>
-    <face>
-        <script type="text/template">
-        {{
-            if([##cms.query.letterhead##] == 1) {
-                return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
-                        class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
-                        width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
-            }
-            return '';
-        }}
-        </script>
-    </face>
-</basis>
+        <basis datamembername="db.ticket_pdf"  core="print" run="atclient">
+            <layout>@child</layout>
+            <face>
+                <script type="text/template">
+                {{
+                    if([##cms.query.letterhead##] == 1) {
+                        return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                                class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
+                                width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
+                    }
+                    return '';
+                }}
+                </script>
+            </face>
+        </basis>
 
         </basis>
 
         <!-- Scripts -->
         <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
 
-            <script>
+        <script>
         function setFixedViewport() {
             const pdfContent = document.querySelector('.pdf-content');
             if (pdfContent) {
@@ -1286,27 +1287,35 @@
             window.location.reload();
         }
 
-        async function generatePDF() {
+        async function generatePDF2() {
             setFixedViewport();
+            const pdfConfig = document.querySelector('.pdf-config');
+            const pdfFileName = pdfConfig.querySelector('#name');
+            const isSetHeader = pdfConfig.querySelector('#header');
+
             const element = document.querySelector('.pdf-content');
-            const headerElement = document.querySelector('#pdf-header').querySelector("img");
-            const footerElement = document.querySelector('#pdf-footer').querySelector("img");
+            
+            if (isSetHeader.value == 1) {
+                try {
+                    const headerElement = document.querySelector('#pdf-header').querySelector("img");
+                    const footerElement = document.querySelector('#pdf-footer').querySelector("img");
+                } catch {
+                    isSetHeader.value = 0;   
+                }
+            }
+
             const loadingElement = document.querySelector('.pdf-loading');
 
             try {
                 if (loadingElement) loadingElement.classList.remove('hidden');
 
-                const pdfConfig = document.querySelector('.pdf-config');
-                const pdfFileName = pdfConfig.querySelector('#name');
-                const isSetHeader = pdfConfig.querySelector('#header');
+                var window_Width = element.scrollWidth;
 
-var window_Width = element.scrollWidth;
+                if (window.innerWidth < 768) {
 
-if (window.innerWidth < 768) {
+                    window_Width = 768;
 
-    window_Width = 768;
-
-}
+                }
 
                 const opt = {
                     margin: [30, 10, 30, 10],
@@ -1339,11 +1348,13 @@ if (window.innerWidth < 768) {
                     }
                 };
 
-                const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+                if (isSetHeader.value == 1) {
+                    const headerCanvas = await html2canvas(headerElement, { scale: 2 });
+                    const footerCanvas = await html2canvas(footerElement, { scale: 2 });
 
-                const headerImage = headerCanvas.toDataURL('image/png');
-                const footerImage = footerCanvas.toDataURL('image/png');
+                    const headerImage = headerCanvas.toDataURL('image/png');
+                    const footerImage = footerCanvas.toDataURL('image/png');
+                }
 
                 // ایجاد PDF از عنصر
                 const worker = html2pdf().set(opt).from(element).toPdf();
@@ -1369,7 +1380,6 @@ if (window.innerWidth < 768) {
                 if (loadingElement) loadingElement.classList.add('hidden');
             }
         }
-
     </script>
 
         <basis core="call" file="Client_BasisCore_Script.inc"></basis>

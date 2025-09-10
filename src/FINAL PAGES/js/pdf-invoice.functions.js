@@ -600,7 +600,7 @@ routeCodeBus: "Bus No",
 
     contractText: {
       template:
-        "This agreement is concluded between Mr./Ms. {buyerName}, with landline {phone}, mobile {mobile}, and address {address}, either individually or as an authorized representative of the following individuals (total {personCount} persons), hereinafter referred to as the \"<span class='inline-block font-dana_FANum_demibold mx-1'>Traveler</span>\", and the office {officeName}, hereinafter referred to as the \"<span class='inline-block font-dana_FANum_demibold mx-1'>Agent</span>\", concluded as an <span class='inline-block font-dana_FANum_demibold mx-1'>online purchase</span>."
+        "This agreement is concluded between Mr./Ms. {buyerName}, with landline {phone}, mobile {mobile}, and address {address}, either individually or as an authorized representative of the following individuals (total {personCount} persons), hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Traveler</span>\", and the office {officeName}, hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Agent</span>\", concluded as an <span class='inline-block font-danademibold mx-1'>online purchase</span>."
     }
   },
   3: {
@@ -751,7 +751,7 @@ routeCodeBus: "رقم الحافلة",
 
     contractText: {
       template:
-        "تم توقيع هذا العقد بين السيد/السيدة {buyerName}، برقم هاتف ثابت {phone} وجوال {mobile}، وعنوان {address}، بصفته فرداً أو ممثلاً قانونياً للمذكورين أدناه وعددهم الإجمالي {personCount}، ويُشار إليه فيما بعد بـ \"<span class='inline-block font-dana_FANum_demibold mx-1'>السائح</span>\"، وبين مكتب {officeName}، ويُشار إليه بـ \"<span class='inline-block font-dana_FANum_demibold mx-1'>المزوّد</span>\"، وذلك عن طريق <span class='inline-block font-dana_FANum_demibold mx-1'>الشراء الإلكتروني</span>."
+        "تم توقيع هذا العقد بين السيد/السيدة {buyerName}، برقم هاتف ثابت {phone} وجوال {mobile}، وعنوان {address}، بصفته فرداً أو ممثلاً قانونياً للمذكورين أدناه وعددهم الإجمالي {personCount}، ويُشار إليه فيما بعد بـ \"<span class='inline-block font-danademibold mx-1'>السائح</span>\"، وبين مكتب {officeName}، ويُشار إليه بـ \"<span class='inline-block font-danademibold mx-1'>المزوّد</span>\"، وذلك عن طريق <span class='inline-block font-danademibold mx-1'>الشراء الإلكتروني</span>."
     }
   }
 };
@@ -918,7 +918,7 @@ function renderTourDetailsSection(tourDetails, lid = 1) {
             ${tourDetails.journey.map((day, index) => `
               <div class="bg-white rounded-md p-3 border border-[#E8E8E8] my-2">
                 <div class="text-[#292929] text-sm font-danabold mb-2 flex items-center gap-2">
-                  <span class="bg-[#EAEAEA] text-xs rounded-full w-6 h-6 flex items-center justify-center font-dana_FANum_demibold">
+                  <span class="bg-[#EAEAEA] text-xs rounded-full w-6 h-6 flex items-center justify-center ${mainlid  !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">
                     ${index + 1}
                   </span>
                   ${day.journeytitle || `${t.day} ${index + 1}`}
@@ -959,7 +959,7 @@ function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
       const value = rowData[col] || '-';
       const shouldFormat = col === t.total || col === t.perperson || col === t.perPerson;
       const displayValue = shouldFormat ? formatPrice(value) : value;
-      return `<div class="text-[#292929] text-xs font-danamedium flex-1 text-center my-1 flex justify-center items-center">${displayValue}</div>`;
+      return `<div class="text-[#292929] text-xs font-danamedium flex-1 text-center my-1 flex justify-center items-center capitalize">${displayValue}</div>`;
     }).join('')}
   </div>
 `).join('');
@@ -1210,7 +1210,7 @@ case '4': { // Tour
         priceDetails.adult.forEach(item => {
           const { count, perperson, total, unit } = item.adult;
           allPassengerData.push({
-            [t.passengerType]: 'adult',
+            [t.passengerType]: 'Adult',
             // [t.ageRange || 'محدوده سنی']: '12+ سال',
             [t.count]: count,
             [t.perPerson]: perperson,
@@ -1451,41 +1451,41 @@ function renderInvoiceDetails($data, lid = 1) {
 
   // Contract text with variables replaced
   let contractTextContent = t.contractText.template
-    .replace(/{buyerName}/g, `<span class="inline-block dir-ltr font-dana_FANum_demibold mx-1">${buyerName}</span>`)
-    .replace(/{phone}/g, `<span class="inline-block dir-ltr font-dana_FANum_demibold mx-1">(${phone})</span>`)
-    .replace(/{mobile}/g, `<span class="inline-block dir-ltr font-dana_FANum_demibold mx-1">(${mobile})</span>`)
-    .replace(/{address}/g, `<span class="inline-block dir-ltr font-dana_FANum_demibold mx-1">(${address})</span>`)
-    .replace(/{personCount}/g, `<span class="font-dana_FANum_demibold dir-ltr mx-1">${persons}</span>`)
-    .replace(/{officeName}/g, `<span class="font-dana_FANum_demibold dir-ltr mx-1">${ownername}</span>`);
+    .replace(/{buyerName}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">${buyerName}</span>`)
+    .replace(/{phone}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${phone}</span>)</span>`)
+    .replace(/{mobile}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${mobile}</span>)</span>`)
+    .replace(/{address}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${address}</span>)</span>`)
+    .replace(/{personCount}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${persons}</span>`)
+    .replace(/{officeName}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${ownername}</span>`);
 
   return `
-    <h1 class="my-4 font-dana_FANum_demibold ${t.centerText}" dir="${t.dir}">${t.contractTitle}</h1>
+    <h1 class="my-4 ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} ${t.centerText}" dir="${t.dir}">${t.contractTitle}</h1>
     <div class="w-full flex justify-between flex-wrap gap-y-2 max-md:flex-col" dir="${t.dir}">
         <div class="w-[25.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
                 <li>
                     <span class="text-base print:text-xs font-dana_FANum_medium">${t.contractNumber}</span>
-                    <span class="text-lg print:text-base font-dana_FANum_demibold tracking-tighter">${contractNumber}</span>
+                    <span class="text-lg print:text-base ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} tracking-tighter">${contractNumber}</span>
                 </li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerDate}</span><span class="inline-block dir-ltr font-dana_FANum_demibold" >${registerDate}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerTime}</span><span class="font-dana_FANum_demibold" >${registerTime}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.counterName}</span><span class="font-dana_FANum_demibold" >${counterName}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${registerDate}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerTime}</span><span class=" ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${registerTime}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.counterName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${counterName}</span></li>
             </ul>
         </div>
 
         <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.buyerName}</span><span class="font-dana_FANum_demibold" >${buyerName}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.address}</span><span class="font-dana_FANum_demibold" >${address}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.phone}</span><span class="inline-block dir-ltr font-dana_FANum_demibold">${phone}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.email}</span><span class="font-dana_FANum_demibold" >${email}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.mobile}</span><span class="inline-block dir-ltr font-dana_FANum_demibold">${mobile}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.buyerName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${buyerName}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.address}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${address}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.phone}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${email}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.mobile}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
             </ul>
         </div>
 
         <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.serviceType}</span><span class="font-dana_FANum_demibold" >${serviceType}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.serviceType}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} " style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;" >${serviceType}</span></li>
             </ul>
         </div>
 
@@ -1511,10 +1511,10 @@ function renderFlightInfoSection(route, lid = 1) {
 
   const flightclass = route.class;
 
-  const fromAirport = `${startairport.airport} / ${startairport.startotherinfo.city}`;
+  const fromAirport = `<span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${startairport.airport}</span> / <span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${startairport.startotherinfo.city}</span>`;
   const fromCode = startairport.startotherinfo.shortname;
 
-  const toAirport = `${endairport.airport} / ${endairport.endotherinfo.city}`;
+  const toAirport = `<span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${endairport.airport}</span> / <span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${endairport.endotherinfo.city}</span>`;
   const toCode = endairport.endotherinfo.shortname;
 
 
@@ -1533,7 +1533,7 @@ function renderFlightInfoSection(route, lid = 1) {
       </div>
       <div>
         <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.from}</span>
-        <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929]">(${fromCode})</span></span>
+        <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929]">(<span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${fromCode}</span>)</span></span>
       </div>
     </div>
     <div class=" flex gap-x-2 items-center w-1/2 max-md:w-full">
@@ -1545,7 +1545,7 @@ function renderFlightInfoSection(route, lid = 1) {
       </div>
       <div>
         <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.to}</span>
-        <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929]">(${toCode})</span></span>
+        <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929]">(<span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${toCode}</span>)</span></span>
       </div>
     </div>
   </div>
