@@ -1,0 +1,121 @@
+{
+    "setting": {
+        "keepalive": false
+    },
+    "sources": [
+        {
+            "options": {
+                "tableName": "db.bus_ticket_pdf",
+                "keyFieldName": null,
+                "statusFieldName": null,
+                "mergeType": 0
+            },
+            "data": [
+                {
+                    "ptype": "15",
+                    "DateInvoice": {
+                        "CreateDate": "1404-06-09",
+                        "CreateDateId": 12948,
+                        "CreateTime": "13:2"
+                    },
+                    "ExtraData": {
+                        "terminalId": "0",
+                        "saleId": "MZY4MJE4",
+                        "sale_no": "43024933"
+                    },
+                    "TicketNo": "88481618",
+                    "Count": 1,
+                    "PrintData": {
+                        "PrintDateMiladi": "2025-08-31",
+                        "PrintDate": "1404-06-09",
+                        "PrintTime": "16:24:24"
+                    },
+                    "refnumber": "MZY4MJE4",
+                    "seat_numbers": [
+                        {
+                            "seat_number": "26"
+                        }
+                    ],
+                    "passenger": {
+                        "passengerinfo": {
+                            "fullname": {
+                                "firstname": "MAHBOOBEH",
+                                "lastname": "JAMI"
+                            },
+                            "birthdate": "2001-04-01",
+                            "nationalcode": "0023863404",
+                            "passportcode": "-",
+                            "passportexpiration": "-",
+                            "countryofresidence": {
+                                "ecountryname": "Iran",
+                                "countryname": "\u0627\u06cc\u0631\u0627\u0646",
+                                "countryid": "1002236"
+                            },
+                            "gender": "0",
+                            "type": "2",
+                            "seat_number": "26",
+                            "ticketno": "88481618"
+                        },
+                        "index": "0_1",
+                        "description": "",
+                        "costinfo": {
+                            "cost": 10.0,
+                            "basefare": 3400000.0,
+                            "tax": 0.0,
+                            "unit": "10"
+                        }
+                    },
+                    "products": {
+                        "departure": [
+                            {
+                                "route": {
+                                    "route": "\u062a\u0647\u0631\u0627\u0646 - \u0632\u0646\u062c\u0627\u0646",
+                                    "bus_type": "\u062a\u06a9 \u0635\u0646\u062f\u0644\u06cc 32 \u0646\u0641\u0631\u0647 \u0645\u0627\u0631\u0627\u0644(vip) \u0647\u0645\u0633\u0641\u0631",
+                                    "startstation": {
+                                        "station": "\u067e\u0627\u06cc\u0627\u0646\u0647 \u063a\u0631\u0628 \u062a\u0647\u0631\u0627\u0646",
+                                        "startotherinfo": {
+                                            "city_id": 1203548,
+                                            "city": "\u062a\u0647\u0631\u0627\u0646"
+                                        }
+                                    },
+                                    "endstation": {
+                                        "station": "\u0632\u0646\u062c\u0627\u0646",
+                                        "endotherinfo": {
+                                            "city_id": 1211120,
+                                            "city": "\u0632\u0646\u062c\u0627\u0646"
+                                        }
+                                    },
+                                    "routeDate": {
+                                        "sstring": "1404-06-25",
+                                        "mstring": "2025-09-16"
+                                    },
+                                    "etime": "15:15",
+                                    "atime": "",
+                                    "busoperatorid": "HMSFR",
+                                    "busoperatorname": "\u0647\u0645\u0633\u0641\u0631",
+                                    "busoperatorimage": null,
+                                    "class": "",
+                                    "baggage": {}
+                                }
+                            }
+                        ]
+                    },
+                    "baggages": [
+                        {
+                            "departure": "\u0645\u06cc\u0632\u0627\u0646 \u0628\u0627\u0631 \u0645\u062c\u0627\u0632 \u0628\u0631\u0627\u06cc \u0633\u0641\u0631\u0647\u0627\u06cc \u062f\u0627\u062e\u0644\u06cc \u06f2\u06f0 \u06a9\u06cc\u0644\u0648\u06af\u0631\u0645 \u0648 \u0628\u0631\u0627\u06cc \u0633\u0641\u0631\u0647\u0627\u06cc \u062e\u0627\u0631\u062c\u06cc \u06f4\u06f0 \u06a9\u06cc\u0644\u0648\u06af\u0631\u0645 \u0645\u06cc\u0628\u0627\u0634\u062f. \u0644\u0637\u0641\u0627\u064b \u062f\u0631 \u0631\u0639\u0627\u06cc\u062a \u0627\u06cc\u0646 \u0645\u062d\u062f\u0648\u062f\u06cc\u062a \u0647\u0645\u06a9\u0627\u0631\u06cc \u0641\u0631\u0645\u0627\u0626\u06cc\u062f."
+                        }
+                    ],
+                    "descriptions": [
+                        {
+                            "departure": "\u062a\u0627 \u06cc\u06a9 \u0633\u0627\u0639\u062a \u0645\u0627\u0646\u062f\u0647 \u0628\u0647 \u062d\u0631\u06a9\u062a \u0628\u0627 \u06a9\u0633\u0631 \u06f1\u06f0 \u062f\u0631\u0635\u062f .\u06a9\u0645\u062a\u0631 \u0627\u0632 \u06cc\u06a9 \u0633\u0627\u0639\u062a \u0645\u0627\u0646\u062f\u0647 \u0628\u0647 \u062d\u0631\u06a9\u062a \u0628\u0627 \u06a9\u0633\u0631 \u06f5\u06f0 \u062f\u0631\u0635\u062f."
+                        }
+                    ],
+                    "price": {
+                        "cost": 3400000.0,
+                        "unit": "IRR"
+                    }
+                }
+            ]
+        }
+    ]
+}
