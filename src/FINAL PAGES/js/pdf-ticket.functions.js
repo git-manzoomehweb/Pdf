@@ -70,7 +70,7 @@ function initializePageLanguage(lid, invoice = null) {
       fareConditions: "شرایط کرایه",
       connectionTime: "زمان انتظار",
       travelTime: "مدت سفر",
-      route: "مسیر",
+      route1: "مسیر اول",
       departure: "رفت",
       return: "برگشت",
       adult: "بزرگسال",
@@ -121,7 +121,7 @@ function initializePageLanguage(lid, invoice = null) {
       fareConditions: "Fare Conditions",
       connectionTime: "Connection Time",
       travelTime: "Travel Time",
-      route: "Route",
+      route1: "First Route",
       departure: "Departure",
       return: "Return",
       adult: "Adult",
@@ -172,7 +172,7 @@ function initializePageLanguage(lid, invoice = null) {
       fareConditions: "شروط الأجرة",
       connectionTime: "وقت الانتظار",
       travelTime: "وقت السفر",
-      route: "المسار",
+      route1: "الطريق الأول",
       departure: "المغادرة",
       return: "العودة",
       adult: "بالغ",
@@ -312,7 +312,7 @@ function translateHeaderTitles(t) {
         title.textContent = t.eticketNumber;
         break;
       case 'Date Of issue:':
-        title.textContent = t.dateOfIssue + ':';
+        title.textContent = t.dateOfIssue ;
         break;
     }
   });
@@ -321,38 +321,46 @@ function translateHeaderTitles(t) {
 function translateTicketTitles(t, invoice = null) {
   // ترجمه عناوین در ticket
   const ticketTitles = document.querySelectorAll('.ticketContainer__details__head__item__title');
-  ticketTitles.forEach(title => {
-    const text = title.textContent.trim();
-    switch(text) {
-      case 'Passenger:':
-        title.textContent = t.passenger + ':';
-        break;
-      case 'Age':
-      case 'Age:':
-        title.textContent = t.age + ':';
-        break;
-      case 'Birthdate:':
-        title.textContent = t.birthdate + ':';
-        break;
-      case 'National Code:':
-        title.textContent = t.nationalCode + ':';
-        break;
-    }
-  });
+ticketTitles.forEach(title => {
+  const text = title.textContent.trim();
+  switch(text) {
+    case 'Passenger :':
+    case 'Passenger':
+    case 'Passenger:':
+      title.innerHTML = `${t.passenger}<span style="display: inline-block;">:</span>`;
+      break;
+    case 'Age':
+    case 'Age:':
+      title.innerHTML = `${t.age}<span style="display: inline-block;">:</span>`;
+      break;
+    case 'Birthdate:':
+      title.innerHTML = `${t.birthdate}<span style="display: inline-block;">:</span>`;
+      break;
+    case 'National Code:':
+      title.innerHTML = `${t.nationalCode}<span style="display: inline-block;">:</span>`;
+      break;
+  }
+});
+
 
   // ترجمه متن‌های Route
-  const routeTitles = document.querySelectorAll('.ticketContainer__details__time');
-  routeTitles.forEach(route => {
-    if (route.textContent.includes('Route')) {
-      route.textContent = route.textContent.replace('Route', t.route);
-    }
-    if (route.textContent.includes('Departure')) {
-      route.textContent = route.textContent.replace('Departure', t.departure);
-    }
-    if (route.textContent.includes('Return')) {
-      route.textContent = route.textContent.replace('Return', t.return);
-    }
-  });
+const routeTitles = document.querySelectorAll('.ticketContainer__details__time');
+routeTitles.forEach(route => {
+  const text = route.textContent.trim();
+  
+  switch(true) {
+    case text.includes('first Route'):
+      route.innerHTML = route.innerHTML.replace('first Route', `${t.route1}<span style="display: inline-block;">:</span>`);
+      break;
+    case text.includes('Departure'):
+      route.innerHTML = route.innerHTML.replace('Departure', `${t.departure}<span style="display: inline-block;">:</span>`);
+      break;
+    case text.includes('Return'):
+      route.innerHTML = route.innerHTML.replace('Return', `${t.return}<span style="display: inline-block;">:</span>`);
+      break;
+  }
+});
+
 
   // ترجمه Connection Time و Travel Time
   const connectionTimeElements = document.querySelectorAll('.text-xs.text-gray-500.font-danabold');
@@ -366,22 +374,23 @@ function translateTicketTitles(t, invoice = null) {
   });
 
   // ترجمه مختص قطار
-  if (invoice === 8 || invoice === 9) {
-    const trainNumberElements = document.querySelectorAll('span');
-    trainNumberElements.forEach(element => {
-      if (element.textContent.includes('train number:')) {
-        element.innerHTML = element.innerHTML.replace('train number:', t.trainNumber + ':');
-      }
-    });
-  } else {
-    // ترجمه مختص پرواز
-    const flightNumberElements = document.querySelectorAll('span');
-    flightNumberElements.forEach(element => {
-      if (element.textContent.includes('flight number:')) {
-        element.innerHTML = element.innerHTML.replace('flight number:', t.flightNumber + ':');
-      }
-    });
-  }
+if (invoice === 8 || invoice === 9) {
+  const trainNumberElements = document.querySelectorAll('span');
+  trainNumberElements.forEach(element => {
+    if (element.textContent.toLowerCase().includes('train number:')) {
+      element.innerHTML = element.innerHTML.replace('train number:', `${t.trainNumber}<span style="display: inline-block;">:</span>`);
+    }
+  });
+} else {
+  // ترجمه مختص پرواز
+  const flightNumberElements = document.querySelectorAll('span');
+  flightNumberElements.forEach(element => {
+    if (element.textContent.toLowerCase().includes('flight number:')) {
+      element.innerHTML = element.innerHTML.replace('flight number:', `${t.flightNumber}<span style="display: inline-block;">:</span>`);
+    }
+  });
+}
+
 }
 
 function translateFlightSpecificElements(t, invoice = null) {
@@ -390,9 +399,10 @@ function translateFlightSpecificElements(t, invoice = null) {
     // ترجمه airline details
     const airlineElements = document.querySelectorAll('.pathItem__details__airline span');
     airlineElements.forEach(element => {
-      if (element.textContent.includes('flight number:')) {
-        element.textContent = element.textContent.replace('flight number:', t.flightNumber + ':');
-      }
+if (element.textContent.includes('flight number:')) {
+  element.innerHTML = element.innerHTML.replace('flight number:', `${t.flightNumber}<span style="display: inline-block;">:</span>`);
+}
+
     });
 
     // ترجمه baggage info
@@ -421,15 +431,16 @@ function translatePriceTitles(t) {
   const priceLabels = document.querySelectorAll('.ticketContainer__info__details__title');
   priceLabels.forEach(label => {
     const text = label.textContent.trim();
-    if (text.includes('Base Price:')) {
-      label.innerHTML = label.innerHTML.replace('Base Price:', t.basePrice + ':');
-    }
-    if (text.includes('Tax:')) {
-      label.innerHTML = label.innerHTML.replace('Tax:', t.tax + ':');
-    }
-    if (text.includes('Total:')) {
-      label.innerHTML = label.innerHTML.replace('Total:', t.total + ':');
-    }
+if (text.includes('Base Price:')) {
+  label.innerHTML = label.innerHTML.replace('Base Price:', `${t.basePrice}<span style="display: inline-block;">:</span>`);
+}
+if (text.includes('Tax:')) {
+  label.innerHTML = label.innerHTML.replace('Tax:', `${t.tax}<span style="display: inline-block;">:</span>`);
+}
+if (text.includes('Total:')) {
+  label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span style="display: inline-block;">:</span>`);
+}
+
   });
 }
 
@@ -729,9 +740,9 @@ async function arrive_date_info($data , invoicetype , lid) {
     var arrive_date_S = $data[len - 1].route.routeDate.sstring
     var arrive_dtime = $data[len - 1].route.atime
     if(invoicetype === 8){
-        return `<span id="landingDate" class=" text-sm">${arrive_date_S}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`
+        return `<span id="landingDate" class=" text-sm max-sm:text-xs" >${arrive_date_S}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs">${arrive_dtime}</span>`
     }else{
-        return `<span id="landingDate" class=" text-sm">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`
+        return `<span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`
     }
 }
 
@@ -752,7 +763,7 @@ async function route_array($data , invoicetype) {
             output += `<div class=" relative "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                        
                         <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
-                            <span class="pathItem__times__start text-nowrap text-sm">
+                            <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                                ${data[i].route.etime}
                             </span>
                         </div>
@@ -792,7 +803,7 @@ async function route_array($data , invoicetype) {
 
                     <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                         <div class="ticketContainer__details__path__item__times pathItem__times relative flex flex-nowrap justify-end flex-col items-center w-1/6 max-md:w-3/12">
-                            <span class="pathItem__times__start text-nowrap text-sm">
+                            <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                                ${data[i].route.atime}
                             </span>
                         </div>
@@ -815,7 +826,7 @@ async function route_array($data , invoicetype) {
                 <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                    
                     <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
-                        <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs">
+                        <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                            ${data[i].route.etime}
                         </span>
                     </div>
@@ -873,11 +884,11 @@ async function route_array($data , invoicetype) {
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                ${data[i].route.timing}<span class="mx-[2px]">min</span>  
+                                ${data[i].route.timing}  
                             </span>
                         </div>
                         
-                        <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs">
+                        <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                            ${data[i].route.atime}
                         </span>
                     </div>
@@ -960,22 +971,43 @@ function connection_time($data) {
         if (connectiontime !== 0) {
             const hours = Math.floor(connectiontime / 60);
             const minutes = connectiontime % 60;
-            output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
-                <div class="ticketContainer__details__path__item__times pathItem__times flex flex-nowrap justify-center flex-col items-center w-1/6 -mt-[10px] max-md:w-3/12">
-                    <span class="pathItem__times__start text-nowrap text-sm">
-                        <span class="text-xs text-gray-500 font-danabold max-sm:text-[10px]" >Connection Time </span>
-                        <span class="flex justify-center items-center text-center text-xs text-gray-500 max-sm:text-[10px]">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.89035 4.7532C8.68596 4.02783 9.76188 3.0468 9.85995 0.703125H10.5703V0H1.42969V0.703125H2.14005C2.23812 3.0468 3.31404 4.02783 4.10965 4.7532C4.64334 5.23978 4.94531 5.5376 4.94531 6C4.94531 6.4624 4.64334 6.76022 4.10965 7.2468C3.31404 7.97217 2.23812 8.9532 2.14005 11.2969H1.42969V12H10.5703V11.2969H9.85995C9.76188 8.9532 8.68596 7.97217 7.89035 7.2468C7.35666 6.76022 7.05469 6.4624 7.05469 6C7.05469 5.5376 7.35666 5.23978 7.89035 4.7532ZM5.64844 8.63527C5.53985 8.65767 5.43258 8.69027 5.32788 8.73359L3.17452 9.62466C3.52617 8.73052 4.09256 8.21388 4.58337 7.76641C5.1311 7.26703 5.64844 6.79535 5.64844 6V8.63527ZM7.41663 7.76641C7.90744 8.21388 8.4738 8.73052 8.82548 9.62463L6.67212 8.73356C6.56742 8.69025 6.46015 8.65765 6.35156 8.63524V6C6.35156 6.79535 6.8689 7.26703 7.41663 7.76641ZM3.16216 2.34375C2.99217 1.9008 2.87477 1.36598 2.84405 0.703125H9.15593C9.1252 1.36598 9.00783 1.9008 8.83781 2.34375H3.16216Z" fill="#BEBBCE"/>
-                            </svg>
-                            <span>${hours}H : ${minutes}M</span>
-                        </span>
-                    </span>
-                </div>
-                <div class="ticketContainer__details__path__item__path pathItem__path flex flex-col items-center relative border-l-2 border-dashed border-gray-400 w-2.5">
-                    <div class="w-2 h-2 rounded-full bg-gray-400 absolute bottom-0 right-[5px]"></div>
-                </div>
-            </div>`
+
+            if(mainlid == 1){
+              output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
+                  <div class="ticketContainer__details__path__item__times pathItem__times flex flex-nowrap justify-center flex-col items-center w-1/6 -mt-[10px] max-md:w-3/12">
+                      <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
+                          <span class="text-xs text-gray-500 font-danabold max-sm:text-[10px]" >Connection Time </span>
+                          <span class="flex justify-center items-center text-center text-xs text-gray-500 max-sm:text-[10px]">
+                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M7.89035 4.7532C8.68596 4.02783 9.76188 3.0468 9.85995 0.703125H10.5703V0H1.42969V0.703125H2.14005C2.23812 3.0468 3.31404 4.02783 4.10965 4.7532C4.64334 5.23978 4.94531 5.5376 4.94531 6C4.94531 6.4624 4.64334 6.76022 4.10965 7.2468C3.31404 7.97217 2.23812 8.9532 2.14005 11.2969H1.42969V12H10.5703V11.2969H9.85995C9.76188 8.9532 8.68596 7.97217 7.89035 7.2468C7.35666 6.76022 7.05469 6.4624 7.05469 6C7.05469 5.5376 7.35666 5.23978 7.89035 4.7532ZM5.64844 8.63527C5.53985 8.65767 5.43258 8.69027 5.32788 8.73359L3.17452 9.62466C3.52617 8.73052 4.09256 8.21388 4.58337 7.76641C5.1311 7.26703 5.64844 6.79535 5.64844 6V8.63527ZM7.41663 7.76641C7.90744 8.21388 8.4738 8.73052 8.82548 9.62463L6.67212 8.73356C6.56742 8.69025 6.46015 8.65765 6.35156 8.63524V6C6.35156 6.79535 6.8689 7.26703 7.41663 7.76641ZM3.16216 2.34375C2.99217 1.9008 2.87477 1.36598 2.84405 0.703125H9.15593C9.1252 1.36598 9.00783 1.9008 8.83781 2.34375H3.16216Z" fill="#BEBBCE"/>
+                              </svg>
+                              <span class="inline-block" >${hours}ساعت و ${minutes}دقیقه</span>
+                          </span>
+                      </span>
+                  </div>
+                  <div class="ticketContainer__details__path__item__path pathItem__path flex flex-col items-center relative border-l-2 border-dashed border-gray-400 w-2.5">
+                      <div class="w-2 h-2 rounded-full bg-gray-400 absolute bottom-0 right-[5px]"></div>
+                  </div>
+              </div>`
+            }else{
+              output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
+                  <div class="ticketContainer__details__path__item__times pathItem__times flex flex-nowrap justify-center flex-col items-center w-1/6 -mt-[10px] max-md:w-3/12">
+                      <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
+                          <span class="text-xs text-gray-500 font-danabold max-sm:text-[10px]" >Connection Time </span>
+                          <span class="flex justify-center items-center text-center text-xs text-gray-500 max-sm:text-[10px]">
+                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M7.89035 4.7532C8.68596 4.02783 9.76188 3.0468 9.85995 0.703125H10.5703V0H1.42969V0.703125H2.14005C2.23812 3.0468 3.31404 4.02783 4.10965 4.7532C4.64334 5.23978 4.94531 5.5376 4.94531 6C4.94531 6.4624 4.64334 6.76022 4.10965 7.2468C3.31404 7.97217 2.23812 8.9532 2.14005 11.2969H1.42969V12H10.5703V11.2969H9.85995C9.76188 8.9532 8.68596 7.97217 7.89035 7.2468C7.35666 6.76022 7.05469 6.4624 7.05469 6C7.05469 5.5376 7.35666 5.23978 7.89035 4.7532ZM5.64844 8.63527C5.53985 8.65767 5.43258 8.69027 5.32788 8.73359L3.17452 9.62466C3.52617 8.73052 4.09256 8.21388 4.58337 7.76641C5.1311 7.26703 5.64844 6.79535 5.64844 6V8.63527ZM7.41663 7.76641C7.90744 8.21388 8.4738 8.73052 8.82548 9.62463L6.67212 8.73356C6.56742 8.69025 6.46015 8.65765 6.35156 8.63524V6C6.35156 6.79535 6.8689 7.26703 7.41663 7.76641ZM3.16216 2.34375C2.99217 1.9008 2.87477 1.36598 2.84405 0.703125H9.15593C9.1252 1.36598 9.00783 1.9008 8.83781 2.34375H3.16216Z" fill="#BEBBCE"/>
+                              </svg>
+                              <span class="inline-block">${hours}H , ${minutes}M</span>
+                          </span>
+                      </span>
+                  </div>
+                  <div class="ticketContainer__details__path__item__path pathItem__path flex flex-col items-center relative border-l-2 border-dashed border-gray-400 w-2.5">
+                      <div class="w-2 h-2 rounded-full bg-gray-400 absolute bottom-0 right-[5px]"></div>
+                  </div>
+              </div>`
+
+            }
         }
         return output;
     }else{
@@ -983,18 +1015,146 @@ function connection_time($data) {
     }
 }
 
+// async function multi_route_array($data , invoicetype , lid) {
+//     var output = "";
+//     var data = $data
+
+//     if (data.length > 1) {
+//         if(invoicetype === 8){
+//             for (var i = 1; i < data.length; i++) {
+//                 var segment_len = data[i].segment.length
+//                 output += `
+//                     <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full shrink-0 ">
+//                         <div class="ticketContainer__details w-full">
+//                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs">Route ${data[i].segment_id} : </div>
+//                             <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
+                                
+//                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
+//                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#9ca3af" class="train-icon max-sm:w-5 max-sm:h-5" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#9ca3af">
+//                                         <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+//                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+//                                         <g id="SVGRepo_iconCarrier"> 
+//                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
+//                                         </g>
+//                                     </svg>
+//                                     <span id="flightDate" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring , lid)}</span>
+//                                     |
+//                                     <span id="flightTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${data[i].segment[0].route.etime}</span>
+//                                 </div>
+
+//                                 <div class="rotate-180 ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end max-md:hidden">
+//                                    <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+//                                 </div>
+
+//                                 <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
+//                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#9ca3af" class="train-icon max-sm:w-5 max-sm:h-5" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#9ca3af">
+//                                         <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+//                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+//                                         <g id="SVGRepo_iconCarrier"> 
+//                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
+//                                         </g>
+//                                     </svg>
+//                                     <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> | 
+//                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
+//                                 </div>
+//                             </div>
+//                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+//                                 ${await route_array(data[i].segment, invoicetype)}
+//                             </div>
+//                         </div>
+//                     </div>`
+//             }
+//         } else {
+//             // کد پرواز با کلاس‌های ریسپانسیو
+//             for (var i = 1; i < data.length; i++) {
+//                 var segment_len = data[i].segment.length
+//                 output += `
+//                     <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full shrink-0 ">
+//                         <div class="ticketContainer__details w-full">
+//                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs max-sm:px-2">Route ${data[i].segment_id} : </div>
+//                             <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
+                                
+//                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
+//                                     <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+//                                         <g clip-path="url(#clip0_1_717)">
+//                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9967 4.04383C12.4616 3.83566 11.7331 3.91 11.0456 4.24442C10.4088 4.55709 9.78484 4.91151 9.11998 5.26178C8.30949 4.65771 7.48892 4.07605 6.6662 3.49506C6.1033 3.09873 5.55654 2.99132 5.04397 3.17539C4.75521 3.27773 4.48568 3.41493 4.22368 3.54778C4.11657 3.60258 4.0077 3.65757 3.89561 3.71157C3.7801 3.76681 3.69244 3.86712 3.65247 3.98997C3.6128 4.11145 3.62499 4.24437 3.6862 4.35748L5.30417 7.34695C4.95632 7.53815 4.54275 7.7678 4.13505 7.99418C3.77818 8.19254 3.42503 8.3883 3.12222 8.55566L2.87823 8.10715C2.75308 7.88034 2.46796 7.79743 2.24155 7.9221C2.01504 8.04589 1.93134 8.33197 2.0565 8.55878L2.48153 9.33888C3.41411 11.0117 4.96594 11.4859 6.63407 10.6058C8.41206 9.6675 10.3557 8.61404 12.7506 7.2883C13.0439 7.12684 13.3203 6.90271 13.537 6.63508C13.9201 6.162 14.1135 5.55465 13.8625 4.92513C13.6961 4.50402 13.3965 4.19867 12.9967 4.04383Z" fill="#2F2F2F" />
+//                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
+//                                         </g>
+//                                         <defs>
+//                                             <clipPath id="clip0_1_717">
+//                                                 <rect width="15" height="15" fill="white" />
+//                                             </clipPath>
+//                                         </defs>
+//                                     </svg>
+//                                     <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring ,lid )}</span>
+//                                     |
+//                                     <span id="flightTime" class=" text-sm max-sm:text-xs">${data[i].segment[0].route.etime}</span>
+//                                 </div>
+
+//                                 <div class="rotate-180 ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end max-md:hidden">
+//                                    <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+//                                 </div>
+
+//                                 <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
+//                                     <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+//                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z" fill="#2F2F2F" />
+//                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
+//                                     </svg>
+//                                     <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> 
+//                                     | 
+//                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
+//                                 </div>
+//                             </div>
+//                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+//                                 ${await route_array(data[i].segment, invoicetype)}
+//                             </div>
+//                         </div>
+//                     </div>`
+//             }
+//         }
+
+//         return output;
+//     }
+// }
+
+// function convertDateFormat(mstring , sstring , lid) {
+//     var output = "";
+//     var dateString = mstring;
+//     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+//     const parts = dateString.split('-');
+//     const year = parts[0];
+//     const month = monthNames[parseInt(parts[1]) - 1];
+//     const day = parts[2];
+//     return `${day} ${month} ${year}`;
+// }
+
+
+
 async function multi_route_array($data , invoicetype , lid) {
     var output = "";
-    var data = $data
+    var data = $data;
 
+    // تابع برای گرفتن عنوان مسیرها با توجه به زبان انتخابی
+    const getRouteTitle = (index) => {
+        const routeTitles = {
+            1: [' مسیر اول', 'مسیر دوم', 'مسیر سوم', 'مسیر چهارم', 'مسیر پنجم'],   // فارسی
+            2: ['First Route', 'Second Route', 'Third Route', 'Fourth Route', 'Fifth Route'],  // انگلیسی
+            3: ['الطريق الأول', 'الطريق الثاني', 'الطريق الثالث', 'الطريق الرابع', 'الطريق الخامس'] // عربی
+        };
+
+        return routeTitles[lid][index] || `Route ${index + 1}`; // Default if the index exceeds the array length
+    };
+
+    // اگر طول داده‌ها بیشتر از یک باشد
     if (data.length > 1) {
         if(invoicetype === 8){
+            // برای هر مسیر داده
             for (var i = 1; i < data.length; i++) {
-                var segment_len = data[i].segment.length
+                var segment_len = data[i].segment.length;
                 output += `
-                    <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full shrink-0 ">
+                    <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
-                            <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs">Route ${data[i].segment_id} : </div>
+                            <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs">${getRouteTitle(i)} <span class="inline-block">:</span></div>
                             <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
                                 
                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
@@ -1005,12 +1165,12 @@ async function multi_route_array($data , invoicetype , lid) {
                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
                                         </g>
                                     </svg>
-                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring , lid)}</span>
+                                    <span id="flightDate" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring , lid)}</span>
                                     |
-                                    <span id="flightTime" class=" text-sm max-sm:text-xs">${data[i].segment[0].route.etime}</span>
+                                    <span id="flightTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${data[i].segment[0].route.etime}</span>
                                 </div>
 
-                                <div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end ">
+                                <div class="rotate-180 ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end max-md:hidden">
                                    <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                                 </div>
 
@@ -1035,13 +1195,12 @@ async function multi_route_array($data , invoicetype , lid) {
         } else {
             // کد پرواز با کلاس‌های ریسپانسیو
             for (var i = 1; i < data.length; i++) {
-                var segment_len = data[i].segment.length
+                var segment_len = data[i].segment.length;
                 output += `
-                    <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full shrink-0 ">
+                    <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
-                            <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs max-sm:px-2">Route ${data[i].segment_id} : </div>
-                            <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
-                                
+                            <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs max-sm:px-2">${getRouteTitle(i)} <span class="inline-block">:</span></div>
+                            <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltrrrrr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
                                     <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
                                         <g clip-path="url(#clip0_1_717)">
@@ -1059,7 +1218,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                     <span id="flightTime" class=" text-sm max-sm:text-xs">${data[i].segment[0].route.etime}</span>
                                 </div>
 
-                                <div class="ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end ">
+                                <div class="rotate-180 ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end max-md:hidden">
                                    <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                                 </div>
 
@@ -1068,7 +1227,8 @@ async function multi_route_array($data , invoicetype , lid) {
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z" fill="#2F2F2F" />
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
                                     </svg>
-                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> | 
+                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> 
+                                    | 
                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
                                 </div>
                             </div>
@@ -1076,24 +1236,14 @@ async function multi_route_array($data , invoicetype , lid) {
                                 ${await route_array(data[i].segment, invoicetype)}
                             </div>
                         </div>
-                    </div>`
+                    </div>`;
             }
         }
-
-        return output;
     }
+
+    return output;
 }
 
-// function convertDateFormat(mstring , sstring , lid) {
-//     var output = "";
-//     var dateString = mstring;
-//     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-//     const parts = dateString.split('-');
-//     const year = parts[0];
-//     const month = monthNames[parseInt(parts[1]) - 1];
-//     const day = parts[2];
-//     return `${day} ${month} ${year}`;
-// }
 
 function convertDateFormat(mstring, sstring, lid) {
 
@@ -1123,7 +1273,7 @@ function convertDateFormat(mstring, sstring, lid) {
         ];
         const persianMonth = persianMonthNames[persianMonthNum - 1];
         
-        return `${persianDay} ${persianMonth} ${persianYear} (${gregorianOutput})`;
+        return `${persianDay} ${persianMonth} ${persianYear} <span style="direction: ltr !important;display: inline-block;">(${gregorianOutput})</span>`;
     }
     return gregorianOutput; // Default fallback
 }

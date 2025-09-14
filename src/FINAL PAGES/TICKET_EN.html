@@ -277,7 +277,7 @@
                                     <face>
                                         <script type="text/template">
                                 <div class="ticketContainer__details__head__item w-1/2 max-sm:w-full">
-                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                    <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                         Passenger:
                                     </h4>
                                     <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
@@ -295,7 +295,7 @@
     
                                 <div class="w-1/2 max-sm:w-full">
                                     <div class="ticketContainer__details__head__item">
-                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                        <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                             Age
                                         </h4>
                                         <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -464,7 +464,7 @@
                                     <face>
                                         <script type="text/template">
                                 <div class="ticketContainer__details__head__item w-1/2 max-sm:w-full">
-                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                    <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                         Passenger:
                                     </h4>
                                     <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
@@ -481,7 +481,7 @@
     
                                 <div class="w-1/2 max-sm:w-full">
                                     <div class="ticketContainer__details__head__item">
-                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                        <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                             Age
                                         </h4>
                                         <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -550,8 +550,8 @@
                                 </basis>
                             </div>
                             <div
-                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
-                                Departure : </div>
+                                class="ticketContainer__details__time  px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
+                                Departure </div>
                             <!-- flight and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
@@ -641,8 +641,8 @@
                         class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
                             <div
-                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
-                                Return : 
+                                class="ticketContainer__details__time  px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
+                                Return 
                             </div>
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
@@ -742,7 +742,7 @@
                                     <face>
                                         <script type="text/template">
                                 <div class="ticketContainer__details__head__item w-1/2 max-sm:w-full">
-                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                    <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title  mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                         Passenger :
                                     </h4>
                                     <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
@@ -759,7 +759,7 @@
     
                                 <div class="w-1/2 max-sm:w-full">
                                     <div class="ticketContainer__details__head__item">
-                                        <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                        <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                             Age
                                         </h4>
                                         <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -828,8 +828,8 @@
                                 </basis>
                             </div>
                             <div
-                                class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
-                                Route 1 : 
+                                class="ticketContainer__details__time  px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
+                                first Route
                             </div>
                             <!-- flight and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
@@ -935,7 +935,7 @@
                 <!-- One way Train -->
                 <basis core="group" name="train-oneway" if="[##cms.query.invoice##]=8">
                     <div
-                        class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
                             <!-- ticket details (passenger name, train number and etc. ) -->
@@ -946,7 +946,7 @@
                                     <face>
                                         <script type="text/template"> 
                                             <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                                     Passenger:
                                                 </h4>
                                                 <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
@@ -962,7 +962,7 @@
                                             </div>
                                             
                                             <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                                     Age:
                                                 </h4>
                                                 <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -1018,7 +1018,7 @@
                                             </div>
 
                                             <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                                     National Code:
                                                 </h4>
                                                 <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -1037,7 +1037,7 @@
                                         <face>
                                             <script type="text/template">
                                                 <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                    <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                                         Birthdate:
                                                     </h4>
                                                     <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -1057,7 +1057,7 @@
                                         <face>
                                             <script type="text/template">
                                                 <div class="ticketContainer__details__head__item max-sm:w-full">
-                                                    <h4 class="ticketContainer__details__head__item__title mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                    <h4 dir="{{ detectDirectionlid([##cms.query.langid##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
                                                         Birthdate:
                                                     </h4>
                                                     <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
@@ -1287,91 +1287,203 @@
             window.location.reload();
         }
 
-        async function generatePDF() {
-            setFixedViewport();
-            const element = document.querySelector('.pdf-content');
+//         async function generatePDF() {
+//             setFixedViewport();
+//             const pdfConfig = document.querySelector('.pdf-config');
+//             const pdfFileName = pdfConfig.querySelector('#name');
+//             const isSetHeader = pdfConfig.querySelector('#header');
+
+//             const element = document.querySelector('.pdf-content');
+            
+//             if (isSetHeader.value == 1) {
+//                 try {
+//             const headerElement = document.querySelector('#pdf-header').querySelector("img");
+//             const footerElement = document.querySelector('#pdf-footer').querySelector("img");
+//                 } catch {
+//                     isSetHeader.value = 0;   
+//                 }
+//             }
+
+//             const loadingElement = document.querySelector('.pdf-loading');
+
+//             try {
+//                 if (loadingElement) loadingElement.classList.remove('hidden');
+
+// var window_Width = element.scrollWidth;
+
+// if (window.innerWidth < 768) {
+
+//     window_Width = 768;
+
+// }
+
+//                 const opt = {
+//                     margin: [30, 10, 30, 10],
+//                     filename: pdfFileName.value || "reservationDoc.pdf",
+//                     image: { type: 'jpeg', quality: 1 },
+//                     html2canvas: {
+//                         scale: 1,
+//                         width: 794,
+//                         windowWidth: window_Width,
+//                         useCORS: true,
+//                         backgroundColor: '#ffffff',
+//                         scrollX: 0,
+//                         scrollY: 0,
+//                         letterRendering: true,
+//                         ignoreElements: (el) =>
+//                             ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+//                             el.classList.contains('pdf-loading'),
+//                     },
+//                     jsPDF: {
+//                         unit: 'mm',
+//                         format: 'a4',
+//                         orientation: 'portrait',
+//                         hotfixes: ['px_scaling']
+//                     },
+//                     pagebreak: {
+//                         mode: ['css', 'legacy'], // Use both CSS and legacy mode
+//                         before: '.page-break-before',
+//                         after: '.page-break-after',
+//                         avoid: '.avoid-break'
+//                     }
+//                 };
+
+//                 if (isSetHeader.value == 1) {
+//                 const headerCanvas = await html2canvas(headerElement, { scale: 2 });
+//                 const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+
+//                 const headerImage = headerCanvas.toDataURL('image/png');
+//                 const footerImage = footerCanvas.toDataURL('image/png');
+//                 }
+
+//                 // ایجاد PDF از عنصر
+//                 const worker = html2pdf().set(opt).from(element).toPdf();
+
+//                 // افزودن هدر و فوتر به تمام صفحات
+//                 worker.get('pdf').then((pdf) => {
+//                     const totalPages = pdf.internal.getNumberOfPages();
+//                     for (let i = 1; i <= totalPages; i++) {
+//                         pdf.setPage(i);
+//                         if (isSetHeader.value == 1) {
+//                             pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
+//                             pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);
+//                         }
+//                     }
+//                 });
+
+//                 await worker.save();
+//             } catch (err) {
+//                 console.error('PDF generation failed:', err);
+//                 alert('خطا در تولید PDF.');
+//             } finally {
+//                 resetViewport();
+//                 if (loadingElement) loadingElement.classList.add('hidden');
+//             }
+//         }
+  
+async function generatePDF() {
+    setFixedViewport();
+    const pdfConfig = document.querySelector('.pdf-config');
+    const pdfFileName = pdfConfig.querySelector('#name');
+    const isSetHeader = pdfConfig.querySelector('#header');
+
+    const element = document.querySelector('.pdf-content');
+    
+    let headerImage = null;
+    let footerImage = null;
+
+    if (isSetHeader.value == 1) {
+        try {
             const headerElement = document.querySelector('#pdf-header').querySelector("img");
             const footerElement = document.querySelector('#pdf-footer').querySelector("img");
-            const loadingElement = document.querySelector('.pdf-loading');
 
-            try {
-                if (loadingElement) loadingElement.classList.remove('hidden');
-
-                const pdfConfig = document.querySelector('.pdf-config');
-                const pdfFileName = pdfConfig.querySelector('#name');
-                const isSetHeader = pdfConfig.querySelector('#header');
-
-var window_Width = element.scrollWidth;
-
-if (window.innerWidth < 768) {
-
-    window_Width = 768;
-
-}
-
-                const opt = {
-                    margin: [30, 10, 30, 10],
-                    filename: pdfFileName.value || "reservationDoc.pdf",
-                    image: { type: 'jpeg', quality: 1 },
-                    html2canvas: {
-                        scale: 1,
-                        width: 794,
-                        windowWidth: window_Width,
-                        useCORS: true,
-                        backgroundColor: '#ffffff',
-                        scrollX: 0,
-                        scrollY: 0,
-                        letterRendering: true,
-                        ignoreElements: (el) =>
-                            ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
-                            el.classList.contains('pdf-loading'),
-                    },
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'portrait',
-                        hotfixes: ['px_scaling']
-                    },
-                    pagebreak: {
-                        mode: ['css', 'legacy'], // Use both CSS and legacy mode
-                        before: '.page-break-before',
-                        after: '.page-break-after',
-                        avoid: '.avoid-break'
-                    }
-                };
-
+            // Check if both header and footer have images
+            if (headerElement) {
                 const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
-
-                const headerImage = headerCanvas.toDataURL('image/png');
-                const footerImage = footerCanvas.toDataURL('image/png');
-
-                // ایجاد PDF از عنصر
-                const worker = html2pdf().set(opt).from(element).toPdf();
-
-                // افزودن هدر و فوتر به تمام صفحات
-                worker.get('pdf').then((pdf) => {
-                    const totalPages = pdf.internal.getNumberOfPages();
-                    for (let i = 1; i <= totalPages; i++) {
-                        pdf.setPage(i);
-                        if (isSetHeader.value == 1) {
-                            pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
-                            pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);
-                        }
-                    }
-                });
-
-                await worker.save();
-            } catch (err) {
-                console.error('PDF generation failed:', err);
-                alert('خطا در تولید PDF.');
-            } finally {
-                resetViewport();
-                if (loadingElement) loadingElement.classList.add('hidden');
+                headerImage = headerCanvas.toDataURL('image/png');
             }
+            if (footerElement) {
+                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+                footerImage = footerCanvas.toDataURL('image/png');
+            }
+        } catch (error) {
+            console.error("Error loading header or footer:", error);
+            isSetHeader.value = 0; // If there's any issue, disable the header/footer flag
+        }
+    }
+
+    const loadingElement = document.querySelector('.pdf-loading');
+
+    try {
+        if (loadingElement) loadingElement.classList.remove('hidden');
+
+        var window_Width = element.scrollWidth;
+
+        if (window.innerWidth < 768) {
+            window_Width = 768;
         }
 
-    </script>
+        const opt = {
+            margin: [30, 10, 30, 10],
+            filename: pdfFileName.value || "reservationDoc.pdf",
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: {
+                scale: 1,
+                width: 794,
+                windowWidth: window_Width,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                letterRendering: true,
+                ignoreElements: (el) =>
+                    ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+                    el.classList.contains('pdf-loading'),
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait',
+                hotfixes: ['px_scaling']
+            },
+            pagebreak: {
+                mode: ['css', 'legacy'], // Use both CSS and legacy mode
+                before: '.page-break-before',
+                after: '.page-break-after',
+                avoid: '.avoid-break'
+            }
+        };
+
+        // Generate the PDF
+        const worker = html2pdf().set(opt).from(element).toPdf();
+
+        // Add header and footer images if they exist
+        worker.get('pdf').then((pdf) => {
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                // Add header and/or footer based on availability
+                if (headerImage) {
+                    pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
+                }
+                if (footerImage) {
+                    pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);  // x, y, width, height
+                }
+            }
+        });
+
+        await worker.save();
+    } catch (err) {
+        console.error('PDF generation failed:', err);
+        alert('خطا در تولید PDF.');
+    } finally {
+        resetViewport();
+        if (loadingElement) loadingElement.classList.add('hidden');
+    }
+}
+
+
+   </script>
 
         <basis core="call" lid="2" file="Client_BasisCore_Script.inc"></basis>
         <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
