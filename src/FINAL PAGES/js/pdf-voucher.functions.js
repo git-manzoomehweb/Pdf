@@ -110,7 +110,7 @@ function initializePageLanguage(lid) {
 
     const contractNumberLabel = document.getElementById("contract-number-label");
     if (contractNumberLabel) {
-      contractNumberLabel.innerHTML = `${t.contractNumber}<span>:</span>`;
+      contractNumberLabel.innerHTML = `${t.contractNumber}`;
       contractNumberLabel.className =
         contractNumberLabel.className.replace(/(text-left|text-right)/g, "") +
         ` ${t.textAlign}`;
@@ -118,7 +118,7 @@ function initializePageLanguage(lid) {
 
     const issueDateLabel = document.getElementById("issue-date-label");
     if (issueDateLabel) {
-      issueDateLabel.innerHTML = `${t.issueDate}<span>:</span>`;
+      issueDateLabel.innerHTML = `${t.issueDate}`;
       issueDateLabel.className =
         issueDateLabel.className.replace(/(text-left|text-right)/g, "") +
         ` ${t.textAlign}`;
@@ -126,7 +126,7 @@ function initializePageLanguage(lid) {
 
     const contractTimeLabel = document.getElementById("contract-time-label");
     if (contractTimeLabel) {
-      contractTimeLabel.innerHTML = `${t.contractTime}<span>:</span>`;
+      contractTimeLabel.innerHTML = `${t.contractTime}`;
       contractTimeLabel.className =
         contractTimeLabel.className.replace(/(text-left|text-right)/g, "") +
         ` ${t.textAlign}`;
@@ -825,7 +825,7 @@ async function renderRooms($data, lid = 1) {
             case "1":
                 genderRaw = lang.male;
                 break;
-            case "2":
+            case "0":
                 genderRaw = lang.female;
                 break;
             default:
@@ -861,7 +861,7 @@ async function renderRooms($data, lid = 1) {
       ).join('');
 
       roomcontent += `
-      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-start gap-2 max-md:flex-col max-md:justify-center max-md:items-center   ${index > 0 ? 'mt-3' : ''} ${lid === 2 ? 'flex-wrap' : ''}">
+      <div class="bg-[#F8F8F8] rounded-xl p-4 flex justify-between gap-2 max-md:flex-col max-md:justify-center max-md:items-center   ${index > 0 ? 'mt-3' : ''} ${lid === 2 ? 'flex-wrap' : ''}">
           <div class="gap-y-2 flex flex-col">
               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass} ${lang.wrapClass}">${lang.roomType}</span>
               <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)] ${lang.centerClass}">${room.roomtype.trim()}</div>

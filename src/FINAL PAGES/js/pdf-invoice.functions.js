@@ -1307,14 +1307,15 @@ function renderTourDetailsSection(tourDetails, lid = 1) {
           <div class="flex-col justify-center items-center max-md:w-full w-1/2">
             ${tourDetails.type.map(item => `
               <div class="text-[#292929] text-xs font-danamedium bg-white rounded-md px-3 py-1 border border-[#E8E8E8] flex-1 text-center w-full my-2">
-                ${item.servicename || '-'}
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      </div>
-    `;
-  }
+                 ${escapeXML(item.servicename) || '-'}
+                 </div>
+                 `).join('')}
+                 </div>
+                 </div>
+                 </div>
+                 `;
+                }
+                // ${item.servicename || '-'}
 
   // Appropriate For Section
   if (tourDetails.appropriate && tourDetails.appropriate.length > 0) {
@@ -2505,28 +2506,28 @@ function renderVisaInfoSection(visa, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.92934 7.70312C2.43705 7.70312 2.03613 8.10333 2.03613 8.59563C2.03613 9.08721 2.43705 9.48813 2.92934 9.48813C3.42163 9.48813 3.82326 9.08721 3.82326 8.59563C3.82326 8.10333 3.42163 7.70312 2.92934 7.70312Z" fill="#292929"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.92934 11.8535C2.43705 11.8535 2.03613 12.2566 2.03613 12.7531C2.03613 13.2447 2.43705 13.6449 2.92934 13.6449C3.42163 13.6449 3.82326 13.2447 3.82326 12.7531C3.82326 12.2566 3.42163 11.8535 2.92934 11.8535Z" fill="#292929"/>
 </svg>
-              <span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.visaName} :</span>
+              <span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.visaName} <span class="inline-block">:</span></span>
               <span class="text-[#292929] font-danamedium">${visa.visaname}</span>
             </div>
             <div class="flex items-center gap-x-2">
 <svg id="location-icon-pdf" class="scale-110 origin-center" xmlns="http://www.w3.org/2000/svg" width="9" height="12" viewBox="0 0 9 12" fill="none" >
 <path d="M4.49653 0.5C6.965 0.5 9 2.54484 9 5.07477C9 6.34963 8.55371 7.5332 7.81915 8.53637C7.00878 9.64293 6.00997 10.6071 4.8857 11.3638C4.62839 11.5387 4.39617 11.5519 4.11377 11.3638C2.9831 10.6071 1.98428 9.64293 1.18085 8.53637C0.445756 7.5332 0 6.34963 0 5.07477C0 2.54484 2.035 0.5 4.49653 0.5ZM4.49653 3.67726C3.68029 3.67726 3.01459 4.37629 3.01459 5.21721C3.01459 6.06474 3.68029 6.73132 4.49653 6.73132C5.3133 6.73132 5.98541 6.06474 5.98541 5.21721C5.98541 4.37629 5.3133 3.67726 4.49653 3.67726Z" fill="#242424"/>
 </svg>
-              <span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.country} :</span>
+              <span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.country} <span class="inline-block">:</span></span>
               <span class="text-[#292929] font-danamedium">${visa.visacountry}</span>
             </div>
             <div class="flex items-center gap-x-2">
                 <svg id="calendar-icon-pdf" class="scale-110 origin-center" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
 </svg>
-              <span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.date} :</span>
+              <span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.date} <span class="inline-block">:</span></span>
               <span class="text-[#292929] font-danamedium">${visa.visadate?.sstring || '-'}</span>
             </div>
-            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.application} :</span> ${visa.application}</div>
-            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.type} :</span> ${visa.visatype}</div>
-            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.visit} :</span> ${visa.visit_log}</div>
-            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.validity} :</span> ${safeValue(visa.validity_duration?.time)} ${safeValue(visa.validity_duration?.months)}</div>
-            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.documents} :</span>
+            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.application} <span class="inline-block">:</span></span> ${visa.application}</div>
+            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.type} <span class="inline-block">:</span></span> ${visa.visatype}</div>
+            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.visit} <span class="inline-block">:</span></span> ${visa.visit_log}</div>
+            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.validity} <span class="inline-block">:</span></span> ${safeValue(visa.validity_duration?.time)} ${safeValue(visa.validity_duration?.months)}</div>
+            <div><span class="text-[#6D6D6D] font-danaregular mx-1 inline-block">${t.documents} <span class="inline-block">:</span></span>
                 <div class=" inline-block">
 ${visa.documents?.map((doc, index, arr) =>
         `<span class="inline-block  mx-1">${doc.name1}${index < arr.length - 1 ? ',' : ''}</span>`
@@ -2669,7 +2670,7 @@ function renderBusInfoSection(route, lid) {
       <div class="w-full bg-[#EAEAEA] bottom-0 left-0 right-0 rounded-[4px] max-md:h-auto max-md:static">
         <div class="flex justify-between px-2 ${t.textAlign} flex-wrap max-md:flex-wrap max-md:justify-center max-md:items-center max-md:flex-col">
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} :</span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} <span class="inline-block">:</span></span>
             <span class="text-[#292929] text-sm font-danamedium mx-1 inline-block">
             
                                     ${
@@ -3068,15 +3069,28 @@ function renderPassengers(passengers, $data, lid = 1) {
     }
   });
 
+  // const genderMap = { 
+  //   "0": lid === 1 ? "Female" : lid === 2 ? "Female" : "أنثى", 
+  //   "1": lid === 1 ? "Male" : lid === 2 ? "Male" : "ذكر" 
+  // };
+  // const typeMap = { 
+  //   "1": lid === 1 ? "Child" : lid === 2 ? "Child" : "طفل", 
+  //   "2": lid === 1 ? "Adult" : lid === 2 ? "Adult" : "بالغ", 
+  //   "3": lid === 1 ? "Infant" : lid === 2 ? "Infant" : "رضيع" 
+  // };
+
   const genderMap = { 
-    "0": lid === 1 ? "Female" : lid === 2 ? "Female" : "أنثى", 
-    "1": lid === 1 ? "Male" : lid === 2 ? "Male" : "ذكر" 
-  };
-  const typeMap = { 
-    "1": lid === 1 ? "Child" : lid === 2 ? "Child" : "طفل", 
-    "2": lid === 1 ? "Adult" : lid === 2 ? "Adult" : "بالغ", 
-    "3": lid === 1 ? "Infant" : lid === 2 ? "Infant" : "رضيع" 
-  };
+    "0": lid === 1 ? "زن" : lid === 2 ? "Female" : "أنثى", 
+    "1": lid === 1 ? "مرد" : lid === 2 ? "Male" : "ذكر" 
+};
+
+const typeMap = { 
+    "1": lid === 1 ? "کودک" : lid === 2 ? "Child" : "طفل", 
+    "2": lid === 1 ? "بزرگسال" : lid === 2 ? "Adult" : "بالغ", 
+    "3": lid === 1 ? "نوزاد" : lid === 2 ? "Infant" : "رضيع" 
+};
+
+
 
   let html = "";
 
@@ -3157,9 +3171,7 @@ function renderPassengers(passengers, $data, lid = 1) {
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.lastname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full ">
             ${
-              lid === 1 ? `${info.birthdate?.S_birthdate || '-'} (${info.birthdate?.M_birthdate || '-'})` :
-              lid === 3 ? info.birthdate?.M_birthdate || '-' :
-              info.birthdate?.M_birthdate || '-'
+              lid === 1 ? `${info.birthdate?.S_birthdate || '-'} (${info.birthdate?.M_birthdate || '-'})` : lid === 3 ? info.birthdate?.M_birthdate || '-' : info.birthdate?.M_birthdate || '-'
             }
           </div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.nationalcode}</div>
@@ -3220,12 +3232,19 @@ function renderPassengers(passengers, $data, lid = 1) {
     paxList.forEach((pax) => {
       const info = pax.passengerinfo;
       const transfer = pax.transfer;
+      // ${info.birthdate?.S_birthdate ?? ""} ${info.birthdate?.M_birthdate ?? ""}
 
       html += `
         <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t ${t.textAlign}">
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.firstname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 min-w-28 my-1 text-center max-md:w-full  text-wrap">${info.fullname.lastname}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.birthdate?.S_birthdate ?? ""} ${info.birthdate?.M_birthdate ?? ""}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">
+          
+            ${
+              lid === 1 ? `${info.birthdate?.S_birthdate || '-'} (${info.birthdate?.M_birthdate || '-'})` : lid === 3 ? info.birthdate?.M_birthdate || '-' : info.birthdate?.M_birthdate || '-'
+            }
+
+          </div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.nationalcode}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.passportcode}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.passportexpiration}</div>
