@@ -114,7 +114,7 @@ function initializePageLanguage(lid) {
       "contract-number-label"
     );
     if (contractNumberLabel) {
-      contractNumberLabel.innerHTML = `${t.contractNumber}<span>:</span>`;
+      contractNumberLabel.innerHTML = `${t.contractNumber}`;
       contractNumberLabel.className =
         contractNumberLabel.className.replace(/(text-left|text-right)/g, "") +
         ` ${t.textAlign}`;
@@ -122,7 +122,7 @@ function initializePageLanguage(lid) {
 
     const issueDateLabel = document.getElementById("issue-date-label");
     if (issueDateLabel) {
-      issueDateLabel.innerHTML = `${t.issueDate}<span>:</span>`;
+      issueDateLabel.innerHTML = `${t.issueDate}`;
       issueDateLabel.className =
         issueDateLabel.className.replace(/(text-left|text-right)/g, "") +
         ` ${t.textAlign}`;
@@ -130,7 +130,7 @@ function initializePageLanguage(lid) {
 
     const contractTimeLabel = document.getElementById("contract-time-label");
     if (contractTimeLabel) {
-      contractTimeLabel.innerHTML = `${t.contractTime}<span>:</span>`;
+      contractTimeLabel.innerHTML = `${t.contractTime}`;
       contractTimeLabel.className =
         contractTimeLabel.className.replace(/(text-left|text-right)/g, "") +
         ` ${t.textAlign}`;

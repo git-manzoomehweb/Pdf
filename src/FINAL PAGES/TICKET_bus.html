@@ -202,12 +202,12 @@
 
                 <!-- head section -->
                 <div
-                    class="w-[95%] header pt-10 lg:pt-5 pb-5 lg:pb-7 max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto max-sm:w-full max-sm:px-2">
+                    class="w-[95%] header pt-10 lg:pt-5 pb-5 lg:pb-7 max-w-screen-md  max-[794px]:min-w-full mx-auto max-sm:w-full max-sm:px-2">
 
                     <!-- container (max-width) -->
                     <h1 class="invisible">E-ticket</h1>
                     <div
-                        class="flex flex-wrap justify-between items-center max-w-screen-md min-w-[794px] max-[794px]:min-w-full w-full mx-auto max-sm:justify-center max-sm:gap-4">
+                        class="flex flex-wrap justify-between items-center max-w-screen-md  max-[794px]:min-w-full w-full mx-auto max-sm:justify-center max-sm:gap-4">
                         <!-- ticket details -->
                         <div
                             class="haeder__details__container flex gap-4 lg:gap-7 text-sm max-md:flex-col max-md:justify-center max-md:items-center max-md:w-full max-sm:gap-2">
@@ -263,7 +263,7 @@
                 <basis core="group" name="departure">
                     <!-- ticket section -->
                     <div
-                        class="ticketContainer_bus border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+                        class="ticketContainer_bus border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
 
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
@@ -393,7 +393,7 @@
                                     </svg>
                                     
                                     
-                                        <span id="busDate" class=" text-sm max-sm:text-xs">
+                                        <span id="busDate" class=" text-sm max-sm:text-xs inline-block" >
                                             {{
                                                 try{
                                                     return await convertDateFormat($data.products.departure[0].route.routeDate.mstring  , $data.products.departure[0].route.routeDate.sstring , [##cms.query.langid##]);
@@ -403,7 +403,7 @@
                                             }}
                                         </span>
                                         |
-                                        <span id="busTime" class=" text-sm max-sm:text-xs">@products.departure[0].route.etime@</span>
+                                        <span id="busTime" class=" text-sm max-sm:text-xs inline-block">@products.departure[0].route.etime@</span>
                                     </div>
                                     
                                     <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
@@ -452,7 +452,7 @@
 
                 <!-- Price Details Section -->
                 <div
-                    class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md min-w-[794px] max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
+                    class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
                     <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                         <layout>
                             <div class="ticketContainer__info__details  flex flex-col w-full max-sm:flex-col max-sm:gap-4">
@@ -532,7 +532,7 @@
                 
                 <!-- Fare Conditions Section -->
                 <div
-                class="baggage_conditions max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
+                class="baggage_conditions max-w-screen-md  max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
                 <h3 class="font-danabold max-sm:text-base" >baggages</h3>
                 <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                     <layout>@child</layout>
@@ -555,7 +555,7 @@
                 </basis>
                 </div>
                 <div
-                class="fare_conditions max-w-screen-md min-w-[794px] max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
+                class="fare_conditions max-w-screen-md  max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
                 <h3 class="my-4 font-bold text-base fare-condition max-sm:text-sm">Fare Conditions</h3>
                 <div id="desc_array"></div>
                 <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
@@ -607,7 +607,7 @@
         <!-- Scripts -->
         <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
 
-            <script>
+    <script>
         function setFixedViewport() {
             const pdfContent = document.querySelector('.pdf-content');
             if (pdfContent) {
@@ -628,91 +628,123 @@
             window.location.reload();
         }
 
+        function enforceLRMAroundParens(root = document) {
+            root.querySelectorAll('.dir-ltr, .bidi-ltr').forEach(el => {
+                // متن را می‌گیریم ولی تگ‌های داخلی را خراب نکنیم: فقط وقتی متن ساده است
+                if (el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE) {
+                el.textContent = '\u200E(' + el.textContent.replace(/[()]/g, '').trim() + ')\u200E';
+                } else {
+                // نسخه امن‌تر: فقط کاراکترهای ( و ) را با LRM مهار کنیم
+                el.innerHTML = el.innerHTML
+                    .replace(/\(/g, '\u200E(')
+                    .replace(/\)/g, ')\u200E');
+                }
+            });
+        }
+    
         async function generatePDF() {
-            setFixedViewport();
-            const element = document.querySelector('.pdf-content');
+    setFixedViewport();
+    const pdfConfig = document.querySelector('.pdf-config');
+    const pdfFileName = pdfConfig.querySelector('#name');
+    const isSetHeader = pdfConfig.querySelector('#header');
+
+    const element = document.querySelector('.pdf-content');
+    
+    let headerImage = null;
+    let footerImage = null;
+
+    if (isSetHeader.value == 1) {
+        try {
             const headerElement = document.querySelector('#pdf-header').querySelector("img");
             const footerElement = document.querySelector('#pdf-footer').querySelector("img");
-            const loadingElement = document.querySelector('.pdf-loading');
 
-            try {
-                if (loadingElement) loadingElement.classList.remove('hidden');
-
-                const pdfConfig = document.querySelector('.pdf-config');
-                const pdfFileName = pdfConfig.querySelector('#name');
-                const isSetHeader = pdfConfig.querySelector('#header');
-
-                var window_Width = element.scrollWidth;
-
-                if (window.innerWidth < 768) {
-
-                    window_Width = 768;
-
-                }
-
-                const opt = {
-                    margin: [30, 10, 30, 10],
-                    filename: pdfFileName.value || "reservationDoc.pdf",
-                    image: { type: 'jpeg', quality: 1 },
-                    html2canvas: {
-                        scale: 1,
-                        width: 794,
-                        windowWidth: window_Width,
-                        useCORS: true,
-                        backgroundColor: '#ffffff',
-                        scrollX: 0,
-                        scrollY: 0,
-                        letterRendering: true,
-                        ignoreElements: (el) =>
-                            ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
-                            el.classList.contains('pdf-loading'),
-                    },
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'portrait',
-                        hotfixes: ['px_scaling']
-                    },
-                    pagebreak: {
-                        mode: ['css', 'legacy'], // Use both CSS and legacy mode
-                        before: '.page-break-before',
-                        after: '.page-break-after',
-                        avoid: '.avoid-break'
-                    }
-                };
-
+            // Check if both header and footer have images
+            if (headerElement) {
                 const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
-
-                const headerImage = headerCanvas.toDataURL('image/png');
-                const footerImage = footerCanvas.toDataURL('image/png');
-
-                // ایجاد PDF از عنصر
-                const worker = html2pdf().set(opt).from(element).toPdf();
-
-                // افزودن هدر و فوتر به تمام صفحات
-                worker.get('pdf').then((pdf) => {
-                    const totalPages = pdf.internal.getNumberOfPages();
-                    for (let i = 1; i <= totalPages; i++) {
-                        pdf.setPage(i);
-                        if (isSetHeader.value == 1) {
-                            pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
-                            pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);
-                        }
-                    }
-                });
-
-                await worker.save();
-            } catch (err) {
-                console.error('PDF generation failed:', err);
-                alert('خطا در تولید PDF.');
-            } finally {
-                resetViewport();
-                if (loadingElement) loadingElement.classList.add('hidden');
+                headerImage = headerCanvas.toDataURL('image/png');
             }
+            if (footerElement) {
+                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+                footerImage = footerCanvas.toDataURL('image/png');
+            }
+        } catch (error) {
+            console.error("Error loading header or footer:", error);
+            isSetHeader.value = 0; // If there's any issue, disable the header/footer flag
+        }
+    }
+
+    const loadingElement = document.querySelector('.pdf-loading');
+
+    try {
+        if (loadingElement) loadingElement.classList.remove('hidden');
+
+        var window_Width = element.scrollWidth;
+
+        if (window.innerWidth < 768) {
+            window_Width = 768;
         }
 
-            </script>
+        const opt = {
+            margin: [30, 10, 30, 10],
+            filename: pdfFileName.value || "reservationDoc.pdf",
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: {
+                scale: 1,
+                width: 794,
+                windowWidth: window_Width,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                letterRendering: true,
+                ignoreElements: (el) =>
+                    ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+                    el.classList.contains('pdf-loading'),
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait',
+                hotfixes: ['px_scaling']
+            },
+            pagebreak: {
+                mode: ['css', 'legacy'], // Use both CSS and legacy mode
+                before: '.page-break-before',
+                after: '.page-break-after',
+                avoid: '.avoid-break'
+            }
+        };
+
+        // Generate the PDF
+        const worker = html2pdf().set(opt).from(element).toPdf();
+
+        // Add header and footer images if they exist
+        worker.get('pdf').then((pdf) => {
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                // Add header and/or footer based on availability
+                if (headerImage) {
+                    pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
+                }
+                if (footerImage) {
+                    pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);  // x, y, width, height
+                }
+            }
+        });
+
+        await worker.save();
+    } catch (err) {
+        console.error('PDF generation failed:', err);
+        alert('خطا در تولید PDF.');
+    } finally {
+        resetViewport();
+        if (loadingElement) loadingElement.classList.add('hidden');
+    }
+}
+
+   
+    </script>
 
         <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
         <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>

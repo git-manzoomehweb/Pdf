@@ -120,20 +120,29 @@ function translateHeaderTitles(t) {
     if (text === 'invoice number') title.textContent = t.invoiceNumber;
     if (text === 'pnr code') title.textContent = t.pnrCode;
     if (text === 'eticket number') title.textContent = t.eticketNumber;
-    if (text === 'date of issue:') title.textContent = t.dateOfIssue + ':';
+    if (text === 'date of issue:') title.textContent = t.dateOfIssue ;
   });
 }
 
 function translateTicketTitles(t, invoice = null) {
   // عناوین (Passenger / Age / National Code / Seat)
   const ticketTitles = document.querySelectorAll('.ticketContainer__details__head__item__title');
-  ticketTitles.forEach(title => {
-    const raw = title.textContent.trim().replace(':','').toLowerCase();
-    if (raw.includes('passenger')) title.textContent = t.passenger + ':';
-    if (raw === 'age') title.textContent = t.age;
-    if (raw.includes('national code')) title.textContent = t.nationalCode + ':';
-    if (raw.includes('seat')) title.textContent = t.seat + ':';
-  });
+  // ticketTitles.forEach(title => {
+  //   const raw = title.textContent.trim().replace(':','').toLowerCase();
+  //   if (raw.includes('passenger')) title.textContent = t.passenger + ':';
+  //   if (raw === 'age') title.textContent = t.age;
+  //   if (raw.includes('national code')) title.textContent = t.nationalCode + ':';
+  //   if (raw.includes('seat')) title.textContent = t.seat + ':';
+  // });
+ticketTitles.forEach(title => {
+  const raw = title.textContent.trim().replace(':','').toLowerCase();
+
+  if (raw.includes('passenger')) title.innerHTML = `${t.passenger}<span class="inline-block">:</span>`;
+  if (raw === 'age') title.innerHTML = `${t.age}<span class="inline-block">:</span>`
+  if (raw.includes('national code')) title.innerHTML = `${t.nationalCode}<span class="inline-block">:</span>`;
+  if (raw.includes('seat')) title.innerHTML = `${t.seat}<span class="inline-block">:</span>`;
+});
+  
 
 
   const routeTitles = document.querySelectorAll('.ticketContainer__details__time:not(#from-to-yellow-bar)');
@@ -167,11 +176,18 @@ function translatePriceTitles(t) {
   }
 
   const priceLabels = document.querySelectorAll('.ticketContainer__info__details__title');
+  // priceLabels.forEach(label => {
+  //   label.innerHTML = label.innerHTML.replace('Base Price:', t.basePrice + ':');
+  //   label.innerHTML = label.innerHTML.replace('Tax:', t.tax + ':');
+  //   label.innerHTML = label.innerHTML.replace('Total:', t.total + ':');
+  // });
+
   priceLabels.forEach(label => {
-    label.innerHTML = label.innerHTML.replace('Base Price:', t.basePrice + ':');
-    label.innerHTML = label.innerHTML.replace('Tax:', t.tax + ':');
-    label.innerHTML = label.innerHTML.replace('Total:', t.total + ':');
-  });
+  label.innerHTML = label.innerHTML.replace('Base Price:', `${t.basePrice}<span class="inline-block">:</span>`);
+  label.innerHTML = label.innerHTML.replace('Tax:', `${t.tax}<span class="inline-block">:</span>`);
+  label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span class="inline-block">:</span>`);
+});
+
 }
 
 // ======================= Toggle Price (single) =====================
@@ -354,9 +370,9 @@ async function arrive_date_info($data , invoicetype , lid) {
   const arrive_date_S = $data[len - 1].route.routeDate.sstring;
   const arrive_dtime = $data[len - 1].route.atime || "";
   if(invoicetype === 8){
-    return `<span id="landingDate" class=" text-sm">${arrive_date_S}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`;
+    return `<span id="landingDate" class=" text-sm" style="direction: ltr !important;display: inline-block;" >${arrive_date_S}</span> | <span id="landingTime" class=" text-sm" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`;
   }else{
-    return `<span id="landingDate" class=" text-sm">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm">${arrive_dtime}</span>`;
+    return `<span id="landingDate" class=" text-sm" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`;
   }
 }
 
@@ -467,7 +483,7 @@ function convertDateFormat(mstring, sstring, lid) {
     const persianDay = persianParts[2];
     const persianMonthNames = ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
     const persianMonth = persianMonthNames[persianMonthNum - 1] || "";
-    return `${persianDay} ${persianMonth} ${persianYear} (${gregorianOutput})`;
+    return ` <span class="inline-block ">${persianDay} ${persianMonth} ${persianYear} </span> <span class="inline-block dir-ltr">(${gregorianOutput})</span>`;
   } catch {
     return mstring || sstring || "";
   }
