@@ -309,89 +309,121 @@
             window.location.reload();
         }
 
+        function enforceLRMAroundParens(root = document) {
+            root.querySelectorAll('.dir-ltr, .bidi-ltr').forEach(el => {
+                // متن را می‌گیریم ولی تگ‌های داخلی را خراب نکنیم: فقط وقتی متن ساده است
+                if (el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE) {
+                el.textContent = '\u200E(' + el.textContent.replace(/[()]/g, '').trim() + ')\u200E';
+                } else {
+                // نسخه امن‌تر: فقط کاراکترهای ( و ) را با LRM مهار کنیم
+                el.innerHTML = el.innerHTML
+                    .replace(/\(/g, '\u200E(')
+                    .replace(/\)/g, ')\u200E');
+                }
+            });
+        }
+            
         async function generatePDF() {
-            setFixedViewport();
-            const element = document.querySelector('.pdf-content');
+    setFixedViewport();
+    const pdfConfig = document.querySelector('.pdf-config');
+    const pdfFileName = pdfConfig.querySelector('#name');
+    const isSetHeader = pdfConfig.querySelector('#header');
+
+    const element = document.querySelector('.pdf-content');
+    
+    let headerImage = null;
+    let footerImage = null;
+
+    if (isSetHeader.value == 1) {
+        try {
             const headerElement = document.querySelector('#pdf-header').querySelector("img");
             const footerElement = document.querySelector('#pdf-footer').querySelector("img");
-            const loadingElement = document.querySelector('.pdf-loading');
 
-            try {
-                if (loadingElement) loadingElement.classList.remove('hidden');
-
-                const pdfConfig = document.querySelector('.pdf-config');
-                const pdfFileName = pdfConfig.querySelector('#name');
-                const isSetHeader = pdfConfig.querySelector('#header');
-
-var window_Width = element.scrollWidth;
-
-if (window.innerWidth < 768) {
-
-    window_Width = 768;
-
-}
-
-                const opt = {
-                    margin: [30, 10, 30, 10],
-                    filename: pdfFileName.value || "reservationDoc.pdf",
-                    image: { type: 'jpeg', quality: 1 },
-                    html2canvas: {
-                        scale: 1,
-                        width: 794,
-                        windowWidth: window_Width,
-                        useCORS: true,
-                        backgroundColor: '#ffffff',
-                        scrollX: 0,
-                        scrollY: 0,
-                        letterRendering: true,
-                        ignoreElements: (el) =>
-                            ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
-                            el.classList.contains('pdf-loading'),
-                    },
-                    jsPDF: {
-                        unit: 'mm',
-                        format: 'a4',
-                        orientation: 'portrait',
-                        hotfixes: ['px_scaling']
-                    },
-                    pagebreak: {
-                        mode: ['css', 'legacy'], // Use both CSS and legacy mode
-                        before: '.page-break-before',
-                        after: '.page-break-after',
-                        avoid: '.avoid-break'
-                    }
-                };
-
+            // Check if both header and footer have images
+            if (headerElement) {
                 const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
-
-                const headerImage = headerCanvas.toDataURL('image/png');
-                const footerImage = footerCanvas.toDataURL('image/png');
-
-                // ایجاد PDF از عنصر
-                const worker = html2pdf().set(opt).from(element).toPdf();
-
-                // افزودن هدر و فوتر به تمام صفحات
-                worker.get('pdf').then((pdf) => {
-                    const totalPages = pdf.internal.getNumberOfPages();
-                    for (let i = 1; i <= totalPages; i++) {
-                        pdf.setPage(i);
-                        if (isSetHeader.value == 1) {
-                            pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
-                            pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);
-                        }
-                    }
-                });
-
-                await worker.save();
-            } catch (err) {
-                console.error('PDF generation failed:', err);
-                alert('خطا در تولید PDF.');
-            } finally {
-                resetViewport();
-                if (loadingElement) loadingElement.classList.add('hidden');
+                headerImage = headerCanvas.toDataURL('image/png');
             }
+            if (footerElement) {
+                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+                footerImage = footerCanvas.toDataURL('image/png');
+            }
+        } catch (error) {
+            console.error("Error loading header or footer:", error);
+            isSetHeader.value = 0; // If there's any issue, disable the header/footer flag
         }
+    }
+
+    const loadingElement = document.querySelector('.pdf-loading');
+
+    try {
+        if (loadingElement) loadingElement.classList.remove('hidden');
+
+        var window_Width = element.scrollWidth;
+
+        if (window.innerWidth < 768) {
+            window_Width = 768;
+        }
+
+        const opt = {
+            margin: [30, 10, 30, 10],
+            filename: pdfFileName.value || "reservationDoc.pdf",
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: {
+                scale: 1,
+                width: 794,
+                windowWidth: window_Width,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                letterRendering: true,
+                ignoreElements: (el) =>
+                    ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+                    el.classList.contains('pdf-loading'),
+            },
+            jsPDF: {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait',
+                hotfixes: ['px_scaling']
+            },
+            pagebreak: {
+                mode: ['css', 'legacy'], // Use both CSS and legacy mode
+                before: '.page-break-before',
+                after: '.page-break-after',
+                avoid: '.avoid-break'
+            }
+        };
+
+        // Generate the PDF
+        const worker = html2pdf().set(opt).from(element).toPdf();
+
+        // Add header and footer images if they exist
+        worker.get('pdf').then((pdf) => {
+            const totalPages = pdf.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                // Add header and/or footer based on availability
+                if (headerImage) {
+                    pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
+                }
+                if (footerImage) {
+                    pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);  // x, y, width, height
+                }
+            }
+        });
+
+        await worker.save();
+    } catch (err) {
+        console.error('PDF generation failed:', err);
+        alert('خطا در تولید PDF.');
+    } finally {
+        resetViewport();
+        if (loadingElement) loadingElement.classList.add('hidden');
+    }
+}
+   
 
     </script>
 

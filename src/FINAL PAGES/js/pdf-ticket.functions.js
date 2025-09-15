@@ -740,7 +740,7 @@ async function arrive_date_info($data , invoicetype , lid) {
     var arrive_date_S = $data[len - 1].route.routeDate.sstring
     var arrive_dtime = $data[len - 1].route.atime
     if(invoicetype === 8){
-        return `<span id="landingDate" class=" text-sm max-sm:text-xs" >${arrive_date_S}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs">${arrive_dtime}</span>`
+        return `<span id="landingDate" class=" text-sm max-sm:text-xs" >${arrive_date}</span><span class="inline-block">(<span class="inline-block"> ${arrive_date_S} </span>)</span> | <span id="landingTime" class=" text-sm max-sm:text-xs">${arrive_dtime}</span>`
     }else{
         return `<span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`
     }

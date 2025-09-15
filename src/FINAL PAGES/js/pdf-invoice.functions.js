@@ -301,13 +301,469 @@ function setInvoiceType(type) {
 
 
 
+// const invoiceTranslations = {
+// 1: {
+//     // فارسی
+
+//     tourDetailsTitle: "جزئیات تور / Tour Details",
+//     tourType: "نوع تور / Tour Type",
+//     appropriate: "مناسب برای / Appropriate For", 
+//     tourServices: "خدمات تور / Tour Services",
+//     difficulty: "سطح سختی / Difficulty Level",
+//     itinerary: "برنامه سفر / Itinerary",
+//     day: "روز",
+
+//     dir: "rtl",
+//     textAlign: "text-right",
+//     centerText: "text-center",
+//     // Invoice Details
+//     contractTitle: "قرارداد ارائه خدمات مسافرتی و گردشگری",
+//     contractNumber: "شماره قرارداد",
+//     registerDate: "تاریخ ثبت : ",
+//     registerTime: "ساعت ثبت :",
+//     counterName: "نام کانتر :",
+//     buyerName: "نام خریدار :",
+//     address: "آدرس :",
+//     addresstitle: "آدرس <br/> Address",
+//     phone: "تلفن :",
+//     phonetitle: "تلفن <br/> phone",
+//     email: "ایمیل :",
+//     mobile: "موبایل :",
+//     mobiletitle: "موبایل / mobile",
+//     serviceType: "نوع خدمات :",
+//     description: "توضیحات <br/> Description" ,
+//     // Bill Section
+//     totalCostTable: "جدول قیمت کلی / Table Cost Table",
+//     totalCost: "قیمت کل <br/> Total Cost",
+//     commission: "کمیسیون <br/> commission",
+//     discount: "تخفیف <br/> Discount",
+//     discountCode: "کد تخفیف <br/> Discount Code" ,
+//     costByCommission: "مبلغ قابل پرداخت با کسر کمیسیون <br/> Cost By Commission",
+//     unit: "واحد <br/> Unit",
+
+//     // titles
+//     transfertitle: "جدول قیمت ترنسفر / Cost Table By transfers" ,
+//     servicetitle: "جدول قیمت خدمات / Cost Table By services" ,
+//     escorttitle: "جدول قیمت مشایعت کننده / Cost Table By Escort" ,
+//     totalpricetitle: "جدول قیمت کلی / Table Cost Table" ,
+//   passengerType : "محدوده سنی مسافر <br/> Age Range",
+//   escortName: "مشایعت کننده <br /> Escort",
+//   transferNameColumn: "نام ترانسفر <br/> Transfer Name",
+
+//   travelType: "نوع سفر  ",
+//   flightType: "نوع پرواز  ",
+//     // Flight
+//     from: "از",
+//     to: "به",
+//     date: "تاریخ",
+//     exitTime: "زمان خروج",
+//     flightNo: "شماره پرواز",
+//     arrivalTime: "زمان ورود",
+//     airline: "ایرلاین",
+//     flightClass: "کلاس پرواز",
+//     departureFlight: "پرواز رفت",
+//     returnFlight: "پرواز برگشت",
+//     // Hotel
+//     hotel: "هتل",
+//     hoteltitle: "هتل <br/> Hotel",
+//     grade: "درجه",
+//     services: "خدمات",
+//     roomType: "نوع اتاق",
+//     city: "شهر ",
+//     room: " اتاق",
+//     roomtitle: " اتاق <br/> Room ",
+//     passengers: "مسافران ",
+//     checkIn: "ورود ",
+//     checkOut: "خروج ",
+//     roomsList: "لیست اتاق‌ها",
+//     // Train
+//     departureTrain: " یکطرفه قطار اطلاعات / One-Way Train Information ",
+//     returnTrain: " دوطرفه قطار اطلاعات / Return Train Information " ,
+//     routeCode: "کد مسیر ",
+//     routeCodeFlight: "شماره پرواز",
+//     routeCodeTrain: "شماره قطار",
+//     trainName: "نام قطار",
+//     class: "کلاس",
+//     // Insurance
+//     travelInsurance: "بیمه مسافرتی / Travel Insurance",
+//     country: "کشور",
+//     name: "نام",
+//     insname: "عنوان بیمه",
+//     duration: "مدت",
+//     provider: "ارائه‌دهنده",
+//     // CIP
+//     cipServices: "Lounge Information / lounge اطلاعات",
+//     lounge: "CIP",
+//     airport: "فرودگاه",
+//     time: "زمان",
+//     timetitle: "زمان <br/> Time",
+//     // Service
+//     service: "خدمات <br/> Services",
+//     serviceNamecolumn: "نام خدمت <br/> Service Name",
+//     serviceName: "خدمات",
+//     // Visa
+//     visaServices: "خدمات ویزا",
+//     visaName: "نام ویزا",
+//     application: "درخواست",
+//     type: "نوع",
+//     visit: "بازدید",
+//     validity: "اعتبار",
+//     documents: "مدارک",
+//     // Passengers
+//     passengerInfo: "لیست مسافران / Passengers Information",
+//     firstName: "نام <br/> Name",
+//     lastName: "نام خانوادگی <br/> Surname",
+//     dateOfBirth: "تاریخ تولد <br/> Date Of Birth",
+//     nationalCode: "کد ملی <br/> National Code",
+//     passportNo: "شماره پاسپورت <br/> Passport NO",
+//     passportExpiry: "اعتبار پاسپورت <br/> Expiration Date Of Passport ",
+//     issueCountry: "کشور صدور <br/> Country ",
+//     gender: "جنسیت <br/> Gender",
+//     ageType: "محدوده سنی مسافر <br/> Age Range",
+//     cost: "هزینه <br/> Cost",
+//     transferInfo: "اطلاعات ترانسفر",
+//     insuranceInfo: "اطلاعات بیمه",
+//     // Room passengers
+//     roomNumber: "اتاق {number}",
+//     surname: "نام خانوادگی",
+//     passportExpiryDate: "تاریخ انقضای پاسپورت",
+//     ageRange: "محدوده سنی مسافر <br/> Age Range",
+//     // Price details
+//     costTableByProduct: "جدول قیمت به تفکیک محصولات / Product By Table Cost",
+//     flight: "پرواز <br/> Flight",
+//     insurance: "بیمه <br/> Insurance",
+//     transfer: "ترانسفر <br/> Transfer",
+//     visa: "ویزا <br/> Visa",
+//     adultInfo: "اطلاعات بزرگسال",
+//     adultTicketInfo: "اطلاعات بلیط بزرگسال",
+//     passengerPricing: "جدول قیمت به تفکیک نفرات / Passengers By Table Cost",
+//     roomspricing: "جدول قیمت به تفکیک نفرات - اتاق / ROMM - Passengers By Table Cost",
+//     count: "تعداد <br/> Count",
+//     perPerson: "قیمت واحد <br/> Unit Cost",
+//     total: "مجموع <br/> Total",
+//     escortInfo: "اطلاعات اسکورت",
+//     carName: "نام خودرو",
+//   // buss
+//     departureBus: "اطلاعات مسیر رفت اتوبوس",
+// returnBus: "اطلاعات مسیر برگشت اتوبوس",
+// busOperator: "شرکت حمل و نقل",
+// routeCodeBus: "کد مسیر",
+
+//     // Contract text
+//     contractText: {
+//       "template": "این قرارداد فی مابین خانم/آقای {buyerName} دارای شماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفرداً یا به نمایندگی تام الاختیار از سوی افراد ذیل جمعاً به تعداد {personCount} نفر که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">گردشگر</span>\" نامیده می‌شود از یک طرف و دفتر {officeName} که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">کارگزار</span>\" نامیده می‌شود، به صورت <span class=\"inline-block font-dana_FANum_demibold mx-1\">خرید اینترنتی</span> منعقد گردیده است."
+//     }
+//   },
+//   2: {
+//     // English
+//     tourDetailsTitle: "Tour Details",
+//     tourType: "Tour Type",
+//     appropriate: "Appropriate For",
+//     tourServices: "Tour Services", 
+//     difficulty: "Difficulty Level",
+//     itinerary: "Itinerary",
+//     day: "Day",
+
+//     dir: "ltr",
+//     textAlign: "text-left",
+//     centerText: "text-center",
+//     contractTitle: "Travel and Tourism Services Agreement",
+//     contractNumber: "Contract Number:",
+//     registerDate: "Register Date:",
+//     registerTime: "Register Time:",
+//     counterName: "Counter Name:",
+//     buyerName: "Buyer Name:",
+//     address: "Address:",
+//     addresstitle: "Address",
+//     phone: "Phone:",
+//     phonetitle: "Phone",
+//     email: "Email:",
+//     mobile: "Mobile:",
+//     mobiletitle: "Mobile",
+//     serviceType: "Service Type:",
+//     description: "Description:",
+
+//     totalCostTable: "Table Cost",
+//     totalCost: "Total Cost",
+//     commission: "Commission",
+//     discount: "Discount",
+//     discountCode: "Discount Code",
+//     costByCommission: "Payable After Commission",
+//     unit: "Unit",
+
+//     transfertitle: "Transfer Cost Table",
+//     servicetitle: "Services Cost Table",
+//     escorttitle: "Escort Cost Table",
+//     totalpricetitle: "Total Price Table",
+//     passengerType: "Age Range",
+//     escortName: "Escort",
+//     transferNameColumn: "Transfer Name",
+
+//     travelType: "Travel Type",
+//     flightType: "Flight Type",
+
+//     from: "From",
+//     to: "To",
+//     date: "Date",
+//     exitTime: "Departure Time",
+//     flightNo: "Flight No",
+//     arrivalTime: "Arrival Time",
+//     airline: "Airline",
+//     flightClass: "Flight Class",
+//     departureFlight: "Departure Flight",
+//     returnFlight: "Return Flight",
+
+//     hotel: "Hotel",
+//     hoteltitle: "Hotel",
+//     grade: "Grade",
+//     services: "Services",
+//     roomType: "Room Type",
+//     city: "City",
+//     room: "Room",
+//     roomtitle: "Room",
+//     passengers: "Passengers",
+//     checkIn: "Check-In",
+//     checkOut: "Check-Out",
+//     roomsList: "Rooms List",
+
+//     departureTrain: "One-Way Train Information",
+//     returnTrain: "Return Train Information",
+//     routeCode: "Route Code",
+//     routeCodeFlight: "Flight NO",
+//     routeCodeTrain: "Train NO",
+//     trainName: "Train Name",
+//     class: "Class",
+
+//     travelInsurance: "Travel Insurance",
+//     country: "Country",
+//     name: "Name",
+//     insname: "Insurance Name",
+//     duration: "Duration",
+//     provider: "Provider",
+
+//     cipServices: "Lounge Information",
+//     lounge: "CIP",
+//     airport: "Airport",
+//     time: "Time",
+//     timetitle: "Time",
+
+//     service: "Services",
+//     serviceNamecolumn: "Service Name",
+//     serviceName: "Service",
+
+//     visaServices: "Visa Services",
+//     visaName: "Visa Name",
+//     application: "Application",
+//     type: "Type",
+//     visit: "Visit",
+//     validity: "Validity",
+//     documents: "Documents",
+
+//     passengerInfo: "Passengers Information",
+//     firstName: "Name",
+//     lastName: "Surname",
+//     dateOfBirth: "Date of Birth",
+//     nationalCode: "National Code",
+//     passportNo: "Passport No",
+//     passportExpiry: "Passport Expiry",
+//     issueCountry: "Country",
+//     gender: "Gender",
+//     ageType: "Age Range",
+//     cost: "Cost",
+//     transferInfo: "Transfer Info",
+//     insuranceInfo: "Insurance Info",
+
+//     roomNumber: "Room {number}",
+//     surname: "Surname",
+//     passportExpiryDate: "Passport Expiry",
+//     ageRange: "Age Range",
+
+//     costTableByProduct: "Product Cost Table",
+//     flight: "Flight",
+//     insurance: "Insurance",
+//     transfer: "Transfer",
+//     visa: "Visa",
+//     adultInfo: "Adult Info",
+//     adultTicketInfo: "Adult Ticket Info",
+//     passengerPricing: "Passengers Cost Table",
+//     roomspricing: "Room - Passengers Cost Table",
+//     count: "Count",
+//     perPerson: "Unit Cost",
+//     total: "Total",
+//     escortInfo: "Escort Info",
+//     carName: "Car Name",
+
+//     departureBus: "One-Way Bus Information",
+// returnBus: "Return Bus Information",
+// busOperator: "Bus Operator",
+// routeCodeBus: "Bus No",
+
+//     contractText: {
+//       template:
+//         "This agreement is concluded between Mr./Ms. {buyerName}, with landline {phone}, mobile {mobile}, and address {address}, either individually or as an authorized representative of the following individuals (total {personCount} persons), hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Traveler</span>\", and the office {officeName}, hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Agent</span>\", concluded as an <span class='inline-block font-danademibold mx-1'>online purchase</span>."
+//     }
+//   },
+//   3: {
+//     // Arabic
+
+//     tourDetailsTitle: "تفاصيل الجولة",
+//     tourType: "نوع الجولة",
+//     appropriate: "مناسب لـ",
+//     tourServices: "خدمات الجولة",
+//     difficulty: "مستوى الصعوبة", 
+//     itinerary: "برنامج الرحلة",
+//     day: "يوم",
+
+//     dir: "rtl",
+//     textAlign: "text-right",
+//     centerText: "text-center",
+//     contractTitle: "عقد خدمات السفر والسياحة",
+//     contractNumber: "رقم العقد:",
+//     registerDate: "تاريخ التسجيل:",
+//     registerTime: "وقت التسجيل:",
+//     counterName: "اسم الموظف:",
+//     buyerName: "اسم المشتري:",
+//     address: "العنوان:",
+//     addresstitle: "العنوان",
+//     phone: "الهاتف:",
+//     phonetitle: "الهاتف",
+//     email: "البريد الإلكتروني:",
+//     mobile: "الجوال:",
+//     mobiletitle: "الجوال",
+//     serviceType: "نوع الخدمة:",
+//     description: "الوصف:",
+
+//     totalCostTable: "جدول التكلفة",
+//     totalCost: "التكلفة الإجمالية",
+//     commission: "العمولة",
+//     discount: "الخصم",
+//     discountCode: "رمز الخصم",
+//     costByCommission: "المبلغ المستحق بعد العمولة",
+//     unit: "الوحدة",
+
+//     transfertitle: "جدول تكلفة النقل",
+//     servicetitle: "جدول تكلفة الخدمات",
+//     escorttitle: "جدول تكلفة المرافق",
+//     totalpricetitle: "جدول السعر الإجمالي",
+//     passengerType: "الفئة العمرية",
+//     escortName: "المرافق",
+//     transferNameColumn: "اسم النقل",
+
+//     travelType: "نوع الرحلة",
+//     flightType: "نوع الطيران",
+
+//     from: "من",
+//     to: "إلى",
+//     date: "التاريخ",
+//     exitTime: "وقت المغادرة",
+//     flightNo: "رقم الرحلة",
+//     arrivalTime: "وقت الوصول",
+//     airline: "شركة الطيران",
+//     flightClass: "درجة الطيران",
+//     departureFlight: "رحلة الذهاب",
+//     returnFlight: "رحلة العودة",
+
+//     hotel: "الفندق",
+//     hoteltitle: "الفندق",
+//     grade: "الدرجة",
+//     services: "الخدمات",
+//     roomType: "نوع الغرفة",
+//     city: "المدينة",
+//     room: "الغرفة",
+//     roomtitle: "الغرفة",
+//     passengers: "الركاب",
+//     checkIn: "الدخول",
+//     checkOut: "الخروج",
+//     roomsList: "قائمة الغرف",
+
+//     departureTrain: "معلومات القطار - ذهاب",
+//     returnTrain: "معلومات القطار - عودة",
+//     routeCode: "رمز المسار",
+//     routeCodeFlight: "رقم الرحلة",
+//         routeCodeTrain: "رقم القطار",
+
+//     trainName: "اسم القطار",
+//     class: "الدرجة",
+
+//     travelInsurance: "تأمين السفر",
+//     country: "البلد",
+//     name: "الاسم",
+//     insname: "اسم التأمين",
+//     duration: "المدة",
+//     provider: "المزود",
+
+//     cipServices: "معلومات الصالة",
+//     lounge: "CIP",
+//     airport: "المطار",
+//     time: "الوقت",
+//     timetitle: "الوقت",
+
+//     service: "الخدمات",
+//     serviceNamecolumn: "اسم الخدمة",
+//     serviceName: "الخدمة",
+
+//     visaServices: "خدمات التأشيرات",
+//     visaName: "اسم التأشيرة",
+//     application: "طلب",
+//     type: "النوع",
+//     visit: "زيارة",
+//     validity: "الصلاحية",
+//     documents: "المستندات",
+
+//     passengerInfo: "معلومات الركاب",
+//     firstName: "الاسم",
+//     lastName: "الكنية",
+//     dateOfBirth: "تاريخ الميلاد",
+//     nationalCode: "الرقم الوطني",
+//     passportNo: "رقم الجواز",
+//     passportExpiry: "انتهاء الجواز",
+//     issueCountry: "بلد الإصدار",
+//     gender: "الجنس",
+//     ageType: "الفئة العمرية",
+//     cost: "التكلفة",
+//     transferInfo: "معلومات النقل",
+//     insuranceInfo: "معلومات التأمين",
+
+//     roomNumber: "الغرفة {number}",
+//     surname: "الكنية",
+//     passportExpiryDate: "تاريخ انتهاء الجواز",
+//     ageRange: "الفئة العمرية",
+
+//     costTableByProduct: "جدول التكلفة حسب المنتج",
+//     flight: "الطيران",
+//     insurance: "التأمين",
+//     transfer: "النقل",
+//     visa: "التأشيرة",
+//     adultInfo: "معلومات البالغين",
+//     adultTicketInfo: "معلومات تذكرة البالغ",
+//     passengerPricing: "جدول تكلفة الركاب",
+//     roomspricing: "الغرفة - جدول تكلفة الركاب",
+//     count: "العدد",
+//     perPerson: "سعر الفرد",
+//     total: "الإجمالي",
+//     escortInfo: "معلومات المرافق",
+//     carName: "اسم السيارة",
+
+//     departureBus: "معلومات الحافلة - ذهاب",
+// returnBus: "معلومات الحافلة - عودة",
+// busOperator: "مشغل الحافلة",
+// routeCodeBus: "رقم الحافلة",
+
+//     contractText: {
+//       template:
+//         "تم توقيع هذا العقد بين السيد/السيدة {buyerName}، برقم هاتف ثابت {phone} وجوال {mobile}، وعنوان {address}، بصفته فرداً أو ممثلاً قانونياً للمذكورين أدناه وعددهم الإجمالي {personCount}، ويُشار إليه فيما بعد بـ \"<span class='inline-block font-danademibold mx-1'>السائح</span>\"، وبين مكتب {officeName}، ويُشار إليه بـ \"<span class='inline-block font-danademibold mx-1'>المزوّد</span>\"، وذلك عن طريق <span class='inline-block font-danademibold mx-1'>الشراء الإلكتروني</span>."
+//     }
+//   }
+// };
+
+
 const invoiceTranslations = {
-1: {
+  1: {
     // فارسی
 
     tourDetailsTitle: "جزئیات تور / Tour Details",
     tourType: "نوع تور / Tour Type",
-    appropriate: "مناسب برای / Appropriate For", 
+    appropriate: "مناسب برای / Appropriate For",
     tourServices: "خدمات تور / Tour Services",
     difficulty: "سطح سختی / Difficulty Level",
     itinerary: "برنامه سفر / Itinerary",
@@ -319,39 +775,39 @@ const invoiceTranslations = {
     // Invoice Details
     contractTitle: "قرارداد ارائه خدمات مسافرتی و گردشگری",
     contractNumber: "شماره قرارداد",
-    registerDate: "تاریخ ثبت : ",
-    registerTime: "ساعت ثبت :",
-    counterName: "نام کانتر :",
-    buyerName: "نام خریدار :",
-    address: "آدرس :",
+    registerDate: "تاریخ ثبت <span class=\"inline-block\">:</span> ",
+    registerTime: "ساعت ثبت <span class=\"inline-block\">:</span>",
+    counterName: "نام کانتر <span class=\"inline-block\">:</span>",
+    buyerName: "نام خریدار <span class=\"inline-block\">:</span>",
+    address: "آدرس <span class=\"inline-block\">:</span>",
     addresstitle: "آدرس <br/> Address",
-    phone: "تلفن :",
+    phone: "تلفن <span class=\"inline-block\">:</span>",
     phonetitle: "تلفن <br/> phone",
-    email: "ایمیل :",
-    mobile: "موبایل :",
+    email: "ایمیل <span class=\"inline-block\">:</span>",
+    mobile: "موبایل <span class=\"inline-block\">:</span>",
     mobiletitle: "موبایل / mobile",
-    serviceType: "نوع خدمات :",
-    description: "توضیحات <br/> Description" ,
+    serviceType: "نوع خدمات <span class=\"inline-block\">:</span>",
+    description: "توضیحات <br/> Description",
     // Bill Section
     totalCostTable: "جدول قیمت کلی / Table Cost Table",
     totalCost: "قیمت کل <br/> Total Cost",
     commission: "کمیسیون <br/> commission",
     discount: "تخفیف <br/> Discount",
-    discountCode: "کد تخفیف <br/> Discount Code" ,
+    discountCode: "کد تخفیف <br/> Discount Code",
     costByCommission: "مبلغ قابل پرداخت با کسر کمیسیون <br/> Cost By Commission",
     unit: "واحد <br/> Unit",
 
     // titles
-    transfertitle: "جدول قیمت ترنسفر / Cost Table By transfers" ,
-    servicetitle: "جدول قیمت خدمات / Cost Table By services" ,
-    escorttitle: "جدول قیمت مشایعت کننده / Cost Table By Escort" ,
-    totalpricetitle: "جدول قیمت کلی / Table Cost Table" ,
-  passengerType : "محدوده سنی مسافر <br/> Age Range",
-  escortName: "مشایعت کننده <br /> Escort",
-  transferNameColumn: "نام ترانسفر <br/> Transfer Name",
+    transfertitle: "جدول قیمت ترنسفر / Cost Table By transfers",
+    servicetitle: "جدول قیمت خدمات / Cost Table By services",
+    escorttitle: "جدول قیمت مشایعت کننده / Cost Table By Escort",
+    totalpricetitle: "جدول قیمت کلی / Table Cost Table",
+    passengerType: "محدوده سنی مسافر <br/> Age Range",
+    escortName: "مشایعت کننده <br /> Escort",
+    transferNameColumn: "نام ترانسفر <br/> Transfer Name",
 
-  travelType: "نوع سفر  ",
-  flightType: "نوع پرواز  ",
+    travelType: "نوع سفر  ",
+    flightType: "نوع پرواز  ",
     // Flight
     from: "از",
     to: "به",
@@ -378,7 +834,7 @@ const invoiceTranslations = {
     roomsList: "لیست اتاق‌ها",
     // Train
     departureTrain: " یکطرفه قطار اطلاعات / One-Way Train Information ",
-    returnTrain: " دوطرفه قطار اطلاعات / Return Train Information " ,
+    returnTrain: " دوطرفه قطار اطلاعات / Return Train Information ",
     routeCode: "کد مسیر ",
     routeCodeFlight: "شماره پرواز",
     routeCodeTrain: "شماره قطار",
@@ -443,15 +899,16 @@ const invoiceTranslations = {
     total: "مجموع <br/> Total",
     escortInfo: "اطلاعات اسکورت",
     carName: "نام خودرو",
-  // buss
+    // buss
     departureBus: "اطلاعات مسیر رفت اتوبوس",
-returnBus: "اطلاعات مسیر برگشت اتوبوس",
-busOperator: "شرکت حمل و نقل",
-routeCodeBus: "کد مسیر",
+    returnBus: "اطلاعات مسیر برگشت اتوبوس",
+    busOperator: "شرکت حمل و نقل",
+    routeCodeBus: "کد مسیر",
 
     // Contract text
     contractText: {
-      "template": "این قرارداد فی مابین خانم/آقای {buyerName} دارای شماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفرداً یا به نمایندگی تام الاختیار از سوی افراد ذیل جمعاً به تعداد {personCount} نفر که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">گردشگر</span>\" نامیده می‌شود از یک طرف و دفتر {officeName} که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">کارگزار</span>\" نامیده می‌شود، به صورت <span class=\"inline-block font-dana_FANum_demibold mx-1\">خرید اینترنتی</span> منعقد گردیده است."
+      template:
+        "این قرارداد فی مابین خانم/آقای {buyerName} دارای شماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفرداً یا به نمایندگی تام الاختیار از سوی افراد ذیل جمعاً به تعداد {personCount} نفر که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">گردشگر</span>\" نامیده می‌شود از یک طرف و دفتر {officeName} که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">کارگزار</span>\" نامیده می‌شود، به صورت <span class=\"inline-block font-dana_FANum_demibold mx-1\">خرید اینترنتی</span> منعقد گردیده است."
     }
   },
   2: {
@@ -459,7 +916,7 @@ routeCodeBus: "کد مسیر",
     tourDetailsTitle: "Tour Details",
     tourType: "Tour Type",
     appropriate: "Appropriate For",
-    tourServices: "Tour Services", 
+    tourServices: "Tour Services",
     difficulty: "Difficulty Level",
     itinerary: "Itinerary",
     day: "Day",
@@ -468,20 +925,20 @@ routeCodeBus: "کد مسیر",
     textAlign: "text-left",
     centerText: "text-center",
     contractTitle: "Travel and Tourism Services Agreement",
-    contractNumber: "Contract Number:",
-    registerDate: "Register Date:",
-    registerTime: "Register Time:",
-    counterName: "Counter Name:",
-    buyerName: "Buyer Name:",
-    address: "Address:",
+    contractNumber: "Contract Number<span class=\"inline-block\">:</span>",
+    registerDate: "Register Date<span class=\"inline-block\">:</span>",
+    registerTime: "Register Time<span class=\"inline-block\">:</span>",
+    counterName: "Counter Name<span class=\"inline-block\">:</span>",
+    buyerName: "Buyer Name<span class=\"inline-block\">:</span>",
+    address: "Address<span class=\"inline-block\">:</span>",
     addresstitle: "Address",
-    phone: "Phone:",
+    phone: "Phone<span class=\"inline-block\">:</span>",
     phonetitle: "Phone",
-    email: "Email:",
-    mobile: "Mobile:",
+    email: "Email<span class=\"inline-block\">:</span>",
+    mobile: "Mobile<span class=\"inline-block\">:</span>",
     mobiletitle: "Mobile",
-    serviceType: "Service Type:",
-    description: "Description:",
+    serviceType: "Service Type<span class=\"inline-block\">:</span>",
+    description: "Description<span class=\"inline-block\">:</span>",
 
     totalCostTable: "Table Cost",
     totalCost: "Total Cost",
@@ -594,9 +1051,9 @@ routeCodeBus: "کد مسیر",
     carName: "Car Name",
 
     departureBus: "One-Way Bus Information",
-returnBus: "Return Bus Information",
-busOperator: "Bus Operator",
-routeCodeBus: "Bus No",
+    returnBus: "Return Bus Information",
+    busOperator: "Bus Operator",
+    routeCodeBus: "Bus No",
 
     contractText: {
       template:
@@ -610,7 +1067,7 @@ routeCodeBus: "Bus No",
     tourType: "نوع الجولة",
     appropriate: "مناسب لـ",
     tourServices: "خدمات الجولة",
-    difficulty: "مستوى الصعوبة", 
+    difficulty: "مستوى الصعوبة",
     itinerary: "برنامج الرحلة",
     day: "يوم",
 
@@ -618,20 +1075,20 @@ routeCodeBus: "Bus No",
     textAlign: "text-right",
     centerText: "text-center",
     contractTitle: "عقد خدمات السفر والسياحة",
-    contractNumber: "رقم العقد:",
-    registerDate: "تاريخ التسجيل:",
-    registerTime: "وقت التسجيل:",
-    counterName: "اسم الموظف:",
-    buyerName: "اسم المشتري:",
-    address: "العنوان:",
+    contractNumber: "رقم العقد<span class=\"inline-block\">:</span>",
+    registerDate: "تاريخ التسجيل<span class=\"inline-block\">:</span>",
+    registerTime: "وقت التسجيل<span class=\"inline-block\">:</span>",
+    counterName: "اسم الموظف<span class=\"inline-block\">:</span>",
+    buyerName: "اسم المشتري<span class=\"inline-block\">:</span>",
+    address: "العنوان<span class=\"inline-block\">:</span>",
     addresstitle: "العنوان",
-    phone: "الهاتف:",
+    phone: "الهاتف<span class=\"inline-block\">:</span>",
     phonetitle: "الهاتف",
-    email: "البريد الإلكتروني:",
-    mobile: "الجوال:",
+    email: "البريد الإلكتروني<span class=\"inline-block\">:</span>",
+    mobile: "الجوال<span class=\"inline-block\">:</span>",
     mobiletitle: "الجوال",
-    serviceType: "نوع الخدمة:",
-    description: "الوصف:",
+    serviceType: "نوع الخدمة<span class=\"inline-block\">:</span>",
+    description: "الوصف<span class=\"inline-block\">:</span>",
 
     totalCostTable: "جدول التكلفة",
     totalCost: "التكلفة الإجمالية",
@@ -680,7 +1137,7 @@ routeCodeBus: "Bus No",
     returnTrain: "معلومات القطار - عودة",
     routeCode: "رمز المسار",
     routeCodeFlight: "رقم الرحلة",
-        routeCodeTrain: "رقم القطار",
+    routeCodeTrain: "رقم القطار",
 
     trainName: "اسم القطار",
     class: "الدرجة",
@@ -745,9 +1202,9 @@ routeCodeBus: "Bus No",
     carName: "اسم السيارة",
 
     departureBus: "معلومات الحافلة - ذهاب",
-returnBus: "معلومات الحافلة - عودة",
-busOperator: "مشغل الحافلة",
-routeCodeBus: "رقم الحافلة",
+    returnBus: "معلومات الحافلة - عودة",
+    busOperator: "مشغل الحافلة",
+    routeCodeBus: "رقم الحافلة",
 
     contractText: {
       template:
@@ -755,6 +1212,11 @@ routeCodeBus: "رقم الحافلة",
     }
   }
 };
+
+
+
+
+
 
 function getTranslation(lid) {
   return invoiceTranslations[lid] || invoiceTranslations[1];
@@ -1430,6 +1892,7 @@ function renderInvoiceDetails($data, lid = 1) {
 
   const contractNumber = invoiceDetails.factorid || "-";
   const registerDate = invoiceDate.mstring || "-";
+  const registerDateS = invoiceDate.sstring || "-";
   const registerTime = invoiceDate.time || "-";
 
   const counterName = isPartnerAgency
@@ -1452,8 +1915,8 @@ function renderInvoiceDetails($data, lid = 1) {
   // Contract text with variables replaced
   let contractTextContent = t.contractText.template
     .replace(/{buyerName}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">${buyerName}</span>`)
-    .replace(/{phone}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${phone}</span>)</span>`)
-    .replace(/{mobile}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${mobile}</span>)</span>`)
+    .replace(/{phone}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display: inline-block;">${phone}</span>)</span>`)
+    .replace(/{mobile}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display: inline-block;">${mobile}</span>)</span>`)
     .replace(/{address}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${address}</span>)</span>`)
     .replace(/{personCount}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${persons}</span>`)
     .replace(/{officeName}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${ownername}</span>`);
@@ -1463,11 +1926,11 @@ function renderInvoiceDetails($data, lid = 1) {
     <div class="w-full flex justify-between flex-wrap gap-y-2 max-md:flex-col" dir="${t.dir}">
         <div class="w-[25.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
-                <li>
-                    <span class="text-base print:text-xs font-dana_FANum_medium">${t.contractNumber}</span>
-                    <span class="text-lg print:text-base ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} tracking-tighter">${contractNumber}</span>
+                <li class="flex justify-start flex-wrap" >
+                    <span class="text-base print:text-xs font-dana_FANum_medium inline-block">${t.contractNumber}</span>
+                    <span class="text-lg print:text-base ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} tracking-tighter inline-block">${contractNumber}</span>
                 </li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${registerDate}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" > ${lid !== 1 ? registerDate : registerDate + '(' +  registerDateS + ')' }</span></li>
                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerTime}</span><span class=" ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${registerTime}</span></li>
                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.counterName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${counterName}</span></li>
             </ul>
@@ -1478,7 +1941,7 @@ function renderInvoiceDetails($data, lid = 1) {
                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.buyerName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${buyerName}</span></li>
                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.address}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${address}</span></li>
                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.phone}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${email}</span></li>
+                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} lowercase break-all inline-block" >${email}</span></li>
                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.mobile}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
             </ul>
         </div>
@@ -1533,7 +1996,7 @@ function renderFlightInfoSection(route, lid = 1) {
       </div>
       <div>
         <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.from}</span>
-        <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929]">(<span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${fromCode}</span>)</span></span>
+        <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929] inline-block dir-ltr">(<span style="display: inline-block;">${fromCode}</span>)</span></span>
       </div>
     </div>
     <div class=" flex gap-x-2 items-center w-1/2 max-md:w-full">
@@ -1545,34 +2008,34 @@ function renderFlightInfoSection(route, lid = 1) {
       </div>
       <div>
         <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.to}</span>
-        <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929]">(<span style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;">${toCode}</span>)</span></span>
+        <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929] inline-block dir-ltr">(<span style="display: inline-block;">${toCode}</span>)</span></span>
       </div>
     </div>
   </div>
   <div class=" w-full bg-[#EAEAEA] bottom-0 left-0 right-0 rounded-[4px] max-md:h-auto max-md:static">
     <div class="flex justify-between px-2 ${t.textAlign} flex-wrap max-md:flex-wrap max-md:justify-center max-md:items-center max-md:flex-col">
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date}<span class="inline-block mx-1">:</span> </span>
         <span class="text-[#292929] text-sm font-danamedium inline-block dir-ltr mx-1">${traveldate}</span>
       </div>
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime}<span class="inline-block mx-1">:</span> </span>
         <span class="text-[#292929] text-sm font-danamedium mx-1">${etime}</span>
       </div>
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime}<span class="inline-block mx-1">:</span> </span>
         <span class="text-[#292929] text-sm font-danamedium mx-1">${atime}</span>
       </div>
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeFlight} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeFlight}<span class="inline-block mx-1">:</span> </span>
         <span class="text-[#292929] text-sm font-danamedium mx-1">${routecode}</span>
       </div>
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.airline} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.airline}<span class="inline-block mx-1">:</span> </span>
         <span class="text-[#292929] text-sm font-danamedium mx-1">${airline}</span>
       </div>
       <div>
-        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.flightClass} : </span>
+        <span class="text-[#6D6D6D] text-xs font-danaregular">${t.flightClass}<span class="inline-block mx-1">:</span> </span>
         <span class="text-[#292929] text-sm font-danamedium mx-1">${flightclass}</span>
       </div>
     </div>
@@ -1599,21 +2062,21 @@ function renderCipInfoSection(cip, lid = 1) {
 <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden" dir="${t.dir}">
   <div class="flex justify-between items-center py-[6px] px-2  max-md:flex-col max-md:justify-center max-md:items-center">
     <div class="flex gap-x-1 items-center">
-      <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.lounge} : </span>
+      <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.lounge}<span class="inline-block mx-1">:</span> </span>
       <span class="text-[#292929] text-sm text-nowrap font-danamedium"> ${cip.loungename || '-'}</span>
     </div>
     <div class="flex gap-x-1 items-center">
       <div class="flex justify-between px-2 gap-x-5  max-md:flex-col max-md:justify-center max-md:items-center">
         <div class="flex gap-x-1 items-center">
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.airport} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.airport}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium"> ${cip.airportname || '-'}</span>
         </div>
         <div class="flex gap-x-1 items-center">
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.airline} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.airline}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium"> ${cip.airline || '-'}</span>
         </div>
         <div class="flex gap-x-1 items-center">
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.flightNo} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.flightNo}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium"> ${cip.routecode || '-'}</span>
         </div>
       </div>
@@ -1629,14 +2092,14 @@ function renderCipInfoSection(cip, lid = 1) {
 <svg id="pin-icon-pdf" class="scale-110 origin-center" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.72936 6.06138C5.03224 6.06138 4.46482 5.49396 4.46482 4.79683C4.46482 4.09971 5.03224 3.53229 5.72936 3.53229C6.42649 3.53229 6.99345 4.09971 6.99345 4.79683C6.99345 5.49396 6.42649 6.06138 5.72936 6.06138ZM5.72936 1.14575C3.70124 1.14575 2.05078 2.79621 2.05078 4.82479C2.05078 7.40796 5.07211 9.85408 5.72936 9.85408C6.38661 9.85408 9.40795 7.40796 9.40795 4.82479C9.40795 2.79621 7.75749 1.14575 5.72936 1.14575Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.city} : </span>
+          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.city}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm font-danamedium mx-1"> ${cip.route || '-'}</span>
         </div>
         <div class="flex items-center gap-x-2">
 <svg id="check-in-icon-pdf" class="scale-110 origin-center" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42875 5.1765H4.05313C3.86338 5.1765 3.70938 5.0225 3.70938 4.83275C3.70938 4.643 3.86338 4.489 4.05313 4.489H7.42875C7.6185 4.489 7.7725 4.643 7.7725 4.83275C7.7725 5.0225 7.6185 5.1765 7.42875 5.1765ZM7.59971 7.67625L6.65371 8.559C6.58725 8.62087 6.50292 8.65112 6.41904 8.65112C6.32692 8.65112 6.23525 8.61446 6.16788 8.54204C6.03817 8.40316 6.0455 8.18546 6.18438 8.05575L6.49192 7.76883H4.23371C4.04396 7.76883 3.88996 7.61483 3.88996 7.42508C3.88996 7.23533 4.04396 7.08133 4.23371 7.08133H6.49238L6.18483 6.79441C6.0455 6.66516 6.03817 6.44746 6.16742 6.30858C6.29713 6.17016 6.51438 6.16191 6.65325 6.29162L7.59925 7.173C7.66892 7.23808 7.70879 7.32929 7.70879 7.42462C7.70879 7.51996 7.66892 7.61116 7.59971 7.67625ZM9.16583 2.44162C8.83446 2.10933 8.36146 1.92187 7.79909 1.87512V1.43237C7.79909 1.24262 7.64508 1.08862 7.45533 1.08862C7.26558 1.08862 7.11158 1.24262 7.11158 1.43237V3.059C7.08179 3.06771 7.052 3.07779 7.01946 3.07779C6.82971 3.07779 6.67571 2.92379 6.67571 2.73404V1.94662C6.67571 1.896 6.63469 1.85496 6.58404 1.85496H4.46563V1.43237C4.46563 1.24262 4.31163 1.08862 4.12188 1.08862C3.93213 1.08862 3.77813 1.24262 3.77813 1.43237V3.059C3.74833 3.06771 3.71854 3.07779 3.686 3.07779C3.49625 3.07779 3.34225 2.92379 3.34225 2.73404V2.0626C3.34225 2.00298 3.28605 1.9592 3.22897 1.97643C2.35417 2.24048 1.84717 2.95083 1.84717 3.99904V7.73217C1.84717 9.09708 2.6685 9.91154 4.04396 9.91154H7.53325C8.90871 9.91154 9.73004 9.10854 9.73004 7.76379V3.9995C9.73188 3.35233 9.53663 2.81379 9.16583 2.44162Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} : </span>
+          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm font-danamedium mx-1"> 
         
             ${
@@ -1646,15 +2109,15 @@ function renderCipInfoSection(cip, lid = 1) {
           </span>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.time} : </span>
+          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.time}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm font-danamedium mx-1"> ${cip.time || '-'}</span>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.travelType} : </span>
+          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.travelType}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm font-danamedium mx-1"> ${travelTypeMap[cip.travelType] || '-'}</span>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.flightType} : </span>
+          <span class="text-[#6D6D6D] text-xs font-danaregular">${t.flightType}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm font-danamedium mx-1"> ${flightTypeMap[cip.flightType] || '-'}</span>
         </div>
       </div>
@@ -1715,14 +2178,14 @@ function renderHotelInfoSection(room, lid = 1) {
 <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden" dir="${t.dir}">
   <div class="flex justify-between items-center py-[6px] px-2  max-md:flex-col max-md:justify-center max-md:items-center ">
     <div class="flex gap-x-1 items-center">
-      <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.hotel} : </span>
+      <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.hotel}<span class="inline-block mx-1">:</span> </span>
       <span class="text-[#292929] text-sm text-nowrap font-danamedium">${hotelName}</span>
     </div>
     <div class="flex gap-x-1 items-center">
       <div class="flex justify-between px-2 gap-x-5  max-md:flex-col max-md:justify-center max-md:items-center">
-        <div><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.grade} : </span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${hotelStar} star</span></div>
-        <div><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.city} : </span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${cityName}</span></div>
-        <div><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.services} : </span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${service}</span></div>
+        <div><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.grade}<span class="inline-block mx-1">:</span> </span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${hotelStar} star</span></div>
+        <div><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.city}<span class="inline-block mx-1">:</span> </span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${cityName}</span></div>
+        <div><span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.services}<span class="inline-block mx-1">:</span> </span><span class="text-[#292929] text-sm text-nowrap font-danamedium">${service}</span></div>
       </div>
     </div>
   </div>
@@ -1734,7 +2197,7 @@ function renderHotelInfoSection(room, lid = 1) {
 <svg id="pin-icon-pdf" class="scale-110 origin-center" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.72936 6.06138C5.03224 6.06138 4.46482 5.49396 4.46482 4.79683C4.46482 4.09971 5.03224 3.53229 5.72936 3.53229C6.42649 3.53229 6.99345 4.09971 6.99345 4.79683C6.99345 5.49396 6.42649 6.06138 5.72936 6.06138ZM5.72936 1.14575C3.70124 1.14575 2.05078 2.79621 2.05078 4.82479C2.05078 7.40796 5.07211 9.85408 5.72936 9.85408C6.38661 9.85408 9.40795 7.40796 9.40795 4.82479C9.40795 2.79621 7.75749 1.14575 5.72936 1.14575Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.roomType} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.roomType}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${roomType}</span>
         </div>
         <div class="flex items-center gap-x-2">
@@ -1742,7 +2205,7 @@ function renderHotelInfoSection(room, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M4.49982 3.63506H5.40734C5.59525 3.63506 5.75109 3.78631 5.75109 3.97881C5.75109 4.16672 5.59525 4.32256 5.40734 4.32256H4.49982C4.31191 4.32256 4.15607 4.16672 4.15607 3.97881C4.15607 3.78631 4.31191 3.63506 4.49982 3.63506ZM7.24984 3.63506H8.15734C8.34526 3.63506 8.50109 3.78631 8.50109 3.97881C8.50109 4.16672 8.34526 4.32256 8.15734 4.32256H7.24984C7.06192 4.32256 6.90609 4.16672 6.90609 3.97881C6.90609 3.78631 7.06192 3.63506 7.24984 3.63506ZM2.95524 4.86341H9.75692C9.88067 4.86341 9.98609 4.75799 9.98609 4.63424V3.15839C9.98609 2.80548 9.98609 2.62673 9.9265 2.46173C9.82109 2.17298 9.59192 1.94381 9.30776 1.84298C9.13817 1.77881 8.95942 1.77881 8.60192 1.77881H4.11024C3.75274 1.77881 3.57399 1.77881 3.40899 1.84298C3.12024 1.94381 2.89107 2.16839 2.78566 2.46173C2.72607 2.62673 2.72607 2.80548 2.72607 3.15839V4.63424C2.72607 4.75799 2.82691 4.86341 2.95524 4.86341Z" fill="#6D6D6D"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7605 6.03858C10.6537 5.73974 10.4191 5.50278 10.1065 5.38453C9.93186 5.32495 9.75173 5.32495 9.42448 5.32495H3.28647C2.95922 5.32495 2.77864 5.32495 2.59347 5.38866C2.29189 5.50278 2.05768 5.73974 1.95089 6.03674C1.88672 6.21274 1.88672 6.39378 1.88672 6.72287V8.87703C1.88672 9.06679 2.04072 9.22079 2.23047 9.22079C2.42022 9.22079 2.57422 9.06679 2.57422 8.87703V8.74412C2.57422 8.69352 2.61526 8.65245 2.66589 8.65245H10.0451C10.0957 8.65245 10.1367 8.69352 10.1367 8.74412V8.87703C10.1367 9.06679 10.2907 9.22079 10.4805 9.22079C10.6702 9.22079 10.8242 9.06679 10.8242 8.87703V6.72287C10.8242 6.39378 10.8242 6.21274 10.7605 6.03858Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.room} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.room}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${roomNumber}</span>
         </div>
         <div class="flex items-center gap-x-2">
@@ -1750,14 +2213,14 @@ function renderHotelInfoSection(room, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.06714 1.51294C7.30739 1.51294 8.31297 2.51852 8.31297 3.75877C8.31297 4.99903 7.30739 6.00461 6.06714 6.00461C4.82687 6.00461 3.82129 4.99903 3.82129 3.75877C3.82129 2.51852 4.82687 1.51294 6.06714 1.51294Z" fill="#6D6D6D"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.12154 6.41675H5.05902C3.91318 6.41675 2.95068 7.37925 2.95068 8.52508V8.66258C2.95068 9.12091 3.31735 9.48758 3.77568 9.48758H8.35904C8.81737 9.48758 9.22987 9.16675 9.18404 8.66258V8.52508C9.22987 7.37925 8.26737 6.41675 7.12154 6.41675Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.passengers} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.passengers}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${passengersText}</span>
         </div>
         <div class="flex items-center gap-x-2">
 <svg id="check-in-icon-pdf" class="scale-110 origin-center" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42875 5.1765H4.05313C3.86338 5.1765 3.70938 5.0225 3.70938 4.83275C3.70938 4.643 3.86338 4.489 4.05313 4.489H7.42875C7.6185 4.489 7.7725 4.643 7.7725 4.83275C7.7725 5.0225 7.6185 5.1765 7.42875 5.1765ZM7.59971 7.67625L6.65371 8.559C6.58725 8.62087 6.50292 8.65112 6.41904 8.65112C6.32692 8.65112 6.23525 8.61446 6.16788 8.54204C6.03817 8.40316 6.0455 8.18546 6.18438 8.05575L6.49192 7.76883H4.23371C4.04396 7.76883 3.88996 7.61483 3.88996 7.42508C3.88996 7.23533 4.04396 7.08133 4.23371 7.08133H6.49238L6.18483 6.79441C6.0455 6.66516 6.03817 6.44746 6.16742 6.30858C6.29713 6.17016 6.51438 6.16191 6.65325 6.29162L7.59925 7.173C7.66892 7.23808 7.70879 7.32929 7.70879 7.42462C7.70879 7.51996 7.66892 7.61116 7.59971 7.67625ZM9.16583 2.44162C8.83446 2.10933 8.36146 1.92187 7.79909 1.87512V1.43237C7.79909 1.24262 7.64508 1.08862 7.45533 1.08862C7.26558 1.08862 7.11158 1.24262 7.11158 1.43237V3.059C7.08179 3.06771 7.052 3.07779 7.01946 3.07779C6.82971 3.07779 6.67571 2.92379 6.67571 2.73404V1.94662C6.67571 1.896 6.63469 1.85496 6.58404 1.85496H4.46563V1.43237C4.46563 1.24262 4.31163 1.08862 4.12188 1.08862C3.93213 1.08862 3.77813 1.24262 3.77813 1.43237V3.059C3.74833 3.06771 3.71854 3.07779 3.686 3.07779C3.49625 3.07779 3.34225 2.92379 3.34225 2.73404V2.0626C3.34225 2.00298 3.28605 1.9592 3.22897 1.97643C2.35417 2.24048 1.84717 2.95083 1.84717 3.99904V7.73217C1.84717 9.09708 2.6685 9.91154 4.04396 9.91154H7.53325C8.90871 9.91154 9.73004 9.10854 9.73004 7.76379V3.9995C9.73188 3.35233 9.53663 2.81379 9.16583 2.44162Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.checkIn} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.checkIn}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${checkInDate}</span>
         </div>
         <div class="flex items-center gap-x-2">
@@ -1766,7 +2229,7 @@ function renderHotelInfoSection(room, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42875 5.1765H4.05313C3.86338 5.1765 3.70938 5.0225 3.70938 4.83275C3.70938 4.643 3.86338 4.489 4.05313 4.489H7.42875C7.6185 4.489 7.7725 4.643 7.7725 4.83275C7.7725 5.0225 7.6185 5.1765 7.42875 5.1765ZM7.59971 7.67625L6.65371 8.559C6.58725 8.62087 6.50292 8.65112 6.41904 8.65112C6.32692 8.65112 6.23525 8.61446 6.16788 8.54204C6.03817 8.40316 6.0455 8.18546 6.18438 8.05575L6.49192 7.76883H4.23371C4.04396 7.76883 3.88996 7.61483 3.88996 7.42508C3.88996 7.23533 4.04396 7.08133 4.23371 7.08133H6.49238L6.18483 6.79441C6.0455 6.66516 6.03817 6.44746 6.16742 6.30858C6.29713 6.17016 6.51438 6.16191 6.65325 6.29162L7.59925 7.173C7.66892 7.23808 7.70879 7.32929 7.70879 7.42462C7.70879 7.51996 7.66892 7.61116 7.59971 7.67625ZM9.16583 2.44162C8.83446 2.10933 8.36146 1.92187 7.79909 1.87512V1.43237C7.79909 1.24262 7.64508 1.08862 7.45533 1.08862C7.26558 1.08862 7.11158 1.24262 7.11158 1.43237V3.059C7.08179 3.06771 7.052 3.07779 7.01946 3.07779C6.82971 3.07779 6.67571 2.92379 6.67571 2.73404V1.94662C6.67571 1.896 6.63469 1.85496 6.58404 1.85496H4.46563V1.43237C4.46563 1.24262 4.31163 1.08862 4.12188 1.08862C3.93213 1.08862 3.77813 1.24262 3.77813 1.43237V3.059C3.74833 3.06771 3.71854 3.07779 3.686 3.07779C3.49625 3.07779 3.34225 2.92379 3.34225 2.73404V2.0626C3.34225 2.00298 3.28605 1.9592 3.22897 1.97643C2.35417 2.24048 1.84717 2.95083 1.84717 3.99904V7.73217C1.84717 9.09708 2.6685 9.91154 4.04396 9.91154H7.53325C8.90871 9.91154 9.73004 9.10854 9.73004 7.76379V3.9995C9.73188 3.35233 9.53663 2.81379 9.16583 2.44162Z" fill="#6D6D6D"/>
 </svg>
           </span>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.checkOut} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.checkOut}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${checkOutDate}</span>
         </div>
       </div>
@@ -1955,7 +2418,7 @@ function renderInsuranceInfoSection(insurance, lid = 1) {
 <svg id="pin-icon-pdf" class="scale-110 origin-center" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.72936 6.06138C5.03224 6.06138 4.46482 5.49396 4.46482 4.79683C4.46482 4.09971 5.03224 3.53229 5.72936 3.53229C6.42649 3.53229 6.99345 4.09971 6.99345 4.79683C6.99345 5.49396 6.42649 6.06138 5.72936 6.06138ZM5.72936 1.14575C3.70124 1.14575 2.05078 2.79621 2.05078 4.82479C2.05078 7.40796 5.07211 9.85408 5.72936 9.85408C6.38661 9.85408 9.40795 7.40796 9.40795 4.82479C9.40795 2.79621 7.75749 1.14575 5.72936 1.14575Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.country} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.country}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${country}</span>
         </div>
 
@@ -1964,7 +2427,7 @@ function renderInsuranceInfoSection(insurance, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.06714 1.51294C7.30739 1.51294 8.31297 2.51852 8.31297 3.75877C8.31297 4.99903 7.30739 6.00461 6.06714 6.00461C4.82687 6.00461 3.82129 4.99903 3.82129 3.75877C3.82129 2.51852 4.82687 1.51294 6.06714 1.51294Z" fill="#6D6D6D"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.12154 6.41675H5.05902C3.91318 6.41675 2.95068 7.37925 2.95068 8.52508V8.66258C2.95068 9.12091 3.31735 9.48758 3.77568 9.48758H8.35904C8.81737 9.48758 9.22987 9.16675 9.18404 8.66258V8.52508C9.22987 7.37925 8.26737 6.41675 7.12154 6.41675Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.insname} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.insname}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${name}</span>
         </div>
 
@@ -1974,7 +2437,7 @@ function renderInsuranceInfoSection(insurance, lid = 1) {
 <svg id="check-in-icon-pdf" class="scale-110 origin-center" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42875 5.1765H4.05313C3.86338 5.1765 3.70938 5.0225 3.70938 4.83275C3.70938 4.643 3.86338 4.489 4.05313 4.489H7.42875C7.6185 4.489 7.7725 4.643 7.7725 4.83275C7.7725 5.0225 7.6185 5.1765 7.42875 5.1765ZM7.59971 7.67625L6.65371 8.559C6.58725 8.62087 6.50292 8.65112 6.41904 8.65112C6.32692 8.65112 6.23525 8.61446 6.16788 8.54204C6.03817 8.40316 6.0455 8.18546 6.18438 8.05575L6.49192 7.76883H4.23371C4.04396 7.76883 3.88996 7.61483 3.88996 7.42508C3.88996 7.23533 4.04396 7.08133 4.23371 7.08133H6.49238L6.18483 6.79441C6.0455 6.66516 6.03817 6.44746 6.16742 6.30858C6.29713 6.17016 6.51438 6.16191 6.65325 6.29162L7.59925 7.173C7.66892 7.23808 7.70879 7.32929 7.70879 7.42462C7.70879 7.51996 7.66892 7.61116 7.59971 7.67625ZM9.16583 2.44162C8.83446 2.10933 8.36146 1.92187 7.79909 1.87512V1.43237C7.79909 1.24262 7.64508 1.08862 7.45533 1.08862C7.26558 1.08862 7.11158 1.24262 7.11158 1.43237V3.059C7.08179 3.06771 7.052 3.07779 7.01946 3.07779C6.82971 3.07779 6.67571 2.92379 6.67571 2.73404V1.94662C6.67571 1.896 6.63469 1.85496 6.58404 1.85496H4.46563V1.43237C4.46563 1.24262 4.31163 1.08862 4.12188 1.08862C3.93213 1.08862 3.77813 1.24262 3.77813 1.43237V3.059C3.74833 3.06771 3.71854 3.07779 3.686 3.07779C3.49625 3.07779 3.34225 2.92379 3.34225 2.73404V2.0626C3.34225 2.00298 3.28605 1.9592 3.22897 1.97643C2.35417 2.24048 1.84717 2.95083 1.84717 3.99904V7.73217C1.84717 9.09708 2.6685 9.91154 4.04396 9.91154H7.53325C8.90871 9.91154 9.73004 9.10854 9.73004 7.76379V3.9995C9.73188 3.35233 9.53663 2.81379 9.16583 2.44162Z" fill="#6D6D6D"/>
 </svg>
-          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.provider} : </span>
+          <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.provider}<span class="inline-block mx-1">:</span> </span>
           <span class="text-[#292929] text-sm text-nowrap font-danamedium">${provider}</span>
         </div>
 
@@ -2093,10 +2556,10 @@ function renderTrainInfoSection(route, lid = 1) {
 
   const trainclass = route.class;
 
-  const fromAirport = `${startairport.airport} / ${startairport.startotherinfo.city}`;
+  const fromAirport = `${startairport.airport} <span class="inline-block"> / </span> ${startairport.startotherinfo.city}`;
   const fromCode = startairport.startotherinfo.shortname;
 
-  const toAirport = `${endairport.airport} / ${endairport.endotherinfo.city}`;
+  const toAirport = `${endairport.airport} <span class="inline-block"> / </span> ${endairport.endotherinfo.city}`;
   const toCode = endairport.endotherinfo.shortname;
 
   return `
@@ -2108,13 +2571,13 @@ function renderTrainInfoSection(route, lid = 1) {
           </div>
           <div>
             <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.from}</span>
-            <span class="text-black text-xs font-danamedium">${fromAirport} <span class="text-[#292929]">(${fromCode})</span></span>
+            <span class="text-black text-xs font-danamedium inline-block">${fromAirport} <span class="text-[#292929] inline-block">(${fromCode})</span></span>
           </div>
         </div>
         <div class="flex gap-x-2 items-center w-1/2 max-md:w-full">
           <div>
             <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.to}</span>
-            <span class="text-black text-xs font-danamedium">${toAirport} <span class="text-[#292929]">(${toCode})</span></span>
+            <span class="text-black text-xs font-danamedium inline-block">${toAirport} <span class="text-[#292929] inline-block">(${toCode})</span></span>
           </div>
         </div>
       </div>
@@ -2125,7 +2588,7 @@ function renderTrainInfoSection(route, lid = 1) {
 
 
 
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} :</span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.date} <span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">
                         ${
               lid === 1 ? `${routeDate?.sstring || '-'} (${routeDate?.mstring || '-'})` :
@@ -2134,23 +2597,23 @@ function renderTrainInfoSection(route, lid = 1) {
             </span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${etime}</span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${atime}</span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeTrain} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeTrain}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${routecode}</span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.trainName} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.trainName}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${trainid}</span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.class} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.class}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${trainclass}</span>
           </div>
         </div>
@@ -2188,7 +2651,7 @@ function renderBusInfoSection(route, lid) {
           </div>
           <div>
             <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.from}</span>
-            <span class="text-black text-xs font-danamedium">${fromStation} ${fromCode ? `<span class="text-[#292929]">(${fromCode})</span>` : ''}</span>
+            <span class="text-black text-xs font-danamedium">${fromStation} ${fromCode ? `<span class="text-[#292929] inline-block">(${fromCode})</span>` : ''}</span>
           </div>
         </div>
         <div class="flex gap-x-2 items-center w-1/2 max-md:w-full">
@@ -2198,7 +2661,7 @@ function renderBusInfoSection(route, lid) {
           </div>
           <div>
             <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.to}</span>
-            <span class="text-black text-xs font-danamedium">${toStation} ${toCode ? `<span class="text-[#292929]">(${toCode})</span>` : ''}</span>
+            <span class="text-black text-xs font-danamedium">${toStation} ${toCode ? `<span class="text-[#292929] inline-block">(${toCode})</span>` : ''}</span>
           </div>
         </div>
       </div>
@@ -2217,23 +2680,23 @@ function renderBusInfoSection(route, lid) {
             </span>
           </div>
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.exitTime}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${etime || '-'}</span>
           </div>
           ${atime ? `
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.arrivalTime}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${atime}</span>
           </div>` : ''}
 
           ${routecode && routecode !== '-' ? `
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeBus || t.routeCode} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.routeCodeBus || t.routeCode}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${routecode}</span>
           </div>` : ''}
 
           <div>
-            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.busOperator || 'Bus Operator'} : </span>
+            <span class="text-[#6D6D6D] text-xs font-danaregular">${t.busOperator || 'Bus Operator'}<span class="inline-block mx-1">:</span> </span>
             <span class="text-[#292929] text-sm font-danamedium mx-1">${BusOperator || '-'}</span>
           </div>
         </div>

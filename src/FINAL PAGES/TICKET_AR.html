@@ -1090,7 +1090,10 @@
                                                 </g>
                                             </svg>
                                             <span id="trainDate" class=" text-sm max-sm:text-xs">
-                                                @products[0].departure[0].route.routeDate.sstring@
+
+                                                @products[0].departure[0].route.routeDate.mstring@
+
+                                               ( @products[0].departure[0].route.routeDate.sstring@ ) 
                                             </span>
                                             |
                                             <span id="trainTime" class=" text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
