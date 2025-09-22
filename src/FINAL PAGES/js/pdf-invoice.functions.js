@@ -2637,9 +2637,9 @@ function renderBusInfoSection(route, lid) {
     routecode,           
   } = route;
 
-  const fromStation = `${startstation?.station} / ${startstation?.startotherinfo?.city || ''}`.trim();
+  const fromStation = `${startstation?.station} <span class="inline-block mx-1"> / </span> ${startstation?.startotherinfo?.city || ''}`.trim();
   const fromCode = startstation?.startotherinfo?.shortname || '';
-  const toStation = `${endstation?.station} / ${endstation?.endotherinfo?.city || ''}`.trim();
+  const toStation = `${endstation?.station} <span class="inline-block mx-1"> / </span> ${endstation?.endotherinfo?.city || ''}`.trim();
   const toCode = endstation?.endotherinfo?.shortname || '';
 
   return `

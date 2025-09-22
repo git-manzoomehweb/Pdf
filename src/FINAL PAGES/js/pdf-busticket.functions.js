@@ -9,7 +9,7 @@ let invoiceType;
 let translations;
 
 // (اضافیِ امن: تشخیص جهت متن – اگر قبلاً در فایل مشترک داری، حذفش مشکلی ندارد)
-function detectDirection(text="") {
+function detectDirection(text = "") {
   const rtlRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/;
   return rtlRegex.test(String(text)) ? "rtl" : "ltr";
 }
@@ -22,24 +22,24 @@ function setlid(lid, invoice = null) {
 }
 
 // ======================= Small Utils ===============================
-function barDirection(lid){
-  return (Array.isArray(lid)?lid[0]:lid) == 2 ? `dir-ltr` : `dir-rtl`;
+function barDirection(lid) {
+  return (Array.isArray(lid) ? lid[0] : lid) == 2 ? `dir-ltr` : `dir-rtl`;
 }
-function barArrowRotation(lid){
-  return (Array.isArray(lid)?lid[0]:lid) == 2 ? `rotate-0` : `rotate-180`;
+function barArrowRotation(lid) {
+  return (Array.isArray(lid) ? lid[0] : lid) == 2 ? `rotate-0` : `rotate-180`;
 }
-function formatPrice(num){ try { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); } catch { return num; } }
-function renderUnitCost(unit){
-  const map = { "10":"IRR", "IRR":"IRR", "USD":"USD", "EUR":"EUR", "AED":"AED" };
+function formatPrice(num) { try { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); } catch { return num; } }
+function renderUnitCost(unit) {
+  const map = { "10": "IRR", "IRR": "IRR", "USD": "USD", "EUR": "EUR", "AED": "AED" };
   return map[String(unit)] || String(unit || "");
 }
 
 // ======================= Language bootstrap ========================
 function initializePageLanguage(lid, invoice = null) {
   translations = {
-    1: { lang:"fa", dir:"rtl", accessDenied:"شما اجازه دسترسی به این صفحه را ندارید", loadingText:"در حال بارگذاری", pdfLoadingText:"در حال تولید PDF", textAlign:"text-right", justifyContent:"!justify-end", electronTicket:"بلیط الکترونیکی", downloadPdf:"دانلود PDF", hidePrice:"مخفی کردن قیمت", showPrice:"نمایش قیمت", invoiceNumber:"شماره فاکتور", pnrCode:"کد PNR", eticketNumber:"شماره بلیط الکترونیکی", dateOfIssue:"تاریخ صدور", passenger:"مسافر", age:"سن", birthdate:"تاریخ تولد", nationalCode:"کد ملی", priceDetails:"جزئیات قیمت", basePrice:"قیمت پایه", tax:"مالیات", total:"مجموع", extraService:"خدمات اضافی", fareConditions:"شرایط کرایه", connectionTime:"زمان انتظار", travelTime:"مدت سفر", route:"مسیر", departure:"رفت", return:"برگشت", adult:"بزرگسال", child:"کودک", infant:"نوزاد", trainNumber:"شماره قطار", flightNumber:"شماره پرواز", airline:"ایرلاین", aircraft:"هواپیما", flightTime:"زمان پرواز", gate:"گیت", terminal:"ترمینال", seat:"صندلی", cabin:"کابین", baggage:"بار", checkedBag:"چمدان", carryOn:"کیف دستی" },
-    2: { lang:"en", dir:"ltr", accessDenied:"You do not have permission to access this page", loadingText:"Loading", pdfLoadingText:"Generating PDF", textAlign:"text-left", justifyContent:"!justify-start", electronTicket:"Electronic Ticket", downloadPdf:"Download PDF", hidePrice:"Hide Price", showPrice:"Show Price", invoiceNumber:"Invoice Number", pnrCode:"PNR Code", eticketNumber:"ETicket Number", dateOfIssue:"Date Of Issue", passenger:"Passenger", age:"Age", birthdate:"Birthdate", nationalCode:"National Code", priceDetails:"Price Details", basePrice:"Base Price", tax:"Tax", total:"Total", extraService:"Extra Service", fareConditions:"Fare Conditions", connectionTime:"Connection Time", travelTime:"Travel Time", route:"Route", departure:"Departure", return:"Return", adult:"Adult", child:"Child", infant:"Infant", trainNumber:"Train Number", flightNumber:"Flight Number", airline:"Airline", aircraft:"Aircraft", flightTime:"Flight Time", gate:"Gate", terminal:"Terminal", seat:"Seat", cabin:"Cabin", baggage:"Baggage", checkedBag:"Checked Bag", carryOn:"Carry On" },
-    3: { lang:"ar", dir:"rtl", accessDenied:"ليس لديك إذن للوصول إلى هذه الصفحة", loadingText:"جاري التحميل", pdfLoadingText:"جاري إنشاء PDF", textAlign:"text-right", justifyContent:"!justify-end", electronTicket:"التذكرة الإلكترونية", downloadPdf:"تحميل PDF", hidePrice:"إخفاء السعر", showPrice:"إظهار السعر", invoiceNumber:"رقم الفاتورة", pnrCode:"رمز PNR", eticketNumber:"رقم التذكرة الإلكترونية", dateOfIssue:"تاريخ الإصدار", passenger:"المسافر", age:"العمر", birthdate:"تاريخ الميلاد", nationalCode:"الرقم الوطني", priceDetails:"تفاصيل السعر", basePrice:"السعر الأساسي", tax:"الضريبة", total:"المجموع", extraService:"خدمة إضافية", fareConditions:"شروط الأجرة", connectionTime:"وقت الانتظار", travelTime:"وقت السفر", route:"المسار", departure:"المغادرة", return:"العودة", adult:"بالغ", child:"طفل", infant:"رضيع", trainNumber:"رقم القطار", flightNumber:"رقم الرحلة", airline:"شركة الطيران", aircraft:"الطائرة", flightTime:"وقت الرحلة", gate:"البوابة", terminal:"المحطة", seat:"المقعد", cabin:"المقصورة", baggage:"الأمتعة", checkedBag:"الحقيبة المسجلة", carryOn:"الحقيبة اليدوية" },
+    1: { lang: "fa", dir: "rtl", accessDenied: "شما اجازه دسترسی به این صفحه را ندارید", loadingText: "در حال بارگذاری", pdfLoadingText: "در حال تولید PDF", textAlign: "text-right", justifyContent: "!justify-end", electronTicket: "بلیط الکترونیکی", downloadPdf: "دانلود PDF", hidePrice: "مخفی کردن قیمت", showPrice: "نمایش قیمت", invoiceNumber: "شماره فاکتور", pnrCode: "کد PNR", eticketNumber: "شماره بلیط الکترونیکی", dateOfIssue: "تاریخ صدور", passenger: "مسافر", age: "سن", birthdate: "تاریخ تولد", nationalCode: "کد ملی", priceDetails: "جزئیات قیمت", basePrice: "قیمت پایه", tax: "مالیات", total: "مجموع", extraService: "خدمات اضافی", fareConditions: "شرایط کرایه", connectionTime: "زمان انتظار", travelTime: "مدت سفر", route: "مسیر", departure: "رفت", return: "برگشت", adult: "بزرگسال", child: "کودک", infant: "نوزاد", trainNumber: "شماره قطار", flightNumber: "شماره پرواز", airline: "ایرلاین", aircraft: "هواپیما", flightTime: "زمان پرواز", gate: "گیت", terminal: "ترمینال", seatcount: "تعداد صندلی", seat: "شماره صندلی", cabin: "کابین", baggage: "بار", checkedBag: "چمدان", carryOn: "کیف دستی" },
+    2: { lang: "en", dir: "ltr", accessDenied: "You do not have permission to access this page", loadingText: "Loading", pdfLoadingText: "Generating PDF", textAlign: "text-left", justifyContent: "!justify-start", electronTicket: "Electronic Ticket", downloadPdf: "Download PDF", hidePrice: "Hide Price", showPrice: "Show Price", invoiceNumber: "Invoice Number", pnrCode: "PNR Code", eticketNumber: "ETicket Number", dateOfIssue: "Date Of Issue", passenger: "Passenger", age: "Age", birthdate: "Birthdate", nationalCode: "National Code", priceDetails: "Price Details", basePrice: "Base Price", tax: "Tax", total: "Total", extraService: "Extra Service", fareConditions: "Fare Conditions", connectionTime: "Connection Time", travelTime: "Travel Time", route: "Route", departure: "Departure", return: "Return", adult: "Adult", child: "Child", infant: "Infant", trainNumber: "Train Number", flightNumber: "Flight Number", airline: "Airline", aircraft: "Aircraft", flightTime: "Flight Time", gate: "Gate", terminal: "Terminal", seatcount: "Seat Count", seat: "Seat Number", cabin: "Cabin", baggage: "Baggage", checkedBag: "Checked Bag", carryOn: "Carry On" },
+    3: { lang: "ar", dir: "rtl", accessDenied: "ليس لديك إذن للوصول إلى هذه الصفحة", loadingText: "جاري التحميل", pdfLoadingText: "جاري إنشاء PDF", textAlign: "text-right", justifyContent: "!justify-end", electronTicket: "التذكرة الإلكترونية", downloadPdf: "تحميل PDF", hidePrice: "إخفاء السعر", showPrice: "إظهار السعر", invoiceNumber: "رقم الفاتورة", pnrCode: "رمز PNR", eticketNumber: "رقم التذكرة الإلكترونية", dateOfIssue: "تاريخ الإصدار", passenger: "المسافر", age: "العمر", birthdate: "تاريخ الميلاد", nationalCode: "الرقم الوطني", priceDetails: "تفاصيل السعر", basePrice: "السعر الأساسي", tax: "الضريبة", total: "المجموع", extraService: "خدمة إضافية", fareConditions: "شروط الأجرة", connectionTime: "وقت الانتظار", travelTime: "وقت السفر", route: "المسار", departure: "المغادرة", return: "العودة", adult: "بالغ", child: "طفل", infant: "رضيع", trainNumber: "رقم القطار", flightNumber: "رقم الرحلة", airline: "شركة الطيران", aircraft: "الطائرة", flightTime: "وقت الرحلة", gate: "البوابة", terminal: "المحطة", seatcount: "عدد المقاعد", seat: "رقم المقعد", cabin: "المقصورة", baggage: "الأمتعة", checkedBag: "الحقيبة المسجلة", carryOn: "الحقيبة اليدوية" },
   };
 
   const t = translations[lid] || translations[1];
@@ -120,7 +120,7 @@ function translateHeaderTitles(t) {
     if (text === 'invoice number') title.textContent = t.invoiceNumber;
     if (text === 'pnr code') title.textContent = t.pnrCode;
     if (text === 'eticket number') title.textContent = t.eticketNumber;
-    if (text === 'date of issue:') title.textContent = t.dateOfIssue ;
+    if (text === 'date of issue:') title.textContent = t.dateOfIssue;
   });
 }
 
@@ -135,14 +135,23 @@ function translateTicketTitles(t, invoice = null) {
   //   if (raw.includes('seat')) title.textContent = t.seat + ':';
   // });
 ticketTitles.forEach(title => {
-  const raw = title.textContent.trim().replace(':','').toLowerCase();
+  const raw = title.textContent.trim().replace(/[:：]+/g, '').toLowerCase();
 
   if (raw.includes('passenger')) title.innerHTML = `${t.passenger}<span class="inline-block">:</span>`;
-  if (raw === 'age') title.innerHTML = `${t.age}<span class="inline-block">:</span>`
+  if (raw === 'age') title.innerHTML = `${t.age}<span class="inline-block">:</span>`;
   if (raw.includes('national code')) title.innerHTML = `${t.nationalCode}<span class="inline-block">:</span>`;
-  if (raw.includes('seat')) title.innerHTML = `${t.seat}<span class="inline-block">:</span>`;
+
+  // 🔧 fix here
+  if (raw.includes('seat count') || raw.includes('seatcount')) {
+    title.innerHTML = `${t.seatcount}<span class="inline-block">:</span>`;
+  }
+
+  if (raw.includes('seat number') || raw.includes('seatnumber')) {
+    title.innerHTML = `${t.seat}<span class="inline-block">:</span>`;
+  }
 });
-  
+
+
 
 
   const routeTitles = document.querySelectorAll('.ticketContainer__details__time:not(#from-to-yellow-bar)');
@@ -183,10 +192,10 @@ function translatePriceTitles(t) {
   // });
 
   priceLabels.forEach(label => {
-  label.innerHTML = label.innerHTML.replace('Base Price:', `${t.basePrice}<span class="inline-block">:</span>`);
-  label.innerHTML = label.innerHTML.replace('Tax:', `${t.tax}<span class="inline-block">:</span>`);
-  label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span class="inline-block">:</span>`);
-});
+    label.innerHTML = label.innerHTML.replace('Base Price:', `${t.basePrice}<span class="inline-block">:</span>`);
+    label.innerHTML = label.innerHTML.replace('Tax:', `${t.tax}<span class="inline-block">:</span>`);
+    label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span class="inline-block">:</span>`);
+  });
 
 }
 
@@ -322,7 +331,7 @@ function hideLoadingScreen() {
     mainContent.classList.add("loaded");
     loadingScreen.style.display = "none";
     setTimeout(() => {
-      if ((Array.isArray(mainlid)?mainlid[0]:mainlid) == 2) {
+      if ((Array.isArray(mainlid) ? mainlid[0] : mainlid) == 2) {
         mainContentpdf.classList.add("dir-ltr");
       } else {
         mainContentpdf.classList.add("dir-rtl");
@@ -364,19 +373,36 @@ function nodata_error($data) {
   return "";
 }
 
-async function arrive_date_info($data , invoicetype , lid) {
+async function arrive_date_info($data, invoicetype, lid) {
   const len = $data.length;
   const arrive_date = $data[len - 1].route.routeDate.mstring;
   const arrive_date_S = $data[len - 1].route.routeDate.sstring;
   const arrive_dtime = $data[len - 1].route.atime || "";
-  if(invoicetype === 8){
+  if (invoicetype === 8) {
     return `<span id="landingDate" class=" text-sm" style="direction: ltr !important;display: inline-block;" >${arrive_date_S}</span> | <span id="landingTime" class=" text-sm" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`;
-  }else{
-    return `<span id="landingDate" class=" text-sm" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`;
+  } else {
+    return `<span id="landingDate" class=" text-sm" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(arrive_date, arrive_date_S, lid)}</span> | <span id="landingTime" class=" text-sm" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`;
   }
 }
 
-function passenger_gender(gender) { return String(gender)==="0" ? "Ms." : "Mr."; }
+function passenger_gender(gender) {
+  gender = String(gender);
+
+  if (mainlid === 1) {
+    // فارسی
+    return gender === "0" ? "خانم" : "آقا";
+  } else if (mainlid === 2) {
+    // انگلیسی
+    return gender === "0" ? "Ms." : "Mr.";
+  } else if (mainlid === 3) {
+    // عربی
+    return gender === "0" ? "الآنسة" : "السيد";
+  } else {
+    // حالت پیش‌فرض (انگلیسی)
+    return gender === "0" ? "Ms." : "Mr.";
+  }
+}
+
 
 async function route_array($data, invoicetype) {
   let data = $data.route;
@@ -423,52 +449,52 @@ async function route_array($data, invoicetype) {
 
 // ======================= PDF/desc helpers (USED IN HTML) ===========
 function pdf_desc_array($data) {
-    var output = "";
-    var data = $data
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            output += `<div dir="${detectDirection(data[i].note.title)}" >${data[i].note.title}</div><div dir="${detectDirection(data[i].note.text)}">${data[i].note.text}</div><br/>`
-        }
-        return output;
+  var output = "";
+  var data = $data
+  if (data.length > 0) {
+    for (var i = 0; i < data.length; i++) {
+      output += `<div dir="${detectDirection(data[i].note.title)}" >${data[i].note.title}</div><div dir="${detectDirection(data[i].note.text)}">${data[i].note.text}</div><br/>`
     }
+    return output;
+  }
 }
 
 function desc_array($data) {
-    var output = "";
-    var data = $data;
+  var output = "";
+  var data = $data;
 
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].departure !== undefined) {
-                const dep = data[i].departure;
-                let formattedDep = typeof dep === 'string' ? dep : JSON.stringify(dep);
-                formattedDep = formattedDep
-                    .replace(/^"|"$/g, '') 
-                    .replace(/\\n/g, '<br>') 
-                    .replace(/<font[^>]*>|<\/font>/gi, ''); 
-                output += `<div class=" font-danaregular" dir="${detectDirection(formattedDep)}" >${formattedDep}</div>`;
-            }
+  if (data.length > 0) {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].departure !== undefined) {
+        const dep = data[i].departure;
+        let formattedDep = typeof dep === 'string' ? dep : JSON.stringify(dep);
+        formattedDep = formattedDep
+          .replace(/^"|"$/g, '')
+          .replace(/\\n/g, '<br>')
+          .replace(/<font[^>]*>|<\/font>/gi, '');
+        output += `<div class=" font-danaregular" dir="${detectDirection(formattedDep)}" >${formattedDep}</div>`;
+      }
 
-            if (data[i].return !== undefined) {
-                const ret = data[i].return;
-                let formattedRet = typeof ret === 'string' ? ret : JSON.stringify(ret);
-                formattedRet = formattedRet
-                    .replace(/^"|"$/g, '')
-                    .replace(/\\n/g, '<br>')
-                    .replace(/<font[^>]*>|<\/font>/gi, '');
-                output += `<div class=" font-danaregular" dir="${detectDirection(formattedRet)}" >${formattedRet}</div>`;
-            }
-        }
-
-        document.getElementById("desc_array").innerHTML = output;
+      if (data[i].return !== undefined) {
+        const ret = data[i].return;
+        let formattedRet = typeof ret === 'string' ? ret : JSON.stringify(ret);
+        formattedRet = formattedRet
+          .replace(/^"|"$/g, '')
+          .replace(/\\n/g, '<br>')
+          .replace(/<font[^>]*>|<\/font>/gi, '');
+        output += `<div class=" font-danaregular" dir="${detectDirection(formattedRet)}" >${formattedRet}</div>`;
+      }
     }
+
+    document.getElementById("desc_array").innerHTML = output;
+  }
 }
 
 
 function convertDateFormat(mstring, sstring, lid) {
   try {
-    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const gregorianParts = String(mstring||"").split('-');
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const gregorianParts = String(mstring || "").split('-');
     const gregorianYear = gregorianParts[0];
     const gregorianMonth = monthNames[parseInt(gregorianParts[1]) - 1] || "";
     const gregorianDay = gregorianParts[2];
@@ -477,11 +503,11 @@ function convertDateFormat(mstring, sstring, lid) {
     const lidVal = Array.isArray(lid) ? lid[0] : lid;
     if (lidVal == 2 || lidVal == 3) return gregorianOutput;
 
-    const persianParts = String(sstring||"").split('-');
+    const persianParts = String(sstring || "").split('-');
     const persianYear = persianParts[0];
     const persianMonthNum = parseInt(persianParts[1]);
     const persianDay = persianParts[2];
-    const persianMonthNames = ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
+    const persianMonthNames = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
     const persianMonth = persianMonthNames[persianMonthNum - 1] || "";
     return ` <span class="inline-block ">${persianDay} ${persianMonth} ${persianYear} </span> <span class="inline-block dir-ltr">(${gregorianOutput})</span>`;
   } catch {
