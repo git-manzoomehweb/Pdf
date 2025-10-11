@@ -1,4 +1,44 @@
-<basis core="call"  file="Client_CheckRkey.inc"></basis>
+
+<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+    <member method="cms" name="shortlink" query='{ 
+                "name": "db",
+                "mid": "20",
+                "member":[{ 
+                "name": "q", 
+                "type":"list",
+                "request": "get_short_link",
+                "token": "[##cms.query.token##]",
+                }]} '  />
+</basis>
+
+<basis core="inlinesource" name="db">
+    <member name="shortlinkTreelangid" format="json"  postsql="
+     select Field , value from [db.shortlinkTreelangid] where Field in('langid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeid" format="json"  postsql="
+     select Field , value from [db.shortlinkTreeid] where Field in('id');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeletterhead" format="json"  postsql="
+     select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+        
+
+
+
+        <member name="shortlinkTreestatus" format="json"  postsql="
+         select Field , value from [db.shortlinkTreestatus] where Field in('status');
+         ">
+            {"root":[##db.shortlink.result##]}</member>
+
+        <member name="shortlinkTreecityid" format="json"  postsql="
+         select Field , value from [db.shortlinkTreecityid] where Field in('cityid');
+         ">
+            {"root":[##db.shortlink.result##]}</member>
+        
+</basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
@@ -7,7 +47,6 @@
     <title>Voucher PDF</title>
     <basis core="call"  file="Pdf_Taglist.inc"></basis>
     <style>
-        
         /* p {
             text-align: justify !important;
             break-inside: avoid;
@@ -86,16 +125,10 @@
     <!-- Main content -->
 
     <div class="main-content" id="main-content-wrapper">
-        <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
-            <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
-                id="access-denied-message">
-                شما اجازه دسترسی به این صفحه را ندارید
-            </div>
-        </basis>
-        <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
-            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+
+            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
                 method="post"
-                body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.langid|(1)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}'
+                body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##db.shortlinkTreeid.Value##]", "lid": "[##db.shortlinkTreelangid.Value|(1)##]", "cityid": "[##db.shortlinkTreecityid.Value|(0)##]", "status": "[##db.shortlinkTreestatus.Value|(0)##]"} ]}'
                 content-type="application/json" run="atclient"></basis>
             <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
 
@@ -126,7 +159,7 @@
                         <face>
                             <script type="text/template">
                                 <input type="hidden" id="name" value="@rooms[0].passengers[0].fullname.firstname@ @rooms[0].passengers[0].fullname.lastname@" />
-                                <input type="hidden" id="header" value="[##cms.query.letterhead|(1)##]" />
+                                <input type="hidden" id="header" value="[##db.shortlinkTreeletterhead.Value|(1)##]" />
                             </script>
                         </face>
                     </basis>
@@ -134,13 +167,14 @@
                 </div>
             </div>
 
+
 <!-- با استفاده از Print Command -->
 <basis datamembername="db.voucher_pdf"  core="print" run="atclient">
     <layout>@child</layout>
     <face>
         <script type="text/template">
         {{
-            if([##cms.query.letterhead##] == 1) {
+            if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
                     <img class="block max-w-[794px] w-full mx-auto object-contain" 
                          src="/images/Header-contract-pdf.jpg"
@@ -178,10 +212,10 @@
                                 <layout>@child </layout>
                                 <face>
                                     <script
-                                        type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##cms.query.id##]</p></div></li></script>
+                                        type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##db.shortlinkTreeid.Value##]</p></div></li></script>
                                 </face>
                             </basis>
-                            <basis core="group" name="persian" if="[##cms.query.langid##] = 1">
+                            <basis core="group" name="persian" if="[##db.shortlinkTreelangid.Value##] = 1">
                                 <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
@@ -192,7 +226,7 @@
                                 </basis>
 
                             </basis>
-                            <basis core="group" name="no-persian" if="[##cms.query.langid##] <> 1">
+                            <basis core="group" name="no-persian" if="[##db.shortlinkTreelangid.Value##] <> 1">
                                 <basis core="print" datamembername="db.voucher_pdf" run="atclient">
                                     <layout>@child </layout>
                                     <face>
@@ -255,13 +289,14 @@
                         </face>
                     </basis>
             </main>
+            
                         <!-- با استفاده از Print Command -->
 <basis datamembername="db.voucher_pdf"  core="print" run="atclient">
     <layout>@child</layout>
     <face>
         <script type="text/template">
         {{
-            if([##cms.query.letterhead##] == 1) {
+            if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
                         class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
                         width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
@@ -273,7 +308,6 @@
 </basis>
     </div>
 
-    </basis>
 
     <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
     <script>

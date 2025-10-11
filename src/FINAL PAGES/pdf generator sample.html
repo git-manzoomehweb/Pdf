@@ -1,108 +1,11 @@
-<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
-    <member method="cms" name="shortlink" query='{ 
-                "name": "db",
-                "mid": "20",
-                "member":[{ 
-                "name": "q", 
-                "type":"list",
-                "request": "get_short_link",
-                "token": "[##cms.query.token##]",
-                }]} '   />
-</basis>
-
-<basis core="inlinesource" name="db">
-    <member name="shortlinkTreelangid" format="json"  postsql="
-     select Field , value from [db.shortlinkTreelangid] where Field in('langid');
-     " >
-        {"root":[##db.shortlink.result##]}</member>
-    <member name="shortlinkTreeid" format="json"  postsql="
-     select Field , value from [db.shortlinkTreeid] where Field in('id');
-     " >
-        {"root":[##db.shortlink.result##]}</member>
-    <member name="shortlinkTreeletterhead" format="json"  postsql="
-     select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
-     " >
-        {"root":[##db.shortlink.result##]}</member>
-
-</basis>
-
+<basis core="call"  file="Client_CheckRkey.inc"></basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
 
 <head>
-    
   <title>Invoice PDF</title>
-      <basis core="call" lid="1"  file="Pdf_Taglist.inc"></basis>
-    <!-- <style>
-        p {
-            text-align: justify !important;
-            break-inside: avoid;
-        }
-
-        .pdf-content {
-            margin: 0 auto;
-            padding: 15px;
-            box-sizing: border-box;
-            min-width: 794px !important;
-            /* min-height: 1697px !important; */
-            position: relative;
-            page-break-inside: avoid;
-        }
-
-        /* Force page break before these elements */
-        .page-break-before {
-            page-break-before: always;
-        }
-
-        /* Force page break after these elements */
-        .page-break-after {
-            page-break-after: always;
-        }
-
-        table {
-            page-break-inside: auto;
-            page-break-before: avoid;
-        }
-
-        tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
-        }
-
-        .avoid-break {
-            break-inside: avoid;
-        }
-
-        /* Or use the more modern equivalent */
-        @media print {
-            .avoid-break {
-                break-inside: avoid;
-            }
-
-            .break-before {
-                break-before: page;
-            }
-
-            .break-after {
-                break-after: page;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .pdf-content {
-                margin: 0 auto;
-                padding: 15px;
-                box-sizing: border-box;
-                min-width: unset !important;
-                position: relative;
-                page-break-inside: avoid;
-            }
-        }
-    </style> -->
-
-
-
+      <basis core="call"  file="Pdf_Taglist.inc"></basis>
     <style>
         .my-1 {
         margin-top: unset !important;
@@ -246,10 +149,9 @@
             }
         }
     </style>
-
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##db.shortlinkTreelangid.Value|(1)##]);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.langid|(1)##]);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -260,8 +162,14 @@
     <!-- Main content -->
 
     <div class="main-content" id="main-content-wrapper">
-
-    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
+    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
+            <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
+                id="access-denied-message">
+                شما اجازه دسترسی به این صفحه را ندارید
+            </div>
+  </basis>
+  <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
+    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
       method="post" body='{
             "name": "db", 
             "mid": "20", 
@@ -271,8 +179,8 @@
                     "name": "q", 
                     "type":"list", 
                     "request":"invoice_pdf", 
-                    "lid":"[##db.shortlinkTreelangid.Value##]",
-                    "id":"[##db.shortlinkTreeid.Value##]"
+                    "lid":"[##cms.query.langid##]",
+                    "id":"[##cms.query.id##]"
                 }
             ] 
         }' content-type="application/json" run="atclient">
@@ -308,7 +216,7 @@
                         <script type="text/template">
                         <input type="hidden" id="name"
                           value="@passengers[0].passengerinfo.fullname.firstname@ @passengers[0].passengerinfo.fullname.lastname@" />
-                        <input type="hidden" id="header" value="[##db.shortlinkTreeletterhead.Value|(1)##]" />
+                        <input type="hidden" id="header" value="[##cms.query.letterhead|(1)##]" />
                         </script>
                       </face>
                     </basis>
@@ -326,7 +234,7 @@
     <face>
         <script type="text/template">
         {{
-            if([##db.shortlinkTreeletterhead.Value##] == 1) {
+            if([##cms.query.letterhead##] == 1) {
                 return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
                     <img class="block max-w-[794px] w-full mx-auto object-contain" 
                          src="/images/Header-contract-pdf.jpg"
@@ -371,7 +279,7 @@
           <face>
             <script type="text/template">
               {{return await setInvoiceType($data.invoiceDetails.invoicetype)}}
-              {{return await renderInvoiceDetails($data , [##db.shortlinkTreelangid.Value|(1)##])}}
+              {{return await renderInvoiceDetails($data , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -382,7 +290,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderAllProducts($data.products , [##db.shortlinkTreelangid.Value|(1)##] )}}
+              {{return await renderAllProducts($data.products , [##cms.query.langid|(1)##] )}}
             </script>
           </face>
         </basis>
@@ -392,7 +300,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderPassengers($data.passengers , $data , [##db.shortlinkTreelangid.Value|(1)##])}}
+              {{return await renderPassengers($data.passengers , $data , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -402,7 +310,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderPriceDetailsSection($data , $data.priceDetails , [##db.shortlinkTreelangid.Value|(1)##])}}
+              {{return await renderPriceDetailsSection($data , $data.priceDetails , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -411,7 +319,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderBillSection($data.bill , [##db.shortlinkTreelangid.Value|(1)##])}}
+              {{return await renderBillSection($data.bill , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -422,7 +330,7 @@
           </layout>
           <face>
             <script type="text/template">
-              {{return await renderDescription($data , [##db.shortlinkTreelangid.Value|(1)##])}}
+              {{return await renderDescription($data , [##cms.query.langid|(1)##])}}
             </script>
           </face>
         </basis>
@@ -440,7 +348,7 @@
     <face>
         <script type="text/template">
         {{
-            if([##db.shortlinkTreeletterhead.Value##] == 1) {
+            if([##cms.query.letterhead##] == 1) {
                 return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
                         class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
                         width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
@@ -454,6 +362,7 @@
 
     </div>
 
+  </basis>
 
     <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
     <script>
@@ -635,7 +544,7 @@
     
     
         async function generatePDF() {
-    setFixedViewport();
+            setFixedViewport();
 
             const element = document.querySelector('.pdf-content');
 
@@ -643,106 +552,106 @@
             console.log('pages', max_width, currentY, pages)
             renderPages(pages, max_width);
 
-    const pdfConfig = document.querySelector('.pdf-config');
-    const pdfFileName = pdfConfig.querySelector('#name');
-    const isSetHeader = pdfConfig.querySelector('#header');
-    
-    let headerImage = null;
-    let footerImage = null;
+            const pdfConfig = document.querySelector('.pdf-config');
+            const pdfFileName = pdfConfig.querySelector('#name');
+            const isSetHeader = pdfConfig.querySelector('#header');
+            
+            let headerImage = null;
+            let footerImage = null;
 
-    if (isSetHeader.value == 1) {
-        try {
-            const headerElement = document.querySelector('#pdf-header').querySelector("img");
-            const footerElement = document.querySelector('#pdf-footer').querySelector("img");
+            if (isSetHeader.value == 1) {
+                try {
+                    const headerElement = document.querySelector('#pdf-header').querySelector("img");
+                    const footerElement = document.querySelector('#pdf-footer').querySelector("img");
 
-            // Check if both header and footer have images
-            if (headerElement) {
-                const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                headerImage = headerCanvas.toDataURL('image/png');
-            }
-            if (footerElement) {
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
-                footerImage = footerCanvas.toDataURL('image/png');
-            }
-        } catch (error) {
-            console.error("Error loading header or footer:", error);
-            isSetHeader.value = 0; // If there's any issue, disable the header/footer flag
-        }
-    }
-
-    const loadingElement = document.querySelector('.pdf-loading');
-
-    try {
-        if (loadingElement) loadingElement.classList.remove('hidden');
-
-        var window_Width = element.scrollWidth;
-
-        if (window.innerWidth < 768) {
-            window_Width = 768;
-        }
-
-        const opt = {
-            margin: [30, 10, 30, 10],
-            filename: pdfFileName.value || "reservationDoc.pdf",
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: {
-                scale: 1,
-                width: 794,
-                windowWidth: window_Width,
-                useCORS: true,
-                backgroundColor: '#ffffff',
-                scrollX: 0,
-                scrollY: 0,
-                letterRendering: true,
-                ignoreElements: (el) =>
-                    ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
-                    el.classList.contains('pdf-loading'),
-            },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait',
-                hotfixes: ['px_scaling']
-            },
-            pagebreak: {
-                mode: ['css', 'legacy'], // Use both CSS and legacy mode
-                before: '.page-break-before',
-                after: '.page-break-after',
-                avoid: '.avoid-break'
-            }
-        };
-
-        // Generate the PDF
-        const worker = html2pdf().set(opt).from(element).toPdf();
-
-        // Add header and footer images if they exist
-        worker.get('pdf').then((pdf) => {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = 1; i <= totalPages; i++) {
-                pdf.setPage(i);
-                // Add header and/or footer based on availability
-                if (headerImage) {
-                    pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
-                }
-                if (footerImage) {
-                    pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);  // x, y, width, height
+                    // Check if both header and footer have images
+                    if (headerElement) {
+                        const headerCanvas = await html2canvas(headerElement, { scale: 2 });
+                        headerImage = headerCanvas.toDataURL('image/png');
+                    }
+                    if (footerElement) {
+                        const footerCanvas = await html2canvas(footerElement, { scale: 2 });
+                        footerImage = footerCanvas.toDataURL('image/png');
+                    }
+                } catch (error) {
+                    console.error("Error loading header or footer:", error);
+                    isSetHeader.value = 0; // If there's any issue, disable the header/footer flag
                 }
             }
-        });
 
-        await worker.save();
-    } catch (err) {
-        console.error('PDF generation failed:', err);
-        alert('خطا در تولید PDF.');
-    } finally {
-        resetViewport();
-        if (loadingElement) loadingElement.classList.add('hidden');
-    }
-}
+            const loadingElement = document.querySelector('.pdf-loading');
+
+            try {
+                if (loadingElement) loadingElement.classList.remove('hidden');
+
+                var window_Width = element.scrollWidth;
+
+                if (window.innerWidth < 768) {
+                    window_Width = 768;
+                }
+
+                const opt = {
+                    margin: [30, 10, 30, 10],
+                    filename: pdfFileName.value || "reservationDoc.pdf",
+                    image: { type: 'jpeg', quality: 1 },
+                    html2canvas: {
+                        scale: 1,
+                        width: 794,
+                        windowWidth: window_Width,
+                        useCORS: true,
+                        backgroundColor: '#ffffff',
+                        scrollX: 0,
+                        scrollY: 0,
+                        letterRendering: true,
+                        ignoreElements: (el) =>
+                            ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
+                            el.classList.contains('pdf-loading'),
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait',
+                        hotfixes: ['px_scaling']
+                    },
+                    pagebreak: {
+                        mode: ['css', 'legacy'], // Use both CSS and legacy mode
+                        before: '.page-break-before',
+                        after: '.page-break-after',
+                        avoid: '.avoid-break'
+                    }
+                };
+
+                // Generate the PDF
+                const worker = html2pdf().set(opt).from(element).toPdf();
+
+                // Add header and footer images if they exist
+                worker.get('pdf').then((pdf) => {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        // Add header and/or footer based on availability
+                        if (headerImage) {
+                            pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
+                        }
+                        if (footerImage) {
+                            pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);  // x, y, width, height
+                        }
+                    }
+                });
+
+                await worker.save();
+            } catch (err) {
+                console.error('PDF generation failed:', err);
+                alert('خطا در تولید PDF.');
+            } finally {
+                resetViewport();
+                if (loadingElement) loadingElement.classList.add('hidden');
+            }
+        }
    
     </script>
 
-    <basis core="call" lid="1"  file="Client_BasisCore_Script.inc"></basis>
+    <basis core="call"  file="Client_BasisCore_Script.inc"></basis>
     <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
     <script src="[##cms.cms.cdn##]/js/pdf-invoice.functions.js" defer></script>
 </body>

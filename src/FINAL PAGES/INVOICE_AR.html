@@ -1,4 +1,31 @@
-<basis core="call" lid="3"  file="Client_CheckRkey.inc"></basis>
+<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+    <member method="cms" name="shortlink" query='{ 
+                "name": "db",
+                "mid": "20",
+                "member":[{ 
+                "name": "q", 
+                "type":"list",
+                "request": "get_short_link",
+                "token": "[##cms.query.token##]",
+                }]} '  />
+</basis>
+
+<basis core="inlinesource" name="db">
+    <member name="shortlinkTreelangid" format="json"  postsql="
+     select Field , value from [db.shortlinkTreelangid] where Field in('langid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeid" format="json"  postsql="
+     select Field , value from [db.shortlinkTreeid] where Field in('id');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeletterhead" format="json"  postsql="
+     select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+
+</basis>
+
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
@@ -74,7 +101,7 @@
     </style>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##cms.query.langid|(1)##]);">
+<body class="p-0 m-0 overflow-auto" id="content" onload="setlid([##db.shortlinkTreelangid.Value|(3)##]);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -85,14 +112,8 @@
     <!-- Main content -->
 
     <div class="main-content" id="main-content-wrapper">
-    <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
-            <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
-                id="access-denied-message">
-                شما اجازه دسترسی به این صفحه را ندارید
-            </div>
-  </basis>
-  <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
-    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+
+    <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
       method="post" body='{
             "name": "db", 
             "mid": "20", 
@@ -102,8 +123,8 @@
                     "name": "q", 
                     "type":"list", 
                     "request":"invoice_pdf", 
-                    "lid":"[##cms.query.langid##]",
-                    "id":"[##cms.query.id##]"
+                    "lid":"[##db.shortlinkTreelangid.Value##]",
+                    "id":"[##db.shortlinkTreeid.Value##]"
                 }
             ] 
         }' content-type="application/json" run="atclient">
@@ -139,7 +160,7 @@
                         <script type="text/template">
                         <input type="hidden" id="name"
                           value="@passengers[0].passengerinfo.fullname.firstname@ @passengers[0].passengerinfo.fullname.lastname@" />
-                        <input type="hidden" id="header" value="[##cms.query.letterhead|(1)##]" />
+                        <input type="hidden" id="header" value="[##db.shortlinkTreeletterhead.Value|(1)##]" />
                         </script>
                       </face>
                     </basis>
@@ -157,7 +178,7 @@
     <face>
         <script type="text/template">
         {{
-            if([##cms.query.letterhead##] == 1) {
+            if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
                     <img class="block max-w-[794px] w-full mx-auto object-contain" 
                          src="/images/Header-contract-pdf.jpg"
@@ -202,7 +223,7 @@
           <face>
             <script type="text/template">
               {{return await setInvoiceType($data.invoiceDetails.invoicetype)}}
-              {{return await renderInvoiceDetails($data , [##cms.query.langid|(1)##])}}
+              {{return await renderInvoiceDetails($data , [##db.shortlinkTreelangid.Value|(1)##])}}
             </script>
           </face>
         </basis>
@@ -213,7 +234,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderAllProducts($data.products , [##cms.query.langid|(1)##] )}}
+              {{return await renderAllProducts($data.products , [##db.shortlinkTreelangid.Value|(1)##] )}}
             </script>
           </face>
         </basis>
@@ -223,7 +244,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderPassengers($data.passengers , $data , [##cms.query.langid|(1)##])}}
+              {{return await renderPassengers($data.passengers , $data , [##db.shortlinkTreelangid.Value|(1)##])}}
             </script>
           </face>
         </basis>
@@ -233,7 +254,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderPriceDetailsSection($data , $data.priceDetails , [##cms.query.langid|(1)##])}}
+              {{return await renderPriceDetailsSection($data , $data.priceDetails , [##db.shortlinkTreelangid.Value|(1)##])}}
             </script>
           </face>
         </basis>
@@ -242,7 +263,7 @@
           <layout>@child </layout>
           <face>
             <script type="text/template">
-              {{return await renderBillSection($data.bill , [##cms.query.langid|(1)##])}}
+              {{return await renderBillSection($data.bill , [##db.shortlinkTreelangid.Value|(1)##])}}
             </script>
           </face>
         </basis>
@@ -253,7 +274,7 @@
           </layout>
           <face>
             <script type="text/template">
-              {{return await renderDescription($data , [##cms.query.langid|(1)##])}}
+              {{return await renderDescription($data , [##db.shortlinkTreelangid.Value|(1)##])}}
             </script>
           </face>
         </basis>
@@ -271,7 +292,7 @@
     <face>
         <script type="text/template">
         {{
-            if([##cms.query.letterhead##] == 1) {
+            if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
                         class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
                         width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
@@ -285,10 +306,164 @@
 
     </div>
 
-  </basis>
 
     <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
     <script>
+        const PAGE_HEIGHT = 800;  // 50% 795
+
+        function resetViewport() {
+            // window.location.reload();
+            return;
+        }
+
+        async function paginateContent(content, maxWidth = 0, currentY = 0) {
+            const elements = Array.from(content.children); // دریافت تمام فرزندان
+            const pages = [];
+            let currentPage = [];
+
+            // برای هر المان یک Promise ایجاد می‌کنیم
+            await Promise.all(
+                elements.map(async (el, index) => {
+                    // بررسی اینکه آیا عرض المان بیشتر از عرض قبلی است
+                    if (el.scrollWidth > maxWidth) {
+                        maxWidth = el.scrollWidth;
+                    }
+
+                    // ایجاد HTML جدید از el
+                    var htmlContent = buildHtmlFromPath(getParentHtml(el), el.innerHTML);
+                    var tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = htmlContent;
+
+                    // اطمینان از اینکه المان به درستی رندر شده
+                    const renderedElement = tempDiv.firstChild;
+
+                    // بررسی اینکه آیا المان در صفحه جا می‌شود یا خیر
+                    if (currentY + el.offsetHeight <= PAGE_HEIGHT) {
+                        currentPage.push(renderedElement);
+                        currentY += el.offsetHeight;
+                    } else {
+                        // اگر المان خیلی بزرگ بود، صفحات جدید می‌سازیم
+                        if (el.offsetHeight >= PAGE_HEIGHT) {
+                            const [subPages, subMaxWidth, cy] = await paginateContent(el, maxWidth); // فراخوانی غیرهمزمان
+
+                            if (subPages) {
+                                pages.push(...subPages);
+                            }
+                            
+                            if (subMaxWidth && subMaxWidth > maxWidth) {
+                                maxWidth = subMaxWidth;
+                            }
+
+                            if (cy){
+                                currentPage = [];
+                                currentY = cy
+                            }
+                        } else {
+                            // افزودن صفحه فعلی و شروع صفحه جدید
+                            if (currentPage.length > 0) {
+                                pages.push(currentPage);
+                            }
+                            currentPage = [renderedElement];
+                            currentY = el.offsetHeight;
+                        }
+                    }
+
+                    // اضافه کردن آخرین المان به صفحه‌ها
+                    if (index === elements.length - 1 && currentPage.length > 0) {
+                        pages.push(currentPage);
+                    }
+                })
+            );
+
+            return [pages, maxWidth, currentY];
+        }
+
+        function getParentHtml(elements) {
+            let parentHtml = [];
+
+            // Ensure elements is an array or NodeList
+            const elementsArray = Array.isArray(elements) || elements instanceof NodeList ? elements : [elements];
+
+            elementsArray.forEach(element => {
+                let currentElement = element;
+                let path = [];
+
+                // Traverse up the DOM tree to the root
+                while (currentElement) {
+                    const tagName = currentElement.tagName.toLowerCase();
+                    const className = currentElement.className ? `.${currentElement.className.trim().replace(/\s+/g, '.')}` : '';
+                    
+                    const idSelector = currentElement.id ? `#${currentElement.id.trim()}` : '';
+                    path.unshift(tagName + className + idSelector); 
+
+                    // Move to the parent element
+                    currentElement = currentElement.parentElement;
+                }
+
+                // Join the path with '>' separator
+                parentHtml.push(path)
+            });
+
+            return parentHtml; // Trim trailing newline
+        }
+        
+        function buildHtmlFromPath(pathArray, content = '') {
+            var startIndex = 4
+            let currentHtml = '';
+            pathArray = pathArray[0]; // استفاده از اولین آرایه در pathArray
+
+            // اطمینان از اینکه ایندکس شروع معتبر باشد
+            if (startIndex >= pathArray.length || startIndex < 0) {
+                return ''; // اگر ایندکس شروع غیرمعتبر باشد چیزی برنمی‌گرداند
+            }
+
+            // شروع از ایندکس مشخص شده
+            for (let i = pathArray.length - 1; i >= startIndex; i--) {
+                const path = pathArray[i];
+        
+                const hashParts = path.split('#');
+                const beforeHash = hashParts[0];
+                const idValue = hashParts.length > 1 ? hashParts[1] : '';
+                const parts = beforeHash.split('.');
+                const tagName = parts[0];
+                const className = parts.slice(1).join(' ');
+                const idAttr = idValue ? ` id="${idValue}"` : '';
+                const classAttr = className ? ` class="${className}"` : '';
+                const attrs = `${idAttr}${classAttr}`;
+                if (i === pathArray.length - 1) {
+                    currentHtml = `<${tagName}${attrs}>${content}</${tagName}>`;
+                } else {
+                    currentHtml = `<${tagName}${attrs}>${currentHtml}</${tagName}>`;
+                }
+            }
+
+            return currentHtml;
+        }
+        
+        function renderPages(pages, width) {
+            const container = document.querySelector('.pdf-content');
+            container.innerHTML = ''; // Clear the existing content
+
+            // Loop through each page
+            pages.forEach(page => {
+                const pageDiv = document.createElement('div');
+                pageDiv.classList.add('pagee');
+                
+                // Set the page width dynamically
+                // pageDiv.style.width = `${width}px`; // Corrected the style application (no space between width and px)
+
+                // Loop through each element of the page and append its clone to the pageDiv
+                page.forEach(el => {
+                    el.setAttribute('style', 'margin-top: unset !important');
+                    // const clonedElement = el.cloneNode(true);
+                    pageDiv.appendChild(el);
+                });
+
+                // Append the pageDiv to the container
+                container.appendChild(pageDiv);
+            });
+        }
+        
         function setFixedViewport() {
             const pdfContent = document.querySelector('.pdf-content');
             if (pdfContent) {
@@ -306,30 +481,23 @@
         }
 
         function resetViewport() {
-            window.location.reload();
+            // window.location.reload();
+            return;
         }
-
-        function enforceLRMAroundParens(root = document) {
-            root.querySelectorAll('.dir-ltr, .bidi-ltr').forEach(el => {
-                // متن را می‌گیریم ولی تگ‌های داخلی را خراب نکنیم: فقط وقتی متن ساده است
-                if (el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE) {
-                el.textContent = '\u200E(' + el.textContent.replace(/[()]/g, '').trim() + ')\u200E';
-                } else {
-                // نسخه امن‌تر: فقط کاراکترهای ( و ) را با LRM مهار کنیم
-                el.innerHTML = el.innerHTML
-                    .replace(/\(/g, '\u200E(')
-                    .replace(/\)/g, ')\u200E');
-                }
-            });
-        }
-            
+    
+    
         async function generatePDF() {
     setFixedViewport();
+
+            const element = document.querySelector('.pdf-content');
+
+            var [pages, max_width, currentY] = await paginateContent(element, 0);
+            console.log('pages', max_width, currentY, pages)
+            renderPages(pages, max_width);
+
     const pdfConfig = document.querySelector('.pdf-config');
     const pdfFileName = pdfConfig.querySelector('#name');
     const isSetHeader = pdfConfig.querySelector('#header');
-
-    const element = document.querySelector('.pdf-content');
     
     let headerImage = null;
     let footerImage = null;
@@ -424,7 +592,6 @@
     }
 }
    
-
     </script>
 
     <basis core="call" lid="3"  file="Client_BasisCore_Script.inc"></basis>

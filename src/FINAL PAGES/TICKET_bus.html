@@ -1,4 +1,40 @@
-<basis core="call" lid="1" file="Client_CheckRkey.inc"></basis>
+<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+    <member method="cms" name="shortlink" query='{ 
+                "name": "db",
+                "mid": "20",
+                "member":[{ 
+                "name": "q", 
+                "type":"list",
+                "request": "get_short_link",
+                "token": "[##cms.query.token##]",
+                }]} '  />
+</basis>
+
+<basis core="inlinesource" name="db">
+    <member name="shortlinkTreelangid" format="json"  postsql="
+     select Field , value from [db.shortlinkTreelangid] where Field in('langid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeid" format="json"  postsql="
+     select Field , value from [db.shortlinkTreeid] where Field in('id');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeletterhead" format="json"  postsql="
+     select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+        
+        <member name="shortlinkTreetid" format="json"  postsql="
+         select Field , value from [db.shortlinkTreetid] where Field in('tid');
+         ">
+            {"root":[##db.shortlink.result##]}</member>
+
+        <member name="shortlinkTreeinvoice" format="json"  postsql="
+         select Field , value from [db.shortlinkTreeinvoice] where Field in('invoice');
+         ">
+            {"root":[##db.shortlink.result##]}</member>
+        
+</basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
@@ -80,7 +116,7 @@
 </head>
 
 <body class="p-0 m-0 overflow-auto" id="content"
-    onload="setlid([##cms.query.langid|(1)##], [##cms.query.invoice|(0)##]);">
+    onload="setlid([##db.shortlinkTreelangid.Value|(1)##], [##db.shortlinkTreeinvoice.Value|(0)##]);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -90,29 +126,23 @@
 
     <!-- Main content -->
     <div class="main-content" id="main-content-wrapper">
-        <basis core="group" name="invalid-rkey" if="'[##db.checkrkey.checked##]'<>'true'">
-            <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto absolute top-0 left-0 right-0 bottom-0 h-fit"
-                id="access-denied-message">
-                شما اجازه دسترسی به این صفحه را ندارید
-            </div>
-        </basis>
-        <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
 
-            <basis core="group" if="'[##cms.query.tid##]'='Error'">
+
+            <basis core="group" if="'[##db.shortlinkTreetid.Value##]'='Error'">
                 <div class="text-base font-bold mb-5 text-center text-red-500">
                     Ticket number is not available, please contact the site support 
                 </div>
             </basis>
 
-            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
+            <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
                 method="post" body='{
     "name": "db",
     "member": [
         {
             "request": "bus_ticket_pdf",
-            "factorid": "[##cms.query.id##]",
-            "ticketid": "[##cms.query.tid##]",
-           "lid": "[##cms.query.langid|(1)##]"
+            "factorid": "[##db.shortlinkTreeid.Value##]",
+            "ticketid": "[##db.shortlinkTreetid.Value##]",
+           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
         }
     ]
 }' content-type="application/json" run="atclient">
@@ -147,7 +177,7 @@
                         <face>
                             <script type="text/template">
                                 <input type="hidden" id="name" value="@passenger.passengerinfo.fullname.firstname@ @passenger.passengerinfo.fullname.lastname@" />
-                                <input type="hidden" id="header" value="[##cms.query.letterhead|(1)##]" />
+                                <input type="hidden" id="header" value="[##db.shortlinkTreeletterhead.Value|(1)##]" />
                             </script>
                         </face>
                     </basis>
@@ -172,7 +202,7 @@
                 <face>
                     <script type="text/template">
                     {{
-                        if([##cms.query.letterhead##] == 1) {
+                        if([##db.shortlinkTreeletterhead.Value##] == 1) {
                             return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
                                 <img class="block max-w-[794px] w-full mx-auto object-contain" 
                                     src="/images/Header-contract-pdf.jpg"
@@ -217,7 +247,7 @@
                                     <script type="text/template">
                                 <div class="header__details__container__item text-center">
                                     <h3 class="header__details__container__item__title text-center mb-1 text-gray-600 font-danaregular max-sm:text-xs">invoice number</h3>
-                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold max-sm:text-xs">[##cms.query.id##]</span>
+                                    <span class="header__details__container__item__title text-center  text-sm font-danademibold max-sm:text-xs">[##db.shortlinkTreeid.Value##]</span>
                                 </div>
     
                                 <div class="header__details__container__item text-center">
@@ -356,7 +386,7 @@
                                                                 
                                                                 const result = await passenger_type(
                                                                     $data.passenger.passengerinfo.type, 
-                                                                    [##cms.query.langid|(1)##]
+                                                                    [##db.shortlinkTreelangid.Value|(1)##]
                                                                 );
                                                                 
                                                                 if (result && result !== 'undefined') {
@@ -400,7 +430,7 @@
 
                             <basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
                             <layout>
-                                <div id="from-to-yellow-bar" class="{{ return await barDirection([##cms.query.langid##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                <div id="from-to-yellow-bar" class="{{ return await barDirection([##db.shortlinkTreelangid.Value##])}}  ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
                                     @child
                                 </div>
                             </layout>
@@ -415,7 +445,7 @@
                                         <span id="busDate" class=" text-sm max-sm:text-xs inline-block" >
                                             {{
                                                 try{
-                                                    return await convertDateFormat($data.products.departure[0].route.routeDate.mstring  , $data.products.departure[0].route.routeDate.sstring , [##cms.query.langid##]);
+                                                    return await convertDateFormat($data.products.departure[0].route.routeDate.mstring  , $data.products.departure[0].route.routeDate.sstring , [##db.shortlinkTreelangid.Value##]);
                                                 }catch (e){
                                                     return '';
                                                 }
@@ -425,7 +455,7 @@
                                         <span id="busTime" class=" text-sm max-sm:text-xs inline-block">@products.departure[0].route.etime@</span>
                                     </div>
                                     
-                                    <div class="{{ return await barArrowRotation([##cms.query.langid##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
+                                    <div class="{{ return await barArrowRotation([##db.shortlinkTreelangid.Value##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
                                         <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]"  src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
                                     </div>
                                     
@@ -610,7 +640,7 @@
     <face>
         <script type="text/template">
         {{
-            if([##cms.query.letterhead##] == 1) {
+            if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
                         class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
                         width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
@@ -621,7 +651,6 @@
     </face>
 </basis>
 
-        </basis>
 
         <!-- Scripts -->
         <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>

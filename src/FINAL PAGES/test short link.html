@@ -1,0 +1,68 @@
+<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+    <member method="cms" name="shortlink" query='{ 
+                "name": "db",
+                "mid": "20",
+                "member":[{ 
+                "name": "q", 
+                "type":"list",
+                "request": "get_short_link",
+                "token": "[##cms.query.token##]",
+                }]} ' preview="true" />
+</basis>
+
+<basis core="inlinesource" name="db">
+
+    <member name="shortlinkTree" format="json" preview="true">
+        {"root":[##db.shortlink.result##]}</member>
+
+    <member name="shortlinkTreelangid" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreelangid] where Field in('lid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeid" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreeid] where Field in('id');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreetid" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreetid] where Field in('tid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreerkey" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreerkey] where Field in('rkey');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+
+
+
+</basis>
+
+
+output :
+</br>
+[##db.shortlinkTreelangid.Field##] : [##db.shortlinkTreelangid.Value##]
+</br>
+[##db.shortlinkTreeid.Field##] : [##db.shortlinkTreeid.Value##]
+</br>
+[##db.shortlinkTreetid.Field##] : [##db.shortlinkTreetid.Value##]
+</br>
+[##db.shortlinkTreerkey.Field##] : [##db.shortlinkTreerkey.Value##]
+
+
+<basis core="inlinesource" name="db">
+    <member name="shortlinkTreelangid" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreelangid] where Field in('langid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeid" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreeid] where Field in('id');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeletterhead" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreerkey" format="json" preview="true" postsql="
+     select Field , value from [db.shortlinkTreerkey] where Field in('rkey');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+</basis>
