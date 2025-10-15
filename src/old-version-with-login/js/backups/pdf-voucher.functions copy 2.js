@@ -1,0 +1,821 @@
+// ----------------------------- Voucher PDF --------------------------------
+// متغیرهای کنترل لودینگ
+let loadingStartTime = Date.now();
+let isContentLoaded = false;
+let isMinTimeElapsed = false;
+let apiDataLoaded = false;
+const MIN_LOADING_TIME = 2000; // 2 ثانیه حداقل
+let mainlid;
+
+function setlid(lid) {
+  mainlid = lid;
+}
+
+function initializePageLanguage(lid) {
+  const translations = {
+    1: {
+      // فارسی
+      lang: "fa",
+      dir: "rtl",
+      mainTitle: "ووچر",
+      contractNumber: "شماره قرارداد",
+      issueDate: "تاریخ صدور",
+      contractTime: "ساعت قرارداد",
+      accessDenied: "شما اجازه دسترسی به این صفحه را ندارید",
+      loadingText: "در حال بارگذاری",
+      pdfLoadingText: "در حال تولید PDF",
+      textAlign: "text-right",
+      justifyContent: "!justify-end",
+    },
+    2: {
+      // انگلیسی
+      lang: "en",
+      dir: "ltr",
+      mainTitle: "Voucher",
+      contractNumber: "Contract Number",
+      issueDate: "Issue Date",
+      contractTime: "Contract Time",
+      accessDenied: "You do not have permission to access this page",
+      loadingText: "Loading",
+      pdfLoadingText: "Generating PDF",
+      textAlign: "text-left",
+      justifyContent: "!justify-start",
+    },
+    3: {
+      // عربی
+      lang: "ar",
+      dir: "rtl",
+      mainTitle: "قسيمة",
+      contractNumber: "رقم العقد",
+      issueDate: "تاريخ الإصدار",
+      contractTime: "وقت العقد",
+      accessDenied: "ليس لديك إذن للوصول إلى هذه الصفحة",
+      loadingText: "جاري التحميل",
+      pdfLoadingText: "جاري إنشاء PDF",
+      textAlign: "text-right",
+      justifyContent: "!justify-end",
+    },
+  };
+
+  const t = translations[lid] || translations[1];
+  window.currentTranslations = t;
+
+  // تنظیم attributes اصلی HTML
+  const htmlRoot = document.getElementById("html-root");
+  const body = document.body;
+  const mainContent = document.getElementById("main-content-wrapper");
+  const headerSection = document.getElementById("header-section");
+  const accessDeniedMessage = document.getElementById("access-denied-message");
+  const pdfLoadingText = document.getElementById("pdf-loading-text");
+  const mainLoadingText = document.getElementById("main-loading-text");
+
+  if (htmlRoot) {
+    htmlRoot.setAttribute("lang", t.lang);
+    htmlRoot.setAttribute("dir", t.dir);
+  }
+
+  if (body) {
+    body.setAttribute("dir", t.dir);
+    body.className =
+      body.className.replace(/dir-(rtl|ltr)/g, "") + ` dir-${t.dir}`;
+  }
+
+  if (mainContent) {
+    mainContent.setAttribute("dir", t.dir);
+    mainContent.className =
+      mainContent.className.replace(/dir-(rtl|ltr)/g, "") + ` dir-${t.dir}`;
+  }
+
+  if (headerSection) {
+    headerSection.setAttribute("dir", t.dir);
+    headerSection.className =
+      headerSection.className.replace(/(!justify-start|!justify-end)/g, "") +
+      ` ${t.justifyContent}`;
+  }
+
+  // تنظیم متن لودینگ اصلی
+  if (mainLoadingText) {
+    mainLoadingText.textContent = t.loadingText;
+  }
+
+  // تنظیم متون ثابت
+  setTimeout(() => {
+    const mainTitle = document.getElementById("main-title");
+    if (mainTitle) {
+      mainTitle.textContent = t.mainTitle;
+      mainTitle.className =
+        mainTitle.className.replace(/(text-left|text-right)/g, "") +
+        ` ${t.textAlign}`;
+    }
+
+    const contractNumberLabel = document.getElementById(
+      "contract-number-label"
+    );
+    if (contractNumberLabel) {
+      contractNumberLabel.innerHTML = `${t.contractNumber}<span>:</span>`;
+      contractNumberLabel.className =
+        contractNumberLabel.className.replace(/(text-left|text-right)/g, "") +
+        ` ${t.textAlign}`;
+    }
+
+    const issueDateLabel = document.getElementById("issue-date-label");
+    if (issueDateLabel) {
+      issueDateLabel.innerHTML = `${t.issueDate}<span>:</span>`;
+      issueDateLabel.className =
+        issueDateLabel.className.replace(/(text-left|text-right)/g, "") +
+        ` ${t.textAlign}`;
+    }
+
+    const contractTimeLabel = document.getElementById("contract-time-label");
+    if (contractTimeLabel) {
+      contractTimeLabel.innerHTML = `${t.contractTime}<span>:</span>`;
+      contractTimeLabel.className =
+        contractTimeLabel.className.replace(/(text-left|text-right)/g, "") +
+        ` ${t.textAlign}`;
+    }
+
+    // تنظیم پیغام خطای دسترسی
+    if (accessDeniedMessage) {
+      accessDeniedMessage.textContent = t.accessDenied;
+      accessDeniedMessage.setAttribute("dir", t.dir);
+      accessDeniedMessage.className =
+        accessDeniedMessage.className.replace(/dir-(rtl|ltr)/g, "") +
+        ` dir-${t.dir}`;
+    }
+
+    // تنظیم متن لودینگ PDF
+    const loadingText = document.getElementById("loading-text");
+    if (loadingText) {
+      loadingText.textContent = t.pdfLoadingText;
+    }
+
+    if (pdfLoadingText) {
+      pdfLoadingText.setAttribute("dir", t.dir);
+      pdfLoadingText.className =
+        pdfLoadingText.className.replace(/dir-(rtl|ltr)/g, "") +
+        ` dir-${t.dir}`;
+    }
+  }, 100);
+}
+
+function initializeLoadingSystem() {
+  // شروع تایمر حداقل زمان
+  setTimeout(() => {
+    isMinTimeElapsed = true;
+    checkLoadingComplete();
+  }, MIN_LOADING_TIME);
+
+  // بررسی لود شدن تصاویر
+  checkImagesLoaded();
+
+  // بررسی لود شدن فونت‌ها
+  checkFontsLoaded();
+
+  // بررسی API و محتوا
+  checkContentLoaded();
+}
+
+function checkImagesLoaded() {
+  const images = document.querySelectorAll("img");
+  let loadedCount = 0;
+  const totalImages = images.length;
+
+  if (totalImages === 0) {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    images.forEach((img) => {
+      if (img.complete) {
+        loadedCount++;
+      } else {
+        img.onload = img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            resolve();
+          }
+        };
+      }
+    });
+
+    if (loadedCount === totalImages) {
+      resolve();
+    }
+  });
+}
+
+function checkFontsLoaded() {
+  if (document.fonts && document.fonts.ready) {
+    return document.fonts.ready;
+  }
+  return new Promise((resolve) => setTimeout(resolve, 500));
+}
+
+function checkContentLoaded() {
+  const checkApiInterval = setInterval(() => {
+    const hasApiContent = document.querySelector(
+      '[datamembername="db.voucher_pdf"]' // تغییر برای voucher
+    );
+    const hasGeneratedContent = document.querySelector("h1");
+
+    if (hasApiContent && hasGeneratedContent) {
+      apiDataLoaded = true;
+      clearInterval(checkApiInterval);
+      checkAllResourcesLoaded();
+    }
+  }, 100);
+
+  setTimeout(() => {
+    if (!apiDataLoaded) {
+      apiDataLoaded = true;
+      clearInterval(checkApiInterval);
+      checkAllResourcesLoaded();
+    }
+  }, 10000);
+}
+
+async function checkAllResourcesLoaded() {
+  try {
+    await Promise.all([checkImagesLoaded(), checkFontsLoaded()]);
+
+    initializePageLanguage(mainlid);
+    initializeLoadingSystem();
+
+    isContentLoaded = true;
+    checkLoadingComplete();
+  } catch (error) {
+    console.warn("خطا در لود resources:", error);
+    isContentLoaded = true;
+    checkLoadingComplete();
+  }
+}
+
+function checkLoadingComplete() {
+  if (isMinTimeElapsed && isContentLoaded && apiDataLoaded) {
+    hideLoadingScreen();
+  }
+}
+
+function hideLoadingScreen() {
+  const loadingScreen = document.getElementById("main-loading-screen");
+  const mainContent = document.getElementById("main-content-wrapper");
+
+  if (loadingScreen && mainContent) {
+    loadingScreen.classList.add("hidden");
+
+    setTimeout(() => {
+      mainContent.classList.add("loaded");
+      loadingScreen.style.display = "none";
+    }, 500);
+  }
+}
+
+// Timeout و hooks
+setTimeout(() => {
+  if (!isContentLoaded) {
+    console.warn("Loading timeout - forcing content display");
+    isContentLoaded = true;
+    isMinTimeElapsed = true;
+    apiDataLoaded = true;
+    checkLoadingComplete();
+  }
+}, 15000);
+
+window.onBasisApiComplete = function () {
+  apiDataLoaded = true;
+  checkAllResourcesLoaded();
+};
+
+window.addEventListener("load", function () {
+  setTimeout(() => {
+    if (!apiDataLoaded) {
+      apiDataLoaded = true;
+      checkAllResourcesLoaded();
+    }
+  }, 500);
+});
+
+
+
+
+            // function extractFilenameFromUrl(url) {
+            //     if (!url) return "";
+            //     try {
+            //         const parsedUrl = new URL(url);
+            //         return parsedUrl.pathname.split('/').pop();
+            //     } catch (e) {
+            //         return url.split('/').pop();
+            //     }
+            // }
+
+
+// ================= توابع رندر چندزبانه ووچر =================
+async function RenderInfoCard($data, lid = 1) {
+    let hotelJson = $data;
+
+    if (!hotelJson || !hotelJson.hotelinfo) {
+        console.error("Invalid hotel data:", hotelJson);
+        return '<div class="text-red-500">Invalid hotel data provided.</div>';
+    }
+
+    const hotel = hotelJson.hotelinfo;
+    const hotelImageName = extractFilenameFromUrl(hotel.hotelimage);
+
+    const checkin = hotelJson.checkin?.mstring ? formatDateToReadable(hotelJson.checkin.mstring) : "";
+    const checkout = hotelJson.checkout?.mstring ? formatDateToReadable(hotelJson.checkout.mstring) : "";
+    const nights = hotelJson.nights || 0;
+    const roomsCount = hotelJson.rooms?.length || 0;
+
+    // Language-specific content
+    const content = {
+        1: { // Farsi
+            checkInLabel: "زمان ورود<br />Check In",
+            checkOutLabel: "زمان خروج<br />Check Out", 
+            nightLabel: "تعداد شب‌ها<br />Nights",
+            roomLabel: "تعداد اتاق‌ها<br />Rooms",
+            starLabel: "ستاره",
+            borderClass: "border-r-2 border-[#E3E3E3] pr-3",
+            cityDisplay: hotel.country,
+            countryCityDisplay: hotel.city,
+            direction: "dir-rtl",
+            textAlign: "text-right",
+            checkinDisplay: `${checkin} (${hotelJson.checkin?.sstring})`,
+            checkoutDisplay: `${checkout} (${hotelJson.checkout?.sstring})`,
+            textWrap: "text-nowrap"
+        },
+        2: { // English
+            checkInLabel: "Check in",
+            checkOutLabel: "Check out",
+            nightLabel: "Nights", 
+            roomLabel: "Rooms",
+            starLabel: "star",
+            borderClass: "border-l-2 border-[#E3E3E3] pl-3",
+            cityDisplay: hotel.ecountry,
+            countryCityDisplay: hotel.ecity,
+            direction: "",
+            textAlign: "",
+            checkinDisplay: checkin,
+            checkoutDisplay: checkout,
+            textWrap: ""
+        },
+        3: { // Arabic
+            checkInLabel: "وقت الوصول",
+            checkOutLabel: "وقت المغادرة",
+            nightLabel: "عدد الليالي",
+            roomLabel: "عدد الغرف", 
+            starLabel: "النجم",
+            borderClass: "border-r-2 border-[#E3E3E3] pr-3",
+            cityDisplay: hotel.country,
+            countryCityDisplay: hotel.city,
+            direction: "dir-rtl",
+            textAlign: "text-right",
+            checkinDisplay: checkin,
+            checkoutDisplay: checkout,
+            textWrap: "text-nowrap"
+        }
+    };
+
+    const lang = content[lid] || content[1];
+
+    let infocard = `
+    <div class="w-3/5 ">
+    <div class="flex leading-5 gap-x-3">
+        <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden" >
+            <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="/${hotelImageName}"
+                alt="${hotel.hotelname}" />
+        </figure>
+        <div class="flex flex-col gap-y-1">
+            <h2 class="text-lg font-danademibold">
+                ${hotel.hotelname}
+            </h2>
+            <div class="flex items-center">
+                ${RenderRateHotel(hotel.star)}
+                <span class="text-sm ml-2 font-danaregular">${hotel.star} <span class="${lid === 2 ? 'ml-1' : 'mr-1'}">${lang.starLabel}</span> </span>
+            </div>
+            <div class="text-base font-danaregular ${lang.direction}">
+                <span>
+                ${lang.cityDisplay}
+                </span>
+                <span class="mx-1"> / </span>
+                 <span>
+                 ${lang.countryCityDisplay}
+                 </span>
+                 </div>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+                        
+    </div>
+    </div>
+    <div class="w-2/5 ${lang.borderClass}">
+    <ul class="flex flex-col gap-y-2">
+        <li>
+            <h2 class="text-base font-danademibold">${lang.checkInLabel}</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] ${lang.textWrap}">
+                <svg id="calendar-icon-pdf" class="scale-110 origin-center min-w-3" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
+</svg>
+                <span class="font-danaregular ${lid === 2 ? '' : 'dir-ltr'}">
+                ${lang.checkinDisplay}
+                </span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">${lang.checkOutLabel}</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] ${lang.textWrap}">
+                <svg id="calendar-icon-pdf" class="scale-110 origin-center min-w-3" xmlns="http://www.w3.org/2000/svg"  width="12" height="12" viewBox="0 0 12 12" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.17319 6.2289C7.96769 6.2289 7.80119 6.0624 7.80119 5.8569C7.80119 5.6519 7.96769 5.4854 8.17319 5.4854C8.37869 5.4854 8.54519 5.6519 8.54519 5.8569C8.54519 6.0624 8.37869 6.2289 8.17319 6.2289ZM8.17319 8.1029C7.96769 8.1029 7.80119 7.9364 7.80119 7.7309C7.80119 7.5254 7.96769 7.3589 8.17319 7.3589C8.37869 7.3589 8.54519 7.5254 8.54519 7.7309C8.54519 7.9364 8.37869 8.1029 8.17319 8.1029ZM5.99969 6.2289C5.79469 6.2289 5.62819 6.0624 5.62819 5.8569C5.62819 5.6519 5.79469 5.4854 5.99969 5.4854C6.20519 5.4854 6.37169 5.6519 6.37169 5.8569C6.37169 6.0624 6.20519 6.2289 5.99969 6.2289ZM5.99969 8.1029C5.79469 8.1029 5.62819 7.9364 5.62819 7.7309C5.62819 7.5254 5.79469 7.3589 5.99969 7.3589C6.20519 7.3589 6.37169 7.5254 6.37169 7.7309C6.37169 7.9364 6.20519 8.1029 5.99969 8.1029ZM3.8267 6.2289C3.6212 6.2289 3.4547 6.0624 3.4547 5.8569C3.4547 5.6519 3.6212 5.4854 3.8267 5.4854C4.0322 5.4854 4.1987 5.6519 4.1987 5.8569C4.1987 6.0624 4.0322 6.2289 3.8267 6.2289ZM3.8267 8.1029C3.6212 8.1029 3.4547 7.9364 3.4547 7.7309C3.4547 7.5254 3.6212 7.3589 3.8267 7.3589C4.0322 7.3589 4.1987 7.5254 4.1987 7.7309C4.1987 7.9364 4.0322 8.1029 3.8267 8.1029ZM10.0947 2.6649C9.69269 2.2619 9.11969 2.0349 8.43769 1.9779V1.4414C8.43769 1.2114 8.25069 1.0249 8.02069 1.0249C7.79069 1.0249 7.60419 1.2114 7.60419 1.4414V3.4139C7.56769 3.4239 7.53219 3.4364 7.49269 3.4364C7.26219 3.4364 7.07569 3.2494 7.07569 3.0194V2.0534C7.07569 1.99818 7.03094 1.9534 6.97569 1.9534H4.3957V1.4414C4.3957 1.2114 4.2092 1.0249 3.9792 1.0249C3.7487 1.0249 3.5622 1.2114 3.5622 1.4414V3.4139C3.5262 3.4239 3.4902 3.4364 3.4507 3.4364C3.2207 3.4364 3.0337 3.2494 3.0337 3.0194V2.19141C3.0337 2.12638 2.97244 2.07862 2.91008 2.0971C1.84121 2.41381 1.2207 3.27685 1.2207 4.5534V8.3329C1.2207 9.9879 2.2167 10.9754 3.8847 10.9754H8.11519C9.78319 10.9754 10.7792 10.0019 10.7792 8.3709V4.5544C10.7812 3.7694 10.5447 3.1164 10.0947 2.6649Z" fill="#242424"/>
+</svg>
+                <span class="font-danaregular ${lid === 2 ? '' : 'dir-ltr'}">
+                ${lang.checkoutDisplay}
+                </span>
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">${lang.nightLabel}</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${nights}
+            </div>
+        </li>
+        <li>
+            <h2 class="text-base font-danademibold">${lang.roomLabel}</h2>
+            <div class="flex items-center w-full gap-x-2 text-sm text-[#242424] font-danaregular">
+                ${roomsCount}
+            </div>
+        </li>
+    </ul>
+    </div>`;
+
+    return infocard;
+}
+
+async function renderRules($data, lid = 1) {
+    const rules = $data?.pdf_description;
+    if (!rules || !Array.isArray(rules)) {
+        console.warn("هیچ آیتمی در pdf_description پیدا نشد");
+        return null;
+    }
+
+    let direction = detectDirection(rules?.[0]?.note.text);
+    let ulitem = '';
+    
+    rules.forEach((item, index) => {
+        const text = item?.note?.text?.trim();
+        if (text) {
+            ulitem += `<li>${text}</li>`;
+        } else {
+            console.warn(`آیتم ${index} متن معتبری ندارد`, item);
+        }
+    });
+
+    // Apply RTL text fix for Farsi and Arabic
+    if (lid === 1 || lid === 3) {
+        return `<ul dir="${direction}" class="text-right">${fixRTLTextCompletely(ulitem)}</ul>`;
+    } else {
+        return `<ul dir="${direction}">${ulitem}</ul>`;
+    }
+}
+
+function RenderRateHotel(starCount) {
+    let stars = '';
+    for (let i = 0; i < starCount; i++) {
+        stars += `
+                    <svg id="star-icon-pdf" width="14" height="14" viewBox="0 0 14 14" fill="none" >
+<path d="M10.2667 8.62758C10.2323 8.41991 10.3017 8.20816 10.4528 8.06175L12.6344 5.99675C12.8141 5.82816 12.88 5.5715 12.8036 5.33758C12.7225 5.10425 12.5178 4.93508 12.2728 4.90008L9.37359 4.4795C9.16418 4.44741 8.98276 4.315 8.88943 4.12425L7.59501 1.51675C7.49409 1.32075 7.30101 1.1895 7.08168 1.16675H6.83609L6.73693 1.20758L6.67334 1.23091C6.63834 1.25133 6.60684 1.27641 6.57943 1.30675L6.52693 1.34758C6.47968 1.39308 6.44059 1.44675 6.41026 1.50508L5.13276 4.12425C5.03359 4.32258 4.83993 4.45675 4.61943 4.4795L1.72026 4.90008C1.47934 4.938 1.27984 5.10658 1.20168 5.33758C1.12118 5.56916 1.18243 5.82583 1.35859 5.99675L3.46501 8.03841C3.61609 8.18716 3.68551 8.40008 3.65109 8.6095L3.13193 11.4795C3.07534 11.8266 3.30576 12.1556 3.65109 12.2209C3.79284 12.2437 3.93751 12.2209 4.06526 12.1567L6.64943 10.8028C6.69843 10.776 6.75209 10.7585 6.80693 10.7503H6.96501C7.06709 10.7532 7.16684 10.7789 7.25668 10.8267L9.84026 12.1742C10.0578 12.2909 10.3233 12.2734 10.5228 12.1276C10.7263 11.987 10.829 11.7408 10.7853 11.4976L10.2667 8.62758Z" fill="#FFBF1C"/>
+</svg>`;
+    }
+    return stars;
+}
+
+async function renderRooms($data, lid = 1) {
+    let hotelinfo = $data?.hotelinfo;
+    let roominfo = $data?.rooms;
+    let roomcontent = '';
+
+    const labels = {
+        1: { // Farsi
+            room: " اطلاعات مسافران - اتاق / PASSENGERS AND ROOMS Room",
+            roomType: "نوع اتاق<br />Room Type",
+            services: "خدمات<br />Board", 
+            passengers: "مسافران<br />Passengers",
+            passengerType: "جنسیت<br />Gender",
+            nationality: "ملیت<br />Nationality",
+            status: "وضعیت<br />Status",
+            transfer: "ترنسفر اتاق<br />Room Transfer",
+            passengerName: "نام مسافر<br />Passenger Name",
+            arrivalAirport: "فرودگاه ورود<br />Arrival Airport",
+            arrivalFlightNo: "شماره پرواز ورود<br />Arrival Flight No",
+            departureAirport: "فرودگاه خروج<br />Departure Airport",
+            departureFlightNo: "شماره پرواز خروج<br />Departure Flight No",
+            wrapClass: "text-nowrap",
+            centerClass: "text-center"
+        },
+        2: { // English
+            room: "PASSENGERS AND ROOMS Room",
+            roomType: "Room type",
+            services: "Board",
+            passengers: "Passenger", 
+            passengerType: "Gender",
+            nationality: "Nationality",
+            status: "Status",
+            transfer: "Room Transfer",
+            passengerName: "Passenger Name",
+            arrivalAirport: "Arrival Airport",
+            arrivalFlightNo: "Arrival Flight No",
+            departureAirport: "Departure Airport", 
+            departureFlightNo: "Departure Flight No",
+            wrapClass: "",
+            centerClass: ""
+        },
+        3: { // Arabic
+            room: "الركاب والغرف الغرفة", 
+            roomType: "نوع الغرفة",
+            services: "خدمات",
+            passengers: "الركاب",
+            passengerType: "الجنس", 
+            nationality: "الجنسية",
+            status: "حالة",
+            transfer: "نقل الغرفة",
+            passengerName: "اسم الراكب",
+            arrivalAirport: "مطار الوصول",
+            arrivalFlightNo: "رقم رحلة الوصول",
+            departureAirport: "مطار المغادرة",
+            departureFlightNo: "رقم رحلة المغادرة",
+            wrapClass: "text-nowrap",
+            centerClass: "text-center"
+        }
+    };
+
+    const lang = labels[lid] || labels[1];
+
+    roominfo.forEach((room) => {
+        const parsedPassengers = room.passengers.map(p => {
+            const typeRaw = p.type || '';
+            const typeMatch = typeRaw.match(/^([^\(]+)(?:\s*\((.+)\))?/);
+            const passengerGender = typeMatch?.[1]?.trim() || '–';
+            const passengerNationality = p.countryofresidence.ecountryname || '–';
+
+            return {
+                name: `${p.fullname.firstname.trim()} ${p.fullname.lastname.trim()}`,
+                gender: passengerGender,
+                nationality: passengerNationality,
+                transfer: p.transfer_data || null
+            };
+        });
+
+        const passengerNames = parsedPassengers.map(p =>
+            `<h2 class="text-[#292929] text-sm font-danademibold ${lang.wrapClass}">${p.name}</h2>`
+        ).join('');
+
+        const passengerGenders = parsedPassengers.map(p =>
+            `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass}">${p.gender}</h2>`
+        ).join('');
+
+        const passengerNationalities = parsedPassengers.map(p =>
+            `<h2 class="text-[#292929] text-sm font-danademibold ${lang.centerClass} ${lang.wrapClass}">${p.nationality}</h2>`
+        ).join('');
+
+        roomcontent += `
+        <h2 class="font-bold text-lg my-2 font-danabold">${lang.room} ${room.index}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 ${lid === 2 ? 'flex-wrap' : ''}">
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.wrapClass}">${lang.roomType}</span>
+                <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">${room.roomtype.trim()}</div>
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.services}</span>
+                <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                    ${escapeXML(hotelinfo.services)}
+                </div>
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.passengers}</span>
+                ${passengerNames}
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.wrapClass} ${lang.centerClass}">${lang.passengerType}</span>
+                ${passengerGenders}
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}">${lang.nationality}</span>
+                ${passengerNationalities}
+            </div>
+
+            <div class="gap-y-2 flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.status}</span>
+                <div class="text-[#292929] text-sm font-danademibold self-center flex justify-center items-center h-[calc(100%-20px)]">
+                    ${room.onrequest === "1" ? "On Request" : "Available"}
+                </div>
+            </div>
+        </div>
+        `;
+
+        // Transfer section
+        const transfers = parsedPassengers.filter(p => p.transfer);
+        if (transfers.length > 0) {
+            roomcontent += `
+            <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex flex-col gap-2" ${lid === 3 ? 'dir="rtl"' : ''}>
+                <h3 class="font-danabold text-base text-[#292929] mb-1">${lang.transfer} ${room.index}</h3>
+                ${transfers.map(p => `
+                    <div class="flex justify-between flex-wrap gap-4 border border-dashed border-[#DADADA] p-3 rounded-lg">
+                        <div class="flex flex-col w-1/5">
+                            <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.passengerName}</span>
+                            <div class="text-[#292929] text-sm font-danademibold">${p.name}</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.arrivalAirport}</span>
+                            <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.airport_arrival || '–'}</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.arrivalFlightNo}</span>
+                            <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.arrival_flight_number || '–'}</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.departureAirport}</span>
+                            <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.airport_departure || '–'}</div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.departureFlightNo}</span>
+                            <div class="text-[#292929] text-sm font-danademibold">${p.transfer?.departure_flight_number || '–'}</div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            `;
+        }
+    });
+
+    return roomcontent;
+}
+
+function renderFlightInfo(flightinfo, lid = 1) {
+    if (!flightinfo || Object.keys(flightinfo).length === 0 ) return '';
+
+    const labels = {
+        1: { // Farsi
+            departureFlight: "پرواز رفت<br />Departure Flight",
+            returnFlight: "پرواز برگشت<br />Return Flight", 
+            airline: "ایرلاین<br />Airline",
+            flightNumber: "شماره پرواز<br />Flight Number",
+            date: "تاریخ<br />Date",
+            departureTime: "ساعت حرکت<br />Departure Time",
+            arrivalTime: "ساعت رسیدن<br />Arrival Time",
+            direction: ""
+        },
+        2: { // English
+            departureFlight: "Departure Flight",
+            returnFlight: "Return Flight",
+            airline: "Airline", 
+            flightNumber: "Flight Number",
+            date: "Date",
+            departureTime: "Departure Time", 
+            arrivalTime: "Arrival Time",
+            direction: ""
+        },
+        3: { // Arabic
+            departureFlight: "رحلة الذهاب",
+            returnFlight: "رحلة الإياب",
+            airline: "شركة الطيران",
+            flightNumber: "رقم الرحلة", 
+            date: "التاريخ<br />Date",
+            departureTime: "وقت المغادرة",
+            arrivalTime: "وقت الوصول",
+            direction: 'dir="rtl"'
+        }
+    };
+
+    const lang = labels[lid] || labels[1];
+
+    const renderSegment = (title, flight) => `
+        <h2 class="font-bold text-lg my-2 font-danabold">${title}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 flex-wrap" ${lang.direction}>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.airline}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.airlines}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.flightNumber}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.flightno}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.date}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${flight.date.sstring} (${flight.date.mstring})</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.departureTime}</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${flight.etime}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.arrivalTime}</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${flight.atime}</div>
+            </div>
+        </div>
+    `;
+
+    return `
+        ${renderSegment(lang.departureFlight, flightinfo.enterflight)}
+        ${renderSegment(lang.returnFlight, flightinfo.exitflight)}
+    `;
+}
+
+function renderBrokerInfo(broker, lid = 1) {
+    if (!broker?.brokerinfo) return '';
+
+    const b = broker.brokerinfo;
+    const support = broker.support?.person?.[0]?.info || {};
+
+    const labels = {
+        1: { // Farsi
+            broker: "کارگزار<br />Broker",
+            brokerName: "نام کارگزار<br />Broker Name",
+            country: "کشور<br />Country", 
+            managerName: "نام مدیر<br />Manager Name",
+            phone: "تلفن<br />Phone",
+            email: "ایمیل<br />Email",
+            website: "وب‌سایت<br />Website",
+            support: "پشتیبان<br />Support",
+            name: "نام<br />Name",
+            direction: ""
+        },
+        2: { // English
+            broker: "Broker",
+            brokerName: "Broker Name",
+            country: "Country",
+            managerName: "Manager Name", 
+            phone: "Phone",
+            email: "Email",
+            website: "Website",
+            support: "Support",
+            name: "Name",
+            direction: ""
+        },
+        3: { // Arabic
+            broker: "الوسيط", 
+            brokerName: "اسم الوسيط",
+            country: "الدولة",
+            managerName: "اسم المدير",
+            phone: "الهاتف<br />Phone",
+            email: "البريد الإلكتروني",
+            website: "الموقع الإلكتروني", 
+            support: "الدعم",
+            name: "الاسم",
+            direction: 'dir="rtl"'
+        }
+    };
+
+    const lang = labels[lid] || labels[1];
+
+    return `
+        <h2 class="font-bold text-lg my-2 font-danabold">${lang.broker}</h2>
+        <div class="bg-[#F4FBF9] rounded-xl p-4 flex justify-between gap-4 flex-wrap" ${lang.direction}>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.brokerName}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${b.broker_name}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.country}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${(b.country || []).map(c => c.countryname).join(', ')}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.managerName}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${b.manager_name || '–'}</div>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.phone}</span>
+                <div class="text-[#292929] text-sm font-danademibold">${(b.phone || []).map(p => p.number).join(', ')}</div>
+            </div>
+            ${b.email ? `
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.email}</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${b.email}</div>
+            </div>` : ''}
+            ${b.website ? `
+            <div class="flex flex-col">
+                <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.website}</span>
+                <div class="text-[#292929] text-sm font-danademibold dir-ltr">${b.website}</div>
+            </div>` : ''}
+        </div>
+
+        ${support.name || support.tel ? `
+        <div class="bg-[#F4FBF9] rounded-xl p-4 mt-3 flex flex-col gap-2">
+            <h3 class="font-danabold text-base text-[#292929] mb-1">${lang.support}</h3>
+            <div class="flex flex-wrap gap-4 border border-dashed border-[#DADADA] p-3 rounded-lg">
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.name}</span>
+                    <div class="text-[#292929] text-sm font-danademibold">${support.name || '–'}</div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[#6D6D6D] text-sm font-danaregular">${lang.phone}</span>
+                    <div class="text-[#292929] text-sm font-danademibold dir-ltr">${support.tel || '–'}</div>
+                </div>
+            </div>
+        </div>` : ''}
+    `;
+}
+
+// ----------------------------- Voucher PDF --------------------------------
