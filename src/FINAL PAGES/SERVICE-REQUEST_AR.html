@@ -7,35 +7,35 @@
                 "type":"list",
                 "request": "get_short_link",
                 "token": "[##cms.query.token##]",
-                }]} '  />
+                }]} ' />
 </basis>
 
 <basis core="inlinesource" name="db">
-    <member name="shortlinkTreelangid" format="json"  postsql="
+    <member name="shortlinkTreelangid" format="json" postsql="
      select Field , value from [db.shortlinkTreelangid] where Field in('langid');
      ">
         {"root":[##db.shortlink.result##]}</member>
-    <member name="shortlinkTreeid" format="json"  postsql="
+    <member name="shortlinkTreeid" format="json" postsql="
      select Field , value from [db.shortlinkTreeid] where Field in('id');
      ">
         {"root":[##db.shortlink.result##]}</member>
-    <member name="shortlinkTreeletterhead" format="json"  postsql="
+    <member name="shortlinkTreeletterhead" format="json" postsql="
      select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
      ">
         {"root":[##db.shortlink.result##]}</member>
-        
-        <member name="shortlinkTreeproductid" format="json"  postsql="
+
+    <member name="shortlinkTreeproductid" format="json" postsql="
          select Field , value from [db.shortlinkTreeproductid] where Field in('productid');
          ">
-            {"root":[##db.shortlink.result##]}</member>
-        <member name="shortlinkTreetransferid" format="json"  postsql="
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreetransferid" format="json" postsql="
          select Field , value from [db.shortlinkTreetransferid] where Field in('transferid');
          ">
-            {"root":[##db.shortlink.result##]}</member>
-        <member name="shortlinkTreetype" format="json"  postsql="
-         select Field , value from [db.shortlinkTreetype] where Field in('type');
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreetype" format="json" postsql="
+         select Field , value from [db.shortlinkTreetype] where Field in('type')  and Path Like '.root.params%';
          ">
-            {"root":[##db.shortlink.result##]}</member>
+        {"root":[##db.shortlink.result##]}</member>
 </basis>
 
 <!DOCTYPE html>
@@ -43,7 +43,7 @@
 
 <head>
     <title>Service PDF</title>
-    <basis core="call" lid="3"  file="Pdf_Taglist.inc"></basis>
+    <basis core="call" lid="3" file="Pdf_Taglist.inc"></basis>
     <style>
         p {
             text-align: justify !important;
@@ -124,7 +124,7 @@
 
     <div class="main-content" id="main-content-wrapper">
 
-                <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
+        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
             method="post" body='{
             "name": "db",
             "mid": "20",
@@ -142,49 +142,49 @@
             ]
         }' content-type="application/json" run="atclient">
         </basis>
-            <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
+        <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
 
-                <div class="flex gap-2">
-                    <button onclick="generatePDF()" type="button"
-                        class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
+            <div class="flex gap-2">
+                <button onclick="generatePDF()" type="button"
+                    class="text-white bg-[#509ad3] hover:bg-[#509ad3]/90 focus:ring-4 focus:outline-none focus:ring-[#509ad3]/50 font-medium rounded-lg
                          text-sm px-5 py-2.5 !text-center inline-flex items-center dark:focus:ring-[#509ad3]/50 me-2 mb-2">
 
-                        <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V10C2 6.22876 2 4.34315 3.17157 3.17157C4.34315 2 6.23869 2 10.0298 2C10.6358 2 11.1214 2 11.53 2.01666C11.5166 2.09659 11.5095 2.17813 11.5092 2.26057L11.5 5.09497C11.4999 6.19207 11.4998 7.16164 11.6049 7.94316C11.7188 8.79028 11.9803 9.63726 12.6716 10.3285C13.3628 11.0198 14.2098 11.2813 15.0569 11.3952C15.8385 11.5003 16.808 11.5002 17.9051 11.5001L18 11.5001H21.9574C22 12.0344 22 12.6901 22 13.5629V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22ZM5.25 14.5C5.25 14.0858 5.58579 13.75 6 13.75H14C14.4142 13.75 14.75 14.0858 14.75 14.5C14.75 14.9142 14.4142 15.25 14 15.25H6C5.58579 15.25 5.25 14.9142 5.25 14.5ZM5.25 18C5.25 17.5858 5.58579 17.25 6 17.25H11.5C11.9142 17.25 12.25 17.5858 12.25 18C12.25 18.4142 11.9142 18.75 11.5 18.75H6C5.58579 18.75 5.25 18.4142 5.25 18Z"
-                                fill="#FFF" />
-                            <path
-                                d="M19.3517 7.61665L15.3929 4.05375C14.2651 3.03868 13.7012 2.53114 13.0092 2.26562L13 5.00011C13 7.35713 13 8.53564 13.7322 9.26787C14.4645 10.0001 15.643 10.0001 18 10.0001H21.5801C21.2175 9.29588 20.5684 8.71164 19.3517 7.61665Z"
-                                fill="#FFF" />
-                        </svg>
+                    <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V10C2 6.22876 2 4.34315 3.17157 3.17157C4.34315 2 6.23869 2 10.0298 2C10.6358 2 11.1214 2 11.53 2.01666C11.5166 2.09659 11.5095 2.17813 11.5092 2.26057L11.5 5.09497C11.4999 6.19207 11.4998 7.16164 11.6049 7.94316C11.7188 8.79028 11.9803 9.63726 12.6716 10.3285C13.3628 11.0198 14.2098 11.2813 15.0569 11.3952C15.8385 11.5003 16.808 11.5002 17.9051 11.5001L18 11.5001H21.9574C22 12.0344 22 12.6901 22 13.5629V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22ZM5.25 14.5C5.25 14.0858 5.58579 13.75 6 13.75H14C14.4142 13.75 14.75 14.0858 14.75 14.5C14.75 14.9142 14.4142 15.25 14 15.25H6C5.58579 15.25 5.25 14.9142 5.25 14.5ZM5.25 18C5.25 17.5858 5.58579 17.25 6 17.25H11.5C11.9142 17.25 12.25 17.5858 12.25 18C12.25 18.4142 11.9142 18.75 11.5 18.75H6C5.58579 18.75 5.25 18.4142 5.25 18Z"
+                            fill="#FFF" />
+                        <path
+                            d="M19.3517 7.61665L15.3929 4.05375C14.2651 3.03868 13.7012 2.53114 13.0092 2.26562L13 5.00011C13 7.35713 13 8.53564 13.7322 9.26787C14.4645 10.0001 15.643 10.0001 18 10.0001H21.5801C21.2175 9.29588 20.5684 8.71164 19.3517 7.61665Z"
+                            fill="#FFF" />
+                    </svg>
 
-                        Download PDF
-                    </button>
+                    Download PDF
+                </button>
 
-                    <basis core="print" datamembername="db.service_request_pdf" run="atclient">
-                        <layout>
-                            <div class="pdf-config">
-                                @child
-                            </div>
-                        </layout>
-                        <face>
-                            <script type="text/template">
+                <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                    <layout>
+                        <div class="pdf-config">
+                            @child
+                        </div>
+                    </layout>
+                    <face>
+                        <script type="text/template">
                                 <input type="hidden" id="name" value="@passengerinfo[0].service_passenger.fullname.firstname@ @passengerinfo[0].service_passenger.fullname.lastname@" />
                                 <input type="hidden" id="header" value="[##db.shortlinkTreeletterhead.Value|(1)##]" />
                             </script>
-                        </face>
-                    </basis>
+                    </face>
+                </basis>
 
-                </div>
             </div>
+        </div>
 
 
-<!-- با استفاده از Print Command -->
-<basis datamembername="db.service_request_pdf"  core="print" run="atclient">
-    <layout>@child</layout>
-    <face>
-        <script type="text/template">
+        <!-- با استفاده از Print Command -->
+        <basis datamembername="db.service_request_pdf" core="print" run="atclient">
+            <layout>@child</layout>
+            <face>
+                <script type="text/template">
         {{
             if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
@@ -196,71 +196,72 @@
             return '';
         }}
         </script>
-    </face>
-</basis>
+            </face>
+        </basis>
 
 
-            <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
+        <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
             <div class="pdf-loading hidden ">
                 <div
                     class="flex justify-center items-center fixed z-[99] w-full h-full top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-xl">
                     <span
-                            class="pointer-events-none rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 disabled:opacity-70 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong flex justify-center items-center gap-x-2"
-                            id="pdf-loading-text">
+                        class="pointer-events-none rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 disabled:opacity-70 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong flex justify-center items-center gap-x-2"
+                        id="pdf-loading-text">
                         <div class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                             role="status"></div>
-                            <div class="font-danamedium leading-9" id="loading-text">در حال تولید PDF...</div>
+                        <div class="font-danamedium leading-9" id="loading-text">در حال تولید PDF...</div>
                     </span>
                 </div>
             </div>
             <div class="w-[95%] mx-auto">
-                    <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
-                        id="header-section">
-                        <h2 class="font-danademibold text-base text-black" id="main-title">خدمات</h2>
-                        <ul class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
-                        <basis core="print" datamembername="db.service_request_pdf" run="atclient">
-                            <layout>@child </layout>
-                            <face>
-                                    <script
-                                        type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##db.shortlinkTreeid.Value##]</p></div></li></script>
-                            </face>
-                        </basis>
-                            <basis core="group" name="persian" if="[##db.shortlinkTreelangid.Value##] = 1">
+                <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
+                    id="header-section">
+                    <h2 class="font-danademibold text-base text-black" id="main-title">خدمات</h2>
+                    <ul
+                        class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
                         <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
-                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
+                                    type="text/template"><li><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-number-label">شماره قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">[##db.shortlinkTreeid.Value##]</p></div></li></script>
+                            </face>
+                        </basis>
+                        <basis core="group" name="persian" if="[##db.shortlinkTreelangid.Value##] = 1">
+                            <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                                <layout>@child </layout>
+                                <face>
+                                    <script
+                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
                                                  id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createDate.sstring@ (@serviceinfo.createDate.mstring@)</p></div></li></script>
-                            </face>
-                        </basis>
-
+                                </face>
                             </basis>
-                            <basis core="group" name="no-persian" if="[##db.shortlinkTreelangid.Value##] <> 1">
+
+                        </basis>
+                        <basis core="group" name="no-persian" if="[##db.shortlinkTreelangid.Value##] <> 1">
+                            <basis core="print" datamembername="db.service_request_pdf" run="atclient">
+                                <layout>@child </layout>
+                                <face>
+                                    <script
+                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
+                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createDate.mstring@</p></div></li></script>
+                                </face>
+                            </basis>
+                        </basis>
                         <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                             <layout>@child </layout>
                             <face>
                                 <script
-                                            type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular"
-                                                 id="issue-date-label">تاریخ صدور<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createDate.mstring@</p></div></li></script>
+                                    type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createHour@</p></div></li></script>
                             </face>
                         </basis>
-                            </basis>
-                    <basis core="print" datamembername="db.service_request_pdf" run="atclient">
-                        <layout>@child </layout>
-                        <face>
-                                    <script
-                                        type="text/template"><li ><div class="max-sm:flex max-sm:gap-x-2" ><h2 class="text-sm font-normal text-[#202020] !text-center font-danaregular" id="contract-time-label">ساعت قرارداد<span>:</span></h2><p class="text-base text-[#292929] !text-center font-danademibold">@serviceinfo.createHour@</p></div></li></script>
-                        </face>
-                    </basis>
-                        </ul>
+                    </ul>
                 </section>
                 <section>
                     <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                         <layout>@child </layout>
                         <face>
-                                <script type="text/template">
+                            <script type="text/template">
                                 {{ return await RenderServiceCardBox($data , 2)}} 
                                 {{ return await RenderServicePassengers($data , 2)}} 
                                 </script>
@@ -271,30 +272,30 @@
                     <layout>@child </layout>
                     <face>
                         <script
-                                type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await cleanHtmlText($data.pdf_description , [##db.shortlinkTreelangid.Value##])}}</div></section></script>
+                            type="text/template"><section class="mt-3 {{return await checkSection($data.pdf_description)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}">{{ return await getLocalizedText(await detectDirection($data.pdf_description) , "ملاحظات", "Remarks")}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.pdf_description)}}" >{{ return await cleanHtmlText($data.pdf_description , [##db.shortlinkTreelangid.Value##])}}</div></section></script>
                     </face>
                 </basis>
                 <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script
-                                type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##db.shortlinkTreelangid.Value##])}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await renderServiceRules($data)}} </div></section></script>
+                            type="text/template"><section class="{{return await checkSection($data.rule?.rule || '')}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" >{{ return await getLocalizedText(await detectDirection($data.rule?.rule || ''), "قوانین و مقررات", "Rules", "القوانين واللوائح", [##db.shortlinkTreelangid.Value##])}} </h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.rule?.rule || '')}}">{{ return await renderServiceRules($data)}} </div></section></script>
                     </face>
                 </basis>
                 <basis core="print" datamembername="db.service_request_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
                         <script
-                                type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##db.shortlinkTreelangid.Value##])}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await cleanHtmlText($data.note , [##db.shortlinkTreelangid.Value##])}}</div></section></script>
+                            type="text/template"><section class="{{return await checkSection($data.note)}}"><h2 class="font-bold text-lg my-2 font-danabold" dir="{{return await detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" >{{ return await getLocalizedText(await detectDirection($data.note), "یادداشت", "Note", "ملاحظة", [##db.shortlinkTreelangid.Value##])}}</h2><div class="bg-[#F4F4F4] rounded-xl py-4 px-8 max-sm:px-3 text-justify font-danaregular dir-{{return await detectDirection($data.note)}}" >{{ return await cleanHtmlText($data.note , [##db.shortlinkTreelangid.Value##])}}</div></section></script>
                     </face>
                 </basis>
         </main>
-        
-                        <!-- با استفاده از Print Command -->
-<basis datamembername="db.service_request_pdf"  core="print" run="atclient">
-    <layout>@child</layout>
-    <face>
-        <script type="text/template">
+
+        <!-- با استفاده از Print Command -->
+        <basis datamembername="db.service_request_pdf" core="print" run="atclient">
+            <layout>@child</layout>
+            <face>
+                <script type="text/template">
         {{
             if([##db.shortlinkTreeletterhead.Value##] == 1) {
                 return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
@@ -304,153 +305,14 @@
             return '';
         }}
         </script>
-    </face>
-</basis>
+            </face>
+        </basis>
     </div>
 
-    <script src="[##cms.cms.cdn##]/js/JsPDF.js" defer></script>
-    <script>
-        function setFixedViewport() {
-            const pdfContent = document.querySelector('.pdf-content');
-            if (pdfContent) {
-                pdfContent.setAttribute('style', 'min-width: 794px !important;');
-            }
-
-            const metaViewport = document.querySelector('meta[name="viewport"]');
-            if (metaViewport) {
-                metaViewport.setAttribute('content', 'width=794, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no');
-            }
-
-            if (pdfContent && pdfContent.classList.contains('max-w-[794px]')) {
-                pdfContent.classList.remove('max-w-[794px]');
-            }
-        }
-
-        function resetViewport() {
-            window.location.reload();
-        }
-
-        function enforceLRMAroundParens(root = document) {
-            root.querySelectorAll('.dir-ltr, .bidi-ltr').forEach(el => {
-                // متن را می‌گیریم ولی تگ‌های داخلی را خراب نکنیم: فقط وقتی متن ساده است
-                if (el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE) {
-                el.textContent = '\u200E(' + el.textContent.replace(/[()]/g, '').trim() + ')\u200E';
-                } else {
-                // نسخه امن‌تر: فقط کاراکترهای ( و ) را با LRM مهار کنیم
-                el.innerHTML = el.innerHTML
-                    .replace(/\(/g, '\u200E(')
-                    .replace(/\)/g, ')\u200E');
-                }
-            });
-        }
-    
-        async function generatePDF() {
-    setFixedViewport();
-    const pdfConfig = document.querySelector('.pdf-config');
-    const pdfFileName = pdfConfig.querySelector('#name');
-    const isSetHeader = pdfConfig.querySelector('#header');
-
-    const element = document.querySelector('.pdf-content');
-    
-    let headerImage = null;
-    let footerImage = null;
-
-    if (isSetHeader.value == 1) {
-        try {
-            const headerElement = document.querySelector('#pdf-header').querySelector("img");
-            const footerElement = document.querySelector('#pdf-footer').querySelector("img");
-
-            // Check if both header and footer have images
-            if (headerElement) {
-                const headerCanvas = await html2canvas(headerElement, { scale: 2 });
-                headerImage = headerCanvas.toDataURL('image/png');
-            }
-            if (footerElement) {
-                const footerCanvas = await html2canvas(footerElement, { scale: 2 });
-                footerImage = footerCanvas.toDataURL('image/png');
-            }
-        } catch (error) {
-            console.error("Error loading header or footer:", error);
-            isSetHeader.value = 0; // If there's any issue, disable the header/footer flag
-        }
-    }
-
-    const loadingElement = document.querySelector('.pdf-loading');
-
-    try {
-        if (loadingElement) loadingElement.classList.remove('hidden');
-
-        var window_Width = element.scrollWidth;
-
-        if (window.innerWidth < 768) {
-            window_Width = 768;
-        }
-
-        const opt = {
-            margin: [30, 10, 30, 10],
-            filename: pdfFileName.value || "reservationDoc.pdf",
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: {
-                scale: 1,
-                width: 794,
-                windowWidth: window_Width,
-                useCORS: true,
-                backgroundColor: '#ffffff',
-                scrollX: 0,
-                scrollY: 0,
-                letterRendering: true,
-                ignoreElements: (el) =>
-                    ['BUTTON', 'A', 'SCRIPT'].includes(el.tagName) ||
-                    el.classList.contains('pdf-loading'),
-            },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait',
-                hotfixes: ['px_scaling']
-            },
-            pagebreak: {
-                mode: ['css', 'legacy'], // Use both CSS and legacy mode
-                before: '.page-break-before',
-                after: '.page-break-after',
-                avoid: '.avoid-break'
-            }
-        };
-
-        // Generate the PDF
-        const worker = html2pdf().set(opt).from(element).toPdf();
-
-        // Add header and footer images if they exist
-        worker.get('pdf').then((pdf) => {
-            const totalPages = pdf.internal.getNumberOfPages();
-            for (let i = 1; i <= totalPages; i++) {
-                pdf.setPage(i);
-                // Add header and/or footer based on availability
-                if (headerImage) {
-                    pdf.addImage(headerImage, 'PNG', 0, 0, 210, 30);  // x, y, width, height
-                }
-                if (footerImage) {
-                    pdf.addImage(footerImage, 'PNG', 0, 270, 210, 30);  // x, y, width, height
-                }
-            }
-        });
-
-        await worker.save();
-    } catch (err) {
-        console.error('PDF generation failed:', err);
-        alert('خطا در تولید PDF.');
-    } finally {
-        resetViewport();
-        if (loadingElement) loadingElement.classList.add('hidden');
-    }
-}
-
-   
-    </script>
-
-    <basis core="call"  lid="3" file="Client_BasisCore_Script.inc"></basis>
-        <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
-        <script src="[##cms.cms.cdn##]/js/pdf-service.functions.js" defer></script>
+    <basis core="call" lid="3" file="PdfGenerator.inc"></basis>
+    <basis core="call" lid="3" file="Client_BasisCore_Script.inc"></basis>
+    <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
+    <script src="[##cms.cms.cdn##]/js/pdf-service.functions.js" defer></script>
 </body>
 
 </html>
