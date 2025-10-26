@@ -10,13 +10,11 @@ let invoiceType;
 let  translations;
 
 
-function setlid(lid, invoice) {
+function setlid(lid, invoice = null) {
   mainlid = lid;
   invoiceType = invoice;
   ensureTranslationsReady(); // اضافه کردن این خط
 
-
-  console.log(invoiceType)
 }
 
 function barDirection(lid) {
@@ -760,7 +758,7 @@ async function route_array($data , invoicetype) {
     var output = "";
     var data = $data;
 
-    if(invoicetype == 8){
+    if(invoicetype === 8){
         for (var i = 0; i < data.length; i++) {
             output += `<div class=" relative "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                        

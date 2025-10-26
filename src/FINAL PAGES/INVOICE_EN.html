@@ -6,7 +6,7 @@
                 "name": "q", 
                 "type":"list",
                 "request": "get_short_link",
-                "token": "[##cms.query.token##]",
+                "token": "[##cms.query.token##]","dmnid" : "[##cms.cms.domainid##]"
                 }]} ' />
 </basis>
 
@@ -122,7 +122,7 @@
                 { 
                     "name": "q", 
                     "type":"list", 
-                    "request":"invoice_pdf",
+                    "request":"invoice_pdf", "dmnid" : "[##cms.cms.domainid##]",
                     "lid":"[##db.shortlinkTreelangid.Value##]",
                     "id":"[##db.shortlinkTreeid.Value##]"
                 }

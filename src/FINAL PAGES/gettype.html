@@ -1,0 +1,89 @@
+<basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
+
+<basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource">
+    <member method="cms" name="shortlink" query='{ 
+                "name": "db",
+                "mid": "20",
+                "member":[{ 
+                "name": "q", 
+                "type":"list",
+                "request": "get_short_link",
+                "token": "[##cms.query.token##]",
+                }]} ' />
+</basis>
+
+<basis core="inlinesource" name="db">
+    <member name="shortlinkTreelangid" format="json" postsql="
+     select Field , value from [db.shortlinkTreelangid] where Field in('langid');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeid" format="json" postsql="
+     select Field , value from [db.shortlinkTreeid] where Field in('id');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+    <member name="shortlinkTreeletterhead" format="json" postsql="
+     select Field , value from [db.shortlinkTreeletterhead] where Field in('letterhead');
+     ">
+        {"root":[##db.shortlink.result##]}</member>
+
+    <member name="shortlinkTreetid" format="json" postsql="
+         select Field , value from [db.shortlinkTreetid] where Field in('tid');
+         ">
+        {"root":[##db.shortlink.result##]}</member>
+
+    <member name="shortlinkTreeinvoice" format="json" postsql="
+         select Field , value from [db.shortlinkTreeinvoice] where Field in('invoice');
+         ">
+        {"root":[##db.shortlink.result##]}</member>
+
+</basis>
+
+
+<basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
+    method="post" body='{
+    "name": "db",
+    "member": [
+        {
+            "request": "ticket_pdf",
+            "factorid": "[##db.shortlinkTreeid.Value##]",
+            "ticketid": "[##db.shortlinkTreetid.Value##]",
+           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
+        }
+    ]
+}' content-type="application/json" run="atclient" preview="true">
+</basis>
+
+<basis core="print" datamembername="db.ticket_pdf" run="atclient">
+    <face>
+        <script type="text/template">
+            {{
+                try{
+                     GetType($data.ptype);
+                }catch (e){
+                    return '';
+                }
+            }}
+            </script>
+    </face>
+</basis>
+<script>
+    function GetType(type) {
+        const value = { ptype: type };
+        $bc.setSource('db.producttype', value);
+    }
+</script>
+
+
+
+
+<basis core="group" run="atclient" triggers="db.producttype"
+       if=" {##db.producttype.ptype##} == 2 ">
+  {##db.producttype.ptype##}<br/>
+  لطفاً وارد شوید!
+</basis>
+
+<basis core="group" run="atclient" triggers="db.producttype"
+       if=" {##db.producttype.ptype##} != 2 ">
+  {##db.producttype.ptype##}<br/>
+  خوش آمدید!
+</basis>

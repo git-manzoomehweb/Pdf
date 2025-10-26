@@ -7,7 +7,6 @@
                 "type":"list",
                 "request": "get_short_link",
                 "token": "[##cms.query.token##]",
-                "dmnid" : "[##cms.cms.domainid##]"
                 }]} ' />
 </basis>
 
@@ -30,39 +29,12 @@
          ">
         {"root":[##db.shortlink.result##]}</member>
 
+    <member name="shortlinkTreeinvoice" format="json" postsql="
+         select Field , value from [db.shortlinkTreeinvoice] where Field in('invoice');
+         ">
+        {"root":[##db.shortlink.result##]}</member>
+
 </basis>
-
-
-<basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
-    method="post" body='{
-    "name": "db",
-    "member": [
-        {
-            "request": "ticket_pdf",
-            "dmnid" : "[##cms.cms.domainid##]",
-            "factorid": "[##db.shortlinkTreeid.Value##]",
-            "ticketid": "[##db.shortlinkTreetid.Value##]",
-           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
-        }
-    ]
-}' content-type="application/json" run="atclient">
-</basis>
-
-<basis core="print" datamembername="db.ticket_pdf" run="atclient">
-    <face>
-        <script type="text/template">
-            {{
-                try{
-                     GetType($data.ptype);
-                     setlid([##db.shortlinkTreelangid.Value|(1)##], $data.ptype);
-                }catch (e){
-                    return '';
-                }
-            }}
-            </script>
-    </face>
-</basis>
-
 
 
 <!DOCTYPE html>
@@ -70,7 +42,7 @@
 
 <head>
     <title>ticket PDF</title>
-    <basis core="call" lid="2" file="Pdf_Taglist.inc"></basis>
+    <basis core="call" lid="1" file="Pdf_Taglist.inc"></basis>
     <style>
         p {
             text-align: justify !important;
@@ -144,7 +116,8 @@
     </style>
 </head>
 
-<body class="p-0 m-0 overflow-auto" id="content">
+<body class="p-0 m-0 overflow-auto" id="content"
+    onload="setlid([##db.shortlinkTreelangid.Value|(1)##], [##db.shortlinkTreeinvoice.Value|(0)##]);">
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -161,8 +134,58 @@
             </div>
         </basis>
 
+        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
+            method="post" body='{
+    "name": "db",
+    "member": [
+        {
+            "request": "ticket_pdf",
+            "factorid": "[##db.shortlinkTreeid.Value##]",
+            "ticketid": "[##db.shortlinkTreetid.Value##]",
+           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
+        }
+    ]
+}' content-type="application/json" run="atclient" preview="true">
+        </basis>
 
+<basis core="print" datamembername="db.ticket_pdf" run="atclient">
+    <face>
+@ptype@
+    </face>
+</basis>
+<basis core="print" datamembername="db.ticket_pdf" run="atclient">
+    <face>
+        <script type="text/template">
+        {{                        
+            $bc.setSource('db.ptype', @ptype@);
+        }}
+        </script>
+    </face>
+</basis>
+</br>
 
+<basis core="group" run="atclient" if="[##db.ptype.ptype|(0)##] == 2">
+    [##db.ptype.ptype|(1)##]
+    </br>
+
+    [##db.ptype.value|(2)##]
+    </br>
+
+	Please login!
+</basis>
+</br>
+<basis core="group" run="atclient" if="[##db.ptype.ptype|(0)##] <> 2">
+    [##db.ptype.ptype|(3)##]
+    </br>
+
+    [##db.ptype.value|(4)##]
+    </br>
+
+    [##db.ptype.RowNumber|(5555)##]
+    </br>
+
+	Please login22222!
+</basis>
 
 
         <div
@@ -309,7 +332,14 @@
             </div>
 
             <!-- oneway -->
-            <basis core="group" name="departure" run="atclient" triggers="db.producttype" if="{##db.producttype.ptype##} == 1">
+            <basis core="group" name="departure" if="
+            
+            
+            [##db.shortlinkTreeinvoice.Value##]<>7 
+            and [##db.shortlinkTreeinvoice.Value##]<>2 
+            and [##db.shortlinkTreeinvoice.Value##] <> 8
+
+            ">
                 <!-- ticket section -->
                 <div
                     class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
@@ -466,7 +496,7 @@
                                 </svg>
                                 {{
                                     try{
-                                        return await arrive_date_info($data.products[0].departure , $data.ptype , [##db.shortlinkTreelangid.Value##]);
+                                        return await arrive_date_info($data.products[0].departure , [##db.shortlinkTreeinvoice.Value##]  , [##db.shortlinkTreelangid.Value##]);
                                     }catch (e){
                                         return '';
                                     }
@@ -498,8 +528,7 @@
             </basis>
 
             <!-- btb (round trip) -->
-            <basis core="group" name="roundtrip" run="atclient" triggers="db.producttype"
-                if="{##db.producttype.ptype##} == 2 ">
+            <basis core="group" name="roundtrip" if="[##db.shortlinkTreeinvoice.Value##]=2">
                 <div
                     class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
 
@@ -656,7 +685,7 @@
                                 </svg>
                                 {{
                                     try{
-                                        return await arrive_date_info($data.products[0].departure , $data.ptype , [##db.shortlinkTreelangid.Value##]);
+                                        return await arrive_date_info($data.products[0].departure , [##db.shortlinkTreeinvoice.Value##] , [##db.shortlinkTreelangid.Value##]);
                                     }catch (e){
                                         return '';
                                     }
@@ -747,7 +776,7 @@
                                 </svg>
                                 {{
                                     try{
-                                        return await arrive_date_info($data.products[1].return , $data.ptype, [##db.shortlinkTreelangid.Value##]);
+                                        return await arrive_date_info($data.products[1].return , [##db.shortlinkTreeinvoice.Value##] , [##db.shortlinkTreelangid.Value##]);
                                     }catch (e){
                                         return '';
                                     }
@@ -778,8 +807,7 @@
             </basis>
 
             <!-- multicity -->
-            <basis core="group" name="multicity" run="atclient" triggers="db.producttype"
-                if="{##db.producttype.ptype##} == 7 ">
+            <basis core="group" name="multicity" if="[##db.shortlinkTreeinvoice.Value##]=7">
                 <div
                     class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
 
@@ -937,7 +965,7 @@
                                 </svg>
                                 {{
                                     try{
-                                        return await arrive_date_info($data.products[0].segment , $data.ptype, [##db.shortlinkTreelangid.Value##]);
+                                        return await arrive_date_info($data.products[0].segment , [##db.shortlinkTreeinvoice.Value##] , [##db.shortlinkTreelangid.Value##]);
                                     }catch (e){
                                         return '';
                                     }
@@ -985,8 +1013,7 @@
             </basis>
 
             <!-- One way Train -->
-            <basis core="group" name="train-oneway" run="atclient" triggers="db.producttype"
-                if="{##db.producttype.ptype##} == 8 ">
+            <basis core="group" name="train-oneway" if="[##db.shortlinkTreeinvoice.Value##]=8">
                 <div
                     class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
                     <!-- ticket details (left section of ticket) -->
@@ -1166,7 +1193,7 @@
                                             </svg>
                                             {{
                                                 try{
-                                                    return await arrive_date_info($data.products[0].departure , $data.ptype, [##db.shortlinkTreelangid.Value##]);
+                                                    return await arrive_date_info($data.products[0].departure , [##db.shortlinkTreeinvoice.Value##] , [##db.shortlinkTreelangid.Value##]);
                                                 }catch (e){
                                                     return '';
                                                 }
@@ -1183,7 +1210,7 @@
                                 <face>
                                     <script type="text/template">
                                             {{ try{
-                                                return await route_array($data.products[0].departure , $data.ptype);
+                                                return await route_array($data.products[0].departure , [##db.shortlinkTreeinvoice.Value##]);
                                             }catch (e){
                                                 return '';
                                             }
@@ -1306,28 +1333,22 @@
             <layout>@child</layout>
             <face>
                 <script type="text/template">
-        {{
+                {{
                     if([##db.shortlinkTreeletterhead.Value##] == 1) {
-                return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
-                        class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
-                        width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
-            }
-            return '';
-        }}
-        </script>
+                        return `<footer id="pdf-footer" class=" footer max-w-[794px]  w-full mx-auto "><img
+                                class="block mx-auto max-w-[794px]  w-full object-contain" src="/images/Footer-contract-pdf.jpg"
+                                width="794" height="100" alt="Footer-contract-pdf" /></footer>`;
+                    }
+                    return '';
+                }}
+                </script>
             </face>
         </basis>
 
 
         <!-- Scripts -->
-        <script>
-            function GetType(type) {
-                const value = { ptype: type };
-                $bc.setSource('db.producttype', value);
-            }
-        </script>
-        <basis core="call" lid="2" file="PdfGenerator.inc"></basis>
-        <basis core="call" lid="2" file="Client_BasisCore_Script.inc"></basis>
+        <basis core="call" lid="1" file="PdfGenerator.inc"></basis>
+        <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
         <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
         <script src="[##cms.cms.cdn##]/js/pdf-ticket.functions.js" defer></script>
     </div>

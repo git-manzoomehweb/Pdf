@@ -142,7 +142,8 @@
             "request": "bus_ticket_pdf",
             "factorid": "[##db.shortlinkTreeid.Value##]",
             "ticketid": "[##db.shortlinkTreetid.Value##]",
-           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
+           "lid": "[##db.shortlinkTreelangid.Value|(1)##]",
+           "dmnid" : "[##cms.cms.domainid##]"
         }
     ]
 }' content-type="application/json" run="atclient">

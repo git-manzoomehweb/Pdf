@@ -6,7 +6,7 @@
                 "name": "q", 
                 "type":"list",
                 "request": "get_short_link",
-                "token": "[##cms.query.token##]",
+                "token": "[##cms.query.token##]","dmnid" : "[##cms.cms.domainid##]"
                 }]} ' />
 </basis>
 
@@ -127,7 +127,9 @@
 
         <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
             method="post"
-            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##db.shortlinkTreeid.Value##]", "lid": "[##db.shortlinkTreelangid.Value|(1)##]", "cityid": "[##db.shortlinkTreecityid.Value|(0)##]", "status": "[##db.shortlinkTreestatus.Value|(0)##]"} ]}'
+            body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf",
+            "dmnid" : "[##cms.cms.domainid##]",
+            "id": "[##db.shortlinkTreeid.Value##]", "lid": "[##db.shortlinkTreelangid.Value|(1)##]", "cityid": "[##db.shortlinkTreecityid.Value|(0)##]", "status": "[##db.shortlinkTreestatus.Value|(0)##]"} ]}'
             content-type="application/json" run="atclient"></basis>
         <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
 

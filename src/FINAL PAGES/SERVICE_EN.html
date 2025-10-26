@@ -6,7 +6,7 @@
                 "name": "q", 
                 "type":"list",
                 "request": "get_short_link",
-                "token": "[##cms.query.token##]",
+                "token": "[##cms.query.token##]", "dmnid" : "[##cms.cms.domainid##]"
                 }]} ' />
 </basis>
 
@@ -134,6 +134,7 @@
                 "type": "list",
                 "name": "q",
                 "request": "service_pdf",
+                "dmnid" : "[##cms.cms.domainid##]",
                 "id": "[##db.shortlinkTreeid.Value##]",
                 "lid": "[##db.shortlinkTreelangid.Value|(1)##]",
                 "sid": "[##db.shortlinkTreeproductid.Value##]",
