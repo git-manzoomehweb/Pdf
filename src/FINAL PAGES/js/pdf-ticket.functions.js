@@ -7,32 +7,34 @@ let apiDataLoaded = false;
 const MIN_LOADING_TIME = 4000; // 4 ثانیه حداقل
 let mainlid;
 let invoiceType;
-let  translations;
+let translations;
 
 
-function setlid(lid, invoice) {
-  mainlid = lid;
-  invoiceType = invoice;
+function setlid(lid) {
+  mainlid = parseInt(lid);
   ensureTranslationsReady(); // اضافه کردن این خط
+}  
 
-
-  console.log(invoiceType)
+function setInvoiceid( invoice) {
+  invoiceType = parseInt(invoice);
 }
 
 function barDirection(lid) {
-    if (lid == 2) {
-        return `dir-ltr`
-    } else {
-        return `dir-rtl`
-    }
+  lid = parseInt(lid);
+  if (lid == 2) {
+    return `dir-ltr`
+  } else {
+    return `dir-rtl`
+  }
 }
 
-function barArrowRotation(lid){
-    if (lid == 2) {
-        return `rotate-0`
-    } else {
-        return `rotate-180`
-    }
+function barArrowRotation(lid) {
+  lid = parseInt(lid);
+  if (lid == 2) {
+    return `rotate-0`
+  } else {
+    return `rotate-180`
+  }
 }
 
 
@@ -41,6 +43,7 @@ function formatPrice(num) {
 }
 
 function initializePageLanguage(lid, invoice = null) {
+
   translations = {
     1: {
       // فارسی
@@ -64,13 +67,14 @@ function initializePageLanguage(lid, invoice = null) {
       age: "سن",
       birthdate: "تاریخ تولد",
       nationalCode: "کد ملی",
+      passportCode: "کد پاسپورت",
       priceDetails: "جزئیات قیمت",
       basePrice: "قیمت پایه",
       tax: "مالیات",
       total: "مجموع",
       extraService: "خدمات اضافی",
-      fareConditions: "شرایط کرایه",
-      connectionTime: "زمان انتظار",
+      fareConditions: "قوانین",
+      connectionTime: "زمان توقف",
       travelTime: "مدت سفر",
       route1: "مسیر اول",
       departure: "رفت",
@@ -115,6 +119,7 @@ function initializePageLanguage(lid, invoice = null) {
       age: "Age",
       birthdate: "Birthdate",
       nationalCode: "National Code",
+      passportCode: "Passport Code",
       priceDetails: "Price Details",
       basePrice: "Base Price",
       tax: "Tax",
@@ -166,6 +171,8 @@ function initializePageLanguage(lid, invoice = null) {
       age: "العمر",
       birthdate: "تاريخ الميلاد",
       nationalCode: "الرقم الوطني",
+      passportCode: "رمز جواز السفر",
+
       priceDetails: "تفاصيل السعر",
       basePrice: "السعر الأساسي",
       tax: "الضريبة",
@@ -198,6 +205,8 @@ function initializePageLanguage(lid, invoice = null) {
   };
 
   const t = translations[lid] || translations[1];
+  console.log("translate:::::::::" ,lid);
+  console.log("translate:::::::::" ,t);
   window.currentTranslations = t;
 
   // تنظیم attributes اصلی HTML
@@ -303,7 +312,7 @@ function translateHeaderTitles(t) {
   const headerTitles = document.querySelectorAll('.header__details__container__item__title');
   headerTitles.forEach(title => {
     const text = title.textContent.trim();
-    switch(text) {
+    switch (text) {
       case 'invoice number':
         title.textContent = t.invoiceNumber;
         break;
@@ -314,7 +323,7 @@ function translateHeaderTitles(t) {
         title.textContent = t.eticketNumber;
         break;
       case 'Date Of issue:':
-        title.textContent = t.dateOfIssue ;
+        title.textContent = t.dateOfIssue;
         break;
     }
   });
@@ -323,45 +332,48 @@ function translateHeaderTitles(t) {
 function translateTicketTitles(t, invoice = null) {
   // ترجمه عناوین در ticket
   const ticketTitles = document.querySelectorAll('.ticketContainer__details__head__item__title');
-ticketTitles.forEach(title => {
-  const text = title.textContent.trim();
-  switch(text) {
-    case 'Passenger :':
-    case 'Passenger':
-    case 'Passenger:':
-      title.innerHTML = `${t.passenger}<span style="display: inline-block;">:</span>`;
-      break;
-    case 'Age':
-    case 'Age:':
-      title.innerHTML = `${t.age}<span style="display: inline-block;">:</span>`;
-      break;
-    case 'Birthdate:':
-      title.innerHTML = `${t.birthdate}<span style="display: inline-block;">:</span>`;
-      break;
-    case 'National Code:':
-      title.innerHTML = `${t.nationalCode}<span style="display: inline-block;">:</span>`;
-      break;
-  }
-});
+  ticketTitles.forEach(title => {
+    const text = title.textContent.trim();
+    switch (text) {
+      case 'Passenger :':
+      case 'Passenger':
+      case 'Passenger:':
+        title.innerHTML = `${t.passenger}<span style="display: inline-block;">:</span>`;
+        break;
+      case 'Age':
+      case 'Age:':
+        title.innerHTML = `${t.age}<span style="display: inline-block;">:</span>`;
+        break;
+      case 'Birthdate:':
+        title.innerHTML = `${t.birthdate}<span style="display: inline-block;">:</span>`;
+        break;
+      case 'National Code:':
+        title.innerHTML = `${t.nationalCode}<span style="display: inline-block;">:</span>`;
+        break;
+      case 'Passport Code:':
+        title.innerHTML = `${t.passportCode}<span style="display: inline-block;">:</span>`;
+        break;
+    }
+  });
 
 
   // ترجمه متن‌های Route
-const routeTitles = document.querySelectorAll('.ticketContainer__details__time');
-routeTitles.forEach(route => {
-  const text = route.textContent.trim();
-  
-  switch(true) {
-    case text.includes('first Route'):
-      route.innerHTML = route.innerHTML.replace('first Route', `${t.route1}<span style="display: inline-block;">:</span>`);
-      break;
-    case text.includes('Departure'):
-      route.innerHTML = route.innerHTML.replace('Departure', `${t.departure}<span style="display: inline-block;">:</span>`);
-      break;
-    case text.includes('Return'):
-      route.innerHTML = route.innerHTML.replace('Return', `${t.return}<span style="display: inline-block;">:</span>`);
-      break;
-  }
-});
+  const routeTitles = document.querySelectorAll('.ticketContainer__details__time');
+  routeTitles.forEach(route => {
+    const text = route.textContent.trim();
+
+    switch (true) {
+      case text.includes('first Route'):
+        route.innerHTML = route.innerHTML.replace('first Route', `${t.route1}<span style="display: inline-block;">:</span>`);
+        break;
+      case text.includes('Departure'):
+        route.innerHTML = route.innerHTML.replace('Departure', `${t.departure}<span style="display: inline-block;">:</span>`);
+        break;
+      case text.includes('Return'):
+        route.innerHTML = route.innerHTML.replace('Return', `${t.return}<span style="display: inline-block;">:</span>`);
+        break;
+    }
+  });
 
 
   // ترجمه Connection Time و Travel Time
@@ -376,22 +388,22 @@ routeTitles.forEach(route => {
   });
 
   // ترجمه مختص قطار
-if (invoice === 8 || invoice === 9) {
-  const trainNumberElements = document.querySelectorAll('span');
-  trainNumberElements.forEach(element => {
-    if (element.textContent.toLowerCase().includes('train number:')) {
-      element.innerHTML = element.innerHTML.replace('train number:', `${t.trainNumber}<span style="display: inline-block;">:</span>`);
-    }
-  });
-} else {
-  // ترجمه مختص پرواز
-  const flightNumberElements = document.querySelectorAll('span');
-  flightNumberElements.forEach(element => {
-    if (element.textContent.toLowerCase().includes('flight number:')) {
-      element.innerHTML = element.innerHTML.replace('flight number:', `${t.flightNumber}<span style="display: inline-block;">:</span>`);
-    }
-  });
-}
+  if (invoice === 8 || invoice === 9) {
+    const trainNumberElements = document.querySelectorAll('span');
+    trainNumberElements.forEach(element => {
+      if (element.textContent.toLowerCase().includes('train number:')) {
+        element.innerHTML = element.innerHTML.replace('train number:', `${t.trainNumber}<span style="display: inline-block;">:</span>`);
+      }
+    });
+  } else {
+    // ترجمه مختص پرواز
+    const flightNumberElements = document.querySelectorAll('span');
+    flightNumberElements.forEach(element => {
+      if (element.textContent.toLowerCase().includes('flight number:')) {
+        element.innerHTML = element.innerHTML.replace('flight number:', `${t.flightNumber}<span style="display: inline-block;">:</span>`);
+      }
+    });
+  }
 
 }
 
@@ -401,9 +413,9 @@ function translateFlightSpecificElements(t, invoice = null) {
     // ترجمه airline details
     const airlineElements = document.querySelectorAll('.pathItem__details__airline span');
     airlineElements.forEach(element => {
-if (element.textContent.includes('flight number:')) {
-  element.innerHTML = element.innerHTML.replace('flight number:', `${t.flightNumber}<span style="display: inline-block;">:</span>`);
-}
+      if (element.textContent.includes('flight number:')) {
+        element.innerHTML = element.innerHTML.replace('flight number:', `${t.flightNumber}<span style="display: inline-block;">:</span>`);
+      }
 
     });
 
@@ -433,15 +445,15 @@ function translatePriceTitles(t) {
   const priceLabels = document.querySelectorAll('.ticketContainer__info__details__title');
   priceLabels.forEach(label => {
     const text = label.textContent.trim();
-if (text.includes('Base Price:')) {
-  label.innerHTML = label.innerHTML.replace('Base Price:', `${t.basePrice}<span style="display: inline-block;">:</span>`);
-}
-if (text.includes('Tax:')) {
-  label.innerHTML = label.innerHTML.replace('Tax:', `${t.tax}<span style="display: inline-block;">:</span>`);
-}
-if (text.includes('Total:')) {
-  label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span style="display: inline-block;">:</span>`);
-}
+    if (text.includes('Base Price:')) {
+      label.innerHTML = label.innerHTML.replace('Base Price:', `${t.basePrice}<span style="display: inline-block;">:</span>`);
+    }
+    if (text.includes('Tax:')) {
+      label.innerHTML = label.innerHTML.replace('Tax:', `${t.tax}<span style="display: inline-block;">:</span>`);
+    }
+    if (text.includes('Total:')) {
+      label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span style="display: inline-block;">:</span>`);
+    }
 
   });
 }
@@ -450,7 +462,7 @@ if (text.includes('Total:')) {
 function togglePrice(element) {
   const textSpan = element.querySelector(".button-content-text");
   const t = window.currentTranslations || translations[2]; // پیش‌فرض انگلیسی
-  
+
   if (textSpan.textContent.trim() === t.hidePrice || textSpan.textContent.trim() === "Hide Price") {
     textSpan.textContent = t.showPrice;
     document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
@@ -464,69 +476,69 @@ function togglePrice(element) {
 
 async function passenger_type(typedata, lid) {
   try {
-      // تابع helper برای انتظار تا translations آماده شود
-      const waitForTranslations = async (maxWait = 5000) => {
-          const startTime = Date.now();
-          while (!translations && (Date.now() - startTime) < maxWait) {
-              await new Promise(resolve => setTimeout(resolve, 100));
-          }
-          return translations;
-      };
+    // تابع helper برای انتظار تا translations آماده شود
+    const waitForTranslations = async (maxWait = 5000) => {
+      const startTime = Date.now();
+      while (!translations && (Date.now() - startTime) < maxWait) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+      return translations;
+    };
 
-      // صبر تا translations آماده شود
-      await waitForTranslations();
+    // صبر تا translations آماده شود
+    await waitForTranslations();
 
-      // مقدار پیش‌فرض
-      const defaultValue = "مسافر";
-      
-      // بررسی پارامترها
-      if (typedata == null || typedata === undefined || typedata === '') {
-          console.warn("typedata is invalid:", typedata);
-          return defaultValue;
-      }
-      
-      if (!lid || (Array.isArray(lid) && lid.length === 0)) {
-          console.warn("lid is invalid:", lid);
-          return defaultValue;
-      }
-      
-      // تبدیل lid به عدد اگر آرایه است
-      const lidValue = Array.isArray(lid) ? lid[0] : lid;
-      
-      // بررسی موجودیت translations
-      if (!translations || !translations[lidValue]) {
-          console.warn(`Translation for lid ${lidValue} not found`);
-          return defaultValue;
-      }
-      
-      const trns = translations[lidValue];
-      
-      // تبدیل typedata به string برای مقایسه دقیق‌تر
-      const type = String(typedata).trim();
-      
-      // بازگرداندن مقدار بر اساس نوع با fallback
-      switch (type) {
-          case "0":
-              return trns.infant || "نوزاد";
-          case "1":
-              return trns.child || "کودک";
-          case "2":
-              return trns.adult || "بزرگسال";
-          default:
-              console.warn("Invalid typedata:", typedata);
-              return defaultValue;
-      }
-      
+    // مقدار پیش‌فرض
+    const defaultValue = "مسافر";
+
+    // بررسی پارامترها
+    if (typedata == null || typedata === undefined || typedata === '') {
+      console.warn("typedata is invalid:", typedata);
+      return defaultValue;
+    }
+
+    if (!lid || (Array.isArray(lid) && lid.length === 0)) {
+      console.warn("lid is invalid:", lid);
+      return defaultValue;
+    }
+
+    // تبدیل lid به عدد اگر آرایه است
+    const lidValue = Array.isArray(lid) ? lid[0] : lid;
+
+    // بررسی موجودیت translations
+    if (!translations || !translations[lidValue]) {
+      console.warn(`Translation for lid ${lidValue} not found`);
+      return defaultValue;
+    }
+
+    const trns = translations[lidValue];
+
+    // تبدیل typedata به string برای مقایسه دقیق‌تر
+    const type = String(typedata).trim();
+
+    // بازگرداندن مقدار بر اساس نوع با fallback
+    switch (type) {
+      case "0":
+        return trns.infant || "نوزاد";
+      case "1":
+        return trns.child || "کودک";
+      case "2":
+        return trns.adult || "بزرگسال";
+      default:
+        console.warn("Invalid typedata:", typedata);
+        return defaultValue;
+    }
+
   } catch (e) {
-      console.error("Error in passenger_type:", e);
-      // fallback بر اساس typedata
-      const type = String(typedata || '').trim();
-      switch (type) {
-          case "0": return "نوزاد";
-          case "1": return "کودک"; 
-          case "2": return "بزرگسال";
-          default: return "مسافر";
-      }
+    console.error("Error in passenger_type:", e);
+    // fallback بر اساس typedata
+    const type = String(typedata || '').trim();
+    switch (type) {
+      case "0": return "نوزاد";
+      case "1": return "کودک";
+      case "2": return "بزرگسال";
+      default: return "مسافر";
+    }
   }
 }
 
@@ -610,28 +622,28 @@ function checkFontsLoaded() {
 
 function checkContentLoaded() {
   const checkApiInterval = setInterval(() => {
-      const hasApiContent = document.querySelector('[datamembername="db.ticket_pdf"]');
-      const hasGeneratedContent = document.querySelector("h1");
-      const hasPassengerData = window.$data?.passenger?.type; // اضافه کردن این چک
+    const hasApiContent = document.querySelector('[datamembername="db.ticket_pdf"]');
+    const hasGeneratedContent = document.querySelector("h1");
+    const hasPassengerData = window.$data?.passenger?.type; // اضافه کردن این چک
 
-      if (hasApiContent && hasGeneratedContent && hasPassengerData) {
-          apiDataLoaded = true;
-          clearInterval(checkApiInterval);
-          
-          // اطمینان از آماده بودن translations
-          ensureTranslationsReady();
-          
-          checkAllResourcesLoaded();
-      }
+    if (hasApiContent && hasGeneratedContent && hasPassengerData) {
+      apiDataLoaded = true;
+      clearInterval(checkApiInterval);
+
+      // اطمینان از آماده بودن translations
+      ensureTranslationsReady();
+
+      checkAllResourcesLoaded();
+    }
   }, 100);
 
   setTimeout(() => {
-      if (!apiDataLoaded) {
-          apiDataLoaded = true;
-          clearInterval(checkApiInterval);
-          ensureTranslationsReady(); // اضافه کردن این خط
-          checkAllResourcesLoaded();
-      }
+    if (!apiDataLoaded) {
+      apiDataLoaded = true;
+      clearInterval(checkApiInterval);
+      ensureTranslationsReady(); // اضافه کردن این خط
+      checkAllResourcesLoaded();
+    }
   }, 10000);
 }
 
@@ -668,9 +680,9 @@ function hideLoadingScreen() {
     loadingScreen.style.display = "none";
 
     setTimeout(() => {
-      if(mainlid == 2){
+      if (mainlid == 2) {
         mainContentpdf.classList.add("dir-ltr");
-      }else{
+      } else {
         mainContentpdf.classList.add("dir-rtl");
       }
     }, 500);
@@ -704,65 +716,65 @@ window.addEventListener("load", function () {
 
 // این تابع را در فایل اصلی جاوااسکریپت خود قرار دهید
 function togglePrice(element) {
-    const textSpan = element.querySelector(".button-content-text");
-    const t = window.currentTranslations || {
-        hidePrice: "Hide Price",
-        showPrice: "Show Price"
-    };
-    
-    const currentText = textSpan.textContent.trim();
-    
-    // بررسی متن فعلی در هر دو زبان ممکن
-    if (currentText === t.hidePrice || currentText === "Hide Price") {
-        textSpan.textContent = t.showPrice;
-        document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
-    } else {
-        textSpan.textContent = t.hidePrice;
-        document.querySelector(".ticketContainer__info__details_PriceBox").classList.remove("hidden");
-    }
+  const textSpan = element.querySelector(".button-content-text");
+  const t = window.currentTranslations || {
+    hidePrice: "Hide Price",
+    showPrice: "Show Price"
+  };
+
+  const currentText = textSpan.textContent.trim();
+
+  // بررسی متن فعلی در هر دو زبان ممکن
+  if (currentText === t.hidePrice || currentText === "Hide Price") {
+    textSpan.textContent = t.showPrice;
+    document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
+  } else {
+    textSpan.textContent = t.hidePrice;
+    document.querySelector(".ticketContainer__info__details_PriceBox").classList.remove("hidden");
+  }
 }
 
 function nodata_error($data) {
-    var len = $data.length
-    var output = "";
-    if (len > 0) {
-        var msg = $data
-        if (msg = 'no data') {
-            document.querySelector('.ticketContainer').remove();
-            document.querySelector('.ticketContainer__info').remove();
-            document.querySelector('.fare_conditions').remove();
-            return `<p class="text-xl text-center">Receiving ticket number , please wait ...</p>`
-        }
+  var len = $data.length
+  var output = "";
+  if (len > 0) {
+    var msg = $data
+    if (msg = 'no data') {
+      document.querySelector('.ticketContainer').remove();
+      document.querySelector('.ticketContainer__info').remove();
+      document.querySelector('.fare_conditions').remove();
+      return `<p class="text-xl text-center">Receiving ticket number , please wait ...</p>`
     }
+  }
 }
 
-async function arrive_date_info($data , invoicetype , lid) {
-    var len = $data.length
-    var arrive_date = $data[len - 1].route.routeDate.mstring
-    var arrive_date_S = $data[len - 1].route.routeDate.sstring
-    var arrive_dtime = $data[len - 1].route.atime
-    if(invoicetype === 8){
-        return `<span id="landingDate" class=" text-sm max-sm:text-xs" >${arrive_date}</span><span class="inline-block">(<span class="inline-block"> ${arrive_date_S} </span>)</span> | <span id="landingTime" class=" text-sm max-sm:text-xs">${arrive_dtime}</span>`
-    }else{
-        return `<span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(arrive_date , arrive_date_S , lid )}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`
-    }
+async function arrive_date_info($data, invoicetype, lid) {
+  var len = $data.length
+  var arrive_date = $data[len - 1].route.routeDateArrival.mstring
+  var arrive_date_S = $data[len - 1].route.routeDateArrival.sstring
+  var arrive_dtime = $data[len - 1].route.atime
+  if (invoicetype === 8) {
+    return `<span id="landingDate" class=" text-sm max-sm:text-xs" >${arrive_date}</span><span class="inline-block">(<span class="inline-block"> ${arrive_date_S} </span>)</span> | <span id="landingTime" class=" text-sm max-sm:text-xs">${arrive_dtime}</span>`
+  } else {
+    return `<span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(arrive_date, arrive_date_S, lid)}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`
+  }
 }
 
 function passenger_gender(gender) {
-    if (gender == 0) {
-        return `Ms.`
-    } else if (gender == 1) {
-        return `Mr.`
-    }
+  if (gender == 0) {
+    return `Ms.`
+  } else if (gender == 1) {
+    return `Mr.`
+  }
 }
 
-async function route_array($data , invoicetype) {
-    var output = "";
-    var data = $data;
+async function route_array($data, invoicetype) {
+  var output = "";
+  var data = $data;
 
-    if(invoicetype == 8){
-        for (var i = 0; i < data.length; i++) {
-            output += `<div class=" relative "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
+  if (invoicetype == 8) {
+    for (var i = 0; i < data.length; i++) {
+      output += `<div class=" relative "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                        
                         <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
                             <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
@@ -785,6 +797,8 @@ async function route_array($data , invoicetype) {
                             
                             <span class="pathItem__details__airport text-xs text-gray-500 font-danaregular max-sm:text-[10px]">${data[i].route.startairport.airport}<span class="text-sm mx-1 font-danabold max-sm:text-xs">(${data[i].route.startairport.startotherinfo.shortname})</span></span>
 
+                            </div>
+                            </div>
                             <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 absolute max-md:static top-16 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
                                 <span class="flex gap-1 items-center">
                                     <img class="mr-2.5 max-sm:mr-1" src="/${data[i].route.trainimage}" width="32" height="32" alt="${data[i].route.trainid}"/>
@@ -800,8 +814,6 @@ async function route_array($data , invoicetype) {
                                     <span>${data[i].route.class}</span>
                                 </span>
                             </div>
-                        </div>
-                    </div>
 
                     <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                         <div class="ticketContainer__details__path__item__times pathItem__times relative flex flex-nowrap justify-end flex-col items-center w-1/6 max-md:w-3/12">
@@ -820,11 +832,11 @@ async function route_array($data , invoicetype) {
                         </div>
                     </div>
                 </div>`;
-        }
-    } else {
-        // کد پرواز با کلاس‌های ریسپانسیو
-        for (var i = 0; i < data.length; i++) {
-            output += `<div class=" relative ${(connection_time(data[i].route.connectionTime) !== ' ' && (i == 0 || i !== data.length-1) ) ? 'mb-0' : 'mb-5'} ">
+    }
+  } else {
+    // کد پرواز با کلاس‌های ریسپانسیو
+    for (var i = 0; i < data.length; i++) {
+      output += `<div class=" relative ${(connection_time(data[i].route.connectionTime) !== ' ' && (i == 0 || i !== data.length - 1)) ? 'mb-0' : 'mb-5'} ">
                 <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                    
                     <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
@@ -906,76 +918,163 @@ async function route_array($data , invoicetype) {
                 </div>
                 ${await connection_time(data[i].route.connectionTime)}
             </div>`;
-        }
     }
+  }
 
-    return output;
+  return output;
 }
 
 function baggages_array($data) {
-    var output = "";
-    var data = $data
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            output += `<div dir="${detectDirection(data[i].baggage.type)}" >${data[i].baggage.type}</div><div dir="${detectDirection(data[i].baggage.type)}" >${data[i].baggage.title}</div><br/>`
-        }
-        return output;
+  var output = "";
+  var data = $data
+  if (data.length > 0) {
+    for (var i = 0; i < data.length; i++) {
+      output += `<div dir="${detectDirection(data[i].baggage.type)}" >${data[i].baggage.type}</div><div dir="${detectDirection(data[i].baggage.type)}" >${data[i].baggage.title}</div><br/>`
     }
+    return output;
+  }
 }
 
 function pdf_desc_array($data) {
-    var output = "";
-    var data = $data
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            output += `<div dir="${detectDirection(data[i].note.title)}" >${data[i].note.title}</div><div dir="${detectDirection(data[i].note.text)}">${data[i].note.text}</div><br/>`
-        }
-        return output;
+  var output = "";
+  var data = $data
+  if (data.length > 0) {
+    for (var i = 0; i < data.length; i++) {
+      output += `<div dir="${detectDirection(data[i].note.title)}" >${data[i].note.title}</div><div dir="${detectDirection(data[i].note.text)}">${data[i].note.text}</div><br/>`
+    }
+    return output;
+  }
+}
+function detectDirectionSVG(lid) {
+        switch (lid) {
+      case 1:
+        return 'rotate-180' ;
+        break;
+      case 2:
+        return 'rotate-0' ;
+        break;
+      case 3:
+        return 'rotate-180' ;
+        break;
+      default:
+        return 'rotate-180' ;
     }
 }
 
+// function desc_array($data) {
+//     var output = "";
+//     var data = $data;
+
+//     if (data.length > 0) {
+//         for (var i = 0; i < data.length; i++) {
+//             if (data[i].departure !== undefined) {
+//                 const dep = data[i].departure;
+//                 let formattedDep = typeof dep === 'string' ? dep : JSON.stringify(dep);
+//                 formattedDep = formattedDep
+//                     .replace(/^"|"$/g, '') 
+//                     .replace(/\\n/g, '<br>') 
+//                     .replace(/<font[^>]*>|<\/font>/gi, ''); 
+//                 output += `<div class=" font-danaregular" dir="${detectDirection(formattedDep)}" >${formattedDep}</div>`;
+//             }
+
+//             if (data[i].return !== undefined) {
+//                 const ret = data[i].return;
+//                 let formattedRet = typeof ret === 'string' ? ret : JSON.stringify(ret);
+//                 formattedRet = formattedRet
+//                     .replace(/^"|"$/g, '')
+//                     .replace(/\\n/g, '<br>')
+//                     .replace(/<font[^>]*>|<\/font>/gi, '');
+//                 output += `<div class=" font-danaregular" dir="${detectDirection(formattedRet)}" >${formattedRet}</div>`;
+//             }
+//         }
+
+//         document.getElementById("desc_array").innerHTML = output;
+//     }
+// }
 function desc_array($data) {
-    var output = "";
-    var data = $data;
+  const data = Array.isArray($data) ? $data : [];
+  let output = "";
 
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].departure !== undefined) {
-                const dep = data[i].departure;
-                let formattedDep = typeof dep === 'string' ? dep : JSON.stringify(dep);
-                formattedDep = formattedDep
-                    .replace(/^"|"$/g, '') 
-                    .replace(/\\n/g, '<br>') 
-                    .replace(/<font[^>]*>|<\/font>/gi, ''); 
-                output += `<div class=" font-danaregular" dir="${detectDirection(formattedDep)}" >${formattedDep}</div>`;
-            }
+  const cleanHtml = (val) => {
+    if (val == null) return "";
+    let s = typeof val === "string" ? val : JSON.stringify(val);
+    // حذف کوتیشن‌های شروع/پایان که ممکنه از JSON.stringify بیاد
+    s = s.replace(/^"|"$/g, "");
+    // تبدیل \n و \\n به <br>
+    s = s.replace(/\\n/g, "<br>").replace(/\n/g, "<br>");
+    // حذف تگ‌های font
+    s = s.replace(/<font[^>]*>|<\/font>/gi, "");
+    return s;
+  };
 
-            if (data[i].return !== undefined) {
-                const ret = data[i].return;
-                let formattedRet = typeof ret === 'string' ? ret : JSON.stringify(ret);
-                formattedRet = formattedRet
-                    .replace(/^"|"$/g, '')
-                    .replace(/\\n/g, '<br>')
-                    .replace(/<font[^>]*>|<\/font>/gi, '');
-                output += `<div class=" font-danaregular" dir="${detectDirection(formattedRet)}" >${formattedRet}</div>`;
-            }
-        }
-
-        document.getElementById("desc_array").innerHTML = output;
+  const renderTitleText = (title, text) => {
+    const t = cleanHtml(title || "");
+    const x = cleanHtml(text || "");
+    // جهت را از متن (اگر خالی بود از عنوان) تشخیص بده
+    const sample = (x || t || "").slice(0, 200);
+    const dirVal = typeof detectDirection === "function" ? detectDirection(sample) : "auto";
+    let html = `<div class="font-danaregular mb-2" dir="${dirVal}">`;
+    if (t && t.trim()) {
+      html += `<div class="font-danaregular font-bold mb-1">${t}</div>`;
     }
+    if (x && x.trim()) {
+      html += `<div>${x}</div>`;
+    }
+    html += `</div>`;
+    return html;
+  };
+
+  const renderPart = (part) => {
+    // part می‌تونه استرینگ، آبجکت {title,text}، یا آرایه‌ای از این آبجکت‌ها باشد
+    if (Array.isArray(part)) {
+      return part.map(item => {
+        if (item && (typeof item === "object") && ("title" in item || "text" in item)) {
+          return renderTitleText(item.title, item.text);
+        } else {
+          // اگر عضو آرایه استرینگ ساده بود
+          const s = cleanHtml(item);
+          const dirVal = typeof detectDirection === "function" ? detectDirection(s) : "auto";
+          return `<div class="font-danaregular mb-2" dir="${dirVal}">${s}</div>`;
+        }
+      }).join("");
+    } else if (part && typeof part === "object" && ("title" in part || "text" in part)) {
+      return renderTitleText(part.title, part.text);
+    } else {
+      // حالت استرینگ ساده
+      const s = cleanHtml(part);
+      const dirVal = typeof detectDirection === "function" ? detectDirection(s) : "auto";
+      return `<div class="font-danaregular mb-2" dir="${dirVal}">${s}</div>`;
+    }
+  };
+
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i] || {};
+    if (item.departure !== undefined) {
+      output += renderPart(item.departure);
+    }
+    // اگر کلید return آبجکت/آرایه بود هم پشتیبانی می‌شود
+    if (item.return !== undefined) {
+      output += renderPart(item.return);
+    }
+  }
+
+  const el = document.getElementById("desc_array");
+  if (el) el.innerHTML = output;
 }
+
+
 
 function connection_time($data) {
-    var output = "";
-    var data = $data
-    if (data !== undefined) {
-        let connectiontime = parseFloat(data)
-        if (connectiontime !== 0) {
-            const hours = Math.floor(connectiontime / 60);
-            const minutes = connectiontime % 60;
+  var output = "";
+  var data = $data
+  if (data !== undefined) {
+    let connectiontime = parseFloat(data)
+    if (connectiontime !== 0) {
+      const hours = Math.floor(connectiontime / 60);
+      const minutes = connectiontime % 60;
 
-            if(mainlid == 1){
-              output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
+      if (mainlid == 1) {
+        output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
                   <div class="ticketContainer__details__path__item__times pathItem__times flex flex-nowrap justify-center flex-col items-center w-1/6 -mt-[10px] max-md:w-3/12">
                       <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                           <span class="text-xs text-gray-500 font-danabold max-sm:text-[10px]" >Connection Time </span>
@@ -991,8 +1090,8 @@ function connection_time($data) {
                       <div class="w-2 h-2 rounded-full bg-gray-400 absolute bottom-0 right-[5px]"></div>
                   </div>
               </div>`
-            }else{
-              output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
+      } else {
+        output += `<div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 h-12">
                   <div class="ticketContainer__details__path__item__times pathItem__times flex flex-nowrap justify-center flex-col items-center w-1/6 -mt-[10px] max-md:w-3/12">
                       <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                           <span class="text-xs text-gray-500 font-danabold max-sm:text-[10px]" >Connection Time </span>
@@ -1009,12 +1108,12 @@ function connection_time($data) {
                   </div>
               </div>`
 
-            }
-        }
-        return output;
-    }else{
-      return '';
+      }
     }
+    return output;
+  } else {
+    return '';
+  }
 }
 
 // async function multi_route_array($data , invoicetype , lid) {
@@ -1030,7 +1129,7 @@ function connection_time($data) {
 //                         <div class="ticketContainer__details w-full">
 //                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs">Route ${data[i].segment_id} : </div>
 //                             <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
-                                
+
 //                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
 //                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#9ca3af" class="train-icon max-sm:w-5 max-sm:h-5" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#9ca3af">
 //                                         <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -1075,7 +1174,7 @@ function connection_time($data) {
 //                         <div class="ticketContainer__details w-full">
 //                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs max-sm:px-2">Route ${data[i].segment_id} : </div>
 //                             <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
-                                
+
 //                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
 //                                     <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
 //                                         <g clip-path="url(#clip0_1_717)">
@@ -1132,28 +1231,28 @@ function connection_time($data) {
 
 
 
-async function multi_route_array($data , invoicetype , lid) {
-    var output = "";
-    var data = $data;
+async function multi_route_array($data, invoicetype, lid) {
+  var output = "";
+  var data = $data;
 
-    // تابع برای گرفتن عنوان مسیرها با توجه به زبان انتخابی
-    const getRouteTitle = (index) => {
-        const routeTitles = {
-            1: [' مسیر اول', 'مسیر دوم', 'مسیر سوم', 'مسیر چهارم', 'مسیر پنجم'],   // فارسی
-            2: ['First Route', 'Second Route', 'Third Route', 'Fourth Route', 'Fifth Route'],  // انگلیسی
-            3: ['الطريق الأول', 'الطريق الثاني', 'الطريق الثالث', 'الطريق الرابع', 'الطريق الخامس'] // عربی
-        };
-
-        return routeTitles[lid][index] || `Route ${index + 1}`; // Default if the index exceeds the array length
+  // تابع برای گرفتن عنوان مسیرها با توجه به زبان انتخابی
+  const getRouteTitle = (index) => {
+    const routeTitles = {
+      1: [' مسیر اول', 'مسیر دوم', 'مسیر سوم', 'مسیر چهارم', 'مسیر پنجم'],   // فارسی
+      2: ['First Route', 'Second Route', 'Third Route', 'Fourth Route', 'Fifth Route'],  // انگلیسی
+      3: ['الطريق الأول', 'الطريق الثاني', 'الطريق الثالث', 'الطريق الرابع', 'الطريق الخامس'] // عربی
     };
 
-    // اگر طول داده‌ها بیشتر از یک باشد
-    if (data.length > 1) {
-        if(invoicetype === 8){
-            // برای هر مسیر داده
-            for (var i = 1; i < data.length; i++) {
-                var segment_len = data[i].segment.length;
-                output += `
+    return routeTitles[lid][index] || `Route ${index + 1}`; // Default if the index exceeds the array length
+  };
+
+  // اگر طول داده‌ها بیشتر از یک باشد
+  if (data.length > 1) {
+    if (invoicetype === 8) {
+      // برای هر مسیر داده
+      for (var i = 1; i < data.length; i++) {
+        var segment_len = data[i].segment.length;
+        output += `
                     <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs">${getRouteTitle(i)} <span class="inline-block">:</span></div>
@@ -1167,7 +1266,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
                                         </g>
                                     </svg>
-                                    <span id="flightDate" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring , lid)}</span>
+                                    <span id="flightDate" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring, data[i].segment[0].route.routeDate.sstring, lid)}</span>
                                     |
                                     <span id="flightTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${data[i].segment[0].route.etime}</span>
                                 </div>
@@ -1184,7 +1283,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                             <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
                                         </g>
                                     </svg>
-                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> | 
+                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring, data[i].segment[segment_len - 1].route.routeDate.sstring, lid)}</span> | 
                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
                                 </div>
                             </div>
@@ -1193,12 +1292,12 @@ async function multi_route_array($data , invoicetype , lid) {
                             </div>
                         </div>
                     </div>`
-            }
-        } else {
-            // کد پرواز با کلاس‌های ریسپانسیو
-            for (var i = 1; i < data.length; i++) {
-                var segment_len = data[i].segment.length;
-                output += `
+      }
+    } else {
+      // کد پرواز با کلاس‌های ریسپانسیو
+      for (var i = 1; i < data.length; i++) {
+        var segment_len = data[i].segment.length;
+        output += `
                     <div class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full shrink-0 ">
                         <div class="ticketContainer__details w-full">
                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs max-sm:px-2">${getRouteTitle(i)} <span class="inline-block">:</span></div>
@@ -1215,7 +1314,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring , data[i].segment[0].route.routeDate.sstring ,lid )}</span>
+                                    <span id="flightDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[0].route.routeDate.mstring, data[i].segment[0].route.routeDate.sstring, lid)}</span>
                                     |
                                     <span id="flightTime" class=" text-sm max-sm:text-xs">${data[i].segment[0].route.etime}</span>
                                 </div>
@@ -1229,7 +1328,7 @@ async function multi_route_array($data , invoicetype , lid) {
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z" fill="#2F2F2F" />
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
                                     </svg>
-                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring , data[i].segment[segment_len - 1].route.routeDate.sstring , lid)}</span> 
+                                    <span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(data[i].segment[segment_len - 1].route.routeDate.mstring, data[i].segment[segment_len - 1].route.routeDate.sstring, lid)}</span> 
                                     | 
                                     <span id="landingTime" class=" text-sm max-sm:text-xs">${data[i].segment[segment_len - 1].route.atime}</span>
                                 </div>
@@ -1239,67 +1338,67 @@ async function multi_route_array($data , invoicetype , lid) {
                             </div>
                         </div>
                     </div>`;
-            }
-        }
+      }
     }
+  }
 
-    return output;
+  return output;
 }
 
 
 function convertDateFormat(mstring, sstring, lid) {
 
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    
-    // Convert Gregorian date
-    const gregorianParts = mstring.split('-');
-    const gregorianYear = gregorianParts[0];
-    const gregorianMonth = monthNames[parseInt(gregorianParts[1]) - 1];
-    const gregorianDay = gregorianParts[2];
-    const gregorianOutput = `${gregorianDay} ${gregorianMonth} ${gregorianYear}`;
-    
-    if (lid == 2 || lid == 3) {
-        return gregorianOutput;
-    } else if (lid == 1) {
-        // Convert Persian date
-        const persianParts = sstring.split('-');
-        const persianYear = persianParts[0];
-        const persianMonthNum = parseInt(persianParts[1]);
-        const persianDay = persianParts[2];
-        
-        // Persian month names
-        const persianMonthNames = [
-            "فروردین", "اردیبهشت", "خرداد", "تیر", 
-            "مرداد", "شهریور", "مهر", "آبان", 
-            "آذر", "دی", "بهمن", "اسفند"
-        ];
-        const persianMonth = persianMonthNames[persianMonthNum - 1];
-        
-        return `${persianDay} ${persianMonth} ${persianYear} <span style="direction: ltr !important;display: inline-block;">(${gregorianOutput})</span>`;
-    }
-    return gregorianOutput; // Default fallback
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  // Convert Gregorian date
+  const gregorianParts = mstring.split('-');
+  const gregorianYear = gregorianParts[0];
+  const gregorianMonth = monthNames[parseInt(gregorianParts[1]) - 1];
+  const gregorianDay = gregorianParts[2];
+  const gregorianOutput = `${gregorianDay} ${gregorianMonth} ${gregorianYear}`;
+
+  if (lid == 2 || lid == 3) {
+    return gregorianOutput;
+  } else if (lid == 1) {
+    // Convert Persian date
+    const persianParts = sstring.split('-');
+    const persianYear = persianParts[0];
+    const persianMonthNum = parseInt(persianParts[1]);
+    const persianDay = persianParts[2];
+
+    // Persian month names
+    const persianMonthNames = [
+      "فروردین", "اردیبهشت", "خرداد", "تیر",
+      "مرداد", "شهریور", "مهر", "آبان",
+      "آذر", "دی", "بهمن", "اسفند"
+    ];
+    const persianMonth = persianMonthNames[persianMonthNum - 1];
+
+    return `${persianDay} ${persianMonth} ${persianYear} <span style="direction: ltr !important;display: inline-block;">(${gregorianOutput})</span>`;
+  }
+  return gregorianOutput; // Default fallback
 }
 
 
 // تابع برای به‌روزرسانی عناصر سن بعد از لود شدن کامل
 function updateAgeElements() {
   const ageElements = document.querySelectorAll('#cargoWeight');
-  
+
   ageElements.forEach(async (element) => {
-      if (element.textContent.trim() === '' || element.textContent.trim() === '-') {
-          try {
-              // دوباره تلاش برای دریافت مقدار
-              const typeData = window.$data?.passenger?.type;
-              if (typeData) {
-                  const result = await passenger_type(typeData, [mainlid]);
-                  if (result) {
-                      element.textContent = result;
-                  }
-              }
-          } catch (e) {
-              console.error('Error updating age element:', e);
+    if (element.textContent.trim() === '' || element.textContent.trim() === '-') {
+      try {
+        // دوباره تلاش برای دریافت مقدار
+        const typeData = window.$data?.passenger?.type;
+        if (typeData) {
+          const result = await passenger_type(typeData, [mainlid]);
+          if (result) {
+            element.textContent = result;
           }
+        }
+      } catch (e) {
+        console.error('Error updating age element:', e);
       }
+    }
   });
 }
 
@@ -1312,23 +1411,23 @@ window.addEventListener('load', () => {
 // اضافه کردن این تابع به ابتدای فایل JavaScript
 function ensureTranslationsReady() {
   if (!translations) {
-      // اگر translations موجود نیست، یک نسخه پیش‌فرض ایجاد کنیم
-      translations = {
-          1: {
-              adult: "بزرگسال",
-              child: "کودک", 
-              infant: "نوزاد"
-          },
-          2: {
-              adult: "Adult",
-              child: "Child",
-              infant: "Infant"
-          },
-          3: {
-              adult: "بالغ",
-              child: "طفل",
-              infant: "رضيع"
-          }
-      };
+    // اگر translations موجود نیست، یک نسخه پیش‌فرض ایجاد کنیم
+    translations = {
+      1: {
+        adult: "بزرگسال",
+        child: "کودک",
+        infant: "نوزاد"
+      },
+      2: {
+        adult: "Adult",
+        child: "Child",
+        infant: "Infant"
+      },
+      3: {
+        adult: "بالغ",
+        child: "طفل",
+        infant: "رضيع"
+      }
+    };
   }
 }

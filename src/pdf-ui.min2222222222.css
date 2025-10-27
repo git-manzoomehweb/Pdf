@@ -3037,9 +3037,3 @@ html,:host{
   }
 }
 
-
-@media not all and (min-width: 1280px) {
-  .max-xl\:flex-wrap {
-    flex-wrap: wrap;
-  }
-}

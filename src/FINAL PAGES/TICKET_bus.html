@@ -36,6 +36,39 @@
 
 </basis>
 
+
+<basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
+    method="post" body='{
+    "name": "db",
+    "member": [
+        {
+            "request": "bus_ticket_pdf",
+                        "dmnid" : "[##cms.cms.domainid##]",
+
+            "factorid": "[##db.shortlinkTreeid.Value##]",
+            "ticketid": "[##db.shortlinkTreetid.Value##]",
+           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
+        }
+    ]
+}' content-type="application/json" run="atclient">
+</basis>
+
+<basis core="print" datamembername="db.bus_ticket_pdf" run="atclient">
+    <face>
+        <script type="text/template">
+            {{
+                try{
+                     GetType($data.ptype);
+                     setlid([##db.shortlinkTreelangid.Value|(1)##], $data.ptype);
+                }catch (e){
+                    return '';
+                }
+            }}
+            </script>
+    </face>
+</basis>
+
+
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
 
@@ -116,7 +149,7 @@
 </head>
 
 <body class="p-0 m-0 overflow-auto" id="content"
-    onload="setlid([##db.shortlinkTreelangid.Value|(1)##], [##db.shortlinkTreeinvoice.Value|(0)##]);">
+    >
 
     <!-- Loading -->
     <div class="main-loading-screen" id="main-loading-screen">
@@ -134,19 +167,7 @@
             </div>
         </basis>
 
-        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
-            method="post" body='{
-    "name": "db",
-    "member": [
-        {
-            "request": "bus_ticket_pdf",
-            "factorid": "[##db.shortlinkTreeid.Value##]",
-            "ticketid": "[##db.shortlinkTreetid.Value##]",
-           "lid": "[##db.shortlinkTreelangid.Value|(1)##]"
-        }
-    ]
-}' content-type="application/json" run="atclient">
-        </basis>
+
 
         <div
             class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:flex-col max-sm:gap-4 max-md:px-4">
@@ -205,7 +226,7 @@
                     {{
                         if([##db.shortlinkTreeletterhead.Value##] == 1) {
                             return `<header id="pdf-header" class="header max-w-[794px] w-full mx-auto">
-                                <img class="block max-w-[794px] w-full mx-auto object-contain" 
+                                <img class="block max-w-[794px] w-full h-[100px] mx-auto object-contain" 
                                     src="/images/Header-contract-pdf.jpg"
                                     width="794" height="100" alt="Header-contract-pdf" />
                             </header>`;
@@ -657,6 +678,12 @@
 
 
         <!-- Scripts -->
+        <script>
+            function GetType(type) {
+                const value = { ptype: type };
+                $bc.setSource('db.producttype', value);
+            }
+        </script>
         <basis core="call" lid="1" file="PdfGenerator.inc"></basis>
         <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
         <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>

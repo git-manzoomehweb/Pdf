@@ -3520,3 +3520,50 @@ function getOwner(ownerid) {
 }
 
 // invoice pdf functions
+
+
+
+
+
+
+
+
+
+// const t = getTranslation(lid);
+// const invoiceDetails = $data.invoiceDetails || {};
+// const invoiceDate = $data.invoiceDate || {};
+
+// const account =
+//   $data.account?.mycounter_forPassenger ||
+//   $data.account?.person ||
+//   $data.account?.supplier_agency ||
+//   $data.account?.mycounter_forAgency ||
+//   $data.account?.partner_agency ||
+//   {};
+
+// const isPartnerAgency   = !!$data.account?.partner_agency;
+// const isSupplierAgency  = !!$data.account?.supplier_agency;
+// const isAgency          = isPartnerAgency || isSupplierAgency;
+
+// const contractNumber = invoiceDetails.factorid || "-";
+// const registerDate   = invoiceDate.mstring || "-";
+// const registerDateS  = invoiceDate.sstring || "-";
+// const registerTime   = invoiceDate.time || "-";
+
+// const counterName = isAgency
+//   ? ( `${account.namecounter || ""} ${account.familycounter || ""}`.trim() || account.counterName || "-" )
+//   : ( invoiceDetails.counterName || account.counterName || "-" );
+
+// const buyerName = isAgency
+//   ? (account.agencyname || "-")
+//   : (`${account.fullname?.firstname || ""} ${account.fullname?.lastname || ""}`.trim() || "-");
+
+// const ownername = invoiceDetails.ownerName;
+// const persons   = invoiceDetails.persons;
+
+// const address = isAgency ? (account.agencyaddress || "-") : (account.address || "-");
+// const phone   = isAgency ? (account.agencytell    || "-") : (account.tel     || "-");
+// const email   = isAgency ? (account.agencyemail   || "-") : (account.email   || "-");
+// const mobile  = isAgency ? (account.agencymobile  || "-") : (account.mobile  || "-");
+
+// const serviceType = invoiceDetails.title || "-";
