@@ -11,6 +11,19 @@ function setlid(lid) {
   mainlid = lid;
 }
 
+
+function pickAccount($data) {
+  const acc = $data.account || {};
+  if (acc.person)                 return { type: 'B2C', key: 'person', record: acc.person };
+  if (acc.mycounter_forPassenger) return { type: 'B2C', key: 'mycounter_forPassenger', record: acc.mycounter_forPassenger };
+  if (acc.partner_agency)         return { type: 'B2B', key: 'partner_agency', record: acc.partner_agency };
+  if (acc.supplier_agency)        return { type: 'B2B', key: 'supplier_agency', record: acc.supplier_agency };
+  if (acc.mycounter_forAgency)    return { type: 'B2B', key: 'mycounter_forAgency', record: acc.mycounter_forAgency };
+  return { type: 'B2C', key: null, record: {} }; // پیش‌فرض
+}
+
+
+
 function initializePageLanguage(lid) {
   const translations = {
     1: {
@@ -906,10 +919,21 @@ const invoiceTranslations = {
     routeCodeBus: "کد مسیر",
 
     // Contract text
-    contractText: {
-      template:
-        "این قرارداد فی مابین خانم/آقای {buyerName} دارای شماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفرداً یا به نمایندگی تام الاختیار از سوی افراد ذیل جمعاً به تعداد {personCount} نفر که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">گردشگر</span>\" نامیده می‌شود از یک طرف و دفتر {officeName} که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">کارگزار</span>\" نامیده می‌شود، به صورت <span class=\"inline-block font-dana_FANum_demibold mx-1\">خرید اینترنتی</span> منعقد گردیده است."
-    }
+    // contractText: {
+    //   template:
+    //     "این قرارداد فی مابین خانم/آقای {buyerName} دارای شماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفرداً یا به نمایندگی تام الاختیار از سوی افراد ذیل جمعاً به تعداد {personCount} نفر که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">گردشگر</span>\" نامیده می‌شود از یک طرف و دفتر {officeName} که از این پس \"<span class=\"inline-block font-dana_FANum_demibold mx-1\">کارگزار</span>\" نامیده می‌شود، به صورت <span class=\"inline-block font-dana_FANum_demibold mx-1\">خرید اینترنتی</span> منعقد گردیده است."
+    // }
+
+    contractTextB2C: {
+  template:
+    'این قرارداد فی مابین خانم/ آقاي {buyerName} داراي شماره تلفن ثابت {phone} و همراه {mobile} به نشـانی {address} منفردًا یا به نمایندگی تام الاختیار از سوي افراد ذیل جمعًا به تعـداد {personCount} نفر کـه از این پس "<span class="inline-block font-dana_FANum_demibold mx-1">گردشـگر</span>" نامیده میشود از یک طرف و دفتر {officeName} که از این پس "<span class="inline-block font-dana_FANum_demibold mx-1">کارگزار</span>" نامیده میشود , به صورت خرید اینترنتی منعقد گردیده است.'
+},
+contractTextB2B: {
+  template:
+    'این قرارداد فی مابین {buyerName} با مديريت {Managename} دارای شـماره تلفن ثابت {phone} و همراه {mobile} به نشانی {address} منفردًا یا به نمایندگی تام الاختیار از سوي افراد ذیل جمعًا به تعداد {personCount} نفر که از این پس "<span class="inline-block font-dana_FANum_demibold mx-1">گردشگر</span>" نامیده میشود از یک طرف و دفتر {officeName} که از این پس "<span class="inline-block font-dana_FANum_demibold mx-1">کارگزار</span>" نامیده میشود , به صورت خرید اینترنتی منعقد گردیده است.'
+},
+
+
   },
   2: {
     // English
@@ -1055,10 +1079,21 @@ const invoiceTranslations = {
     busOperator: "Bus Operator",
     routeCodeBus: "Bus No",
 
-    contractText: {
-      template:
-        "This agreement is concluded between Mr./Ms. {buyerName}, with landline {phone}, mobile {mobile}, and address {address}, either individually or as an authorized representative of the following individuals (total {personCount} persons), hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Traveler</span>\", and the office {officeName}, hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Agent</span>\", concluded as an <span class='inline-block font-danademibold mx-1'>online purchase</span>."
-    }
+    // contractText: {
+    //   template:
+    //     "This agreement is concluded between Mr./Ms. {buyerName}, with landline {phone}, mobile {mobile}, and address {address}, either individually or as an authorized representative of the following individuals (total {personCount} persons), hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Traveler</span>\", and the office {officeName}, hereinafter referred to as the \"<span class='inline-block font-danademibold mx-1'>Agent</span>\", concluded as an <span class='inline-block font-danademibold mx-1'>online purchase</span>."
+    // }
+
+    contractTextB2C: {
+  template:
+    'This contract is between Ms. / Mr. {buyerName} has a landline phone number {phone} and mobile number {mobile} to the address {address} Individually or on behalf of the following persons by a total of {personCount}, hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping has been concluded.'
+},
+contractTextB2B: {
+  template:
+    'This contract is between {buyerName} With management {Managename} has a landline phone number {phone} and mobile number {mobile} Individually or on behalf of the following persons by a total of {personCount}, hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping Has been concluded.'
+},
+
+
   },
   3: {
     // Arabic
@@ -1206,10 +1241,23 @@ const invoiceTranslations = {
     busOperator: "مشغل الحافلة",
     routeCodeBus: "رقم الحافلة",
 
-    contractText: {
-      template:
-        "تم توقيع هذا العقد بين السيد/السيدة {buyerName}، برقم هاتف ثابت {phone} وجوال {mobile}، وعنوان {address}، بصفته فرداً أو ممثلاً قانونياً للمذكورين أدناه وعددهم الإجمالي {personCount}، ويُشار إليه فيما بعد بـ \"<span class='inline-block font-danademibold mx-1'>السائح</span>\"، وبين مكتب {officeName}، ويُشار إليه بـ \"<span class='inline-block font-danademibold mx-1'>المزوّد</span>\"، وذلك عن طريق <span class='inline-block font-danademibold mx-1'>الشراء الإلكتروني</span>."
-    }
+    // contractText: {
+    //   template:
+    //     "تم توقيع هذا العقد بين السيد/السيدة {buyerName}، برقم هاتف ثابت {phone} وجوال {mobile}، وعنوان {address}، بصفته فرداً أو ممثلاً قانونياً للمذكورين أدناه وعددهم الإجمالي {personCount}، ويُشار إليه فيما بعد بـ \"<span class='inline-block font-danademibold mx-1'>السائح</span>\"، وبين مكتب {officeName}، ويُشار إليه بـ \"<span class='inline-block font-danademibold mx-1'>المزوّد</span>\"، وذلك عن طريق <span class='inline-block font-danademibold mx-1'>الشراء الإلكتروني</span>."
+    // }
+
+
+    contractTextB2C: {
+  template:
+    'This contract is between Ms. / Mr. {buyerName} has a landline phone number {phone} and mobile number {mobile} to the address {address} Individually or on behalf of the following persons by a total of {personCount}, hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping has been concluded.'
+},
+contractTextB2B: {
+  template:
+    'This contract is between {buyerName} With management {Managename} has a landline phone number {phone} and mobile number {mobile} Individually or on behalf of the following persons by a total of {personCount}, hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping Has been concluded.'
+},
+
+
+
   }
 };
 
@@ -1877,88 +1925,179 @@ case '4': { // Tour
   }
 }
 
+// function renderInvoiceDetails($data, lid = 1) {
+//   const t = getTranslation(lid);
+//   const invoiceDetails = $data.invoiceDetails || {};
+//   const invoiceDate = $data.invoiceDate || {};
+//   const account =
+//     $data.account?.mycounter_forPassenger ||
+//     $data.account?.person ||
+//     $data.account?.supplier_agency ||
+//     $data.account?.mycounter_forAgency ||
+//     $data.account?.partner_agency ||
+//     {};
+
+//   const isPartnerAgency = !!$data.account?.partner_agency;
+
+//   const contractNumber = invoiceDetails.factorid || "-";
+//   const registerDate = invoiceDate.mstring || "-";
+//   const registerDateS = invoiceDate.sstring || "-";
+//   const registerTime = invoiceDate.time || "-";
+
+//   const counterName = isPartnerAgency
+//     ? `${account.namecounter || ""} ${account.familycounter || ""}`.trim() || "-"
+//     : invoiceDetails.counterName || account.counterName || "-";
+
+//   const buyerName = isPartnerAgency
+//     ? account.agencyname || "-"
+//     : `${account.fullname?.firstname || ""} ${account.fullname?.lastname || ""}`.trim();
+
+//   const ownername = $data.invoiceDetails.ownerName;
+//   const persons = $data.invoiceDetails.persons;
+//   const address = isPartnerAgency ? account.agencyaddress || "-" : account.address || "-";
+//   const phone = isPartnerAgency ? account.agencytell || "-" : account.tel || "-";
+//   const email = isPartnerAgency ? account.agencyemail || "-" : account.email || "-";
+//   const mobile = isPartnerAgency ? account.agencymobile || "-" : account.mobile || "-";
+
+//   const serviceType = invoiceDetails.title || "-";
+
+//   // Contract text with variables replaced
+//   let contractTextContent = t.contractText.template
+//     .replace(/{buyerName}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">${buyerName}</span>`)
+//     .replace(/{phone}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display: inline-block;">${phone}</span>)</span>`)
+//     .replace(/{mobile}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display: inline-block;">${mobile}</span>)</span>`)
+//     .replace(/{address}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${address}</span>)</span>`)
+//     .replace(/{personCount}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${persons}</span>`)
+//     .replace(/{officeName}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${ownername}</span>`);
+
+//   return `
+//     <h1 class="my-4 ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} ${t.centerText}" dir="${t.dir}">${t.contractTitle}</h1>
+//     <div class="w-full flex justify-between flex-wrap gap-y-2 max-md:flex-col" dir="${t.dir}">
+//         <div class="w-[25.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+//             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
+//                 <li class="flex justify-start flex-wrap" >
+//                     <span class="text-base print:text-xs font-dana_FANum_medium inline-block">${t.contractNumber}</span>
+//                     <span class="text-lg print:text-base ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} tracking-tighter inline-block">${contractNumber}</span>
+//                 </li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" > ${lid !== 1 ? registerDate : registerDate + '(' +  registerDateS + ')' }</span></li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerTime}</span><span class=" ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${registerTime}</span></li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.counterName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${counterName}</span></li>
+//             </ul>
+//         </div>
+
+//         <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+//             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.buyerName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${buyerName}</span></li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.address}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${address}</span></li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.phone}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} lowercase break-all inline-block" >${email}</span></li>
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.mobile}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
+//             </ul>
+//         </div>
+
+//         <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+//             <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
+//                 <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.serviceType}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} " style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;" >${serviceType}</span></li>
+//             </ul>
+//         </div>
+
+//         <div class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-justify text-sm" dir="${t.dir}">
+//           ${contractTextContent}
+//         </div>
+//     </div>
+// `;
+// }
+
+
 function renderInvoiceDetails($data, lid = 1) {
   const t = getTranslation(lid);
   const invoiceDetails = $data.invoiceDetails || {};
   const invoiceDate = $data.invoiceDate || {};
-  const account =
-    $data.account?.mycounter_forPassenger ||
-    $data.account?.person ||
-    $data.account?.supplier_agency ||
-    $data.account?.mycounter_forAgency ||
-    $data.account?.partner_agency ||
-    {};
 
-  const isPartnerAgency = !!$data.account?.partner_agency;
+  // 1) تشخیص نوع/رکورد اکانت
+  const picked = pickAccount($data);
+  const account = picked.record || {};
+  const isAgency = picked.type === 'B2B'; // B2B → آژانسی
 
+  // 2) فیلدهای مشترک
   const contractNumber = invoiceDetails.factorid || "-";
-  const registerDate = invoiceDate.mstring || "-";
-  const registerDateS = invoiceDate.sstring || "-";
-  const registerTime = invoiceDate.time || "-";
+  const registerDate    = invoiceDate.mstring || "-";
+  const registerDateS   = invoiceDate.sstring || "-";
+  const registerTime    = invoiceDate.time || "-";
 
-  const counterName = isPartnerAgency
-    ? `${account.namecounter || ""} ${account.familycounter || ""}`.trim() || "-"
-    : invoiceDetails.counterName || account.counterName || "-";
+  // 3) فیلد نمایش‌دهندهٔ کانتر
+  const counterName = isAgency
+    ? (`${account.namecounter || ""} ${account.familycounter || ""}`.trim() || account.counterName || "-")
+    : (invoiceDetails.counterName || account.counterName || "-");
 
-  const buyerName = isPartnerAgency
-    ? account.agencyname || "-"
-    : `${account.fullname?.firstname || ""} ${account.fullname?.lastname || ""}`.trim();
+  // 4) اسم خریدار
+  const buyerName = isAgency
+    ? (account.agencyname || "-")
+    : (`${account.fullname?.firstname || ""} ${account.fullname?.lastname || ""}`.trim() || "-");
 
-  const ownername = $data.invoiceDetails.ownerName;
-  const persons = $data.invoiceDetails.persons;
-  const address = isPartnerAgency ? account.agencyaddress || "-" : account.address || "-";
-  const phone = isPartnerAgency ? account.agencytell || "-" : account.tel || "-";
-  const email = isPartnerAgency ? account.agencyemail || "-" : account.email || "-";
-  const mobile = isPartnerAgency ? account.agencymobile || "-" : account.mobile || "-";
+  // 5) بقیهٔ مشخصات تماس و آدرس
+  const ownername = invoiceDetails.ownerName;
+  const persons   = invoiceDetails.persons;
+  const Managename   = isAgency ? (account.agencymanegername || "-") : (account.agencymanegername || "-");
+  const address   = isAgency ? (account.agencyaddress || "-") : (account.address || "-");
+  const phone     = isAgency ? (account.agencytell    || "-") : (account.tel     || "-");
+  const email     = isAgency ? (account.agencyemail   || "-") : (account.email   || "-");
+  const mobile    = isAgency ? (account.agencymobile  || "-") : (account.mobile  || "-");
 
   const serviceType = invoiceDetails.title || "-";
 
-  // Contract text with variables replaced
-  let contractTextContent = t.contractText.template
+  // 6) انتخاب متن قرارداد بر اساس نوع (B2C/B2B)
+  const contractTplObj = isAgency ? t.contractTextB2B : t.contractTextB2C;
+  let contractTextContent = (contractTplObj && contractTplObj.template ? contractTplObj.template : '')
+    .replace(/{Managename}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">${Managename}</span>`)
     .replace(/{buyerName}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">${buyerName}</span>`)
-    .replace(/{phone}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display: inline-block;">${phone}</span>)</span>`)
-    .replace(/{mobile}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display: inline-block;">${mobile}</span>)</span>`)
-    .replace(/{address}/g, `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction: ${t.dir} !important;display: inline-block;">${address}</span>)</span>`)
+    .replace(/{phone}/g,     `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display:inline-block;">${phone}</span>)</span>`)
+    .replace(/{mobile}/g,    `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="display:inline-block;">${mobile}</span>)</span>`)
+    .replace(/{address}/g,   `<span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} mx-1">(<span style="direction:${t.dir} !important;display:inline-block;">${address}</span>)</span>`)
     .replace(/{personCount}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${persons}</span>`)
-    .replace(/{officeName}/g, `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${ownername}</span>`);
+    .replace(/{officeName}/g,  `<span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} dir-ltr mx-1">${ownername}</span>`);
 
+  // 7) خروجی HTML (همان ساختار فعلی شما؛ فقط متن قرارداد از متغیر بالا می‌آید)
   return `
     <h1 class="my-4 ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} ${t.centerText}" dir="${t.dir}">${t.contractTitle}</h1>
     <div class="w-full flex justify-between flex-wrap gap-y-2 max-md:flex-col" dir="${t.dir}">
-        <div class="w-[25.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
-            <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
-                <li class="flex justify-start flex-wrap" >
-                    <span class="text-base print:text-xs font-dana_FANum_medium inline-block">${t.contractNumber}</span>
-                    <span class="text-lg print:text-base ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} tracking-tighter inline-block">${contractNumber}</span>
-                </li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" > ${lid !== 1 ? registerDate : registerDate + '(' +  registerDateS + ')' }</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.registerTime}</span><span class=" ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${registerTime}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.counterName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${counterName}</span></li>
-            </ul>
-        </div>
+      <div class="w-[25.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+        <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
+          <li class="flex justify-start flex-wrap">
+            <span class="text-base print:text-xs font-dana_FANum_medium inline-block">${t.contractNumber}</span>
+            <span class="text-lg print:text-base ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} tracking-tighter inline-block">${contractNumber}</span>
+          </li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}"> ${lid !== 1 ? registerDate : `${registerDate}(${registerDateS})`}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.registerTime}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${registerTime}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.counterName}</span><span class="${lid !== 1 ? 'font-danamedium' : 'font-dana_FANum_medium'}">${counterName}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.buyerName}</span><span class="${lid !== 1 ? 'font-danamedium' : 'font-dana_FANum_medium'}">${buyerName}</span></li>
+        </ul>
+      </div>
 
-        <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
-            <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.buyerName}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${buyerName}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.address}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" >${address}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.phone}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} lowercase break-all inline-block" >${email}</span></li>
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.mobile}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
-            </ul>
-        </div>
+      <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+        <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.addresstitle}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" style="direction:${lid === 2 ? 'ltr' : 'rtl'} !important;display:inline-block;">${address}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.phonetitle}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} lowercase break-all inline-block">${email}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.mobiletitle}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
+        </ul>
+      </div>
 
-        <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
-            <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
-                <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}" >${t.serviceType}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} " style="direction:${mainlid === 2 ? 'ltr' : 'rtl'} !important;display: inline-block;" >${serviceType}</span></li>
-            </ul>
-        </div>
+      <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+        <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.serviceType}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" style="direction:${lid === 2 ? 'ltr' : 'rtl'} !important;display:inline-block;">${serviceType}</span></li>
+        </ul>
+      </div>
 
-        <div class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-justify text-sm" dir="${t.dir}">
-          ${contractTextContent}
-        </div>
+      <div class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-justify text-sm" dir="${t.dir}">
+        ${contractTextContent}
+      </div>
     </div>
-`;
+  `;
 }
+
+
+
 
 function renderFlightInfoSection(route, lid = 1) {
   const t = getTranslation(lid);

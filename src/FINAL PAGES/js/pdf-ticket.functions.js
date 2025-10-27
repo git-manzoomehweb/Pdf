@@ -42,6 +42,11 @@ function formatPrice(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+
+
+
+
+
 function initializePageLanguage(lid, invoice = null) {
 
   translations = {
@@ -632,6 +637,7 @@ function checkContentLoaded() {
 
       // اطمینان از آماده بودن translations
       ensureTranslationsReady();
+  // hideEmptyCodeBoxes()
 
       checkAllResourcesLoaded();
     }
@@ -650,6 +656,7 @@ function checkContentLoaded() {
 async function checkAllResourcesLoaded() {
   try {
     await Promise.all([checkImagesLoaded(), checkFontsLoaded()]);
+  hideEmptyCodeBoxes();
 
     initializePageLanguage(mainlid, invoiceType);
     initializeLoadingSystem();
@@ -946,20 +953,34 @@ function pdf_desc_array($data) {
   }
 }
 function detectDirectionSVG(lid) {
+  console.log("detectDirectionSVG" , lid)
         switch (lid) {
       case 1:
-        return 'rotate-180' ;
+        return 'transform scale-x-[-1]' ;
         break;
       case 2:
-        return 'rotate-0' ;
+        return '' ;
         break;
       case 3:
-        return 'rotate-180' ;
+        return 'transform scale-x-[-1]' ;
         break;
       default:
-        return 'rotate-180' ;
+        return 'transform scale-x-[-1]' ;
     }
 }
+  function hideEmptyCodeBoxes() {
+const elements = document.querySelectorAll('.nationalcode, .passcode');
+elements.forEach(element => {
+  console.log(element)
+  const desc = element.querySelector('.ticketContainer__details__head__item__desc');
+  console.log(desc)
+  if (desc && (desc.textContent.trim() === '' || desc.textContent.trim() === '-')) {
+    element.style.display = 'none';
+  }
+});
+  }
+
+
 
 // function desc_array($data) {
 //     var output = "";
@@ -1410,6 +1431,9 @@ window.addEventListener('load', () => {
 
 // اضافه کردن این تابع به ابتدای فایل JavaScript
 function ensureTranslationsReady() {
+
+
+
   if (!translations) {
     // اگر translations موجود نیست، یک نسخه پیش‌فرض ایجاد کنیم
     translations = {
