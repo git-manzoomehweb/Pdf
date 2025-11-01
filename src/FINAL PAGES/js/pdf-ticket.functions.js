@@ -55,6 +55,8 @@ function initializePageLanguage(lid, invoice = null) {
       lang: "fa",
       dir: "rtl",
       accessDenied: "شما اجازه دسترسی به این صفحه را ندارید",
+            nodata: "در حال دریافت شماره بلیط هستیم",
+
       loadingText: "در حال بارگذاری",
       pdfLoadingText: "در حال تولید PDF",
       textAlign: "text-right",
@@ -107,6 +109,7 @@ function initializePageLanguage(lid, invoice = null) {
       lang: "en",
       dir: "ltr",
       accessDenied: "You do not have permission to access this page",
+      nodata: "Receiving ticket number , please wait ...",
       loadingText: "Loading",
       pdfLoadingText: "Generating PDF",
       textAlign: "text-left",
@@ -159,6 +162,8 @@ function initializePageLanguage(lid, invoice = null) {
       lang: "ar",
       dir: "rtl",
       accessDenied: "ليس لديك إذن للوصول إلى هذه الصفحة",
+                  nodata: "جاري استلام رقم التذكرة، الرجاء الانتظار...",
+
       loadingText: "جاري التحميل",
       pdfLoadingText: "جاري إنشاء PDF",
       textAlign: "text-right",
@@ -746,11 +751,18 @@ function nodata_error($data) {
   var output = "";
   if (len > 0) {
     var msg = $data
-    if (msg = 'no data') {
-      document.querySelector('.ticketContainer').remove();
-      document.querySelector('.ticketContainer__info').remove();
-      document.querySelector('.fare_conditions').remove();
-      return `<p class="text-xl text-center">Receiving ticket number , please wait ...</p>`
+    if (msg == 'no data') {
+      // console.log(translations[mainlid].nodata)
+      document.getElementById("Main_Data").remove();
+      // document.querySelector('.ticketContainer').remove();
+      // document.querySelector('.ticketContainer__info').remove();
+      // document.querySelector('.fare_conditions').remove();
+      return `<div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit"
+                >
+                ${translations[mainlid].nodata}
+
+
+                </div>`
     }
   }
 }
@@ -861,7 +873,7 @@ async function route_array($data, invoicetype) {
                         
                         <span class="pathItem__details__airport text-xs text-gray-500 font-danaregular max-sm:text-[10px]">${data[i].route.startairport.airport}<span class="text-sm mx-1 font-danabold max-sm:text-xs">(${data[i].route.startairport.startotherinfo.shortname})</span></span>
 
-                        <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 mt-1 absolute max-md:static top-12 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
+                        <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 mt-5 absolute max-md:static top-12 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
                             <span class="flex gap-1 items-center">
                                 <img class="mr-2.5 max-sm:mr-1 max-sm:w-8 max-sm:h-8" src="/${data[i].route.airlineimage}" width="50" height="50" alt="${data[i].route.airline}"/>
                                 <span class="max-sm:hidden">${data[i].route.airline}</span>
@@ -881,7 +893,7 @@ async function route_array($data, invoicetype) {
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9496 6.48717C10.9482 6.47081 10.941 6.42787 10.905 6.40762C10.8799 6.39243 10.8499 6.39749 10.8299 6.40762L10.8099 6.41774C9.7994 7.09622 8.58379 7.54685 7.30815 7.73419C7.12806 7.75951 6.94797 7.64305 6.89795 7.46078C6.78789 7.04559 6.43272 6.77217 6.0075 6.77217H5.9925L5.91363 6.77535C5.52384 6.8069 5.20523 7.07154 5.10205 7.46078C5.05203 7.64305 4.87194 7.75951 4.69185 7.73419C3.41621 7.54685 2.2006 7.09622 1.1901 6.41774C1.18509 6.41268 1.13507 6.3823 1.09505 6.40762C1.05002 6.43293 1.05002 6.49369 1.05002 6.49369L1.08504 9.07596L1.08751 9.17503C1.13839 10.1922 1.9683 11 2.98599 11H9.009L9.10688 10.9975C10.1119 10.946 10.91 10.106 10.91 9.07596L10.95 6.49369L10.9496 6.48717ZM5.62578 7.82488C5.6509 7.64088 5.80949 7.49622 5.9975 7.49622C6.2076 7.49622 6.37269 7.66837 6.37269 7.87597V8.52913L6.36932 8.58127C6.34486 8.76847 6.19009 8.90887 5.9975 8.90887C5.7924 8.90887 5.62231 8.74178 5.62231 8.52913V7.87597L5.62578 7.82488Z" fill="black"></path>
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.10355 2.30632C8.0085 1.57215 7.3932 1 6.64282 1H5.35218C4.6018 1 3.98649 1.57215 3.89145 2.30632H2.90595C1.85543 2.30632 1 3.17214 1 4.23543C1 4.23543 1.02501 5.0658 1.04002 5.32403C1.04002 5.37466 1.06503 5.42023 1.10505 5.44555L1.58529 5.77972C2.41071 6.32706 3.37569 6.71845 4.3952 6.91389C4.46173 6.92655 4.52676 6.89263 4.56128 6.83389C4.85793 6.33415 5.4012 6.01263 5.9975 6.01263C6.5978 6.01263 7.13607 6.33769 7.42421 6.83693C7.45823 6.89668 7.52426 6.93162 7.5913 6.91845C8.61931 6.72352 9.58429 6.33162 10.4147 5.77466C10.4347 5.76453 10.6548 5.6177 10.8954 5.43998C10.935 5.41061 10.959 5.362 10.96 5.31238C10.97 4.68555 11 4.23543 11 4.23543C11 3.17214 10.1446 2.30632 9.09405 2.30632H8.10355ZM5.35218 1.75949H6.64282C6.97799 1.75949 7.26313 1.9924 7.34317 2.30632H4.65183C4.73187 1.9924 5.01701 1.75949 5.35218 1.75949Z" fill="black"></path>
                                 </svg></span>
-                                <span>${data[i].route.baggage.CheckedBag}</span>
+                                <span class="dir-ltr" >${data[i].route.baggage.CheckedBag}</span>
                             </span>
                         </div>
                     </div>
@@ -952,8 +964,39 @@ function pdf_desc_array($data) {
     return output;
   }
 }
+// function detectDirectionSVG(lid) {
+//         switch (lid) {
+//       case 1:
+//         return 'transform scale-x-[-1]' ;
+//         break;
+//       case 2:
+//         return '' ;
+//         break;
+//       case 3:
+//         return 'transform scale-x-[-1]' ;
+//         break;
+//       default:
+//         return 'transform scale-x-[-1]' ;
+//     }
+// }
+// function detectDirectionSVGStyle(lid) {
+//         switch (lid) {
+//       case 1:
+//         return 'transform: scaleX(-1);' ;
+//         break;
+//       case 2:
+//         return '' ;
+//         break;
+//       case 3:
+//         return 'transform: scaleX(-1);' ;
+//         break;
+//       default:
+//         return 'transform: scaleX(-1);' ;
+//     }
+// }
+
+
 function detectDirectionSVG(lid) {
-  console.log("detectDirectionSVG" , lid)
         switch (lid) {
       case 1:
         return 'transform scale-x-[-1]' ;
@@ -968,6 +1011,25 @@ function detectDirectionSVG(lid) {
         return 'transform scale-x-[-1]' ;
     }
 }
+
+
+function detectDirectionSVGStyle(lid) {
+        switch (lid) {
+      case 1:
+        return 'transform: scaleX(-1);' ;
+        break;
+      case 2:
+        return '' ;
+        break;
+      case 3:
+        return 'transform: scaleX(-1);' ;
+        break;
+      default:
+        return 'transform: scaleX(-1);' ;
+    }
+}
+
+
   function hideEmptyCodeBoxes() {
 const elements = document.querySelectorAll('.nationalcode, .passcode');
 elements.forEach(element => {
@@ -1324,7 +1386,7 @@ async function multi_route_array($data, invoicetype, lid) {
                             <div class="ticketContainer__details__time px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:text-xs max-sm:px-2">${getRouteTitle(i)} <span class="inline-block">:</span></div>
                             <div class="ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#F9C643] text-sm dir-ltrrrrr max-[794px]:flex-wrap max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2">
                                 <div class="ticketContainer__details__time__flight flex items-center gap-2 shrink-0">
-                                    <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                    <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5  ${detectDirectionSVG(lid)}"  style="${detectDirectionSVGStyle(lid)}" >
                                         <g clip-path="url(#clip0_1_717)">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9967 4.04383C12.4616 3.83566 11.7331 3.91 11.0456 4.24442C10.4088 4.55709 9.78484 4.91151 9.11998 5.26178C8.30949 4.65771 7.48892 4.07605 6.6662 3.49506C6.1033 3.09873 5.55654 2.99132 5.04397 3.17539C4.75521 3.27773 4.48568 3.41493 4.22368 3.54778C4.11657 3.60258 4.0077 3.65757 3.89561 3.71157C3.7801 3.76681 3.69244 3.86712 3.65247 3.98997C3.6128 4.11145 3.62499 4.24437 3.6862 4.35748L5.30417 7.34695C4.95632 7.53815 4.54275 7.7678 4.13505 7.99418C3.77818 8.19254 3.42503 8.3883 3.12222 8.55566L2.87823 8.10715C2.75308 7.88034 2.46796 7.79743 2.24155 7.9221C2.01504 8.04589 1.93134 8.33197 2.0565 8.55878L2.48153 9.33888C3.41411 11.0117 4.96594 11.4859 6.63407 10.6058C8.41206 9.6675 10.3557 8.61404 12.7506 7.2883C13.0439 7.12684 13.3203 6.90271 13.537 6.63508C13.9201 6.162 14.1135 5.55465 13.8625 4.92513C13.6961 4.50402 13.3965 4.19867 12.9967 4.04383Z" fill="#2F2F2F" />
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
@@ -1345,7 +1407,7 @@ async function multi_route_array($data, invoicetype, lid) {
                                 </div>
 
                                 <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
-                                    <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5">
+                                    <svg width="22" height="22" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-sm:w-5 max-sm:h-5 ${detectDirectionSVG(lid)}" style="${detectDirectionSVGStyle(lid)}" >
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9765 9.27775C12.8015 8.73088 12.2852 8.2115 11.5927 7.88775C10.949 7.58963 10.2809 7.32775 9.59024 7.0315C9.54961 6.02148 9.48524 5.01773 9.41899 4.01273C9.37274 3.32585 9.11211 2.83335 8.64649 2.55085C8.38524 2.39085 8.10899 2.26773 7.84086 2.14773C7.73086 2.09898 7.61961 2.04898 7.50711 1.99585C7.39149 1.94085 7.25836 1.93585 7.13774 1.9821C7.01836 2.02773 6.92274 2.12085 6.87336 2.2396L5.56837 5.37835C5.20087 5.22835 4.76212 5.05148 4.32962 4.8771C3.95087 4.7246 3.57649 4.57335 3.25587 4.44335L3.45087 3.97148C3.54837 3.73148 3.43337 3.45773 3.19399 3.36023C2.95524 3.2621 2.68024 3.3771 2.58274 3.6171L2.24399 4.43835C1.53087 6.21585 2.13899 7.72025 3.87274 8.46275C5.72087 9.254 7.76274 10.1015 10.3002 11.1284C10.6102 11.2546 10.9584 11.3284 11.3027 11.3284C11.9115 11.3284 12.5052 11.0965 12.8365 10.5053C13.059 10.1109 13.1077 9.68588 12.9765 9.27775Z" fill="#2F2F2F" />
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 13.2007H3.27127C3.01252 13.2007 2.80252 13.4107 2.80252 13.6695C2.80252 13.9282 3.01252 14.1382 3.27127 14.1382H12.1C12.3588 14.1382 12.5688 13.9282 12.5688 13.6695C12.5688 13.4107 12.3588 13.2007 12.1 13.2007Z" fill="#2F2F2F" />
                                     </svg>

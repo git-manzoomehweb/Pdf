@@ -260,6 +260,15 @@
                     </face>
                 </basis>
 
+
+                                                <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+                    <layout>@child </layout>
+                    <face>
+                        <script type="text/template">
+              {{return await renderBillRequestSection($data.bill_request , [##db.shortlinkTreelangid.Value|(1)##])}}
+            </script>
+                    </face>
+                </basis>
                 <basis core="print" datamembername="db.invoice_pdf" run="atclient">
                     <layout>@child </layout>
                     <face>
@@ -268,6 +277,7 @@
             </script>
                     </face>
                 </basis>
+
 
                 <basis core="print" datamembername="db.invoice_pdf" run="atclient">
                     <layout>

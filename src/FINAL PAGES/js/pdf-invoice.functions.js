@@ -787,22 +787,23 @@ const invoiceTranslations = {
     centerText: "text-center",
     // Invoice Details
     contractTitle: "قرارداد ارائه خدمات مسافرتی و گردشگری",
-    contractNumber: "شماره قرارداد",
-    registerDate: "تاریخ ثبت <span class=\"inline-block\">:</span> ",
-    registerTime: "ساعت ثبت <span class=\"inline-block\">:</span>",
-    counterName: "نام کانتر <span class=\"inline-block\">:</span>",
-    buyerName: "نام خریدار <span class=\"inline-block\">:</span>",
-    address: "آدرس <span class=\"inline-block\">:</span>",
+    contractNumber: "شماره قرارداد <span class=\"inline-block mx-1 \">:</span> ",
+    registerDate: "تاریخ ثبت <span class=\"inline-block mx-1 \">:</span> ",
+    registerTime: "ساعت ثبت <span class=\"inline-block mx-1 \">:</span>",
+    counterName: "نام کانتر <span class=\"inline-block mx-1 \">:</span>",
+    buyerName: "نام خریدار <span class=\"inline-block mx-1 \">:</span>",
+    address: "آدرس <span class=\"inline-block mx-1 \">:</span>",
     addresstitle: "آدرس <br/> Address",
-    phone: "تلفن <span class=\"inline-block\">:</span>",
+    phone: "تلفن <span class=\"inline-block mx-1 \">:</span>",
     phonetitle: "تلفن <br/> phone",
-    email: "ایمیل <span class=\"inline-block\">:</span>",
-    mobile: "موبایل <span class=\"inline-block\">:</span>",
+    email: "ایمیل <span class=\"inline-block mx-1 \">:</span>",
+    mobile: "موبایل <span class=\"inline-block mx-1 \">:</span>",
     mobiletitle: "موبایل / mobile",
-    serviceType: "نوع خدمات <span class=\"inline-block\">:</span>",
+    serviceType: "نوع خدمات <span class=\"inline-block mx-1 \">:</span>",
     description: "توضیحات <br/> Description",
     // Bill Section
     totalCostTable: "جدول قیمت کلی / Table Cost Table",
+    billRequest: "جدول نرخ جستجو شده توسط کاربر / User Search Currency",
     totalCost: "قیمت کل <br/> Total Cost",
     commission: "کمیسیون <br/> commission",
     discount: "تخفیف <br/> Discount",
@@ -815,7 +816,7 @@ const invoiceTranslations = {
     servicetitle: "جدول قیمت خدمات / Cost Table By services",
     escorttitle: "جدول قیمت مشایعت کننده / Cost Table By Escort",
     totalpricetitle: "جدول قیمت کلی / Table Cost Table",
-    passengerType: "محدوده سنی مسافر <br/> Age Range",
+    passengerType: "سن مسافر <br/> Age Range",
     escortName: "مشایعت کننده <br /> Escort",
     transferNameColumn: "نام ترانسفر <br/> Transfer Name",
 
@@ -885,10 +886,10 @@ const invoiceTranslations = {
     dateOfBirth: "تاریخ تولد <br/> Date Of Birth",
     nationalCode: "کد ملی <br/> National Code",
     passportNo: "شماره پاسپورت <br/> Passport NO",
-    passportExpiry: "اعتبار پاسپورت <br/> Expiration Date Of Passport ",
+    passportExpiry: "اعتبار پاسپورت <br/> Passport Expiry ",
     issueCountry: "کشور صدور <br/> Country ",
     gender: "جنسیت <br/> Gender",
-    ageType: "محدوده سنی مسافر <br/> Age Range",
+    ageType: "سن مسافر <br/> Age Range",
     cost: "هزینه <br/> Cost",
     transferInfo: "اطلاعات ترانسفر",
     insuranceInfo: "اطلاعات بیمه",
@@ -896,7 +897,7 @@ const invoiceTranslations = {
     roomNumber: "اتاق {number}",
     surname: "نام خانوادگی",
     passportExpiryDate: "تاریخ انقضای پاسپورت",
-    ageRange: "محدوده سنی مسافر <br/> Age Range",
+    ageRange: "سن مسافر <br/> Age Range",
     // Price details
     costTableByProduct: "جدول قیمت به تفکیک محصولات / Product By Table Cost",
     flight: "پرواز <br/> Flight",
@@ -949,22 +950,24 @@ contractTextB2B: {
     textAlign: "text-left",
     centerText: "text-center",
     contractTitle: "Travel and Tourism Services Agreement",
-    contractNumber: "Contract Number<span class=\"inline-block\">:</span>",
-    registerDate: "Register Date<span class=\"inline-block\">:</span>",
-    registerTime: "Register Time<span class=\"inline-block\">:</span>",
-    counterName: "Counter Name<span class=\"inline-block\">:</span>",
-    buyerName: "Buyer Name<span class=\"inline-block\">:</span>",
-    address: "Address<span class=\"inline-block\">:</span>",
+    contractNumber: "Contract Number<span class=\"inline-block mx-1 \">:</span>",
+    registerDate: "Register Date<span class=\"inline-block mx-1 \">:</span>",
+    registerTime: "Register Time<span class=\"inline-block mx-1 \">:</span>",
+    counterName: "Counter Name<span class=\"inline-block mx-1 \">:</span>",
+    buyerName: "Buyer Name<span class=\"inline-block mx-1 \">:</span>",
+    address: "Address<span class=\"inline-block mx-1 \">:</span>",
     addresstitle: "Address",
-    phone: "Phone<span class=\"inline-block\">:</span>",
+    phone: "Phone<span class=\"inline-block mx-1 \">:</span>",
     phonetitle: "Phone",
-    email: "Email<span class=\"inline-block\">:</span>",
-    mobile: "Mobile<span class=\"inline-block\">:</span>",
+    email: "Email<span class=\"inline-block mx-1 \">:</span>",
+    mobile: "Mobile<span class=\"inline-block mx-1 \">:</span>",
     mobiletitle: "Mobile",
-    serviceType: "Service Type<span class=\"inline-block\">:</span>",
-    description: "Description<span class=\"inline-block\">:</span>",
+    serviceType: "Service Type<span class=\"inline-block mx-1 \">:</span>",
+    description: "Description<span class=\"inline-block mx-1 \">:</span>",
 
     totalCostTable: "Table Cost",
+    billRequest: "User Search Currency",
+
     totalCost: "Total Cost",
     commission: "Commission",
     discount: "Discount",
@@ -1090,7 +1093,7 @@ contractTextB2B: {
 },
 contractTextB2B: {
   template:
-    'This contract is between {buyerName} With management {Managename} has a landline phone number {phone} and mobile number {mobile} Individually or on behalf of the following persons by a total of {personCount}, hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping Has been concluded.'
+'This contract is between {buyerName} with management {Managename} has a landline phone number {phone} and mobile number {mobile}  to the address {address} individually or on behalf of the following persons by a total of {personCount} , hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping Has been concluded.'
 },
 
 
@@ -1110,22 +1113,24 @@ contractTextB2B: {
     textAlign: "text-right",
     centerText: "text-center",
     contractTitle: "عقد خدمات السفر والسياحة",
-    contractNumber: "رقم العقد<span class=\"inline-block\">:</span>",
-    registerDate: "تاريخ التسجيل<span class=\"inline-block\">:</span>",
-    registerTime: "وقت التسجيل<span class=\"inline-block\">:</span>",
-    counterName: "اسم الموظف<span class=\"inline-block\">:</span>",
-    buyerName: "اسم المشتري<span class=\"inline-block\">:</span>",
-    address: "العنوان<span class=\"inline-block\">:</span>",
+    contractNumber: "رقم العقد<span class=\"inline-block mx-1 \">:</span>",
+    registerDate: "تاريخ التسجيل<span class=\"inline-block mx-1 \">:</span>",
+    registerTime: "وقت التسجيل<span class=\"inline-block mx-1 \">:</span>",
+    counterName: "اسم الموظف<span class=\"inline-block mx-1 \">:</span>",
+    buyerName: "اسم المشتري<span class=\"inline-block mx-1 \">:</span>",
+    address: "العنوان<span class=\"inline-block mx-1 \">:</span>",
     addresstitle: "العنوان",
-    phone: "الهاتف<span class=\"inline-block\">:</span>",
+    phone: "الهاتف<span class=\"inline-block mx-1 \">:</span>",
     phonetitle: "الهاتف",
-    email: "البريد الإلكتروني<span class=\"inline-block\">:</span>",
-    mobile: "الجوال<span class=\"inline-block\">:</span>",
+    email: "البريد الإلكتروني<span class=\"inline-block mx-1 \">:</span>",
+    mobile: "الجوال<span class=\"inline-block mx-1 \">:</span>",
     mobiletitle: "الجوال",
-    serviceType: "نوع الخدمة<span class=\"inline-block\">:</span>",
-    description: "الوصف<span class=\"inline-block\">:</span>",
+    serviceType: "نوع الخدمة<span class=\"inline-block mx-1 \">:</span>",
+    description: "الوصف<span class=\"inline-block mx-1 \">:</span>",
 
     totalCostTable: "جدول التكلفة",
+        billRequest: "جدول معدل بحث المستخدم",
+
     totalCost: "التكلفة الإجمالية",
     commission: "العمولة",
     discount: "الخصم",
@@ -1253,14 +1258,13 @@ contractTextB2B: {
 },
 contractTextB2B: {
   template:
-    'This contract is between {buyerName} With management {Managename} has a landline phone number {phone} and mobile number {mobile} Individually or on behalf of the following persons by a total of {personCount}, hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping Has been concluded.'
+'This contract is between {buyerName} with management {Managename} has a landline phone number {phone} and mobile number {mobile}  to the address {address} individually or on behalf of the following persons by a total of {personCount} , hereinafter referred to as "tourists", on the one hand and the office {officeName} hereinafter referred to as "broker", as online shopping Has been concluded.'
 },
 
 
 
   }
 };
-
 
 
 
@@ -1325,6 +1329,129 @@ function renderBillSection(bill = {}, lid = 1) {
 `;
 }
 
+
+
+// function renderBillRequestSection(bill = {}, lid = 1) {
+
+//   console.log( "billlllllllllllllll" , bill)
+//   if(bill == {}){return ;}
+//   const t = getTranslation(lid);
+//   const {
+//     totalprice = 0,
+//     commission = 0,
+//     totalwithcommisions = 0,
+//     unit = "-",
+//     coupon = {}
+//   } = bill;
+
+//   const { couponcost = 0, couponcode = "-" } = coupon;
+
+//   const formatPrice = (num) => {
+//     if (typeof num === 'number') return num.toLocaleString();
+//     const parsed = parseFloat(num);
+//     return isNaN(parsed) ? "-" : parsed.toLocaleString();
+//   };
+
+//   return `
+// <section class="dir-${t.dir} mt-4">
+//   <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+// <svg id="bank-card-icon-pdf" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" >
+// <path fill-rule="evenodd" clip-rule="evenodd" d="M8.64871 11.2761H7.63721C7.34396 11.2761 7.10596 11.0381 7.10596 10.7449C7.10596 10.4516 7.34396 10.2136 7.63721 10.2136H8.64871C8.94196 10.2136 9.17996 10.4516 9.17996 10.7449C9.17996 11.0381 8.94196 11.2761 8.64871 11.2761ZM5.89753 11.2761H4.88603C4.59278 11.2761 4.35478 11.0381 4.35478 10.7449C4.35478 10.4516 4.59278 10.2136 4.88603 10.2136H5.89753C6.19078 10.2136 6.42878 10.4516 6.42878 10.7449C6.42878 11.0381 6.19078 11.2761 5.89753 11.2761ZM1.98398 7.50073C1.86662 7.50073 1.77148 7.59586 1.77148 7.71323V10.8299C1.77148 12.8083 3.04223 14.1378 4.93278 14.1378H12.0657C13.9577 14.1378 15.2284 12.8083 15.2284 10.8299V7.71323C15.2284 7.59586 15.1333 7.50073 15.0159 7.50073H1.98398Z" fill="#292929"/>
+// <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0159 6.43817C15.1333 6.43817 15.2284 6.34303 15.2284 6.22567V6.169C15.2284 4.19063 13.9577 2.86108 12.0664 2.86108H4.93278C3.04223 2.86108 1.77148 4.19063 1.77148 6.169V6.22567C1.77148 6.34303 1.86662 6.43817 1.98398 6.43817H15.0159Z" fill="#292929"/>
+// </svg>
+//     <span>${t.billRequest}</span>
+//   </h2>
+//   <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+//     <div class="w-full ${t.textAlign}">
+//       <div class="flex gap-1 mb-2  max-md:flex-col max-md:justify-center max-md:items-center">
+//         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.totalCost}</div>
+//         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.commission}</div>
+//         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.discount}</div>
+//         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.discountCode}</div>
+//         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one  items-center justify-center text-center min-w-[165px]">${t.costByCommission}</div>
+//         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.unit}</div>
+//       </div>
+//       <div class="flex gap-2  max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
+//         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
+//         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
+//         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
+//         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${safeValue(couponcode)}</div>
+//         <div class="text-[#292929] text-xs font-danamedium flex-one flex  items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
+//         <div class="text-[#292929] text-xs font-dana_FANum_medium flex flex-one min-w-max items-center justify-center text-center">${safeValue(unit)}</div>
+//       </div>
+//     </div>
+//   </div>
+// </section>
+// `;
+// }
+
+function renderBillRequestSection(bill = {}, lid = 1) {
+
+  console.log("billlllllllllllllll", bill);
+
+  // بررسی اینکه اگر همه مقادیر صفر بودند، هیچ چیزی نمایش داده نشود
+  const {
+    totalprice = 0,
+    commission = 0,
+    totalwithcommisions = 0,
+    unit = "-",
+    coupon = {}
+  } = bill;
+
+  const { couponcost = 0, couponcode = "-" } = coupon;
+
+  // اگر همه مقادیر صفر یا مقدار پیش‌فرض باشند، به فانکشن خروجی ندهیم
+  if (
+    totalprice === 0 &&
+    commission === 0 &&
+    couponcost === 0 &&
+    totalwithcommisions === 0 &&
+    unit === "-" &&
+    couponcode === "-"
+  ) {
+    return ''; // خروجی خالی
+  }
+
+  const t = getTranslation(lid);
+
+  const formatPrice = (num) => {
+    if (typeof num === 'number') return num.toLocaleString();
+    const parsed = parseFloat(num);
+    return isNaN(parsed) ? "-" : parsed.toLocaleString();
+  };
+
+  return `
+<section class="dir-${t.dir} mt-4">
+  <h2 class="text-base font-danabold flex items-center gap-x-2 ">
+    <svg id="bank-card-icon-pdf" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.64871 11.2761H7.63721C7.34396 11.2761 7.10596 11.0381 7.10596 10.7449C7.10596 10.4516 7.34396 10.2136 7.63721 10.2136H8.64871C8.94196 10.2136 9.17996 10.4516 9.17996 10.7449C9.17996 11.0381 8.94196 11.2761 8.64871 11.2761ZM5.89753 11.2761H4.88603C4.59278 11.2761 4.35478 11.0381 4.35478 10.7449C4.35478 10.4516 4.59278 10.2136 4.88603 10.2136H5.89753C6.19078 10.2136 6.42878 10.4516 6.42878 10.7449C6.42878 11.0381 6.19078 11.2761 5.89753 11.2761ZM1.98398 7.50073C1.86662 7.50073 1.77148 7.59586 1.77148 7.71323V10.8299C1.77148 12.8083 3.04223 14.1378 4.93278 14.1378H12.0657C13.9577 14.1378 15.2284 12.8083 15.2284 10.8299V7.71323C15.2284 7.59586 15.1333 7.50073 15.0159 7.50073H1.98398Z" fill="#292929"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0159 6.43817C15.1333 6.43817 15.2284 6.34303 15.2284 6.22567V6.169C15.2284 4.19063 13.9577 2.86108 12.0664 2.86108H4.93278C3.04223 2.86108 1.77148 4.19063 1.77148 6.169V6.22567C1.77148 6.34303 1.86662 6.43817 1.98398 6.43817H15.0159Z" fill="#292929"/>
+    </svg>
+    <span>${t.billRequest}</span>
+  </h2>
+  <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative py-2 px-6 overflow-hidden">
+    <div class="w-full ${t.textAlign}">
+      <div class="flex gap-1 mb-2 max-md:flex-col max-md:justify-center max-md:items-center">
+        <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.totalCost}</div>
+        <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.commission}</div>
+        <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.discount}</div>
+        <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.discountCode}</div>
+        <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one items-center justify-center text-center min-w-[165px]">${t.costByCommission}</div>
+        <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.unit}</div>
+      </div>
+      <div class="flex gap-2 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
+        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
+        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
+        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
+        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${safeValue(couponcode)}</div>
+        <div class="text-[#292929] text-xs font-danamedium flex-one flex items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
+        <div class="text-[#292929] text-xs font-dana_FANum_medium flex flex-one min-w-max items-center justify-center text-center">${safeValue(unit)}</div>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+}
 
 
 function renderTourDetailsSection(tourDetails, lid = 1) {
@@ -2061,7 +2188,7 @@ function renderInvoiceDetails($data, lid = 1) {
   return `
     <h1 class="my-4 ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} ${t.centerText}" dir="${t.dir}">${t.contractTitle}</h1>
     <div class="w-full flex justify-between flex-wrap gap-y-2 max-md:flex-col" dir="${t.dir}">
-      <div class="w-[25.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+      <div class="w-[29.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
         <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
           <li class="flex justify-start flex-wrap">
             <span class="text-base print:text-xs font-dana_FANum_medium inline-block">${t.contractNumber}</span>
@@ -2069,27 +2196,33 @@ function renderInvoiceDetails($data, lid = 1) {
           </li>
           <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.registerDate}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}"> ${lid !== 1 ? registerDate : `${registerDate}(${registerDateS})`}</span></li>
           <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.registerTime}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${registerTime}</span></li>
-          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.counterName}</span><span class="${lid !== 1 ? 'font-danamedium' : 'font-dana_FANum_medium'}">${counterName}</span></li>
-          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.buyerName}</span><span class="${lid !== 1 ? 'font-danamedium' : 'font-dana_FANum_medium'}">${buyerName}</span></li>
+          <li class="text-sm ${lid === 2 ? 'dir-ltr text-left' : 'dir-rtl text-right'} "><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'} ">${t.counterName}</span>
+          
+          <pre class="inline-block ">
+          <span class="${lid !== 1 ? 'font-danamedium' : 'font-dana_FANum_medium'} inline-block dir-ltr" >${counterName}</span>
+          </pre>
+          
+          </li>
         </ul>
       </div>
 
-      <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+      <div class="w-[34.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
         <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
-          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.addresstitle}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" style="direction:${lid === 2 ? 'ltr' : 'rtl'} !important;display:inline-block;">${address}</span></li>
-          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.phonetitle}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
+        <li class="text-sm flex flex-wrap "><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.buyerName}</span><span class="${lid !== 1 ? 'font-danamedium' : 'font-dana_FANum_medium'} dir-ltr">${buyerName}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.address}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" style="direction:${lid === 2 ? 'ltr' : 'rtl'} !important;display:inline-block;">${address}</span></li>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.phone}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${phone}</span></li>
           <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.email}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} lowercase break-all inline-block">${email}</span></li>
-          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.mobiletitle}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
-        </ul>
+          <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.mobile}</span><span class="inline-block dir-ltr ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}">${mobile}</span></li>
+          </ul>
       </div>
 
-      <div class="w-[36.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
+      <div class="w-[34.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
         <ul class="text-[#414141] font-dana_FANum_regular flex flex-col gap-y-[6px]">
           <li class="text-sm"><span class="inline-block ${lid === 2 ? 'dir-ltr' : 'dir-rtl'}">${t.serviceType}</span><span class="${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'}" style="direction:${lid === 2 ? 'ltr' : 'rtl'} !important;display:inline-block;">${serviceType}</span></li>
         </ul>
       </div>
 
-      <div class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-justify text-sm" dir="${t.dir}">
+      <div class="w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-sm font-danaregular p-4 text-sm" dir="${t.dir}">
         ${contractTextContent}
       </div>
     </div>
@@ -2226,7 +2359,7 @@ function renderCipInfoSection(cip, lid = 1) {
   <hr class="w-[98%] mx-auto max-md:hidden" />
 
   <div class="flex justify-between items-center py-[6px] px-2  max-md:flex-col max-md:justify-center max-md:items-center">
-    <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center items-center">
+    <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center items-center">
       <div class="flex justify-between gap-x-2 w-full flex-wrap  max-md:flex-col max-md:justify-center max-md:items-center">
         <div class="flex items-center gap-x-2">
 <svg id="pin-icon-pdf" class="scale-110 origin-center" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -2331,7 +2464,7 @@ function renderHotelInfoSection(room, lid = 1) {
   </div>
   <hr class="w-[98%] mx-auto" />
   <div class="flex justify-between items-center py-[6px] px-2 max-md:flex-col max-md:justify-center max-md:items-center">
-    <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center items-center">
+    <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center items-center">
       <div class="flex justify-between gap-x-2 w-full flex-wrap">
         <div class="flex items-center gap-x-2">
 <svg id="pin-icon-pdf" class="scale-110 origin-center" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -2470,7 +2603,7 @@ function renderTourHotelInfoSection(data, lid = 1) {
     </div>
     <hr class="w-[98%] mx-auto" />
     <div class="flex justify-between items-center py-[6px] px-2 max-md:flex-col max-md:justify-center max-md:items-center">
-      <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center items-center">
+      <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center items-center">
         <div class="flex justify-between gap-x-1 w-full flex-wrap max-md:flex-col max-md:justify-center max-md:items-center">
           <div class="flex items-center gap-x-1">
 <svg id="pin-icon-pdf" class="scale-110 origin-center" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -2551,7 +2684,7 @@ function renderInsuranceInfoSection(insurance, lid = 1) {
   return `
 <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden" dir="${t.dir}">
   <div class="flex justify-between items-center py-[6px] px-2">
-    <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center items-center">
+    <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center items-center">
       <div class="flex justify-between gap-x-2 w-full flex-wrap">
 
         <div class="flex items-center gap-x-2">
@@ -2593,7 +2726,7 @@ function renderServiceInfoSection(service, lid = 1) {
   return `
 <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden" dir="${t.dir}">
   <div class="flex justify-between items-center py-[6px] px-2">
-    <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center items-center">
+    <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center items-center">
       <div class="flex justify-between gap-x-2 w-full flex-wrap">
         <div class="flex items-center gap-x-2">
 <svg id="bulleted-list-icon-pdf" class="scale-110 origin-center" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -2634,7 +2767,7 @@ function renderVisaInfoSection(visa, lid = 1) {
   return `
     <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative overflow-hidden" dir="${t.dir}">
       <div class="flex justify-between items-center py-[6px] px-2">
-        <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center items-start flex-col">
+        <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center items-start flex-col">
           <div class="flex flex-wrap gap-x-2 gap-y-1 text-sm">
             <div class="flex items-center gap-x-2">
 <svg id="bulleted-list-icon-pdf" class="scale-110 origin-center" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -3252,13 +3385,13 @@ const typeMap = {
             <div class="text-black text-xs font-danabold px-2 pt-2 pb-1" colspan="${entries.length}">${title}</div>
           </div>
           <div class="w-full">
-            <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
+            <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
               ${entries.map(([key]) => {
                 const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                 return `<div class="text-[#6D6D6D] text-xs font-danaregular px-2 py-1 whitespace-nowrap flex-1">${label}</div>`;
               }).join('')}
             </div>
-            <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign} max-md:border-t">
+            <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign} max-md:border-t">
               ${entries.map(([_, value]) => {
                 return `<div class="text-[#292929] text-xs font-danamedium px-2 py-1 whitespace-nowrap flex-1">${value || "-"}</div>`;
               }).join('')}
@@ -3284,7 +3417,7 @@ const typeMap = {
         <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative p-2 overflow-hidden">
           <div class="w-full border-separate border-none">
             <div class="w-full">
-              <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
+              <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.firstName}</div>
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.lastName}</div>
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.dateOfBirth}</div>
@@ -3305,7 +3438,7 @@ const typeMap = {
       const insurance = info?.insuranceinfo;
 
       html += `
-        <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign} max-md:border-t">
+        <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign} max-md:border-t">
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.firstname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.lastname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full ">
@@ -3354,7 +3487,7 @@ const typeMap = {
         <div class="mb-4 rounded-[10px] bg-[#F8F8F8] relative p-2 overflow-hidden">
           <div class="w-full border-separate border-none">
             <div class="w-full">
-              <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
+              <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.firstName}</div>
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 min-w-28 my-1 text-center max-md:w-full ">${t.lastName}</div>
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.dateOfBirth}</div>
@@ -3374,7 +3507,7 @@ const typeMap = {
       // ${info.birthdate?.S_birthdate ?? ""} ${info.birthdate?.M_birthdate ?? ""}
 
       html += `
-        <div class="w-full flex gap-x-2 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t ${t.textAlign}">
+        <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t ${t.textAlign}">
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.firstname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 min-w-28 my-1 text-center max-md:w-full  text-wrap">${info.fullname.lastname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">

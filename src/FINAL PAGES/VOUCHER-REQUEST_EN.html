@@ -95,7 +95,7 @@
         <basis core="group" name="valid-rkey" if="'[##db.checkrkey.checked##]'='true'">
             <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/view/[##cms.query.rkey##]"
                 method="post"
-                body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.langid|(1)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "[##cms.query.status|(0)##]"} ]}'
+                body='{ "name": "db", "mid": "20", "member": [{ "type": "list", "name": "q", "request": "voucher_pdf", "id": "[##cms.query.id##]", "lid": "[##cms.query.langid|(1)##]", "cityid": "[##cms.query.cityid|(0)##]", "status": "0"} ]}'
                 content-type="application/json" run="atclient"></basis>
             <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
 
@@ -170,7 +170,7 @@
                 <div class="w-[95%] mx-auto">
                     <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
                         id="header-section">
-                        <h2 class="font-danademibold text-base text-black" id="main-title">Hotel Voucher</h2>
+                        <h2 class="font-danademibold text-base text-black">Voucher Request</h2>
                         <ul
                             class="flex gap-x-4 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center max-sm:mt-4 max-sm:w-full">
 
