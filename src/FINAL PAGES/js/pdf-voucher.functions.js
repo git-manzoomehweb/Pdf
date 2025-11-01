@@ -6,13 +6,14 @@ let isMinTimeElapsed = false;
 let apiDataLoaded = false;
 const MIN_LOADING_TIME = 4000; // 2 ثانیه حداقل
 let mainlid;
+let translations;
 
 function setlid(lid) {
   mainlid = lid;
 }
 
 function initializePageLanguage(lid) {
-  const translations = {
+   translations = {
     1: {
       // فارسی
       lang: "fa",
@@ -26,6 +27,22 @@ function initializePageLanguage(lid) {
       pdfLoadingText: "در حال تولید PDF",
       textAlign: "text-right",
       justifyContent: "!justify-end",
+      hotelissue: `<p style="text-align:center">هتل شما صادر نشد</p>
+                <p style="text-align:center">Hotel is not issued </p>
+                <p style="text-align:center"> جهت هماهنگی و پاسخگویی به سوالات خود با واحد پشتیبانی تماس حاصل نمایید</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
+
+      reject: `<p style="text-align:center"> متاسفانه هتل شما تایید نشد</p>
+                <p style="text-align:center">Unfortunately, your hotel was not approved </p>
+                <p style="text-align:center"> جهت هماهنگی و پاسخگویی به سوالات خود با واحد پشتیبانی تماس حاصل نمایید</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
+      onrequest: `               <p style="text-align:center"> واچر شما منتظر تایید واحد رزواسیون است </p>
+              <p style="text-align:center">Your voucher is waiting for the approval of the reservation </p>
+   
+               <p style="text-align:center"> جهت هماهنگی و پاسخگویی به سوالات خود با واحد پشتیبانی تماس حاصل نمایید</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
     },
     2: {
       // انگلیسی
@@ -40,6 +57,16 @@ function initializePageLanguage(lid) {
       pdfLoadingText: "Generating PDF",
       textAlign: "text-left",
       justifyContent: "!justify-start",
+
+      hotelissue: `
+                <p style="text-align:center">Hotel is not issued </p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+      reject: `
+                <p style="text-align:center">Unfortunately, your hotel was not approved </p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+      onrequest: `<p style="text-align:center">Your voucher is waiting for the approval of the reservation </p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
     },
     3: {
       // عربی
@@ -54,6 +81,19 @@ function initializePageLanguage(lid) {
       pdfLoadingText: "جاري إنشاء PDF",
       textAlign: "text-right",
       justifyContent: "!justify-end",
+
+
+      hotelissue: `
+<p style="text-align:center">لم يتم إصدار حجز الفندق</p>
+<p style="text-align:center">تواصل مع وحدة الدعم للتنسيق والإجابة على أسئلتك</p>`,
+reject: `
+<p style="text-align:center">للأسف، لم تتم الموافقة على حجز فندقك</p>
+<p style="text-align:center">تواصل مع وحدة الدعم للتنسيق والإجابة على أسئلتك</p>`,
+onrequest: `<p style="text-align:center">قسيمتك في انتظار الموافقة على الحجز</p>
+<p style="text-align:center">تواصل مع وحدة الدعم للتنسيق والإجابة على أسئلتك</p>`,
+
+
+
     },
   };
 
@@ -155,6 +195,138 @@ function initializePageLanguage(lid) {
     }
   }, 4000);
 }
+
+
+
+
+// function nodata_error(message , status) {
+//   console.log("no dataaaaaaaaaaaaaaaa" , status , message);
+//   var len = message.length
+//   var output = "";
+//   if (len > 0) {
+//     var msg = message ;
+//     var status = status ;
+//     if(msg){
+//         console.log("no dataaaaaaaaaaaaaaaa2" , status , message);
+
+//       if (status == 'onrequest') {
+        
+//         document.getElementById("Main_Data").remove();
+        
+//         return `<div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit" >
+//         ${translations[mainlid].onrequest}
+//         </div>`;
+//         console.log("no dataaaaaaaaaaaaaaaa3" , status , message);
+//       }else if(status == 'Reject'){
+//           console.log("no dataaaaaaaaaaaaaaaa4" , status , message);
+
+//         document.getElementById("Main_Data").remove();
+//         return `<div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit" >
+//                   ${translations[mainlid].reject}
+//                   </div>`
+      
+//       }else if(status == 'Hotel is not issued'){
+//           console.log("no dataaaaaaaaaaaaaaaa5" , status , message);
+
+//         document.getElementById("Main_Data").remove();
+//         return `<div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit" >
+//                   ${translations[mainlid].hotelissue}
+//                   </div>`
+//       }
+//     }
+//   }
+// }
+
+// function nodata_error(message, status) {
+//   console.log("no data", status, message);
+
+//   // if (typeof message !== 'string' || message.length === 0) return '';
+//   // if (message.length === 0) return '';
+
+
+//   const main = document.getElementById("Main_Data");
+//   if (main && typeof main.remove === 'function') main.remove();
+
+//   const s = String(status).trim(); 
+
+//   if (s === 'onrequest') {
+//     return `
+//       <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+//         ${translations[mainlid].onrequest}
+//       </div>`;
+//   } else if (s === 'Reject') {
+//     return `
+//       <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+//         ${translations[mainlid].reject}
+//       </div>`;
+//   } else if (s === 'Hotel is not issued') {
+//     return `
+//       <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+//         ${translations[mainlid].hotelissue}
+//       </div>`;
+//   }
+//   return '';
+// }
+
+
+function nodata_error(message, status) {
+  try {
+    console.log("nodata_error() inputs:", { status, message });
+
+    // حذف امن Main_Data اگر وجود دارد
+    const main = document.getElementById("Main_Data");
+    if (main && typeof main.remove === 'function') main.remove();
+
+    // نرمال‌سازی status
+    const s = (status == null ? '' : String(status)).trim().toLowerCase();
+
+    // دسترسی امن به ترجمه‌ها
+    // const t = (typeof translations === 'object' && translations != null && translations[mainlid])
+    //   ? translations[mainlid]
+    //   : {};
+
+    // نگاشت استیتوس به کلید ترجمه + فالبک متن ثابت
+    const map = {
+      'onrequest':        translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+      'on request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+      'on_request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+      'reject':           translations[mainlid].reject    ?? 'رد شده / Rejected',
+      'rejected':         translations[mainlid].reject    ?? 'رد شده / Rejected',
+      'hotel is not issued': translations[mainlid].hotelissue ?? 'هتل صادر نشده',
+      'hotel_not_issued':    translations[mainlid].hotelissue ?? 'هتل صادر نشده',
+      'hotel-not-issued':    translations[mainlid].hotelissue ?? 'هتل صادر نشده',
+    };
+
+    // انتخاب متن بر اساس status
+    const text = map[s];
+
+    // اگر متن پیدا شد، همان را برگردان
+    if (text) {
+      return `
+        <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+          ${text}
+        </div>`;
+    }
+
+    // اگر status ناشناخته بود ولی message داریم، خود message را نشان بده
+    if (message != null && String(message).trim().length > 0) {
+      return `
+        <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+          ${String(message)}
+        </div>`;
+    }
+
+    // در غیر اینصورت چیزی نشان نده
+    return '';
+  } catch (err) {
+    console.error('nodata_error() failed:', err);
+    return '';
+  }
+}
+
+
+
+
 
 function initializeLoadingSystem() {
   // شروع تایمر حداقل زمان

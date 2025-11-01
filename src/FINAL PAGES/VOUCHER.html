@@ -8,8 +8,7 @@
                 "request": "get_short_link",
                 "token": "[##cms.query.token##]",
                 "dmnid" : "[##cms.cms.domainid##]"
-                }]} ' 
-                 />
+                }]} ' />
 </basis>
 
 <basis core="inlinesource" name="db">
@@ -40,6 +39,18 @@
         {"root":[##db.shortlink.result##]}</member>
 
 </basis>
+
+
+<basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
+    method="post" body='{ "name": "db", "mid": "20", "member": 
+            [{ "type": "list", "name": "q", "request": "voucher_pdf",
+            "dmnid" : "[##cms.cms.domainid##]",
+             "id": "[##db.shortlinkTreeid.Value##]", 
+             "lid": "[##db.shortlinkTreelangid.Value|(1)##]",
+              "cityid": "[##db.shortlinkTreecityid.Value|(0)##]",
+               "status": "1"} ]}' content-type="application/json" run="atclient"></basis>
+
+
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
@@ -127,16 +138,7 @@
 
     <div class="main-content" id="main-content-wrapper">
 
-        <basis core="api" name="api.Webservice" url="https://www.basisfly.com/panel/main/site-pdf/[##cms.query.token##]"
-            method="post"
-            body='{ "name": "db", "mid": "20", "member": 
-            [{ "type": "list", "name": "q", "request": "voucher_pdf",
-            "dmnid" : "[##cms.cms.domainid##]",
-             "id": "[##db.shortlinkTreeid.Value##]", 
-             "lid": "[##db.shortlinkTreelangid.Value|(1)##]",
-              "cityid": "[##db.shortlinkTreecityid.Value|(0)##]",
-               "status": "1"} ]}'
-            content-type="application/json" run="atclient"></basis>
+
         <div class="w-full max-w-[794px] mx-auto my-4 flex justify-between items-center max-sm:justify-center">
 
             <div class="flex gap-2">
@@ -208,7 +210,27 @@
                     </span>
                 </div>
             </div>
-            <div class="w-[95%] mx-auto">
+
+
+            <basis core="print" datamembername="db.voucher_pdf" run="atclient">
+                <layout>@child</layout>
+                <face>
+                    <script type="text/template">
+                        <div id="nodata-error">
+                            {{
+                                try{
+                                    return await nodata_error($data.msg , $data.status);
+                                }catch (e){
+                                    return '';
+                                }
+                            }}
+                        </div>
+                    </script>
+                </face>
+            </basis>
+
+
+            <div id="Main_Data" class="w-[95%] mx-auto">
                 <section class="w-full flex !justify-between items-center max-sm:flex-col max-sm:flex-wrap"
                     id="header-section">
                     <h2 class="font-danademibold text-base text-black" id="main-title">Hotel Voucher</h2>
@@ -252,6 +274,11 @@
                         </basis>
                     </ul>
                 </section>
+
+
+
+
+
 
                 <section
                     class="border-2 border-[#E3E3E3] rounded-xl my-4 justify-between flex p-3 max-sm:flex-col max-sm:flex-wrap max-sm:justify-center">
