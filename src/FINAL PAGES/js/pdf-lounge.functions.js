@@ -11,8 +11,9 @@
               mainlid = lid;
             }
 
+            let translations ;
             function initializePageLanguage(lid) {
-                const translations = {
+                translations = {
                     1: { // فارسی
                         lang: 'fa',
                         dir: 'rtl',
@@ -25,7 +26,20 @@
                         pdfLoadingText: 'در حال تولید PDF',
                         textAlign: 'text-right',
                         justifyContent: '!justify-end',
-                        centerText: "text-center"
+                        centerText: "text-center",
+
+
+      reject: `<p style="text-align:center">متاسفانه لانژ شما تایید نشد</p>
+                <p style="text-align:center">Unfortunately, your lounge was not approved</p>
+                <p style="text-align:center">جهت هماهنگی و پاسخگویی به سوالات خود را با واحد پشتیبانی تماس حاصل نمایید</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
+
+      onrequest: `<p style="text-align:center">واچر شما منتظر تایید واحد رزرواسیون است</p>
+                <p style="text-align:center">Your voucher is waiting for the approval of the reservation</p>
+                <p style="text-align:center">جهت هماهنگی و پاسخگویی به سوالات خود با واحد پشتیبانی تماس حاصل نمایید.</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
                     },
                     2: { // انگلیسی
                         lang: 'en',
@@ -39,7 +53,15 @@
                         pdfLoadingText: 'Generating PDF',
                         textAlign: 'text-left',
                         justifyContent: '!justify-start',
-                        centerText: "text-center"
+                        centerText: "text-center",
+                              reject: `
+                <p style="text-align:center">Unfortunately, your lounge was not approved</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
+
+      onrequest: `<p style="text-align:center">Your voucher is waiting for the approval of the reservation</p>
+               <p style="text-align:center">Contact the support unit to coordinate and answer your questions</p>`,
+
                     },
                     3: { // عربی
                         lang: 'ar',
@@ -53,7 +75,15 @@
                         pdfLoadingText: 'جاري إنشاء PDF',
                         textAlign: 'text-right',
                         justifyContent: '!justify-end',
-                        centerText: "text-center"
+                        centerText: "text-center",
+                        reject: `
+  <p style="text-align:center">للأسف، لم يتم اعتماد صالة الانتظار الخاصة بك</p>
+  <p style="text-align:center">يرجى التواصل مع وحدة الدعم للتنسيق والإجابة على استفساراتك</p>`,
+
+onrequest: `
+  <p style="text-align:center">قسيمتك بانتظار موافقة الحجز</p>
+  <p style="text-align:center">يرجى التواصل مع وحدة الدعم للتنسيق والإجابة على استفساراتك</p>`,
+
                     }
                 };
 
@@ -334,6 +364,61 @@ async function RenderInfoCardLounge($data, lang) {
   return infocard;
 }
 
+
+function nodata_error(message, status) {
+  if(message){
+    try {
+  
+      console.log("nodata_error() inputs:", { status, message });
+  
+      // حذف امن Main_Data اگر وجود دارد
+      const main = document.getElementById("main-content");
+      if (main && typeof main.remove === 'function') main.remove();
+  
+      // نرمال‌سازی status
+      const s = (status == null ? '' : String(status)).trim().toLowerCase();
+  
+      // دسترسی امن به ترجمه‌ها
+      // const t = (typeof translations === 'object' && translations != null && translations[mainlid])
+      //   ? translations[mainlid]
+      //   : {};
+  
+      // نگاشت استیتوس به کلید ترجمه + فالبک متن ثابت
+      const map = {
+        'onrequest':        translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+        'on request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+        'on_request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+        'reject':           translations[mainlid].reject    ?? 'رد شده / Rejected',
+        'rejected':         translations[mainlid].reject    ?? 'رد شده / Rejected',
+      };
+  
+      // انتخاب متن بر اساس status
+      const text = map[s];
+  
+      // اگر متن پیدا شد، همان را برگردان
+      if (text) {
+        return `
+          <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+            ${text}
+          </div>`;
+      }
+  
+      // اگر status ناشناخته بود ولی message داریم، خود message را نشان بده
+      if (message != null && String(message).trim().length > 0) {
+        return `
+          <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+            ${String(message)}
+          </div>`;
+      }
+  
+      // در غیر اینصورت چیزی نشان نده
+      return '';
+    } catch (err) {
+      console.error('nodata_error() failed:', err);
+      return '';
+    }
+  }
+}
 async function renderRulesLounge($data, lang) {
   const rules = $data?.pdf_description;
 

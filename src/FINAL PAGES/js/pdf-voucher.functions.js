@@ -270,57 +270,60 @@ onrequest: `<p style="text-align:center">قسيمتك في انتظار المو
 
 
 function nodata_error(message, status) {
-  try {
-    console.log("nodata_error() inputs:", { status, message });
-
-    // حذف امن Main_Data اگر وجود دارد
-    const main = document.getElementById("Main_Data");
-    if (main && typeof main.remove === 'function') main.remove();
-
-    // نرمال‌سازی status
-    const s = (status == null ? '' : String(status)).trim().toLowerCase();
-
-    // دسترسی امن به ترجمه‌ها
-    // const t = (typeof translations === 'object' && translations != null && translations[mainlid])
-    //   ? translations[mainlid]
-    //   : {};
-
-    // نگاشت استیتوس به کلید ترجمه + فالبک متن ثابت
-    const map = {
-      'onrequest':        translations[mainlid].onrequest ?? 'در حال استعلام / On request',
-      'on request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
-      'on_request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
-      'reject':           translations[mainlid].reject    ?? 'رد شده / Rejected',
-      'rejected':         translations[mainlid].reject    ?? 'رد شده / Rejected',
-      'hotel is not issued': translations[mainlid].hotelissue ?? 'هتل صادر نشده',
-      'hotel_not_issued':    translations[mainlid].hotelissue ?? 'هتل صادر نشده',
-      'hotel-not-issued':    translations[mainlid].hotelissue ?? 'هتل صادر نشده',
-    };
-
-    // انتخاب متن بر اساس status
-    const text = map[s];
-
-    // اگر متن پیدا شد، همان را برگردان
-    if (text) {
-      return `
-        <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
-          ${text}
-        </div>`;
+  if(message){
+    try {
+  
+      console.log("nodata_error() inputs:", { status, message });
+  
+      // حذف امن Main_Data اگر وجود دارد
+      const main = document.getElementById("Main_Data");
+      if (main && typeof main.remove === 'function') main.remove();
+  
+      // نرمال‌سازی status
+      const s = (status == null ? '' : String(status)).trim().toLowerCase();
+  
+      // دسترسی امن به ترجمه‌ها
+      // const t = (typeof translations === 'object' && translations != null && translations[mainlid])
+      //   ? translations[mainlid]
+      //   : {};
+  
+      // نگاشت استیتوس به کلید ترجمه + فالبک متن ثابت
+      const map = {
+        'onrequest':        translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+        'on request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+        'on_request':       translations[mainlid].onrequest ?? 'در حال استعلام / On request',
+        'reject':           translations[mainlid].reject    ?? 'رد شده / Rejected',
+        'rejected':         translations[mainlid].reject    ?? 'رد شده / Rejected',
+        'hotel is not issued': translations[mainlid].hotelissue ?? 'هتل صادر نشده',
+        'hotel_not_issued':    translations[mainlid].hotelissue ?? 'هتل صادر نشده',
+        'hotel-not-issued':    translations[mainlid].hotelissue ?? 'هتل صادر نشده',
+      };
+  
+      // انتخاب متن بر اساس status
+      const text = map[s];
+  
+      // اگر متن پیدا شد، همان را برگردان
+      if (text) {
+        return `
+          <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+            ${text}
+          </div>`;
+      }
+  
+      // اگر status ناشناخته بود ولی message داریم، خود message را نشان بده
+      if (message != null && String(message).trim().length > 0) {
+        return `
+          <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
+            ${String(message)}
+          </div>`;
+      }
+  
+      // در غیر اینصورت چیزی نشان نده
+      return '';
+    } catch (err) {
+      console.error('nodata_error() failed:', err);
+      return '';
     }
-
-    // اگر status ناشناخته بود ولی message داریم، خود message را نشان بده
-    if (message != null && String(message).trim().length > 0) {
-      return `
-        <div class="bg-red-300 border-2 border-red-500 rounded-xl py-4 px-8 max-sm:px-3 font-danaregular max-w-7xl !text-center w-fit mx-auto my-auto h-fit">
-          ${String(message)}
-        </div>`;
-    }
-
-    // در غیر اینصورت چیزی نشان نده
-    return '';
-  } catch (err) {
-    console.error('nodata_error() failed:', err);
-    return '';
   }
 }
 

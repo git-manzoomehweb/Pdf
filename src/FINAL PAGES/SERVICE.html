@@ -201,7 +201,26 @@
             </face>
         </basis>
 
-        <main class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
+
+                    <basis core="print" datamembername="db.service_pdf" run="atclient">
+                <layout>@child</layout>
+                <face>
+                    <script type="text/template">
+                        <div id="nodata-error">
+                            {{
+                                try{
+                                    return await nodata_error($data.msg , $data.status);
+                                }catch (e){
+                                    return '';
+                                }
+                            }}
+                        </div>
+                    </script>
+                </face>
+            </basis>
+
+
+        <main  class="pdf-content py-6 w-full max-w-[794px] mx-auto max-sm:!p-2" id="main-content">
 
             <div class="pdf-loading hidden ">
                 <div
