@@ -1,0 +1,611 @@
+<span class="siteurl" style="visibility:hidden"><p> [##site.address.domain##] </p></span>
+<basis core="dbsource" source="hosting" name="site">
+    <member name="address" type="list" request="siteaddress" />
+</basis>
+<basis core="group" name="check-version" if="'[##cms.cms.server_main_version##]' = '4'">
+         
+<basis core="dbsource" source="trust_login8" mid="24" name="Paneluser" lid="1" rkey="[##cms.query.rkey|cms.cookie.rkey##]" > 
+    <member name="login" type="scalar"  request="userid"/>
+</basis>
+<basis core="dbsource" source="hosting" lid="1" name="db" dmnid="[##cms.cms.domainid##]" >
+    <member name="domaindmnid" type="scalar" request="domaindmnid" preview=""/>
+</basis>   
+    <basis core="group" if="[##Paneluser.login.userid##]=0">
+      <!DOCTYPE html>
+      <html>
+          <head>
+              <meta charset="UTF-8"/>
+              <title>Service</title>
+          </head>
+          
+          <body>
+              <p style="text-align:center">شما مجاز به دسترسی نمی باشید</p>
+              <p style="text-align:center">You are not allowed to access this page</p>
+              <style type="text/css">
+                  @font-face{
+                      font-family:'IRANSansWeb';
+                      src:url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.eot');src:local('?'),
+                      url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.woff2') format("woff"),
+                      url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.ttf') format("truetype"),
+                      url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.otf') format("otf");
+                      font-weight:400;font-style:normal
+                  }
+                  body{font-family:IRANSansWeb;font-size:16px;color:#3b3838;}
+              </style>
+          </body>
+      </html>
+  
+  </basis>
+    
+    <basis core="group" if="[##Paneluser.login.userid##]<>0">
+
+
+        <basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource" >
+            <member method="cms"
+            name="service"
+            query='{
+            "name": "db",
+            "mid": "20",
+            "member":[{ 
+            "type":"list",
+            "name": "q",
+            "request": "transfer_Request",
+            "id":"[##cms.query.id##]",
+            "sid":"[##cms.query.sid##]",
+            "transferid":"[##cms.query.transferid##]"
+            }] 
+            }' />
+        </basis>
+    
+        <basis core="group" name="ParentGroup">
+            <basis core='inlinesource' name='db'>
+            <member 
+            name="serviceJson" 
+            format="json"
+            postsql="select  Id , ParentId , case when trim(Field) is null then (select field from [db.serviceJson] where id = a.parentid ) else field end as field, value , type , path  from [db.serviceJson] as a"
+            preview="">
+            {"root":[##db.service.result##]}
+            </member>
+            </basis>
+            <basis core='inlinesource' name='db'>
+            <member 
+            name="provider" 
+            format="json"
+            postsql="select value from [db.provider] where field = 'provider' group by Value"
+            preview="">
+            {"root":[##db.service.result##]}
+            </member>
+            </basis>
+    
+            <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>service</title>
+</head>
+<body>
+
+<div id="Panel-Voucher-resize">
+<div id="Panel-Voucher">
+<div style="text-align:center;font-size:12px;margin-bottom:5px">service</div>
+<div class="Panel-Voucher-Head">
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+<face filter="Field in ('product_info','passengerinfo','travel_date')"></face>
+<face filter="Field in ('serviceinfo')">@child</face>
+<face filter="Field in ('servicename')">
+<div class="Panel-Voucher-HeadRight">
+<p class="display_inline"><span class="Voucher-title">Transfer Name / نام ترنسفر </span><div class="display_inline font_bold"><span>: @value</span></div></p>
+</face>
+<face filter="Field in ('city')">
+<p><span class="Voucher-title">cityName / نام شهر</span><span>: @value</span></p>
+</face>
+<face filter="Field in ('airport')">
+<p><span class="Voucher-title">airportName / نام فرودگاه</span><span>: @value</span></p>
+</face>
+<face filter="Field in ('createDate')"><p><span class="Voucher-title">CreateDate /تاریخ قرارداد</span>@child</p></face>
+<face filter="Field in ('sstring')"><span>: @value</span></face>
+<face filter="Field in ('mstring')"><span>(@value)</span></face>
+<face filter="Field in ('createHour')"><p><span class="Voucher-title">createHour /ساعت قرارداد</span>: @value</p></div></face>
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+<div class="clr"></div>
+</div>
+
+
+
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+<layout>
+<div class="Panel-Voucher-Details">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>Transfer / اطلاعات ترنسفر</span></caption>
+
+<thead>
+<tr>
+<th><span>serviceName</span><span>نام خدمات</span></th>
+<th><span>City</span><span>نام شهر</span></th>
+<th><span>validateDate</span><span>تاریخ اعتبار</span></th>
+<th><span>transferName</span><span>نام ترنسفر</span></th>
+<th><span>typeTransfer</span><span>نوع ترنسفر</span></th>
+
+</tr>
+</thead>
+
+<tbody><tr>@Child</tr></tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+</layout>
+<face filter="Field in ('serviceinfo','passengerinfo','travel_date')"></face>
+
+<face filter="Field in ('product_info')">@Child</face>
+<face filter="Field in ('servicename','city','transfer_name','routename')"><td>@value</td></face>
+<face filter="Field in ('validate')"><td>@child</td></face>
+<face filter="Field in ('fdate')"><div>@value</div></face>
+<face filter="Field in ('tdate')"><div>@value</div></face>
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+
+<face filter="Field in ('serviceinfo','passengerinfo','travel_date')"></face>
+
+<face filter="Field in ('product_info')">@Child</face>
+<face filter="Field in ('departure')">
+<div class="Panel-Voucher-Details">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>departureTransfer /اطلاعات ترنسفر رفت</span></caption>
+
+<thead>
+<tr>
+<th><span>departureDate</span><span>تاریخ رفت</span></th>
+<th><span>departureHour</span><span>ساعت رفت</span></th>
+<th><span>departureAddress</span><span>آدرس رفت</span></th>
+<th><span>departureAirline</span><span>ایرلاین رفت</span></th>
+<th><span>departureRoutecode</span><span>کدمسیر رفت</span></th>
+</tr>
+</thead>
+
+<tbody><tr>@Child</tr></tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+</face>
+<face filter="Field in ('return')">
+<div class="Panel-Voucher-Details">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>Transfer / اطلاعات ترنسفر</span></caption>
+
+<thead>
+<tr>
+<th><span>returnDate</span><span>تاریخ برگشت</span></th>
+<th><span>returnHour</span><span>ساعت برگشت</span></th>
+<th><span>returnAddress</span><span>آدرس برگشت</span></th>
+<th><span>returnAirline</span><span>ایرلاین برگشت</span></th>
+<th><span>returnRoutecode</span><span>کد مسیر برگشت</span></th>
+</tr>
+</thead>
+
+<tbody><tr>@Child</tr></tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+
+</face>
+
+<face filter="Field in ('date','hour',,'address','airlinename','routecode')"><td>@value</td></face>
+
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+
+
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+<layout>
+<div class="Panel-Voucher-Details Rooms">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>PASSENGERS / اطلاعات مسافران </span></caption>
+
+
+<thead>
+<tr>
+<th><span>NO</span><span>ردیف</span></th>
+<th><span>SURNAME / NAME</span><span>نام / نام خانوادگی</span></th>
+<th><span>SEX</span><span>جنسیت</span></th>
+<th><span>NATIONALITY</span><span>ملیت</span></th>
+<th><span>AGE</span><span>سن</span></th>
+</tr>
+</thead>
+
+<tbody>@Child</tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+</layout>
+<face filter="Field in ('serviceinfo','product_info')"></face>
+<face filter="Field in ('passengerinfo')">@child</face>
+<face filter="Field in ('service_passenger') and type in ('object')"><tr>@Child</tr></face>
+<face filter="Field in ('index')"><td>@value</td></face>
+<face filter="Field in ('fullname')"><td>@child</td></face>        
+<face filter="Field in ('lastname')">@value</face>
+<face filter="Field in ('firstname')"> / @value </face>
+<face filter="Field in ('gender') and value='0'"><td>F</td></face>
+<face filter="Field in ('gender') and value='1'"><td>M</td></face>
+
+<face filter="Field in ('countryofresidence')"><td>@Child</td></face>
+<face filter="Field in ('ecountryname') and value in ('null')">"-"</face>
+<face filter="Field in ('ecountryname') and value not in ('null')">@value</face>
+<face filter="Field in ('type')"><td>@value</face>
+<face filter="Field in ('wheelchair') and value='1'"><div><i class="fas fa-wheelchair"></i></div></td></face>
+<face filter="Field in ('wheelchair') and value='0'"></td></face>
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+
+</div>
+</div><!-- end Panel-Voucher-resize -->
+
+<style type="text/css">
+            @font-face{
+                    font-family:'IRANSansWeb';
+                    src:url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.eot');src:local('?'),
+                    url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.woff2') format("woff"),
+                    url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.ttf') format("truetype"),
+                    url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.otf') format("otf");
+                    font-weight:400;font-style:normal
+                }
+            *{margin:0;padding:0}
+            body{font-family:IRANSansWeb;font-size:10px;color:#2d2d2d;}
+            table{width:100%;text-align:center;}
+            .clr{clear:both}
+            .Panel-Warning{margin:5px 0}
+            #Panel-Header-resize,#Panel-Footer-resize{width:100%}
+            #Panel-Header,#Panel-Footer{width:1300px;margin:0 auto;min-height:80px;text-align:center;margin-bottom: 15px;}
+            #Panel-Voucher-resize{width:100%}
+            #Panel-Voucher{width:100%;margin:0 auto;}
+            #Panel-RouleBox-Persian{direction:rtl;text-align:right;margin:20px 0}
+            #Panel-RouleBox-English{direction:ltr;text-align:left;margin:20px 0}
+            #Panel-RouleBox-Persian p,#Panel-RouleBox-English p{text-align:justify;line-height:30px}
+            .Panel-Voucher-Head{direction:rtl;border-top:2px solid #569DE5;border-bottom:2px solid #569DE5;padding:5px 0;text-align:right;}
+            .Panel-Voucher-Head table tr th{width:33.3%;direction:ltr;font-weight:normal;}
+            .Panel-Voucher-HeadLeft{width:11%;float:left;}
+            .Panel-Voucher-HeadLeft img{width:100%;height:70px}
+            .Panel-Voucher-HeadRight{width:86%;height:auto;float:right;}
+            .Panel-Voucher-Head p{line-height:17px}
+            .Panel-Voucher-Head p span.Voucher-title{display:inline-block;width:150px;}
+            .Panel-Voucher-Details{margin:20px 0}
+            .Panel-Voucher-Details table caption{background:#569DE5;padding:5px 0 5px 0;text-align:left;font-weight:bold;font-weight:normal; font-size:10px;width: 100%;}
+            .Panel-Voucher-Details table caption span{display:inline-block;padding:0 5px;color:#FFF}
+            .Panel-Voucher-Details table tr th{padding:2px 0; font-size:10px;}
+            .Panel-Voucher-Details table thead tr{background:#E3E3E3}
+            .Panel-Voucher-Details table tbody tr{background:#E9F2F9;}
+            .Panel-Voucher-Details table tr td{padding:2px 0; font-size:10px;}
+            .Panel-Voucher-Details table tr:not(:last-child) td{border-bottom: 1px solid #569DE5;}
+            .Panel-Voucher-Details.Rooms table tr td,.Panel-Voucher-Details.Rooms table tr th{padding:0}
+            .Panel-MergCel{padding:8px 0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;}
+            .Panel-MergCel:nth-child(1){width:40%;border-right:1px solid #FFF;}
+            .Panel-MergCel:nth-child(2){width:16%;border-right:1px solid #FFF;}
+            .Panel-MergCel:nth-child(3){width:24%;border-right:1px solid #FFF;}
+            .Panel-MergCel:nth-child(4){width:20%}
+            .Panel-MergCel{float:left;}
+            .title_page{ text-align: center;font-size: 12px; font-weight: bold;}
+            .text_page{direction: rtl;text-align: justify;}
+            .part_div{width: 33.3%;float: right;}
+            .border{border: 1px solid #000;padding: 15px;}
+            .display_inline{display: inline-block; }
+            .font_bold{font-weight: bold;}
+</style>
+</body>
+</html>
+    </basis><!-- end if userid <> 0 -->
+</basis>
+</basis>
+<basis core="group" name="check-version" if="'[##cms.cms.server_main_version##]' <> '4'">
+  <basis core="call" file="Panel-HeaderPdf.inc" />                     
+<basis core="dbsource" source="trust_login8" mid="24" name="Paneluser" lid="1" rkey="[##cms.query.rkey|cms.cookie.rkey##]" > 
+    <member name="login" type="scalar"  request="userid"/>
+</basis>
+<basis core="dbsource" source="hosting" lid="1" name="db" dmnid="[##cms.cms.domainid##]" >
+    <member name="domaindmnid" type="scalar" request="domaindmnid" preview=""/>
+</basis>   
+    <basis core="group" if="[##Paneluser.login.userid##]=0">
+      <!DOCTYPE html>
+      <html>
+          <head>
+              <meta charset="UTF-8"/>
+              <title>Voucher</title>
+          </head>
+          
+          <body>
+              <p style="text-align:center">شما مجاز به دسترسی نمی باشید</p>
+              <p style="text-align:center">You are not allowed to access this page</p>
+              <style type="text/css">
+                  @font-face{
+                      font-family:'IRANSansWeb';
+                      src:url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.eot');src:local('?'),
+                      url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.woff2') format("woff"),
+                      url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.ttf') format("truetype"),
+                      url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.otf') format("otf");
+                      font-weight:400;font-style:normal
+                  }
+                  body{font-family:IRANSansWeb;font-size:20px;color:#3b3838;}
+              </style>
+          </body>
+      </html>
+  
+  </basis>
+    
+    <basis core="group" if="[##Paneluser.login.userid##]<>0">
+
+        <basis core="external.fly.ws" source="cmsDbService2" name="db" procedurename="dbsource" >
+            <member method="cms"
+            name="service"
+            query='{
+            "name": "db",
+            "mid": "20",
+            "member":[{ 
+            "type":"list",
+            "name": "q",
+            "request": "transfer_Request",
+            "id":"[##cms.query.id##]",
+            "sid":"[##cms.query.sid##]",
+            "transferid":"[##cms.query.transferid##]"
+            }] 
+            }' />
+            </basis>
+            
+            <basis core="group" name="ParentGroup">
+            <basis core='inlinesource' name='db'>
+            <member 
+            name="serviceJson" 
+            format="json"
+            postsql="select  Id , ParentId , case when trim(Field) is null then (select field from [db.serviceJson] where id = a.parentid ) else field end as field, value , type , path  from [db.serviceJson] as a"
+            preview="">
+            {"root":[##db.service.result##]}
+            </member>
+            </basis>
+            <basis core='inlinesource' name='db'>
+            <member 
+            name="provider" 
+            format="json"
+            postsql="select value from [db.provider] where field = 'provider' group by Value"
+            preview="">
+            {"root":[##db.service.result##]}
+            </member>
+            </basis>
+            
+    
+      <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>service</title>
+</head>
+<body>
+
+<div id="Panel-Voucher-resize">
+<div id="Panel-Voucher">
+<div style="text-align:center;font-size:25px;margin:10px 0">service</div>
+<div class="Panel-Voucher-Head">
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+<face filter="Field in ('product_info','passengerinfo','travel_date')"></face>
+<face filter="Field in ('serviceinfo')">@child</face>
+<face filter="Field in ('servicename')">
+<div class="Panel-Voucher-HeadRight">
+<p class="display_inline"><span class="Voucher-title">Transfer Name / نام ترنسفر </span><div class="display_inline font_bold"><span>: @value</span></div></p>
+</face>
+<face filter="Field in ('city')">
+<p><span class="Voucher-title">cityName / نام شهر</span><span>: @value</span></p>
+</face>
+<face filter="Field in ('airport')">
+<p><span class="Voucher-title">airportName / نام فرودگاه</span><span>: @value</span></p>
+</face>
+<face filter="Field in ('createDate')"><p><span class="Voucher-title">CreateDate /تاریخ قرارداد</span>@child</p></face>
+<face filter="Field in ('sstring')"><span>: @value</span></face>
+<face filter="Field in ('mstring')"><span style="font-size:18px;margin:0 8px;display:inline-block;">(@value)</span></face>
+<face filter="Field in ('createHour')"><p><span class="Voucher-title">createHour /ساعت قرارداد</span>: @value</p></div></face>
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+<div class="clr"></div>
+</div>
+
+
+
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+<layout>
+<div class="Panel-Voucher-Details">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>Transfer / اطلاعات ترنسفر</span></caption>
+
+<thead>
+<tr>
+<th><span>serviceName</span><span>نام خدمات</span></th>
+<th><span>City</span><span>نام شهر</span></th>
+<th><span>validateDate</span><span>تاریخ اعتبار</span></th>
+<th><span>transferName</span><span>نام ترنسفر</span></th>
+<th><span>typeTransfer</span><span>نوع ترنسفر</span></th>
+
+</tr>
+</thead>
+
+<tbody><tr>@Child</tr></tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+</layout>
+<face filter="Field in ('serviceinfo','passengerinfo','travel_date')"></face>
+
+<face filter="Field in ('product_info')">@Child</face>
+<face filter="Field in ('servicename','city','transfer_name','routename')"><td>@value</td></face>
+<face filter="Field in ('validate')"><td>@child</td></face>
+<face filter="Field in ('fdate')"><div>@value</div></face>
+<face filter="Field in ('tdate')"><div>@value</div></face>
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+
+<face filter="Field in ('serviceinfo','passengerinfo','travel_date')"></face>
+
+<face filter="Field in ('product_info')">@Child</face>
+<face filter="Field in ('departure')">
+<div class="Panel-Voucher-Details">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>departureTransfer /اطلاعات ترنسفر رفت</span></caption>
+
+<thead>
+<tr>
+<th><span>departureDate</span><span>تاریخ رفت</span></th>
+<th><span>departureHour</span><span>ساعت رفت</span></th>
+<th><span>departureAddress</span><span>آدرس رفت</span></th>
+<th><span>departureAirline</span><span>ایرلاین رفت</span></th>
+<th><span>departureRoutecode</span><span>کدمسیر رفت</span></th>
+</tr>
+</thead>
+
+<tbody><tr>@Child</tr></tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+</face>
+<face filter="Field in ('return')">
+<div class="Panel-Voucher-Details">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>Transfer / اطلاعات ترنسفر</span></caption>
+
+<thead>
+<tr>
+<th><span>returnDate</span><span>تاریخ برگشت</span></th>
+<th><span>returnHour</span><span>ساعت برگشت</span></th>
+<th><span>returnAddress</span><span>آدرس برگشت</span></th>
+<th><span>returnAirline</span><span>ایرلاین برگشت</span></th>
+<th><span>returnRoutecode</span><span>کد مسیر برگشت</span></th>
+</tr>
+</thead>
+
+<tbody><tr>@Child</tr></tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+
+</face>
+
+<face filter="Field in ('date','hour',,'address','airlinename','routecode')"><td>@value</td></face>
+
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+
+
+<basis core="tree" datamembername="db.serviceJson" idcol="id" parentidcol="parentid" nullvalue="null">
+<layout>
+<div class="Panel-Voucher-Details Rooms">
+<table cellspacing="1px" style="direction: rtl;">
+<caption style="text-align: right;"><span>PASSENGERS / اطلاعات مسافران </span></caption>
+
+
+<thead>
+<tr>
+<th><span>NO</span><span>ردیف</span></th>
+<th><span>SURNAME / NAME</span><span>نام / نام خانوادگی</span></th>
+<th><span>SEX</span><span>جنسیت</span></th>
+<th><span>NATIONALITY</span><span>ملیت</span></th>
+<th><span>AGE</span><span>سن</span></th>
+</tr>
+</thead>
+
+<tbody>@Child</tbody>
+</table>
+</div><!-- end Panel-Voucher-Details -->
+</layout>
+<face filter="Field in ('serviceinfo','product_info')"></face>
+<face filter="Field in ('passengerinfo')">@child</face>
+<face filter="Field in ('service_passenger') and type in ('object')"><tr>@Child</tr></face>
+<face filter="Field in ('index')"><td>@value</td></face>
+<face filter="Field in ('fullname')"><td>@child</td></face>        
+<face filter="Field in ('lastname')">@value</face>
+<face filter="Field in ('firstname')"> / @value </face>
+<face filter="Field in ('gender') and value='0'"><td>F</td></face>
+<face filter="Field in ('gender') and value='1'"><td>M</td></face>
+
+<face filter="Field in ('countryofresidence')"><td>@Child</td></face>
+<face filter="Field in ('ecountryname') and value in ('null')">"-"</face>
+<face filter="Field in ('ecountryname') and value not in ('null')">@value</face>
+<face filter="Field in ('type')"><td>@value</face>
+<face filter="Field in ('wheelchair') and value='1'"><div><i class="fas fa-wheelchair"></i></div></td></face>
+<face filter="Field in ('wheelchair') and value='0'"></td></face>
+<face filter="type in ('array','object')">@Child</face>
+</basis>
+
+</div>
+</div><!-- end Panel-Voucher-resize -->
+
+<style type="text/css">
+
+
+
+
+
+@font-face{
+font-family:'IRANSansWeb';
+src:url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.eot');src:local('?'),
+url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.woff2') format("woff"),
+url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.ttf') format("truetype"),
+url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.otf') format("otf");
+font-weight:400;font-style:normal
+}
+@font-face{
+font-family:'IRANSansWeb';
+src:url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.eot');src:local('?'),
+url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.woff2') format("woff"),
+url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.ttf') format("truetype"),
+url('[##cms.cms.domainname##]/_fonts/IRANSansWeb.otf') format("otf");
+font-weight:400;font-style:normal
+}
+@font-face{
+font-family:'FontAwesome';
+src:local('FontAwesome'),
+url('[##cms.cms.domainname##]/_fonts/fontawesome-webfont.eot?#iefix');src:local('?'),
+url('[##cms.cms.domainname##]/_fonts/fontawesome-webfont.woff') format("woff"),
+url('[##cms.cms.domainname##]/_fonts/fontawesome-webfont.ttf') format("truetype"),
+url('[##cms.cms.domainname##]/_fonts/fontawesome-webfont.otf') format("otf");
+font-weight:400;font-style:normal
+}
+*{margin:0;padding:0}
+body{font-family:'IRANSansWeb';font-size:20px;color:#2d2d2d;}
+table{width:100%;text-align:center;}
+.clr{clear:both}
+.Panel-Warning{margin:5px 0}
+#Panel-Header-resize,#Panel-Footer-resize{width:100%}
+#Panel-Header,#Panel-Footer{width:1300px;margin:0 auto;min-height:80px;text-align:center;margin-bottom: 15px;}
+#Panel-Voucher-resize{width:100%}
+#Panel-Voucher{width:1300px;margin:0 auto;}
+#Panel-RouleBox-Persian{direction:rtl;text-align:right;margin:20px 0}
+#Panel-RouleBox-English{direction:ltr;text-align:left;margin:20px 0}
+#Panel-RouleBox-Persian p,#Panel-RouleBox-English p{text-align:justify;line-height:30px}
+.Panel-Voucher-Head{direction:ltr;border-top:2px solid #569DE5;border-bottom:2px solid #569DE5;padding:5px 0;text-align:left;}
+.Panel-Voucher-Head table tr th{width:33.3%;direction:ltr;font-weight:normal;}
+.Panel-Voucher-HeadLeft{width:145;height:145;float:left;}
+.Panel-Voucher-HeadRight{width:1135px;height:auto;float:right;min-height: 145px;}
+.Panel-Voucher-Head p{line-height:30px}
+.Panel-Voucher-Head p span.Voucher-title{display:inline-block;width:250px;}
+.Panel-Voucher-Details{margin:20px 0}
+.Panel-Voucher-Details table caption{background:#569DE5;padding:5px 0 10px 0;text-align:left;font-weight:bold;font-weight:normal;
+font-size:22px;}
+.Panel-Voucher-Details table caption span{display:inline-block;padding:0 5px;color:#FFF}
+.Panel-Voucher-Details table tr th{padding:8px 0;}
+.Panel-Voucher-Details table thead tr{background:#E3E3E3}
+.Panel-Voucher-Details table tbody tr{background:#E9F2F9;}
+.Panel-Voucher-Details table tr td{padding:8px 0}
+.Panel-Voucher-Details.Rooms table tr td,.Panel-Voucher-Details.Rooms table tr th{padding:0}
+.Panel-MergCel{padding:8px 0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;}
+.Panel-MergCel:nth-child(1){width:40%;border-right:1px solid #FFF;}
+.Panel-MergCel:nth-child(2){width:16%;border-right:1px solid #FFF;}
+.Panel-MergCel:nth-child(3){width:24%;border-right:1px solid #FFF;}
+.Panel-MergCel:nth-child(4){width:20%}
+.Panel-MergCel{float:left;}
+th span{display: block;}
+.display_inline{display: inline-block; }
+.font_bold{font-weight: bold;}
+.fa-wheelchair::before {
+content: "\f193";
+font-family: 'FontAwesome';
+font-size: 15px;
+font-weight: bold;
+font-style: normal;
+}
+</style>
+</body>
+</html>
+    </basis><!-- end if userid <> 0 -->
+</basis>
+</basis>

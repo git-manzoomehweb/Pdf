@@ -1,0 +1,20 @@
+    <basis core="call" file="Client_BasisCore_Script.inc"></basis>
+
+
+<basis core="api" name="api.Webservice" source="basisfly"  url="https://www.basisfly.com/panel/main/basisfly/[##cms.cookie.rkey##]"
+    method="post" body='{
+            "name": "db", 
+            "mid": "20", 
+            "member":
+            [
+                        {
+                           "name": "q",
+                           "type": "view",
+                           "id": "[##cms.query.id##]",
+                           "rkey": "[##cms.cookie.rkey##]",
+                           "request": "invoice_Document",
+                           "lid":"1"
+                     }
+            ] 
+        }' content-type="application/json" run="atclient">
+</basis>
