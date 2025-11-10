@@ -262,15 +262,15 @@
 }
 
 .ticketContainer__details {
-    background-color: #ffffffe0;
+    background-color: #ffffffeb;
 }
 
 .ticketContainer__info {
-    background-color: #ffffffe0;
+    background-color: #ffffffeb;
 }
 
 .ticketContainer__details__time__arrow {
-    background-color: #d1a022;
+    background-color: #000;
 }
 
 /* loading */
@@ -382,4 +382,14 @@
 
 .flex-one{
     flex: 1;
+}
+
+
+
+
+/* yellow bar */
+.absolute.right-\[-6px\].top-\[-15px\].z-\[9\].max-sm\:w-6.max-sm\:h-6.max-sm\:right-\[-3px\].max-sm\:top-\[-12px\] {
+  height: 20px;
+  width: 20px;
+  top: -9px !important;
 }
