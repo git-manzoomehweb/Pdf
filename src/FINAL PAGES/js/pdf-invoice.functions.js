@@ -816,7 +816,7 @@ const invoiceTranslations = {
     servicetitle: "جدول قیمت خدمات / Cost Table By services",
     escorttitle: "جدول قیمت مشایعت کننده / Cost Table By Escort",
     totalpricetitle: "جدول قیمت کلی / Table Cost Table",
-    passengerType: "سن مسافر <br/> Age Range",
+    passengerType: "سن <br/> Age ",
     escortName: "مشایعت کننده <br /> Escort",
     transferNameColumn: "نام ترانسفر <br/> Transfer Name",
 
@@ -889,7 +889,7 @@ const invoiceTranslations = {
     passportExpiry: "اعتبار پاسپورت <br/> Passport Expiry ",
     issueCountry: "کشور صدور <br/> Country ",
     gender: "جنسیت <br/> Gender",
-    ageType: "سن مسافر <br/> Age Range",
+    ageType: "سن <br/> Age ",
     cost: "هزینه <br/> Cost",
     transferInfo: "اطلاعات ترانسفر",
     insuranceInfo: "اطلاعات بیمه",
@@ -897,7 +897,7 @@ const invoiceTranslations = {
     roomNumber: "اتاق {number}",
     surname: "نام خانوادگی",
     passportExpiryDate: "تاریخ انقضای پاسپورت",
-    ageRange: "سن مسافر <br/> Age Range",
+    ageRange: "سن <br/> Age ",
     // Price details
     costTableByProduct: "جدول قیمت به تفکیک محصولات / Product By Table Cost",
     flight: "پرواز <br/> Flight",
@@ -3420,12 +3420,12 @@ const typeMap = {
               <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.firstName}</div>
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.lastName}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.dateOfBirth}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.nationalCode}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.passportNo}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.passportExpiry}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.gender}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.ageType}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.dateOfBirth}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.nationalCode}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.passportNo}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.passportExpiry}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[4%] w-[4%] my-1 text-center max-md:w-full ">${t.gender}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.ageType}</div>
               </div>
             </div>
             <div class="w-full">
@@ -3441,16 +3441,16 @@ const typeMap = {
         <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign} max-md:border-t">
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.firstname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.lastname}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full ">
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">
             ${
               lid === 1 ? `${info.birthdate?.S_birthdate || '-'} (${info.birthdate?.M_birthdate || '-'})` : lid === 3 ? info.birthdate?.M_birthdate || '-' : info.birthdate?.M_birthdate || '-'
             }
           </div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.nationalcode}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.passportcode}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.passportexpiration}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${genderMap[info.gender]}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${typeMap[info.type]}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${info.nationalcode}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${info.passportcode}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${info.passportexpiration}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[4%] w-[4%] my-1 text-center max-md:w-full  text-wrap">${genderMap[info.gender]}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${typeMap[info.type]}</div>
         </div>
       `;
 
@@ -3490,12 +3490,12 @@ const typeMap = {
               <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center ${t.textAlign}">
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.firstName}</div>
                 <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 min-w-28 my-1 text-center max-md:w-full ">${t.lastName}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.dateOfBirth}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.nationalCode}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.passportNo}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.passportExpiry}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full ">${t.gender}</div>
-                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 w-[12%] my-1 text-center max-md:w-full">${t.ageRange}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.dateOfBirth}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.nationalCode}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.passportNo}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full ">${t.passportExpiry}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[4%] w-[4%] my-1 text-center max-md:w-full ">${t.gender}</div>
+                <div class="text-[#6D6D6D] text-xs font-danaregular flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full">${t.ageRange}</div>
               </div>
             </div>
             <div class="w-full">
@@ -3510,18 +3510,18 @@ const typeMap = {
         <div class="w-full flex gap-x-1 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t ${t.textAlign}">
           <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.fullname.firstname}</div>
           <div class="text-[#292929] text-xs font-danamedium flex-1 min-w-28 my-1 text-center max-md:w-full  text-wrap">${info.fullname.lastname}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">
           
             ${
               lid === 1 ? `${info.birthdate?.S_birthdate || '-'} (${info.birthdate?.M_birthdate || '-'})` : lid === 3 ? info.birthdate?.M_birthdate || '-' : info.birthdate?.M_birthdate || '-'
             }
 
           </div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.nationalcode}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.passportcode}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${info.passportexpiration}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${genderMap[info.gender]}</div>
-          <div class="text-[#292929] text-xs font-danamedium flex-1 w-[12%] my-1 text-center max-md:w-full  text-wrap">${typeMap[info.type]}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${info.nationalcode}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${info.passportcode}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${info.passportexpiration}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[4%] w-[4%] my-1 text-center max-md:w-full  text-wrap">${genderMap[info.gender]}</div>
+          <div class="text-[#292929] text-xs font-danamedium flex-1 max-w-[10%] w-[10%] my-1 text-center max-md:w-full  text-wrap">${typeMap[info.type]}</div>
         </div>
       `;
 
@@ -3791,6 +3791,40 @@ function getOwner(ownerid) {
   return '';
 }
 
+async function renderTourDescription($data , lid = 1) {
+  const tourrules = $data?.tour_description;
+
+  if (!tourrules || !Array.isArray(tourrules)) {
+    console.warn("هیچ آیتمی در tour_description پیدا نشد");
+    return null;
+  }
+
+  let direction = detectDirection(tourrules?.[0]?.text);
+
+  let ulitem = '';
+  tourrules.forEach((item, index) => {
+    const text = item?.text?.trim();
+
+    if (text) {
+      const cleanedText = text.replace(/\n/g, '<br/>');
+      ulitem += `<li class="my-4">${cleanedText}</li>`;
+    } else {
+      console.warn(`آیتم ${index} متن معتبری ندارد`, item);
+    }
+  });
+
+  if (ulitem) {
+    return `
+      <div class="w-full flex justify-between flex-wrap gap-y-2">
+        <div class="w-full text-xs rounded-[10px] bg-[#F8F8F8] font-danaregular p-4 text-justify">
+          <ul dir="${direction}" class="text-justify">${fixRTLTextCompletely(ulitem)}</ul>
+        </div>
+      </div>
+    `;
+  } else {
+    return '';
+  }
+}
 // invoice pdf functions
 
 

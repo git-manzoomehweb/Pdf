@@ -12,9 +12,32 @@
                            "type": "view",
                            "id": "[##cms.query.id##]",
                            "rkey": "[##cms.cookie.rkey##]",
-                           "request": "invoice_Document",
-                           "lid":"1"
+                           "request": "invoice_document",
+                           "lid":"1",
+
                      }
             ] 
         }' content-type="application/json" run="atclient">
 </basis>
+
+
+
+<basis core="api" name="api.Webservice" source="basisfly"  url="https://www.basisfly.com/panel/main/view/[##cms.cookie.rkey##]"
+    method="post" body='{
+            "name": "db", 
+            "mid": "20", 
+            "member":
+            [
+                        {
+                           "name": "q",
+                           "type": "view",
+                           "id": "[##cms.query.id##]",
+                           "rkey": "[##cms.cookie.rkey##]",
+                           "request": "invoice_document",
+                           "lid":"1",
+                     }
+            ] 
+        }' content-type="application/json" run="atclient">
+</basis>
+
+
