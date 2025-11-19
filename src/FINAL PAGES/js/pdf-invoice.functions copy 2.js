@@ -3822,7 +3822,7 @@ async function renderTourDescription($data , lid) {
         <div class="w-full text-xs rounded-[10px] bg-[#F8F8F8] font-danaregular p-4 text-justify">
                             <div class="pdf_description">
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 1 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 1 : </span> <br>
                                     <span style="color:#CE0E0E">موضوع قرارداد : </span>
                                     موضوع این قرارداد تعیین حدود وظایف و مسئولیت های طرفین قرارداد و همچنین هزینه خدمات
                                     گردشـگري جهت ارائه
@@ -3830,7 +3830,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 2 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 2 : </span> <br>
                                     <span style="color:#CE0E0E">شرایط قرارداد : </span>
                                     چنانچه گشت از سوي کارگزار به دلیل حد نصاب نرسیدن قابل اجرا نباشد ، کارگزار موظف است
                                     قبل از تاریخ اجراي
@@ -3847,7 +3847,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 3 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 3 : </span> <br>
                                     ساعت تخلیه اتاق های هتل بر اساس قوانین و مقررات حاکم در مقصد مورد نظر بوده، گردشگر
                                     موظف به رعایت آن می
                                     باشد. در صورت تحویل اتاق زودتر از موعد مقرر توسط گردشگر، هیچ مبلغی به گردشگر مسترد
@@ -3855,20 +3855,20 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 4 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 4 : </span> <br>
                                     گردشگران انفرادي (تک نفره) به هنگام ثبت نام مشمول مقررات و نرخ استفاده از اتاق یک
                                     تخته می باشند.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 5 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 5 : </span> <br>
                                     در خصوص تورهای برنـامه ریزي شـده بـا پروازهای غیر چارتر ، شـرایط ابطال مطابق با
                                     مقررات شـرکت هواپیمایی
                                     مربوطه و هتل محل اقامت اعمال خواهد شد .
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 6 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 6 : </span> <br>
                                     چنانچه در برخی مقاصد در بدو ورود گردشگر به فرودگاه کشور مقصد ، گذرنامه وي توسط
                                     مقامات ذیربط اخذ و
                                     نگهداری تا به هنگام مراجعت در فرودگاه به گردشگر عودت داده شود، در چنین شرایطی
@@ -3877,14 +3877,14 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 7 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 7 : </span> <br>
                                     در صورتیکه مطابق شرایط اعلامی از سوي سفارتخانه در خصوص بازگشت گردشگر، تضمینی از
                                     کارگزار اخذ شود، گردشگر
                                     موظف است به همان میزان، ضمانت نامه بانکی به کارگزار تسلیم نماید.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">تبصره 1 :</span> <br/>
+                                    <span style="font-weight:bold;">تبصره 1 :</span> <br>
                                     گردشـگران پس از بازگشت از سفر ، جهت دریافت ضمانت نامه بانکی سپرده شده لازم است با در
                                     دست داشتن اصل
                                     گذرنامه و تصویر صفحه مربوط به مهر ورود و خروج کشور مقصد به کارگزار مراجعه نماید و
@@ -3893,7 +3893,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 8 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 8 : </span> <br>
                                     در صورتیکه در روادیـد صادره مـدت زمان مشخصی جهت اقامت پیش بینی شـده باشد ، چنانچه
                                     هریک از گردشـگران از
                                     بازگشت به کشور در تاریخ از پیش تعییـن شـده خـودداري نماینـد و ایـن امر بـا تـوجه به
@@ -3904,7 +3904,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 9 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 9 : </span> <br>
                                     در صورت عدم صدور ویزا از طرف کشور مقصد ، کارگزار در این خصوص مسئولیتی نداشته ، لیکن
                                     در صورتی که کارگزار
                                     در این خصوص هزینه اي متقبل شده باشد ، جهت اخذ هزینه های انجام شده موظف است اسناد و
@@ -3913,7 +3913,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 10 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 10 : </span> <br>
                                     در صورتیکه گردشگر براي سایر گردشگران یا سرپرست گروه ، راهنمایان محلی و درکل کسانی که
                                     در اجراي گشت نقش
                                     داشتند مزاحمتی ایجاد نماید و یا مرتکب اعمال خلاف شئون و اخلاق عرفی در کشور مربوطه
@@ -3924,14 +3924,14 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 11 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 11 : </span> <br>
                                     رسیدگی به ھرگونه اختلاف فی ما بین طرفین قرارداد با ارائه دلایل بر عهده سازمـان میراث
                                     فرهنگی، صـنایع دستی
                                     و گردشگري بوده و آراء صادره از سازمان براي طرفین لازم الاجراست.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 12 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 12 : </span> <br>
                                     در خصوص ثبت نام گروهی در شرایط عادي(غیر فورس) فقط فردي که به نمایندگی از سوي
                                     گردشگران اقدام به ثبت نام و
                                     عقد قرارداد نموده مجاز به مراجعه به کارگزار جهت پیگیري ، ابطال و یا دریافت وجوه
@@ -3940,7 +3940,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 13 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 13 : </span> <br>
                                     رعایت شئونات و اخلاقیات در طول سفر از سوي گردشگر الزامی بوده و ھمچنین گردشگر موظف به
                                     رعایت کلیه مقررات
                                     کشور مقصد می باشد. لذا عواقب ارتکاب هرگونه تخلف وتبعات داشتن داروهایی که احیانا در
@@ -3951,7 +3951,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 14 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 14 : </span> <br>
                                     اگر مسافرت به صورت گروهی و خانوادگی باشد ، در صورتیکه درخواست روادید هر یک از
                                     گردشگران، مردود یا با
                                     تأخیر دریافت شود بقیه گردشگران ملزم به استفاده از خدمات درخواستی و در صورت عدم
@@ -3960,35 +3960,35 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">تبصره 2 : </span> <br/>
+                                    <span style="font-weight:bold;">تبصره 2 : </span> <br>
                                     در خصوص بستگان درجه یک ( پدر، مادر،همسر، فرزندان مجرد) هزینه روادید و یک شب اقامت در
                                     هتل و جریمه ابطال
                                     بلیط دریافت میگردد.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 15 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 15 : </span> <br>
                                     حفظ اموال و مدارك شخصی به عهده گردشگر بوده و در صورت مفقود شدن آن مسئولیتی متوجه
                                     مدیر گشت یا کارگزار
                                     نخواھد بود.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 16 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 16 : </span> <br>
                                     چنانچه صدور روادید و تحویل گذرنامه توسط برخی سفارتخانه ها در ساعات آخر قبل از شروع
                                     سفر صورت بگیرد،
                                     گردشگر بایستی مقدمات سفر خود را قبلا آماده نموده باشد .
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">تبصره 3 : </span> <br/>
+                                    <span style="font-weight:bold;">تبصره 3 : </span> <br>
                                     اصل بر عادي بودن روادید است، لیکن چنانچه گردشـگر اصـرار بر اخذ روادید به شکل فوري را
                                     داشته باشد، مسئولیت
                                     های ناشی از آن، بر عهده گردشگر خواهد بود
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 17 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 17 : </span> <br>
                                     درصورت درخواست سفارتخانه مربوطه جهت انجام مصاحبه با گردشگر و یا انگشت نگاري به منظور
                                     صدور روادید ،
                                     گردشگر بایستی با هماهنگی کارگزار در موعد مقرر در کنسولگري سفارتخانه ذیربط حضور یافته
@@ -3998,7 +3998,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 18 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 18 : </span> <br>
                                     گردشگر موظف است در ساعات اعلام شده، در برنامه های گشت و ترانسفر فرودگاهی شرکت نموده
                                     و در صورت عدم حضور
                                     به موقع هنگام حرکت گشت ، شخصاً بایستی هزینه های مربوطه را جهت پیوستن به گروه و ادامه
@@ -4007,14 +4007,14 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 19 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 19 : </span> <br>
                                     در صورت ابطال گشت توسط گردشگر، کارگزار مجاز به ابطال روادید صادره براي گردشگر توسط
                                     مقامات سفارت
                                     صادرکننده روادید خواهد بود.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 20 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 20 : </span> <br>
                                     در قبال هرگونه افزایش غیرارادي در قیمت گشت اعم از افزایش نرخ بلیط و یـا سـایر خـدمات
                                     ، بـا ارائه مدارك
                                     مسـتند از سوي کارگزار با تأیید سازمان، گردشگر موظف به پرداخت مابه التفاوت اعلام شده
@@ -4023,12 +4023,12 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">تبصره 4 : </span> <br/>
+                                    <span style="font-weight:bold;">تبصره 4 : </span> <br>
                                     پرداخت کلیه عوارض خروج از کشور بر عهده گردشگر می باشد.
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 21 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 21 : </span> <br>
                                     چنانچه گردشگر ممنوع الخروج باشد و یا در بدو ورود به کشوري مقامات محلی از ورود آن به
                                     کشور جلوگیري نمایند،
                                     گردشگر ملـزم به پرداخت هزینه های صورت گرفته از سـوي کارگزار با ارائه مستـندات و
@@ -4039,7 +4039,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 22 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 22 : </span> <br>
                                     در صورتیکه گردشگر در خارج از کشور مستقلاً و خارج از برنامه گشت ارائه شده نسبت به
                                     خریداری خدمات اختیاری
                                     اقدام نموده و در آن شرکت نماید هزینه و مسئولیت عواقب آن در خصوص بروز حوادث بر عهده
@@ -4047,7 +4047,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 23 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 23 : </span> <br>
                                     کارگزار موظف است مطابق با دستورالعمل بیمه ابلاغی از سوي سازمان، اقدامات لازم را در
                                     خصوص پوشـش بیمه اي
                                     تکلیفی و اختیاري به عمل آورده و در صورت بروز هرنوع حادثه اي در طول سفر علاوه بر
@@ -4056,7 +4056,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 24:</span> <br/>
+                                    <span style="font-weight:bold;">ماده 24:</span> <br>
                                     کنترل مدارك گردشگر، از جمله تاریخ اعتبار گذرنامه گردشگر و شرایط سنی همراهان بر عهده
                                     کارگزار می باشد. لذا
                                     در صورت قصور در این زمینه توسط کارگزار، کلیه هزینه ها و خسارات بر عهده کارگزار خواهد
@@ -4064,7 +4064,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 25:</span> <br/>
+                                    <span style="font-weight:bold;">ماده 25:</span> <br>
                                     کارگزار متعهد است که برنامه سفر و گشت مورد توافق را به طور کامل و دقیق انجام دهد ،
                                     لیکن در صورت وقوع
                                     حوادث و پیشامدهای غیر منتظره از قبیل جنگ، شورش ، اعتصاب و مشکلاتی که از کنترل
@@ -4075,7 +4075,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 25:</span> <br/>
+                                    <span style="font-weight:bold;">ماده 25:</span> <br>
                                     در صورتیکه برنامه گشت ارائه شده توسط کارگزار، در طول سفر عیناً به اجرا گذاشته نشود و
                                     یا درسطحی بالاتر از
                                     آنچه
@@ -4091,7 +4091,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 26 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 26 : </span> <br>
                                     در صورت انصراف کتبی مسافر از همراهی تور ، تا یکماه قبل از پرواز معادل 20% قیمت کل
                                     تور و از یکماه تا سه
                                     هفته قبل از پرواز معادل 30% قیمت کل تور و از سه هفته تا 72 ساعت قبل از پرواز معادل
