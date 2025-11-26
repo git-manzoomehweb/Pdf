@@ -3814,7 +3814,7 @@ async function renderTourDescription($data , lid) {
       <div class="w-full flex justify-between flex-wrap gap-y-2">
         <div class="w-full text-xs rounded-[10px] bg-[#F8F8F8] font-danaregular p-4 text-justify">
           <p style="margin:10px 0;color:#CE0E0E">
-              <span style="color:#CE0E0E">توجه </span>
+              <span style="color:#CE0E0E;display: inline-block;margin: 0 2px;">توجه </span>
               در صورت تایید نشدن هتل دیگری جایگزین میشود که در صورت اختلاف نرخ بر حسب پکیج ، نرخ
               ما به التفاوت دریافت
               میگردد.
@@ -3848,7 +3848,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0;color:#CE0E0E">
-                                    <span style="color:#CE0E0E">توجه </span>
+                                    <span style="color:#CE0E0E;display: inline-block;margin: 0 2px;">توجه </span>
                                     در صورت تایید نشدن هتل دیگری جایگزین میشود که در صورت اختلاف نرخ بر حسب پکیج ، نرخ
                                     ما به التفاوت دریافت
                                     میگردد.
