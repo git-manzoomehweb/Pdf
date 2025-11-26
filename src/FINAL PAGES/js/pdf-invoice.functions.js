@@ -2496,7 +2496,7 @@ function renderHotelInfoSection(room, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.12154 6.41675H5.05902C3.91318 6.41675 2.95068 7.37925 2.95068 8.52508V8.66258C2.95068 9.12091 3.31735 9.48758 3.77568 9.48758H8.35904C8.81737 9.48758 9.22987 9.16675 9.18404 8.66258V8.52508C9.22987 7.37925 8.26737 6.41675 7.12154 6.41675Z" fill="#6D6D6D"/>
 </svg>
           <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.passengers}<span class="inline-block mx-1">:</span> </span>
-          <span class="text-[#292929] text-sm text-nowrap font-danamedium">${passengersText}</span>
+          <span class="text-[#292929] text-sm text-nowrap font-danamedium dir-ltr">${passengersText}</span>
         </div>
         <div class="flex items-center gap-x-2">
 <svg id="check-in-icon-pdf" class="scale-110 origin-center" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2635,7 +2635,7 @@ function renderTourHotelInfoSection(data, lid = 1) {
 <path fill-rule="evenodd" clip-rule="evenodd" d="M7.12154 6.41675H5.05902C3.91318 6.41675 2.95068 7.37925 2.95068 8.52508V8.66258C2.95068 9.12091 3.31735 9.48758 3.77568 9.48758H8.35904C8.81737 9.48758 9.22987 9.16675 9.18404 8.66258V8.52508C9.22987 7.37925 8.26737 6.41675 7.12154 6.41675Z" fill="#6D6D6D"/>
 </svg>
             <span class="text-[#6D6D6D] text-xs text-nowrap font-danaregular mx-1 inline-block">${t.passengers}</span>
-            <span class="text-[#292929] text-sm text-nowrap font-danamedium">${getPassengersText(passengersRoom)}</span>
+            <span class="text-[#292929] text-sm text-nowrap font-danamedium  dir-ltr">${getPassengersText(passengersRoom)}</span>
           </div>
           <div class="flex items-center gap-x-1">
 <svg id="check-in-icon-pdf" class="scale-110 origin-center" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
