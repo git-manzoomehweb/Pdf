@@ -788,6 +788,7 @@ const invoiceTranslations = {
     centerText: "text-center",
     // Invoice Details
     contractTitle: "قرارداد ارائه خدمات مسافرتی و گردشگری",
+    precontactTitle: "پیش قرارداد ارائه خدمات مسافرتی و گردشگری",
     contractNumber: "شماره قرارداد <span class=\"inline-block mx-1 \">:</span> ",
     registerDate: "تاریخ ثبت <span class=\"inline-block mx-1 \">:</span> ",
     registerTime: "ساعت ثبت <span class=\"inline-block mx-1 \">:</span>",
@@ -951,6 +952,7 @@ contractTextB2B: {
     textAlign: "text-left",
     centerText: "text-center",
     contractTitle: "Travel and Tourism Services Agreement",
+    precontactTitle:"Pre-contract for providing travel and tourism services",
     contractNumber: "Contract Number<span class=\"inline-block mx-1 \">:</span>",
     registerDate: "Register Date<span class=\"inline-block mx-1 \">:</span>",
     registerTime: "Register Time<span class=\"inline-block mx-1 \">:</span>",
@@ -1114,6 +1116,7 @@ contractTextB2B: {
     textAlign: "text-right",
     centerText: "text-center",
     contractTitle: "عقد خدمات السفر والسياحة",
+    precontactTitle: "مسودة عقد تقديم خدمات السفر والسياحة",
     contractNumber: "رقم العقد<span class=\"inline-block mx-1 \">:</span>",
     registerDate: "تاريخ التسجيل<span class=\"inline-block mx-1 \">:</span>",
     registerTime: "وقت التسجيل<span class=\"inline-block mx-1 \">:</span>",
@@ -2153,6 +2156,9 @@ function renderInvoiceDetails($data, lid = 1) {
   const registerDateS   = invoiceDate.sstring || "-";
   const registerTime    = invoiceDate.time || "-";
 
+
+  const contractStatus = invoiceDetails.open || "0";
+
   // 3) فیلد نمایش‌دهندهٔ کانتر
   const counterName = isAgency
     ? (`${account.namecounter || ""} ${account.familycounter || ""}`.trim() || account.counterName || "-")
@@ -2187,7 +2193,9 @@ function renderInvoiceDetails($data, lid = 1) {
 
   // 7) خروجی HTML (همان ساختار فعلی شما؛ فقط متن قرارداد از متغیر بالا می‌آید)
   return `
-    <h1 class="my-4 ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} ${t.centerText}" dir="${t.dir}">${t.contractTitle}</h1>
+    <h1 class="my-4 ${lid !== 1 ? 'font-danademibold' : 'font-dana_FANum_demibold'} ${t.centerText}" dir="${t.dir}">
+    ${contractStatus == "0" ? t.contractTitle : t.precontactTitle}
+    </h1>
     <div class="w-full flex justify-between flex-wrap gap-y-2 max-md:flex-col" dir="${t.dir}">
       <div class="w-[29.5%] max-md:w-full bg-[#F4F4F4] border-2 border-[#E8E8E8] rounded-xl p-4 text-justify">
         <ul class="text-[#414141] font-dana_FANum_regular flex flex-col justify-between gap-y-3">
