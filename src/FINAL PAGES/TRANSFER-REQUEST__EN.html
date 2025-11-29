@@ -1,11 +1,11 @@
-<basis core="call" lid="3" file="Client_CheckRkey.inc"></basis>
+<basis core="call" lid="2" file="Client_CheckRkey.inc"></basis>
 
 <!DOCTYPE html>
 <html lang="fa" id="html-root">
 
 <head>
     <title>Transfer PDF</title>
-    <basis core="call" lid="3" file="Pdf_Taglist.inc"></basis>
+    <basis core="call" lid="2" file="Pdf_Taglist.inc"></basis>
     <style>
         p {
             text-align: justify !important;
@@ -105,7 +105,8 @@
                 "lid": "[##cms.query.lid|(1)##]",
                 "sid": "[##cms.query.sid##]",
                 "transferid": "[##cms.query.transferid##]",
-                "type": "[##cms.query.type##]"
+                "type": "14",
+                "product_type": "14"
                 }
             ]
         }' content-type="application/json" run="atclient">
@@ -280,8 +281,8 @@
 
 
     </basis>
-    <basis core="call" lid="3" file="PdfGenerator.inc"></basis>
-    <basis core="call" lid="3" file="Client_BasisCore_Script.inc"></basis>
+    <basis core="call" lid="2" file="PdfGenerator.inc"></basis>
+    <basis core="call" lid="2" file="Client_BasisCore_Script.inc"></basis>
     <script src="[##cms.cms.cdn##]/js/pdf-content.functions.js" defer></script>
     <script src="[##cms.cms.cdn##]/js/pdf-service.functions.js" defer></script>
 </body>
