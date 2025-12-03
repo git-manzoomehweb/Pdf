@@ -3791,6 +3791,86 @@ async function renderDescription($data, lid = 1) {
   }
 }
 
+
+
+
+
+
+
+
+
+// async function renderNote($data, lid = 1) {
+//   const note = $data?.note;
+//   if (!note ) {
+//     console.warn("هیچ آیتمی در note پیدا نشد");
+//     return null;
+//   }
+
+//   let direction = detectDirection(note);
+
+//   if (note) {
+//     return `
+//       <div class="w-full flex justify-between flex-wrap gap-y-2">
+//         <div dir="${direction}" class="w-full text-xs rounded-[10px] bg-[#F8F8F8] font-danaregular p-4 text-justify">
+//     ${fixRTLTextCompletely(note)}
+//         </div>
+//       </div>
+//     `;
+//   } else {
+//     return '';
+//   }
+// }
+
+
+
+async function renderNote($data, lid = 1) {
+  const note = $data?.note;
+  if (!note) {
+    console.warn("هیچ آیتمی در note پیدا نشد");
+    return null;
+  }
+
+  let direction = detectDirection(note); // جهت را از متن تشخیص می‌دهیم
+
+  // متنی را برای زبان‌های مختلف باز می‌گردانیم
+  let localizedText = '';
+  if (lid === 1) {
+    localizedText = "یادداشت"; // فارسی
+  } else if (lid === 2) {
+    localizedText = "Note"; // انگلیسی
+  } else if (lid === 3) {
+    localizedText = "ملاحظة"; // عربی
+  }
+
+  // در اینجا از localizedText استفاده می‌کنیم و متن را بر اساس زبان به نمایش می‌گذاریم.
+  if (note) {
+    return `
+    <h2 class="font-bold text-lg my-2 font-danabold" id="note-title">
+      ${localizedText}
+    </h2>
+      <div class="w-full flex justify-between flex-wrap gap-y-2">
+        <div dir="${direction}" class="w-full text-xs rounded-[10px] bg-[#F8F8F8] font-danaregular p-4 text-justify">
+          ${fixRTLTextCompletely(note)}
+        </div>
+      </div>
+    `;
+  } else {
+    return '';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getOwner(ownerid) {
   $bc.setSource("db.ownerdb", {
     ownerid: ownerid,

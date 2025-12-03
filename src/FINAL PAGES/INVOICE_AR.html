@@ -302,6 +302,20 @@
                     </face>
                 </basis>
                 
+
+            <basis core="print" datamembername="db.invoice_pdf" run="atclient">
+                    <layout>
+                        @child
+                    </layout>
+                    <face>
+                        <script type="text/template">
+                            
+              {{return await renderNote($data , [##db.shortlinkTreelangid.Value|(1)##])}}
+            </script>
+                    </face>
+                </basis>
+
+
             </div>
         </main>
 
