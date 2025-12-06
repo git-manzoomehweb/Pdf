@@ -187,18 +187,53 @@ async function waitForImagesToLoad(container) {
     await Promise.all(promises);
 }
 
+// function formatDateToReadable(dateString) {
+//     const date = new Date(dateString);
+//     const options = {
+//         weekday: 'long',
+//         year: 'numeric',
+//         month: 'long',
+//         day: '2-digit'
+//     };
+//     const formatted = date.toLocaleDateString('en-US', options);
+//     const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
+//     return `${day} ${month} ${year}<span class="mx-1"> / </span>${weekday}`;
+// }
+
+
 function formatDateToReadable(dateString) {
-    const date = new Date(dateString);
-    const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: '2-digit'
-    };
-    const formatted = date.toLocaleDateString('en-US', options);
-    const [weekday, month, day, year] = formatted.replace(',', '').split(' ');
+    let date;
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+        const [year, month, day] = dateString.split('-').map(Number);
+        date = new Date(Date.UTC(year, month - 1, day));
+    } else {
+        date = new Date(dateString);
+    }
+
+    if (isNaN(date)) return "";
+
+    const formatter = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        timeZone: "UTC" 
+    });
+
+    const parts = formatter.formatToParts(date);
+
+    const getPart = (type) => parts.find(p => p.type === type)?.value || "";
+
+    const day = getPart("day");
+    const month = getPart("month");
+    const year = getPart("year");
+    const weekday = getPart("weekday");
+
     return `${day} ${month} ${year}<span class="mx-1"> / </span>${weekday}`;
 }
+
+
 
 // تابع کمکی برای تشخیص تکمیل رندر محتوا
 function notifyContentRendered() {
