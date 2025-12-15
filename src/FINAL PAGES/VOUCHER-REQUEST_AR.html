@@ -237,7 +237,7 @@
                         <layout>@child</layout>
                         <face>
                             <script
-                                type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid(2)}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks" ,"ملاحظات" , 2 )}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular dir-{{return await detectDirection($data.HotelDescription)}}" >{{ return await cleanHtmlText($data.HotelDescription) }}</div></section></script>
+                                type="text/template"><section class="mt-3 {{return await checkSection($data.HotelDescription)}}" ><h2 class="font-bold text-lg my-2 font-danabold " dir="{{return await detectDirectionlid(2)}}">{{ return await getLocalizedText(await detectDirection($data.HotelDescription) , "ملاحظات", "Remarks" ,"ملاحظات" , 2 )}}</h2><div class="bg-[#F8F8F8] rounded-xl py-4 px-8 text-justify font-danaregular !text-xs dir-{{return await detectDirection($data.HotelDescription)}}" >{{ return await cleanHtmlText($data.HotelDescription) }}</div></section></script>
                         </face>
                     </basis>
                     <basis core="print" datamembername="db.voucher_pdf" run="atclient">
