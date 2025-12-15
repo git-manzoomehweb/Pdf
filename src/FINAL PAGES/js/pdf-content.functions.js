@@ -107,15 +107,52 @@ function detectDirectionlid(lid) {
     }
 }
 
+// function extractFilenameFromUrl(url) {
+//     if (!url) return "";
+//     try {
+//         const parsedUrl = new URL(url);
+//         return parsedUrl.pathname.split('/').pop();
+//     } catch (e) {
+//         return url.split('/').pop();
+//     }
+// }
+
+// function extractFilenameFromUrl(url) {
+//     if (!url) return "";
+
+//     try {
+//         const parsedUrl = new URL(url);
+
+//         if (parsedUrl.origin === "https://www.basisfly.com") {
+//             return parsedUrl.pathname.split('/').pop(); 
+//         } else {
+//             return url; 
+//         }
+//     } catch (e) {
+//         return url; 
+//     }
+// }
+
 function extractFilenameFromUrl(url) {
-    if (!url) return "";
+    if (!url || url.trim() === "" || url === "/") {
+        return "/images/no-photo.jpg"; 
+    }
+
     try {
         const parsedUrl = new URL(url);
-        return parsedUrl.pathname.split('/').pop();
+
+        if (parsedUrl.origin === "https://www.basisfly.com") {
+            const filename = parsedUrl.pathname.split('/').pop(); 
+            return filename ? "/"+filename : filename; 
+        } else {
+            return url; 
+        }
     } catch (e) {
-        return url.split('/').pop();
+        return "/images/no-photo.jpg"; 
     }
 }
+
+
 
 function escapeXML(str) {
     return str.replace(/&/g, "&amp;")

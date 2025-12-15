@@ -562,7 +562,7 @@ async function RenderInfoCard($data, lid = 1) {
     <div class="w-[55%] max-md:w-full">
     <div class="flex leading-5 gap-x-3">
         <figure class="w-[80px] h-[80px] rounded-[5px] overflow-hidden" >
-            <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="/${hotelImageName}"
+            <img  class="hotelimage w-[80px] h-[80px] object-cover " width="80" height="80" src="${hotelImageName}"
                 alt="${escapeXML(hotel.hotelname)}" />
         </figure>
         <div class="flex flex-col gap-y-1">
@@ -1064,10 +1064,7 @@ async function renderRooms($data, lid = 1) {
               ${passengerGenders}
           </div>
 
-          <div class="gap-y-2 flex flex-col">
-              <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}">${lang.nationality}</span>
-              ${passengerNationalities}
-          </div>
+         
 
           <div class="gap-y-2 flex flex-col">
               <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}">${lang.status}</span>
@@ -1084,6 +1081,12 @@ async function renderRooms($data, lid = 1) {
           allTransfers.push(p);
       });
   });
+
+
+  //  <div class="gap-y-2 flex flex-col">
+  //             <span class="text-[#6D6D6D] text-sm font-danaregular ${lang.centerClass}">${lang.nationality}</span>
+  //             ${passengerNationalities}
+  //         </div>
 
   // اگر transfer وجود دارد، یک box جامع ایجاد کن
   if (allTransfers.length > 0) {
