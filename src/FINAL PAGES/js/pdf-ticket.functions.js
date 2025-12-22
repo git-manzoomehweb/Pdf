@@ -38,8 +38,16 @@ function barArrowRotation(lid) {
 }
 
 
-function formatPrice(num) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function formatPrice(num , type) {
+  if(type === "price"){
+    if(num !== 0){
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }else if(num == 0){
+      document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
+    }
+  }else{
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 }
 
 
