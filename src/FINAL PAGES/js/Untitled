@@ -1,0 +1,1 @@
+document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
