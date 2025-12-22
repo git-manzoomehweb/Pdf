@@ -44,6 +44,7 @@ function formatPrice(num , type) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }else if(num == 0){
       document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
+      document.getElementById("showprice").classList.add("hidden");
     }
   }else{
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
