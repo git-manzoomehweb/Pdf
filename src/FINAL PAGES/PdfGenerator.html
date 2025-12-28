@@ -109,7 +109,15 @@
                 if (window.innerWidth < 1100) {
                     window_Width = 2240;
                 } else {
+                    const pdfSizeInput = document.querySelector('.tour-pdf-size-1');
                     window_Width = 2290
+                    if (pdfSizeInput) {
+                        const value = Number(pdfSizeInput.value);
+
+                        if (!isNaN(value) && value > 0) {
+                            window_Width = value;
+                        }
+                    }
                 }
             } else {
                 if (window.innerWidth < 768) {
@@ -129,13 +137,14 @@
                 filenameDoc = `${docid}`;
             }
 
+
             const opt = {
                 margin: [30, 10, 30, 10],
                 filename: filenameDoc || "reservationDoc.pdf",
                 image: { type: 'jpeg', quality: 1 },
                 html2canvas: {
                     scale: 1,
-                    width: tourPdfSection ? 1100 : 810,
+                    width: tourPdfSection ? (+document.querySelector('.tour-pdf-size-2')?.value || 1100) : 810,
                     windowWidth: window_Width,
                     useCORS: true,
                     backgroundColor: '#ffffff',

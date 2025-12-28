@@ -1,19 +1,7 @@
 <basis core="dbsource" source="basiscore" mid="20" name="db" lid="1" usedforid="[##cms.query.id##]">
     <member name="tour" type="view" propertyid="77248,77251,77249,59199" />
 </basis>
-<basis core="api" name="api.inventory" url="https://basisfly.com/api/inventory/packages/inventory-view/" method="post"
-    content-type="application/json" run="atclient" body='{
-                "pid": "[##cms.form.id##]",
-                "from": "[##cms.form.from##]",
-                "to": "[##cms.form.to##]",
-                "day": "[##cms.form.day##]",
-                "fdate": "[##cms.form.fdate##]",
-                "rdate": "[##cms.form.rdate##]",
-                "pagename": "",
-                "dmnid": "[##cms.cms.domainid##]",
-                "ownerid": "[##cms.cms.ownerid##]"
-            }'>
-</basis>
+
 <basis core="group" name="list">
 
     <basis core="dbsource" source="basiscore" name="db" mid="20" lid="1" usedforid="[##cms.query.id##]">
@@ -46,6 +34,8 @@
         </head>
 
         <body id="pdf-container">
+            <input type="hidden" class="tour-pdf-size-1" value="[##cms.host.tour-pdf-size-1##]">
+            <input type="hidden" class="tour-pdf-size-2" value="[##cms.host.tour-pdf-size-2##]">
 
             <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
             <div class="pdf-header" id="pdf-header">
@@ -56,7 +46,19 @@
                 </div>
             </div>
             <main class="pdf-content tourPdf">
-
+                <basis core="api" name="api.inventory" url="https://basisfly.com/api/inventory/packages/inventory-view/"
+                    method="post" content-type="application/json" run="atclient" body='{
+                "pid": "[##cms.form.id##]",
+                "from": "[##cms.form.from##]",
+                "to": "[##cms.form.to##]",
+                "day": "[##cms.form.day##]",
+                "fdate": "[##cms.form.fdate##]",
+                "rdate": "[##cms.form.rdate##]",
+                "pagename": "",
+                "dmnid": "[##cms.cms.domainid##]",
+                "ownerid": "[##cms.cms.ownerid##]"
+            }'>
+                </basis>
                 <div class="dwn-btn">
 
                     <button onclick="generatePDF('ticket' , 0 , false)"
