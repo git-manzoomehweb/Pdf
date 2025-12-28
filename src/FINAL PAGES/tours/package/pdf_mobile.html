@@ -1,0 +1,281 @@
+<basis core="dbsource" source="basiscore" mid="20" name="db" lid="1" usedforid="[##cms.query.id##]">
+    <member name="tour" type="view" propertyid="77248,77251,77249,59199" />
+</basis>
+<basis core="api" name="api.inventory" url="https://basisfly.com/api/inventory/packages/inventory-view/" method="post"
+    content-type="application/json" run="atclient" body='{
+                "pid": "[##cms.form.id##]",
+                "from": "[##cms.form.from##]",
+                "to": "[##cms.form.to##]",
+                "day": "[##cms.form.day##]",
+                "fdate": "[##cms.form.fdate##]",
+                "rdate": "[##cms.form.rdate##]",
+                "pagename": "",
+                "dmnid": "[##cms.cms.domainid##]",
+                "ownerid": "[##cms.cms.ownerid##]"
+            }'>
+</basis>
+<basis core="group" name="list">
+
+    <basis core="dbsource" source="basiscore" name="db" mid="20" lid="1" usedforid="[##cms.query.id##]">
+        <member name="showpro" type="view" />
+    </basis>
+    <basis core="dbsource" source="basiscore" name="db" mid="5" lid="1" usedforid="[##cms.cms.ownerid##]">
+        <member name="footer-info" type="view" />
+    </basis>
+    <basis core="dbsource" source="basiscore" mid="1" name="list" lid="1" schemaid="987" term="[##cms.query.term##]">
+        <member name="airline" type="list" request="spelist" />
+    </basis>
+    <basis core="group" name="airline">
+        <basis core="inlinesource" name="joining">
+            <member name="listAirline" lefttblcol="db.tour.Answer" righttblcol="list.airline.name" format="join"
+                jointype="leftjoin" />
+        </basis>
+        <!doctype html>
+        <html>
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="robots" content="index,follow">
+            <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+            <meta name="author" content="BasisCore">
+            <link href="[##cms.cms.cdn##]/css/tour_pdf.css" type="text/css" rel="stylesheet" />
+            <link href="[##cms.cms.cdn##]/css/style_tem.css" type="text/css" rel="stylesheet" />
+            <link href="[##cms.cms.cdn##]/css/customized.ui.min.css" type="text/css" rel="stylesheet" />
+            <script src="[##cms.cms.cdn##]/js/html2pdf.bundle.min.js"></script>
+        </head>
+
+        <body id="pdf-container">
+
+            <basis core="call" lid="1" file="Client_BasisCore_Script.inc"></basis>
+
+            <div class="pdf-header">
+                <div class="header-container">
+                    <div class="header-sec" id="pdf-header">
+                        <img src="/images/Header-contract-pdf.jpg" alt="Header-contract-pdf" width="990" height="" />
+                    </div>
+                </div>
+            </div>
+            <main class="tourPdf">
+
+                <div class="dwn-btn">
+
+                    <button onclick="generatePDF('ticket' , 0 , false)"
+                        class="CreatePDFfromHTML background-color_1">دانلود فایل
+                        PDF</button>
+                </div>
+                <div class="pdf-config">
+                    <basis core="print" datamembername="db.tour">
+                        <face filter="TypeID=150">
+                            <input type="hidden" id="name" value="@answer" />
+                        </face>
+                    </basis>
+                    <input type="hidden" id="header" value="1" />
+                </div>
+
+                <div class="container html-content pdf-content">
+                    <div class="bc-main">
+
+                        <div id="body-resize">
+                            <div id="body-resize-content">
+
+                                <div id="body-resize-content">
+                                    <div class="tour-info-section">
+                                        <div class="details-info">
+                                            <ul class="mr-5">
+                                                <li><span class="question-info">مدت اقامت :</span> <span>
+                                                        <basis core="print" datamembername="db.tour">
+
+                                                            <face filter="prpid=8076">
+                                                                <span class="">@answer</span>
+                                                            </face>
+                                                        </basis>
+                                                </li>
+
+
+                                                <basis core="view" datamembername="db.tour">
+                                                    <face filter="prpid=8181">
+                                                        <li><span class="question-info">شروع قیمت ها از :</span><span
+                                                                class="cost">@answer</span></li>
+                                                    </face>
+
+                                                    <face level="2" filter="prpid=8076"><span
+                                                            itemprop="@vocabulary">@answer</span>
+                                                    </face>
+
+                                                    <face level="1" filter="prpid=77278">
+                                                        <li><span class="question-info">
+                                                                تاریخ رفت : </span><span>@child</span></li>
+                                                    </face>
+                                                    <face level="2" filter="prpid=77278"> <span
+                                                            itemprop="@vocabulary">@answer</span>
+                                                    </face>
+                                                    <face level="2" filter="prpid=10000504"> <span
+                                                            itemprop="@vocabulary">@answer</span>
+                                                    </face>
+                                                    <face level="1" filter="prpid=77279">
+                                                        <li><span class="question-info">تاریخ برگشت :
+                                                            </span><span>@child</span>
+                                                        </li>
+                                                    </face>
+                                                    <face level="2" filter="prpid=77279"> <span
+                                                            itemprop="@vocabulary">@answer</span>
+                                                    </face>
+                                                    <face level="1" filter="prpid=10000502">
+                                                        <li><span class="question-info">کشور مقصد :</span>
+                                                            <span>@child</span>
+                                                        </li>
+                                                    </face>
+                                                    <face level="2" filter="prpid=10000502"><span
+                                                            itemprop="@vocabulary">@answer</span>
+                                                    </face>
+                                                    <face level="1" filter="prpid=10000503">
+                                                        <li><span class="question-info">شهر مقصد :</span>
+                                                            <span>@child</span>
+                                                        </li>
+                                                    </face>
+                                                    <face level="2" filter="prpid=10000503"><span
+                                                            itemprop="@vocabulary">@answer</span>
+                                                    </face>
+                                                </basis>
+                                                <li class="logo-airline">
+                                                    <span class="question-info">نام ایرلاین :</span>
+                                                    <basis core="view" datamembername="db.tour">
+                                                        <face level="1" filter="prpid=10000504">
+                                                            @child
+                                                        </face>
+                                                        <face level="2" filter="prpid=10000504"> <span
+                                                                class="airline-name font-color_1">@answer</span> </face>
+                                                    </basis>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <basis core="print" datamembername="db.tour">
+                                            <face filter="TypeID=150">
+                                                <span class="page-title">
+                                                    <h1>@answer</h1>
+                                                </span>
+                                            </face>
+                                            <face filter="prpid=8076">
+                                                <span class="page-nights">@answer</span>
+                                            </face>
+                                        </basis>
+                                        <div class="flex   justify-center item-center">
+                                            <span class="date background-color_1">
+
+                                                <span data="[##cms.form.rdate##]">[##cms.form.rdate##]</span> : تاریخ
+                                                برگشت
+                                            </span>
+                                            <span class="date  background-color_1">
+                                                <span data="[##cms.form.fdate##]">[##cms.form.fdate##]</span> : تاریخ
+                                                رفت
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div class="hotel">
+                                        <div id="hotel">
+                                            <basis core="callback" triggers="api.inventory" run="atclient"
+                                                method="setSInventory"></basis>
+
+                                            <div class="table-container2">
+                                                <!-- جدول اینجا تزریق می‌شود -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="clr"></div>
+                                    <div class="schema-resize">
+                                        <div class="schema">
+                                            <basis core="view" datamembername="db.tour">
+                                                <face level="1" filter="prpid=8080">
+                                                    <div class="tour-info"><span
+                                                            class="info-title background-color_1">خدمات
+                                                        </span><span class="info-txt">@child</span>
+                                                        <div class="clr"></div>
+                                                    </div>
+                                                </face>
+                                                <face level="2" filter="prpid=8080"> <span itemprop="@vocabulary"
+                                                        class="detail-info">@answer</span> </face>
+                                                <face level="1" filter="prpid=8097">
+                                                    <div class="tour-info"><span
+                                                            class="info-title background-color_1">توضیحات</span><span
+                                                            class="info-txt">@child</span>
+                                                        <div class="clr"></div>
+                                                    </div>
+                                                </face>
+                                                <face level="2" filter="prpid=8097"> <span itemprop="@vocabulary"
+                                                        class="detail-info">@answer</span> </face>
+                                            </basis>
+                                            <div class="clr"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="pdf-loading"></div>
+
+                        </div>
+                    </div>
+                    <div class="pdf-footer-info mr-5">
+                        <basis core="view" datamembername="db.footer-info">
+                            <face filter="prpID=7999">
+                                <div class="pdf-footer-info-row pdf-footer-info-address">
+                                    <span class="info_icon">
+                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12.8333 13.225C11.3123 13.225 10.0743 11.987 10.0743 10.466C10.0743 8.945 11.3123 7.707 12.8333 7.707C14.3543 7.707 15.5913 8.945 15.5913 10.466C15.5913 11.987 14.3543 13.225 12.8333 13.225ZM12.8333 2.5C8.40825 2.5 4.80725 6.101 4.80725 10.527C4.80725 16.163 11.3993 21.5 12.8333 21.5C14.2673 21.5 20.8592 16.163 20.8592 10.527C20.8592 6.101 17.2583 2.5 12.8333 2.5Z"
+                                                fill="#7b7b7b" />
+                                        </svg>
+
+                                    </span>
+                                    <span>@answer </span>
+                                </div>
+                            </face>
+                            <face filter="prpID=8000">
+                                <div class="pdf-footer-info-row pdf-footer-info-tel">
+                                    <span class="info_icon">
+                                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M19.7986 15.2475C19.5556 15.0165 19.2916 14.7645 19.0116 14.4835C17.7346 13.2125 16.6316 13.6435 15.7446 13.9925C14.6816 14.4075 13.6796 14.8015 11.8516 12.9755C10.0226 11.1475 10.4146 10.1435 10.8306 9.08049C11.1776 8.19249 11.6096 7.08849 10.3326 5.81549C10.0546 5.53649 9.80458 5.27249 9.57358 5.02849C8.63458 4.03749 7.95658 3.32149 7.00158 3.30949C6.22058 3.28349 5.31058 3.82049 4.01858 5.11449C4.00558 5.12749 3.94058 5.19249 3.92958 5.20649C3.64358 5.48449 2.88458 6.22649 2.87558 7.67349C2.86058 9.93649 4.68558 12.9165 8.29858 16.5315C11.8946 20.1265 14.8626 21.9475 17.1216 21.9475H17.1466C18.5966 21.9395 19.3396 21.1795 19.6196 20.8935L19.7136 20.8025C21.0006 19.5145 21.5226 18.6505 21.5116 17.8255C21.5006 16.8705 20.7866 16.1895 19.7986 15.2475Z"
+                                                fill="#7b7b7b" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17.3528 10.4916C17.4228 10.8496 17.7368 11.0976 18.0878 11.0976C18.1358 11.0976 18.1848 11.0936 18.2328 11.0846C18.6388 11.0056 18.9048 10.6116 18.8258 10.2046C18.4448 8.25056 16.9368 6.74256 14.9838 6.36156C14.5768 6.29356 14.1838 6.54756 14.1038 6.95456C14.0248 7.36156 14.2898 7.75556 14.6968 7.83456C16.0468 8.09656 17.0898 9.13956 17.3528 10.4916Z"
+                                                fill="#7b7b7b" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M14.9226 3.06275C14.5156 2.99975 14.1396 3.31375 14.0946 3.72475C14.0486 4.13675 14.3456 4.50775 14.7576 4.55275C17.8666 4.89775 20.2806 7.31075 20.6296 10.4208C20.6726 10.8048 20.9966 11.0878 21.3736 11.0878C21.4016 11.0878 21.4296 11.0858 21.4586 11.0838C21.8696 11.0378 22.1666 10.6668 22.1196 10.2548C21.6936 6.44275 18.7336 3.48475 14.9226 3.06275Z"
+                                                fill="#7b7b7b" />
+                                        </svg>
+                                    </span>
+
+                                    <span><a href="tel:@answer">@answer</a></span>
+                                </div>
+                            </face>
+                            <face filter="prpID=8001">
+                                <div class="pdf-footer-info-row pdf-footer-info-mail">
+                                    <span class="info_icon">
+                                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M22.2475 19.6955C22.0688 19.8543 21.8475 19.9318 21.625 19.9318C21.3675 19.9318 21.11 19.8255 20.9237 19.618L17.4275 15.6843L17.2113 15.858C16.5312 16.3668 15.7587 16.6205 14.9913 16.6205C14.23 16.6205 13.4725 16.3718 12.8112 15.8743L12.635 15.7343L9.065 19.628C8.88125 19.8293 8.6275 19.9318 8.37375 19.9318C8.1475 19.9318 7.92 19.8505 7.74125 19.6855C7.35875 19.3368 7.3325 18.743 7.68375 18.3618L11.1675 14.5605L7.7875 11.858C7.38375 11.5342 7.31875 10.9455 7.64125 10.5405C7.9675 10.1367 8.55625 10.073 8.96 10.393L13.96 14.393C14.6 14.8743 15.395 14.8743 16.0625 14.3755L21.0387 10.393C21.4437 10.073 22.0325 10.1367 22.3575 10.5405C22.6812 10.9455 22.615 11.5342 22.2112 11.858L18.8937 14.5118L22.325 18.3718C22.67 18.7593 22.635 19.3518 22.2475 19.6955ZM20.5 4.25049H9.5C5.80625 4.25049 3.125 7.14299 3.125 11.1255V18.8755C3.125 22.7943 5.865 25.7505 9.5 25.7505H20.5C24.1937 25.7505 26.875 22.858 26.875 18.8755V11.1255C26.875 7.20674 24.1337 4.25049 20.5 4.25049Z"
+                                                fill="#7b7b7b" />
+                                        </svg>
+                                    </span>
+
+                                    <span>@answer</span>
+                                </div>
+                            </face>
+                        </basis>
+                    </div>
+                </div>
+            </main>
+            <div id="pdf-footer" class="pdf-footer">
+                <img src="/images/Footer-contract-pdf.jpg" alt="Footer-contract-pdf" width="990" height="" />
+            </div>
+            <basis core="call" lid="1" file="PdfGenerator.inc"></basis>
+            <script src="[##cms.cms.cdn##]/js/tour_PDF.function.js"></script>
+        </body>
+
+        </html>

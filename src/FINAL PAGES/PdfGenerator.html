@@ -109,7 +109,10 @@
                 if (window.innerWidth < 1100) {
                     window_Width = 2240;
                 } else {
-                    window_Width = 2290
+                    window_Width = 2120
+                    document.querySelector('.html-content').style.setProperty("width", "83.2%", "important");
+                    document.querySelector('.html-content').style.setProperty("margin-left", "auto", "important");
+                    document.querySelector('.html-content').style.setProperty("margin-right", "auto", "important");
                 }
             } else {
                 if (window.innerWidth < 768) {
@@ -130,12 +133,13 @@
             }
 
             const opt = {
+
                 margin: [30, 10, 30, 10],
                 filename: filenameDoc || "reservationDoc.pdf",
                 image: { type: 'jpeg', quality: 1 },
                 html2canvas: {
-                    scale: 1,
-                    width: tourPdfSection ? 1100 : 810,
+                    scale: tourPdfSection ? 0.8 : 1,
+                    width: tourPdfSection ? 1000 : 810,
                     windowWidth: window_Width,
                     useCORS: true,
                     backgroundColor: '#ffffff',
