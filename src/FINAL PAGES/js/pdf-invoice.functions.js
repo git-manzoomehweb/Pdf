@@ -1320,11 +1320,11 @@ function renderBillSection(bill = {}, lid = 1) {
         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.unit}</div>
       </div>
       <div class="flex gap-2  max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${safeValue(couponcode)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex  items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex  items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
         <div class="text-[#292929] text-xs font-dana_FANum_medium flex flex-one min-w-max items-center justify-center text-center">${safeValue(unit)}</div>
       </div>
     </div>
@@ -1444,11 +1444,11 @@ function renderBillRequestSection(bill = {}, lid = 1) {
         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.unit}</div>
       </div>
       <div class="flex gap-2 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
+        <div class="text-[#292929] text-xs font-danabold  flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
+        <div class="text-[#292929] text-xs font-danabold  flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
+        <div class="text-[#292929] text-xs font-danabold  flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${safeValue(couponcode)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
+        <div class="text-[#292929] text-xs font-danabold  flex-one flex items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
         <div class="text-[#292929] text-xs font-dana_FANum_medium flex flex-one min-w-max items-center justify-center text-center">${safeValue(unit)}</div>
       </div>
     </div>
@@ -1601,7 +1601,7 @@ function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
       const value = rowData[col] || '-';
       const shouldFormat = col === t.total || col === t.perperson || col === t.perPerson;
       const displayValue = shouldFormat ? formatPrice(value) : value;
-      return `<div class="text-[#292929] text-xs font-danamedium flex-1 text-center my-1 flex justify-center items-center capitalize">${displayValue}</div>`;
+      return `<div class="text-[#292929] text-xs font-danabold flex-1 text-center my-1 flex justify-center items-center capitalize">${displayValue}</div>`;
     }).join('')}
   </div>
 `).join('');
@@ -3794,6 +3794,35 @@ async function renderDescription($data, lid = 1) {
 
 
 
+
+
+
+
+
+// async function renderNote($data, lid = 1) {
+//   const note = $data?.note;
+//   if (!note ) {
+//     console.warn("هیچ آیتمی در note پیدا نشد");
+//     return null;
+//   }
+
+//   let direction = detectDirection(note);
+
+//   if (note) {
+//     return `
+//       <div class="w-full flex justify-between flex-wrap gap-y-2">
+//         <div dir="${direction}" class="w-full text-xs rounded-[10px] bg-[#F8F8F8] font-danaregular p-4 text-justify">
+//     ${fixRTLTextCompletely(note)}
+//         </div>
+//       </div>
+//     `;
+//   } else {
+//     return '';
+//   }
+// }
+
+
+
 async function renderNote($data, lid = 1) {
   const note = $data?.note;
   if (!note) {
@@ -3801,8 +3830,9 @@ async function renderNote($data, lid = 1) {
     return null;
   }
 
-  let direction = detectDirection(note); 
+  let direction = detectDirection(note); // جهت را از متن تشخیص می‌دهیم
 
+  // متنی را برای زبان‌های مختلف باز می‌گردانیم
   let localizedText = '';
   if (lid === 1) {
     localizedText = "یادداشت"; // فارسی
@@ -3812,6 +3842,7 @@ async function renderNote($data, lid = 1) {
     localizedText = "ملاحظة"; // عربی
   }
 
+  // در اینجا از localizedText استفاده می‌کنیم و متن را بر اساس زبان به نمایش می‌گذاریم.
   if (note) {
     return `
     <h2 class="font-bold text-lg my-2 font-danabold" id="note-title">
@@ -4132,7 +4163,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 25:</span> <br/>
+                                    <span style="font-weight:bold;">ماده 26:</span> <br/>
                                     در صورتیکه برنامه گشت ارائه شده توسط کارگزار، در طول سفر عیناً به اجرا گذاشته نشود و
                                     یا درسطحی بالاتر از
                                     آنچه
@@ -4148,7 +4179,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 26 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 27 : </span> <br/>
                                     در صورت انصراف کتبی مسافر از همراهی تور ، تا یکماه قبل از پرواز معادل 20% قیمت کل
                                     تور و از یکماه تا سه
                                     هفته قبل از پرواز معادل 30% قیمت کل تور و از سه هفته تا 72 ساعت قبل از پرواز معادل
@@ -4256,3 +4287,4 @@ async function renderTourDescription($data , lid) {
 // const mobile  = isAgency ? (account.agencymobile  || "-") : (account.mobile  || "-");
 
 // const serviceType = invoiceDetails.title || "-";
+
