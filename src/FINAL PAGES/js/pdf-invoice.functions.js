@@ -4132,7 +4132,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 25:</span> <br/>
+                                    <span style="font-weight:bold;">ماده 26:</span> <br/>
                                     در صورتیکه برنامه گشت ارائه شده توسط کارگزار، در طول سفر عیناً به اجرا گذاشته نشود و
                                     یا درسطحی بالاتر از
                                     آنچه
@@ -4148,7 +4148,7 @@ async function renderTourDescription($data , lid) {
                                 </p>
 
                                 <p style="margin:10px 0">
-                                    <span style="font-weight:bold;">ماده 26 : </span> <br/>
+                                    <span style="font-weight:bold;">ماده 27 : </span> <br/>
                                     در صورت انصراف کتبی مسافر از همراهی تور ، تا یکماه قبل از پرواز معادل 20% قیمت کل
                                     تور و از یکماه تا سه
                                     هفته قبل از پرواز معادل 30% قیمت کل تور و از سه هفته تا 72 ساعت قبل از پرواز معادل
