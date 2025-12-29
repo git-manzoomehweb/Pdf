@@ -932,8 +932,8 @@ function renderTransferServiceInfo(transfer, lid = 1) {
       retCode: "کد مسیر برگشت<br/>Ret Route Code",
       depHour: "ساعت رفت<br/>Departure Hour",
       retHour: "ساعت برگشت<br/>Return Hour",
-      ws: "وب‌سرویس<br/>Webservice",
-      ref: "رفرنس<br/>Ref No",
+      // ws: "وب‌سرویس<br/>Webservice",
+      // ref: "رفرنس<br/>Ref No",
       direction: 'dir="rtl"',
     },
     2: {
@@ -948,8 +948,8 @@ function renderTransferServiceInfo(transfer, lid = 1) {
       retCode: "Ret Route Code",
       depHour: "Departure Hour",
       retHour: "Return Hour",
-      ws: "Webservice",
-      ref: "Ref No",
+      // ws: "Webservice",
+      // ref: "Ref No",
       direction: "",
     },
     3: {
@@ -964,8 +964,8 @@ function renderTransferServiceInfo(transfer, lid = 1) {
       retCode: "رمز مسار العودة",
       depHour: "وقت الذهاب",
       retHour: "وقت العودة",
-      ws: "الخدمة",
-      ref: "المرجع",
+      // ws: "الخدمة",
+      // ref: "المرجع",
       direction: 'dir="rtl"',
     },
   };
@@ -999,8 +999,6 @@ function renderTransferServiceInfo(transfer, lid = 1) {
       ${box(lang.retCode, transfer.return_routecode, true)}
       ${box(lang.depHour, transfer.departure_hour, true)}
       ${box(lang.retHour, transfer.return_hour, true)}
-      ${box(lang.ws, transfer.webservices?.webservice)}
-      ${box(lang.ref, transfer.webservices?.refnumber, true)}
     </div>
   `;
 }
