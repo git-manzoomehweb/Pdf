@@ -899,6 +899,115 @@ function RenderRateHotel(starCount) {
 // }
 
 
+function renderTransferServiceInfo(transfer, lid = 1) {
+  if (!transfer || typeof transfer !== "object") return "";
+
+  // اگر واقعاً دیتا ندارد، هیچی رندر نکن
+  const hasAny =
+    transfer.t_servicename ||
+    transfer.transfername ||
+    transfer.routename ||
+    transfer.airport ||
+    transfer.departure_Date ||
+    transfer.return_Date ||
+    transfer.departure_routecode ||
+    transfer.return_routecode ||
+    transfer.departure_hour ||
+    transfer.return_hour ||
+    transfer.webservices?.webservice ||
+    transfer.webservices?.refnumber;
+
+  if (!hasAny) return "";
+
+  const labels = {
+    1: {
+      title: 'اطلاعات ترنسفر <span class="mx-1">/</span> TRANSFER DETAILS',
+      serviceName: "نام سرویس<br/>Service",
+      transferType: "نوع ترنسفر<br/>Transfer Type",
+      routeName: "مسیر<br/>Route",
+      airport: "فرودگاه<br/>Airport",
+      depDate: "تاریخ رفت<br/>Departure Date",
+      retDate: "تاریخ برگشت<br/>Return Date",
+      depCode: "کد مسیر رفت<br/>Dep Route Code",
+      retCode: "کد مسیر برگشت<br/>Ret Route Code",
+      depHour: "ساعت رفت<br/>Departure Hour",
+      retHour: "ساعت برگشت<br/>Return Hour",
+      ws: "وب‌سرویس<br/>Webservice",
+      ref: "رفرنس<br/>Ref No",
+      direction: 'dir="rtl"',
+    },
+    2: {
+      title: "TRANSFER DETAILS",
+      serviceName: "Service",
+      transferType: "Transfer Type",
+      routeName: "Route",
+      airport: "Airport",
+      depDate: "Departure Date",
+      retDate: "Return Date",
+      depCode: "Dep Route Code",
+      retCode: "Ret Route Code",
+      depHour: "Departure Hour",
+      retHour: "Return Hour",
+      ws: "Webservice",
+      ref: "Ref No",
+      direction: "",
+    },
+    3: {
+      title: "تفاصيل النقل",
+      serviceName: "الخدمة",
+      transferType: "نوع النقل",
+      routeName: "المسار",
+      airport: "المطار",
+      depDate: "تاريخ الذهاب",
+      retDate: "تاريخ العودة",
+      depCode: "رمز مسار الذهاب",
+      retCode: "رمز مسار العودة",
+      depHour: "وقت الذهاب",
+      retHour: "وقت العودة",
+      ws: "الخدمة",
+      ref: "المرجع",
+      direction: 'dir="rtl"',
+    },
+  };
+
+  const lang = labels[lid] || labels[1];
+
+  const val = (v) => {
+    const s = (v ?? "").toString().trim();
+    return s && s !== "-" ? (typeof escapeXML === "function" ? escapeXML(s) : s) : "–";
+  };
+
+  const box = (label, value, ltr = false) => `
+    <div class="flex flex-col min-w-[160px]">
+      <span class="text-[#6D6D6D] text-sm font-danaregular !text-center">${label}</span>
+      <div class="text-[#292929] text-sm font-danademibold !text-center ${ltr ? "dir-ltr" : ""}">
+        ${val(value)}
+      </div>
+    </div>
+  `;
+
+  return `
+    <h3 class="font-bold text-lg my-2 font-danabold">${lang.title}</h3>
+    <div class="bg-[#F8F8F8] rounded-xl p-4 flex flex-wrap justify-between gap-4 max-md:flex-col max-md:items-center" ${lang.direction}>
+      ${box(lang.serviceName, transfer.t_servicename)}
+      ${box(lang.transferType, transfer.transfername)}
+      ${box(lang.routeName, transfer.routename)}
+      ${box(lang.airport, transfer.airport)}
+      ${box(lang.depDate, transfer.departure_Date, true)}
+      ${box(lang.retDate, transfer.return_Date, true)}
+      ${box(lang.depCode, transfer.departure_routecode, true)}
+      ${box(lang.retCode, transfer.return_routecode, true)}
+      ${box(lang.depHour, transfer.departure_hour, true)}
+      ${box(lang.retHour, transfer.return_hour, true)}
+      ${box(lang.ws, transfer.webservices?.webservice)}
+      ${box(lang.ref, transfer.webservices?.refnumber, true)}
+    </div>
+  `;
+}
+
+
+
+
 async function renderRooms($data, lid = 1) {
   let hotelinfo = $data?.hotelinfo;
   let roominfo = $data?.rooms;
@@ -1141,6 +1250,8 @@ async function renderRooms($data, lid = 1) {
           </div>
       </div>`;
   }
+
+  roomcontent += renderTransferServiceInfo($data?.transfer, lid);
 
   return roomcontent;
 }
