@@ -1320,11 +1320,11 @@ function renderBillSection(bill = {}, lid = 1) {
         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.unit}</div>
       </div>
       <div class="flex gap-2  max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
+        <div class="text-[#292929] text-xs flex-one flex min-w-max items-center justify-center text-center font-danabold">${formatPrice(totalprice)}</div>
+        <div class="text-[#292929] text-xs flex-one flex min-w-max items-center justify-center text-center font-danabold">${formatPrice(commission)}</div>
+        <div class="text-[#292929] text-xs flex-one flex min-w-max items-center justify-center text-center font-danabold">${formatPrice(couponcost)}</div>
         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${safeValue(couponcode)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex  items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex  items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
         <div class="text-[#292929] text-xs font-dana_FANum_medium flex flex-one min-w-max items-center justify-center text-center">${safeValue(unit)}</div>
       </div>
     </div>
@@ -1444,11 +1444,11 @@ function renderBillRequestSection(bill = {}, lid = 1) {
         <div class="text-[#6D6D6D] text-xs font-danaregular flex flex-one min-w-max items-center justify-center text-center">${t.unit}</div>
       </div>
       <div class="flex gap-2 max-md:flex-col max-md:justify-center max-md:items-center max-md:border-t max-md:pt-2">
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex min-w-max items-center justify-center text-center">${formatPrice(totalprice)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex min-w-max items-center justify-center text-center">${formatPrice(commission)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex min-w-max items-center justify-center text-center">${formatPrice(couponcost)}</div>
         <div class="text-[#292929] text-xs font-danamedium flex-one flex min-w-max items-center justify-center text-center">${safeValue(couponcode)}</div>
-        <div class="text-[#292929] text-xs font-danamedium flex-one flex items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
+        <div class="text-[#292929] text-xs font-danabold flex-one flex items-center justify-center text-center min-w-[165px]">${formatPrice(totalwithcommisions)}</div>
         <div class="text-[#292929] text-xs font-dana_FANum_medium flex flex-one min-w-max items-center justify-center text-center">${safeValue(unit)}</div>
       </div>
     </div>
@@ -1601,7 +1601,7 @@ function renderPriceDetailsSection($data, priceDetails = {}, lid = 1) {
       const value = rowData[col] || '-';
       const shouldFormat = col === t.total || col === t.perperson || col === t.perPerson;
       const displayValue = shouldFormat ? formatPrice(value) : value;
-      return `<div class="text-[#292929] text-xs font-danamedium flex-1 text-center my-1 flex justify-center items-center capitalize">${displayValue}</div>`;
+      return `<div class="text-[#292929] text-xs font-danabold flex-1 text-center my-1 flex justify-center items-center capitalize">${displayValue}</div>`;
     }).join('')}
   </div>
 `).join('');
