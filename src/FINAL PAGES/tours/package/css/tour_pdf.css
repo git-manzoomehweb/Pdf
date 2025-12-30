@@ -1859,3 +1859,8 @@
 .details-info ul {
   box-shadow: none !important;
 }
+h1 .other,
+h1 div {
+  display: inline-block !important;
+  direction: rtl !important;
+}
