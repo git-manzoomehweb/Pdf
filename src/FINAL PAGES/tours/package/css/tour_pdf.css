@@ -1,0 +1,1861 @@
+@charset "utf-8";
+* {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.clr {
+  clear: both;
+}
+.details-info ul {
+  box-shadow: none !important;
+}
+@media (min-width: 1024px) {
+  .table-container2 .hotel-info {
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+  .pdf-header,
+  .footer-pdf {
+    width: 100% !important;
+  }
+  main {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+  .table-container2 .hotel-info col.col-hotel {
+    width: 40% !important;
+  }
+
+  .table-container2 .hotel-info col.col-dbl {
+    width: 10% !important;
+  }
+
+  .table-container2 .hotel-info col.col-sng {
+    width: 10% !important;
+  }
+
+  .table-container2 .hotel-info col.col-trp {
+    width: 10% !important;
+  }
+
+  .table-container2 .hotel-info col.col-chdwb {
+    width: 10% !important;
+  }
+
+  .table-container2 .hotel-info col.col-chdnb {
+    width: 10% !important;
+  }
+
+  .table-container2 .hotel-info col.col-desc {
+    width: 10% !important;
+  }
+
+  .table-container2 .inline_tbl,
+  .table-container2 .part3 {
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  .table-container2 .inline_tbl td.hotel_name1,
+  .table-container2 .part3 td.part31 {
+    width: 70% !important;
+  }
+
+  .table-container2 .inline_tbl td.hotel_name2,
+  .table-container2 .part3 td.part32 {
+    width: 15% !important;
+  }
+
+  .table-container2 .inline_tbl td.hotel_name3,
+  .table-container2 .part3 td.part33 {
+    width: 15% !important;
+  }
+
+  .whitespace-nowrap {
+    white-space: nowrap !important;
+  }
+  .details-info {
+    margin-bottom: 50px;
+  }
+  .min-w-h-tabel {
+    min-width: 1096px !important;
+    min-height: 700px !important;
+  }
+
+  .hotel-description-col {
+    font-size: 12px !important;
+    border-radius: 10px !important;
+    color: #3c3c3c !important;
+  }
+
+  .page-title h1 {
+    margin-top: 90px !important;
+  }
+
+  .PRINT-h1 {
+    direction: rtl !important;
+    unicode-bidi: isolate-override !important;
+    text-align: center !important;
+    white-space: normal;
+  }
+
+  .PRINT-h1 * {
+    /* direction: rtl !important; */
+    unicode-bidi: isolate-override !important;
+  }
+  .dwn-btn {
+    position: absolute !important;
+    margin-top: 110px !important;
+    z-index: 20 !important;
+    left: 2px;
+  }
+  main {
+    position: relative;
+  }
+  /* ====================== Table Container ====================== */
+  .table-container2 {
+    width: 100% !important;
+    direction: rtl !important;
+    background-color: #fff !important;
+    border-radius: 10px !important;
+  }
+
+  /* ====================== Main Table ====================== */
+  .table-container2 table:not(.part3) {
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 15px !important;
+    background-color: #fff !important;
+  }
+
+  .part3 {
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 15px !important;
+  }
+
+  td:has(.inline_tbl) {
+    background: unset !important;
+    background-color: unset !important;
+  }
+
+  .tb-main > tr > td:first-child {
+    background-color: unset !important;
+  }
+
+  .tb-main > tr:nth-child(even) > td:first-child {
+    background-color: unset !important;
+    padding: 0 !important;
+  }
+
+  .hotel-info1 td {
+    border-radius: 10px !important;
+  }
+
+  .inline_tbl {
+    border-collapse: separate !important;
+    /* border-spacing: 4px 4px !important ; */
+  }
+
+  .tb-main > tr:nth-child(even) td td {
+    background: #b9b9b9d9 !important;
+  }
+
+  .tb-main > tr:nth-child(even) td:has(.price1) {
+    background: #b9b9b9d9 !important;
+  }
+
+  .hotel_name1 a,
+  .hotel_name1,
+  .price1 {
+    color: #313131 !important;
+  }
+
+  .hotel_name1 {
+    font-weight: bold !important;
+  }
+
+  table .part3 {
+    border-collapse: collapse !important;
+  }
+
+  td:has(.price1) {
+    border-radius: 10px !important;
+  }
+
+  .table-container2 table.part3 td,
+  .table-container2 thead th {
+    vertical-align: middle !important;
+    font-weight: 500 !important;
+    color: #fff !important;
+  }
+
+  .hotel-info {
+    border-collapse: separate !important;
+    border-spacing: 4px 4px !important;
+  }
+
+  /* ====================== Header Row ====================== */
+  .hotel-1 {
+    background: var(--primary) !important;
+  }
+
+  .hotel-1 td {
+    background: var(--primary) !important;
+  }
+
+  .hotel-1,
+  .hotel-2,
+  .hotel-3,
+  .hotel-4,
+  .hotel-5,
+  .hotel-6,
+  .hotel-7 {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    border: none !important;
+    text-align: center !important;
+  }
+
+  /* ستون‌ها */
+  .table-container2 .hotel-1,
+  .table-container2 .hotel-2,
+  .table-container2 .hotel-3,
+  .table-container2 .hotel-4,
+  .table-container2 .hotel-6,
+  .table-container2 .hotel-7 {
+    white-space: nowrap !important;
+  }
+
+  /* ====================== Rows ====================== */
+  .table-container2 tr:nth-child(even) {
+    background-color: unset !important;
+  }
+
+  .table-container2 tr:nth-child(odd) {
+    background-color: #fff !important;
+  }
+
+  /* ====================== Inline Table (Hotel info) ====================== */
+  .inline_tbl {
+    width: 100% !important;
+
+    background: transparent !important;
+  }
+
+  .inline_tbl td {
+    border: none !important;
+    text-align: right !important;
+    padding: 2px 4px !important;
+    font-size: 14px !important;
+  }
+
+  .inline_tbl .hotel_name1 a.showhotel {
+    text-decoration: none !important;
+    font-weight: 600 !important;
+  }
+
+  .inline_tbl .hotel_name1 a.showhotel:hover {
+    text-decoration: underline !important;
+  }
+
+  /* ستاره هتل */
+  .inline_tbl .hotel_name2 {
+    text-align: center !important;
+  }
+
+  .inline_tbl .hotel_name2 svg {
+    width: 18px !important;
+    height: 18px !important;
+    vertical-align: middle !important;
+  }
+
+  .inline_tbl .hotel_name2 span {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    color: #f1c40f !important;
+  }
+
+  /* خدمات (HB, BB, FB, etc) */
+  .inline_tbl .hotel_name3 {
+    text-align: center !important;
+    font-size: 14px !important;
+    color: #555 !important;
+  }
+
+  /* ====================== Prices ====================== */
+  .table-container2 .price1 {
+    font-size: 14px !important;
+  }
+
+  .white-space-nowrap {
+    white-space: nowrap;
+  }
+
+  .table-container2 td p {
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    padding: 0 6px;
+  }
+
+  .table-container2 td.hotel_name2 span:last-child {
+    font-size: 13px !important;
+    color: #777 !important;
+  }
+
+  /* ====================== Responsive ====================== */
+  @media (max-width: 768px) {
+    .table-container2 table td {
+      font-size: 13px !important;
+      padding: 8px 4px !important;
+    }
+
+    .inline_tbl td {
+      font-size: 13px !important;
+    }
+  }
+
+  #pdf-container .bc-main {
+    width: 100% !important;
+    margin: 0 auto !important;
+    clear: both !important;
+    padding: 0 !important;
+  }
+
+  .details-info {
+    padding-left: 0 !important;
+  }
+
+  .pdf-header,
+  .footer-pdf {
+    width: 1100px !important;
+    margin: 0 auto !important;
+    /* opacity: 0.3 !important ; */
+  }
+
+  .w-1100 {
+    width: 1100px !important;
+    margin: 0 auto !important;
+  }
+
+  .td-hotel.no-trnsform {
+    transform: translateX(35px) !important;
+  }
+
+  .table-container2,
+  .schema-resize {
+    padding: 2px 4px !important;
+    width: 100%;
+  }
+
+  .call-header-footer {
+    display: none !important;
+  }
+
+  .gap-2 {
+    gap: 8px !important;
+  }
+
+  .date {
+    padding: 4px 12px !important;
+    border-radius: 8px !important;
+    color: white !important;
+    margin-left: 4px !important;
+    font-size: 14px !important;
+    width: fit-content !important;
+    background-color: var(--primary) !important;
+  }
+
+  .date span {
+    display: inline-flex !important;
+  }
+
+  .date:has(span[data=""]) {
+    display: none !important;
+  }
+
+  .pdf-footer-info-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .info_icon {
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border: 1px solid #fff !important;
+    border-radius: 100% !important;
+  }
+
+  .info-txt a {
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+  }
+
+  .styled-table thead tr {
+    color: #333 !important;
+    background-color: #9d9d9ddd !important;
+  }
+
+  #pdf-container .info-title {
+    line-height: 30px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    padding: 5px 25px !important;
+    border-radius: 10px !important;
+
+    width: 150px !important;
+  }
+
+  .styled-table {
+    max-width: unset !important;
+  }
+
+  .CreatePDFfromHTML {
+    text-align: right !important;
+    padding: 0.5em !important;
+    /* border: 1px solid #666!important ;
+                    background: #eee!important ; */
+    color: white !important;
+    border-radius: 5px !important;
+    margin: 1em auto !important;
+    cursor: pointer !important;
+  }
+
+  .CreatePDFfromHTML:hover {
+    background-color: rgba(0, 0, 0, 0.451) !important;
+  }
+
+  .flex {
+    display: flex !important;
+  }
+
+  .items-center {
+    align-items: center !important;
+  }
+
+  .justify-center {
+    justify-content: center !important;
+  }
+
+  .details-info {
+    position: unset !important;
+    width: 100% !important;
+  }
+
+  body#pdf-container {
+    width: 1100px !important;
+    margin: 0 auto !important;
+  }
+
+  #pdf-container #body-resize-content .page-title {
+    color: #222222 !important;
+    text-align: center !important;
+    margin: 10px auto 0 !important;
+    display: block !important;
+    font-weight: bold !important;
+  }
+
+  #pdf-container .page-nights {
+    text-decoration: none !important;
+    color: #8b8b8b !important;
+    display: block !important;
+    line-height: 20px !important;
+    direction: rtl !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    margin-bottom: 10px !important;
+    clear: both !important;
+  }
+
+  .details-info ul {
+    padding: 10px !important;
+    margin: 0 !important;
+
+    align-items: center !important;
+    display: grid !important;
+    gap: 10px !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+
+    width: 100% !important;
+    border-radius: 0.5rem !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+    background-color: rgba(187, 187, 187, 0.282) !important;
+  }
+
+  .details-info ul li {
+    font-size: 12px !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  #pdf-container #body-resize {
+    width: 100% !important;
+    padding-bottom: 20px !important;
+    margin-top: 1em !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .logo-airline {
+    position: unset !important;
+  }
+
+  .airline-name {
+    font-size: 12px !important;
+    border-bottom: unset !important;
+  }
+
+  .mr-5 {
+    margin-right: 1.5rem !important;
+  }
+
+  .m-10 {
+    margin: 0 3rem !important;
+  }
+
+  #pdf-container {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  /* کانتینر برای اسکرول موبایل */
+
+  /* فاصله‌ی افقی کل جدول: بدون فاصله‌ی اضافی بین ستون‌ها */
+  main {
+    width: 1100px !important;
+    margin: 0 auto !important;
+  }
+
+  #pdf-container img {
+    width: 100% !important;
+  }
+
+  .hotel-grid {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 12px !important;
+
+    table-layout: fixed !important;
+    margin: 0 !important;
+
+    border: 0 !important;
+  }
+
+  .td-service,
+  .td-star {
+    font-size: 14px !important;
+    font-weight: unset !important;
+  }
+
+  /* .table-container2 tbody *:not(.td-hotel){
+                    white-space: nowrap !important ;
+                } */
+  /* .th-hotel{
+                    width: 17% !important ;
+                } */
+  .td-hotel,
+  .td-hotel * {
+    font-size: 14px !important;
+  }
+
+  .hotel-grid,
+  .hotel-grid * {
+    box-sizing: border-box !important;
+  }
+
+  /* هدر: دقیقا 12px از چپ/راست */
+  .hotel-grid thead th {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  .td-hotel {
+    text-align: left !important;
+
+    transform: translateX(105px) !important;
+  }
+
+  .td-service,
+  .price1,
+  .price-td,
+  .td-hotel,
+  .td-star p {
+    color: #3c3c3c !important;
+  }
+
+  .hotel-grid thead th.th-hotel {
+    /* transform: translateX(80px)!important ; */
+    width: 240px !important;
+  }
+
+  .hotel-grid thead th.th-hotel {
+    text-align: right !important;
+    padding-right: 12px !important;
+  }
+
+  .hotel-grid tbody td {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 4px !important;
+
+    padding-bottom: 14px !important;
+    background: transparent !important;
+  }
+
+  .hotel-grid tbody tr {
+    position: relative !important;
+  }
+
+  .hotel-grid tbody tr::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* کل عرض سطر، بدون حاشیه اضافی */
+
+    border-radius: 12px !important;
+    z-index: -1 !important;
+  }
+
+  .hotel-grid tbody tr:nth-child(odd)::before {
+    background-color: #e2e2e29f !important;
+  }
+
+  .hotel-grid tbody tr:nth-child(even)::before {
+    background-color: #d3d3d3d6 !important;
+  }
+
+  /* (اختیاری) برای جلوگیری از هر بیرون‌زدگی تیترهای بلند */
+  .hotel-grid thead th {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* ====== Table base ====== */
+
+  /* --- colgroup: حتماً در HTML بگذار (عرض‌ها ثابت و برابر) --- */
+  /* 28 + 8 + 10 + (5 × 10.8) = 100% */
+  .hotel-grid colgroup col.c-hotel {
+    width: 28% !important;
+  }
+
+  .hotel-grid colgroup col.c-star {
+    width: 8% !important;
+  }
+
+  .hotel-grid colgroup col.c-service {
+    width: 10% !important;
+  }
+
+  .hotel-grid colgroup col.c-price {
+    width: 10.8% !important;
+  }
+
+  /* ====== THEAD (کپسول سبز) ====== */
+  .hotel-grid thead tr {
+    position: relative !important;
+    z-index: 0 !important;
+  }
+
+  .hotel-grid thead tr::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: var(--primary-500) !important;
+    border-radius: 12px !important;
+    z-index: -1 !important;
+  }
+
+  .hotel-grid thead th {
+    background: transparent !important;
+    /* بک‌گراند واحد از ::before */
+    color: #fff !important;
+    padding: 12px 8px !important;
+    /* پدینگ عمومی */
+    font-weight: 700 !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    /* اجازه‌ی رَپ شدن تیترها */
+    overflow: hidden !important;
+    /* جلوگیری از بیرون‌زدگی */
+    text-overflow: ellipsis !important;
+  }
+
+  /* «هتل» کاملاً به لبه‌ی راست نزدیک شود */
+  .hotel-grid thead th.th-hotel {
+    text-align: right !important;
+    padding-right: 10px !important;
+    /* اگر خواستی 0 هم می‌توانی بگذاری */
+  }
+
+  /* ====== TBODY (پس‌زمینه‌ی خاکستری به اندازه‌ی کل سطر) ====== */
+  .hotel-grid tbody tr {
+    position: relative !important;
+    /* برای pseudo-element */
+    z-index: 0 !important;
+  }
+
+  .hotel-grid tbody tr::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* کل عرض سطر مثل thead */
+
+    /* خاکستری روشن */
+    border-radius: 12px !important;
+    z-index: -1 !important;
+    /* پشت td ها قرار بگیرد */
+  }
+
+  /* خود سلول‌ها شفاف باشند تا پس‌زمینه‌ی یک‌تکه دیده شود */
+  .hotel-grid tbody td {
+    background: transparent !important;
+    padding: 4px 16px !important;
+    vertical-align: middle !important;
+  }
+
+  /* نیازی به گردکردن td اول/آخر نیست چون خود سطر گرد شده */
+
+  /* ====== محتوای ستون‌ها ====== */
+  .td-hotel a.showhotel {
+    color: #282828 !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+
+  .td-hotel a.showhotel:hover {
+    text-decoration: underline !important;
+  }
+
+  .td-star .deg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+  }
+
+  .td-service {
+    font-weight: 700 !important;
+    text-align: center !important;
+  }
+
+  .price-td p {
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    line-height: 1.2 !important;
+  }
+
+  .price-td .price1 {
+    font-weight: unset !important;
+    font-size: 14px !important;
+  }
+
+  .price-td span:last-child {
+    font-size: 12px !important;
+    opacity: 0.8 !important;
+  }
+
+  .footer-pdf img {
+    width: 100% !important;
+  }
+}
+@media not all and (min-width: 1024px) {
+  #pdf-container #body-resize-content {
+    padding-top: 0 !important;
+  }
+  .hotel-description-col {
+    border-radius: 8px !important;
+    color: #3c3c3c !important;
+    font-size: 10px !important;
+  }
+
+  .details-info ul {
+    box-shadow: none !important;
+  }
+  .details-info {
+    margin-bottom: 30px;
+  }
+
+  .table-container2 {
+    width: 100% !important;
+    overflow-x: auto !important;
+    direction: rtl !important;
+    background-color: #fff !important;
+    border-radius: 8px !important;
+  }
+  .table-container2::-webkit-scrollbar {
+    width: 6px !important;
+  }
+  .table-container2 table:not(.part3) {
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 15px !important;
+    background-color: #fff !important;
+  }
+
+  .part3 {
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 15px !important;
+  }
+
+  .hotel-info1 td {
+    border-radius: 8px !important;
+  }
+
+  .inline_tbl {
+    border-collapse: separate !important;
+    /* border-spacing: 4px 4px    !important ; */
+  }
+
+  .tb-main > tr:nth-child(even) td table td {
+    background: #b9b9b9d9 !important;
+  }
+
+  td:has(.inline_tbl) {
+    background: unset !important;
+    background-color: unset !important;
+  }
+
+  .hotel_name1 a,
+  .hotel_name1,
+  .price1 {
+    color: #313131 !important;
+  }
+
+  .hotel_name1 {
+    font-weight: bold !important;
+  }
+
+  table .part3 {
+    border-collapse: collapse !important;
+  }
+
+  td:has(.price1) {
+    border-radius: 8px !important;
+  }
+
+  .table-container2 table.part3 td,
+  .table-container2 thead th {
+    vertical-align: middle !important;
+    font-weight: 500 !important;
+    color: #fff !important;
+  }
+
+  .hotel-info {
+    border-collapse: separate !important;
+    border-spacing: 4px 4px !important;
+  }
+
+  /* ====================== Header Row ====================== */
+  .hotel-1 {
+    background: var(--primary) !important;
+  }
+
+  .hotel-1 td {
+    background: var(--primary) !important;
+  }
+
+  .hotel-1,
+  .hotel-2,
+  .hotel-3,
+  .hotel-4,
+  .hotel-5,
+  .hotel-6,
+  .hotel-7 {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    border: none !important;
+    text-align: center !important;
+  }
+
+  /* ستون‌ها */
+  .table-container2 .hotel-1,
+  .table-container2 .hotel-2,
+  .table-container2 .hotel-3,
+  .table-container2 .hotel-4,
+  .table-container2 .hotel-6,
+  .table-container2 .hotel-7 {
+    white-space: nowrap !important;
+  }
+
+  /* ====================== Rows ====================== */
+  .table-container2 tr:nth-child(even) {
+    background-color: unset !important;
+    background: unset !important;
+  }
+
+  .part33 {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .part32 {
+    padding-right: 20px !important;
+  }
+
+  #pdf-container .pdf-header {
+    min-height: 118px !important;
+  }
+
+  .tb-main > tr:nth-child(even) td:has(.price1) {
+    background: #b9b9b9d9 !important;
+  }
+
+  .table-container2 tr:nth-child(odd) {
+    background-color: #fff !important;
+  }
+
+  .inline_tbl {
+    width: 100% !important;
+
+    background: transparent !important;
+  }
+
+  .inline_tbl td {
+    border: none !important;
+    text-align: right !important;
+    padding: 2px 4px !important;
+    font-size: 12px !important;
+  }
+
+  .hotel_name2 svg {
+    display: none !important;
+  }
+
+  .inline_tbl .hotel_name1 a.showhotel {
+    text-decoration: none !important;
+    font-weight: 600 !important;
+  }
+
+  .inline_tbl .hotel_name1 a.showhotel:hover {
+    text-decoration: underline !important;
+  }
+
+  /* ستاره هتل */
+  .inline_tbl .hotel_name2 {
+    text-align: center !important;
+  }
+
+  .inline_tbl .hotel_name2 svg {
+    width: 18px !important;
+    height: 18px !important;
+    vertical-align: middle !important;
+  }
+
+  .inline_tbl .hotel_name2 span {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    color: #f1c40f !important;
+  }
+
+  /* خدمات (HB, BB, FB, etc) */
+  .inline_tbl .hotel_name3 {
+    text-align: center !important;
+    font-size: 12px !important;
+    color: #555 !important;
+  }
+
+  .table-container2 .price1 {
+    font-size: 12px !important;
+  }
+
+  .table-container2 td p {
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  .table-container2 td span:last-child {
+    font-size: 13px !important;
+    color: #777 !important;
+  }
+
+  .tb-main > tr > td:first-child {
+    background-color: unset !important;
+  }
+
+  .tb-main > tr:nth-child(even) > td:first-child {
+    background-color: unset !important;
+    padding: 0 !important;
+  }
+
+  #pdf-container .bc-main {
+    width: 100% !important;
+    margin: 0 auto !important;
+    clear: both !important;
+    padding: 0 !important;
+  }
+
+  .details-info {
+    padding-left: 0 !important;
+  }
+
+  .pdf-header,
+  .footer-pdf {
+    width: 100% !important;
+    margin: 0 auto !important;
+    /* opacity: 0.3    !important ; */
+  }
+
+  .w-1100 {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .td-hotel.no-trnsform {
+    transform: translateX(35px) !important;
+  }
+
+  .call-header-footer {
+    display: none !important;
+  }
+
+  .gap-2 {
+    gap: 8px !important;
+  }
+
+  .date {
+    padding: 4px 12px !important;
+    border-radius: 8px !important;
+    color: white !important;
+    margin-left: 4px !important;
+    font-size: 12px !important;
+    width: fit-content !important;
+    background-color: var(--primary) !important;
+  }
+
+  .date span {
+    display: inline-flex !important;
+  }
+
+  .date:has(span[data=""]) {
+    display: none !important;
+  }
+
+  .pdf-footer-info-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .info_icon {
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border: 1px solid #fff !important;
+    border-radius: 100% !important;
+  }
+
+  .info-txt a {
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+  }
+
+  .styled-table thead tr {
+    color: #333 !important;
+    background-color: #9d9d9ddd !important;
+  }
+
+  #pdf-container .info-title {
+    line-height: 30px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    padding: 5px 25px !important;
+    border-radius: 8px !important;
+
+    width: 150px !important;
+  }
+
+  .styled-table {
+    max-width: unset !important;
+  }
+
+  .CreatePDFfromHTML {
+    text-align: right !important;
+    padding: 0.5em !important;
+    /* border: 1px solid #666  !important ;
+                    background: #eee  !important ; */
+    color: white !important;
+    border-radius: 5px !important;
+    margin: 1em auto !important;
+    margin-left: 10px !important;
+    cursor: pointer !important;
+  }
+
+  .CreatePDFfromHTML:hover {
+    background-color: rgba(0, 0, 0, 0.451) !important;
+  }
+
+  .flex {
+    display: flex !important;
+  }
+
+  .items-center {
+    align-items: center !important;
+  }
+
+  .justify-center {
+    justify-content: center !important;
+  }
+
+  .details-info {
+    position: unset !important;
+    width: 100% !important;
+  }
+
+  #pdf-container {
+    width: 100% !important;
+  }
+
+  #pdf-container #body-resize-content .page-title {
+    color: #222222 !important;
+    text-align: center !important;
+    margin: 10px auto 0 !important;
+    display: block !important;
+    font-weight: bold !important;
+  }
+
+  #pdf-container .page-nights {
+    text-decoration: none !important;
+    color: #8b8b8b !important;
+    display: block !important;
+    line-height: 20px !important;
+    direction: rtl !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    margin-bottom: 10px !important;
+    clear: both !important;
+  }
+
+  .details-info {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .details-info ul {
+    padding: 10px !important;
+    margin: 0 !important;
+    flex-direction: column !important;
+    align-items: start !important;
+    display: flex !important;
+    gap: 10px !important;
+
+    width: 95% !important;
+    border-radius: 0.5rem !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+    background-color: rgba(187, 187, 187, 0.282) !important;
+  }
+
+  .table-container2 .part3 *,
+  .price1,
+  .hotel_name3 {
+    white-space: nowrap !important;
+  }
+
+  .hotel_name1 {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    width: 100% !important;
+  }
+
+  .details-info ul li {
+    font-size: 12px !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  #pdf-container #body-resize {
+    width: 100% !important;
+    padding-bottom: 20px !important;
+    margin-top: 0em !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .logo-airline {
+    position: unset !important;
+  }
+
+  .airline-name {
+    font-size: 12px !important;
+    border-bottom: unset !important;
+  }
+
+  .mr-5 {
+    margin-right: 1.5rem !important;
+  }
+
+  .m-10 {
+    margin: 0 3rem !important;
+  }
+
+  #pdf-container {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  /* کانتینر برای اسکرول موبایل */
+
+  /* فاصله‌ی افقی کل جدول: بدون فاصله‌ی اضافی بین ستون‌ها */
+  main {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  #pdf-container img {
+    width: 100% !important;
+  }
+
+  .hotel-grid {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 12px !important;
+
+    table-layout: fixed !important;
+    margin: 0 !important;
+
+    border: 0 !important;
+  }
+
+  .td-service,
+  .td-star {
+    font-size: 14px !important;
+    font-weight: unset !important;
+  }
+
+  /* .table-container2 tbody *:not(.td-hotel){
+                    white-space: nowrap    !important ;
+                } */
+  /* .th-hotel{
+                    width: 17%    !important ;
+                } */
+  .td-hotel,
+  .td-hotel * {
+    font-size: 12px !important;
+  }
+
+  .hotel-grid,
+  .hotel-grid * {
+    box-sizing: border-box !important;
+  }
+
+  /* هدر: دقیقا 12px از چپ/راست */
+  .hotel-grid thead th {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  .td-hotel {
+    text-align: left !important;
+
+    transform: translateX(105px) !important;
+  }
+
+  .td-service,
+  .price1,
+  .price-td,
+  .td-hotel,
+  .td-star p {
+    color: #3c3c3c !important;
+  }
+
+  .hotel-grid thead th.th-hotel {
+    /* transform: translateX(80px)  !important ; */
+    width: 240px !important;
+  }
+
+  .hotel-grid thead th.th-hotel {
+    text-align: right !important;
+    padding-right: 12px !important;
+  }
+
+  .hotel-grid tbody td {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 4px !important;
+
+    padding-bottom: 14px !important;
+    background: transparent !important;
+  }
+
+  .hotel-grid tbody tr {
+    position: relative !important;
+  }
+
+  .hotel-grid tbody tr::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* کل عرض سطر، بدون حاشیه اضافی */
+
+    border-radius: 12px !important;
+    z-index: -1 !important;
+  }
+
+  .hotel-grid tbody tr:nth-child(odd)::before {
+    background-color: #e2e2e29f !important;
+  }
+
+  .hotel-grid tbody tr:nth-child(even)::before {
+    background-color: #d3d3d3d6 !important;
+  }
+
+  /* (اختیاری) برای جلوگیری از هر بیرون‌زدگی تیترهای بلند */
+  .hotel-grid thead th {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* ====== Table base ====== */
+
+  /* --- colgroup: حتماً در HTML بگذار (عرض‌ها ثابت و برابر) --- */
+  /* 28 + 8 + 10 + (5 × 10.8) = 100% */
+  .hotel-grid colgroup col.c-hotel {
+    width: 28% !important;
+  }
+
+  .hotel-grid colgroup col.c-star {
+    width: 8% !important;
+  }
+
+  .hotel-grid colgroup col.c-service {
+    width: 10% !important;
+  }
+
+  .hotel-grid colgroup col.c-price {
+    width: 10.8% !important;
+  }
+
+  /* ====== THEAD (کپسول سبز) ====== */
+  .hotel-grid thead tr {
+    position: relative !important;
+    z-index: 0 !important;
+  }
+
+  .hotel-grid thead tr::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: var(--primary-500) !important;
+    border-radius: 12px !important;
+    z-index: -1 !important;
+  }
+
+  .hotel-grid thead th {
+    background: transparent !important;
+    /* بک‌گراند واحد از ::before */
+    color: #fff !important;
+    padding: 12px 8px !important;
+    /* پدینگ عمومی */
+    font-weight: 700 !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    /* اجازه‌ی رَپ شدن تیترها */
+    overflow: hidden !important;
+    /* جلوگیری از بیرون‌زدگی */
+    text-overflow: ellipsis !important;
+  }
+
+  /* «هتل» کاملاً به لبه‌ی راست نزدیک شود */
+  .hotel-grid thead th.th-hotel {
+    text-align: right !important;
+    padding-right: 10px !important;
+    /* اگر خواستی 0 هم می‌توانی بگذاری */
+  }
+
+  /* ====== TBODY (پس‌زمینه‌ی خاکستری به اندازه‌ی کل سطر) ====== */
+  .hotel-grid tbody tr {
+    position: relative !important;
+    /* برای pseudo-element */
+    z-index: 0 !important;
+  }
+
+  .hotel-grid tbody tr::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* کل عرض سطر مثل thead */
+
+    /* خاکستری روشن */
+    border-radius: 12px !important;
+    z-index: -1 !important;
+    /* پشت td ها قرار بگیرد */
+  }
+
+  /* خود سلول‌ها شفاف باشند تا پس‌زمینه‌ی یک‌تکه دیده شود */
+  .hotel-grid tbody td {
+    background: transparent !important;
+    padding: 4px 16px !important;
+    vertical-align: middle !important;
+  }
+
+  /* نیازی به گردکردن td اول/آخر نیست چون خود سطر گرد شده */
+
+  /* ====== محتوای ستون‌ها ====== */
+  .td-hotel a.showhotel {
+    color: #282828 !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+
+  .td-hotel a.showhotel:hover {
+    text-decoration: underline !important;
+  }
+
+  .td-star .deg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+  }
+
+  .td-service {
+    font-weight: 700 !important;
+    text-align: center !important;
+  }
+
+  .price-td p {
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    line-height: 1.2 !important;
+  }
+
+  .price-td .price1 {
+    font-weight: unset !important;
+    font-size: 12px !important;
+  }
+
+  .price-td span:last-child {
+    font-size: 12px !important;
+    opacity: 0.8 !important;
+  }
+
+  /* ====== ریسپانسیو (دلخواه) ====== */
+  @media (max-width: 900px) {
+    .hotel-grid thead {
+      display: none !important;
+    }
+
+    .hotel-grid {
+      border-spacing: 0 10px !important;
+    }
+
+    .hotel-grid tbody tr {
+      padding: 10px !important;
+    }
+
+    .hotel-grid tbody td {
+      padding: 4px 10px !important;
+    }
+
+    .td-service,
+    .td-star {
+      text-align: start !important;
+    }
+
+    .price-td p {
+      align-items: flex-start !important;
+    }
+  }
+
+  .footer-pdf img {
+    width: 100% !important;
+  }
+
+  #pdf-container #body-resize-content .page-title h1 {
+    font-size: 20px !important;
+  }
+
+  .part31,
+  .part32,
+  .part33 {
+    font-size: 12px !important;
+  }
+
+  .part31 {
+    padding: 0 20px !important;
+  }
+}
+#pdf-container {
+  font-family: "IRANSansWeb";
+  margin: 0px;
+  position: relative;
+  overflow-x: hidden;
+}
+.details-info {
+  color: #666;
+  font-size: 13px;
+  padding-left: 1em;
+  direction: rtl;
+  text-align: right;
+  position: absolute;
+  top: 25em;
+  right: 0;
+}
+.question-info {
+  color: #464646;
+  font-weight: bold;
+}
+#pdf-container .circle {
+  border-radius: 100%;
+}
+#pdf-container .circle-1 {
+  width: 140px;
+  height: 140px;
+  background: rgb(255, 255, 255);
+  position: absolute;
+  right: 4em;
+  top: 8em;
+  line-height: 140px;
+  text-align: center;
+  z-index: 999;
+}
+#pdf-container .circle-1 img {
+  vertical-align: middle;
+}
+@media print {
+  @media print and (width: 21cm) and (height: 29.7cm) {
+    @page {
+      margin: 10px;
+    }
+  }
+  /* style sheet for "letter" printing */
+  @media print and (width: 8.5in) and (height: 11in) {
+    @page {
+      margin: 100px;
+    }
+  }
+  /* A4 Landscape*/
+  @page {
+    size: A3 landscape;
+  }
+  #pdf-container {
+    width: 990px; /*width of index card*/
+    height: 2500px; /*height of index card*/
+  }
+  /* etc */
+}
+#pdf-container #container {
+  width: 100%; /*overflow:hidden !important*/
+}
+#pdf-container img {
+  border: none;
+}
+#pdf-container p {
+  font-size: 15px;
+  color: #666;
+}
+#pdf-container #body-resize {
+  width: 95%;
+  padding-bottom: 20px;
+  margin-top: 6em;
+  margin-right: auto;
+  margin-left: auto;
+}
+#pdf-container {
+  width: 990px;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+}
+#pdf-container .body-mid {
+  width: 990px;
+  margin: 0 auto;
+  padding: 0;
+}
+#pdf-container .hotel {
+  width: 100%;
+  margin: 0 auto;
+  direction: rtl;
+  padding-top: 20px;
+}
+.hotel-info {
+  width: 100%;
+}
+.logo-airline {
+  position: absolute;
+  top: 2em;
+}
+.airline-name {
+  font-size: 20px;
+  border-bottom: 2px solid;
+}
+#pdf-container .hotel-info td {
+  text-align: center;
+  direction: rtl;
+  font-size: 12px !important;
+  background: #e1e1e1;
+}
+.table-container2 .price1,
+.inline_tbl td {
+  font-size: 12px !important;
+}
+
+.hotel-1,
+.hotel-2,
+.hotel-3,
+.hotel-4,
+.hotel-5,
+.hotel-6,
+.hotel-7 {
+  font-size: 12px !important;
+}
+
+.hotel-2 div,
+.hotel-3 div,
+.hotel-4 div,
+.hotel-5 div,
+.hotel-6 div,
+.hotel-7 div {
+  display: inline-flex !important;
+  align-items: center;
+  flex-direction: column !important;
+}
+#pdf-container .hotel-info tr:nth-child(even) {
+  background: #efefef;
+  font-size: 12px;
+}
+#pdf-container .hotel-info tr:nth-child(odd) {
+  font-size: 12px;
+}
+#pdf-container .hotel-info tr:first-child {
+  color: #333;
+  font-size: 13px !important;
+}
+.inline_tbl {
+  width: 100%;
+}
+#pdf-container .hotel-info tr table tr {
+  background: none repeat scroll 0% 0% transparent !important;
+}
+#pdf-container .hotel_name {
+  color: #000 !important;
+  width: 185px !important;
+  text-align: right !important;
+  padding-right: 5px !important;
+  border-left: none !important;
+}
+#pdf-container .hotel-desc {
+  color: #000 !important;
+  width: 50px !important;
+}
+#pdf-container .stars {
+  width: 70px !important;
+}
+#pdf-container .name-table {
+  height: 45px;
+  font-size: 12px;
+}
+#pdf-container .name-table td table tr td {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  background-color: #e1e1e1;
+}
+#pdf-container .part31 {
+  font-weight: bold;
+  width: 50%;
+  color: #464646;
+}
+#pdf-container .part32 {
+  font-weight: bold;
+  width: 20%;
+  color: #464646;
+}
+#pdf-container .part33 {
+  font-weight: bold;
+  width: 20%;
+  color: #464646;
+}
+#pdf-container .hotel-1 {
+  color: #464646;
+  font-weight: bold;
+}
+#pdf-container .hotel-2,
+#pdf-container .hotel-3,
+#pdf-container .hotel-4,
+#pdf-container .hotel-5,
+#pdf-container .hotel-6,
+#pdf-container .hotel-7,
+#pdf-container .hotel-8,
+#pdf-container .hotel-9 {
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #464646;
+  font-size: 15px;
+  background-color: #e1e1e1;
+  font-weight: bold;
+}
+#pdf-container .hotel_name1 {
+  width: 50%;
+  line-height: 30px;
+  padding: 0px 3px;
+  color: #666;
+}
+#pdf-container .hotel_name2 {
+  width: 20%;
+  line-height: 30px;
+  padding-right: 11px;
+  padding-left: 11px;
+  color: #666;
+}
+.showhotel {
+  color: #666;
+  font-weight: bold;
+}
+#pdf-container .hotel_name3 {
+  width: 20%;
+  line-height: 30px;
+  padding: 0px 2px;
+  color: #666;
+}
+#pdf-container .schema-resize {
+  width: 95%;
+  margin: 0 auto;
+  padding: 0;
+}
+#pdf-container .schema {
+  width: 100%;
+  margin: 20px auto;
+  padding: 0;
+}
+#pdf-container .info-title {
+  text-align: center;
+  line-height: 30px;
+  font-size: 16px;
+  color: #fff;
+  direction: rtl;
+  width: auto;
+  float: right;
+  padding: 3px 25px;
+  border-radius: 30px;
+  background: #666666;
+  margin-bottom: 15px;
+  width: 130px;
+}
+#pdf-container .info-txt {
+  line-height: 30px;
+  font-size: 15px;
+  background: #fff;
+  color: #666;
+  direction: rtl;
+  width: 100%;
+  float: right;
+  padding-right: 5px;
+}
+#pdf-container .tour-info {
+  width: 100%;
+  float: right;
+  line-height: 30px;
+  margin-bottom: 1em;
+  text-align: right;
+}
+#pdf-container #body-resize-content {
+  padding: 20px 0;
+  position: relative;
+}
+#pdf-container #body-resize-content .page-title {
+  color: #464646;
+  text-align: center;
+  margin: 70px auto 0;
+  display: block;
+}
+#pdf-container #body-resize-content .page-title h1 {
+  font-size: 30px;
+  direction: rtl;
+}
+#pdf-container .hotel-detail {
+  position: relative;
+}
+#pdf-container .bc-main {
+  width: 990px;
+  margin: 0 auto;
+  clear: both;
+  padding: 0;
+}
+#pdf-container .page-nights {
+  text-decoration: none;
+  color: #666666;
+  display: block;
+  line-height: 40px;
+  direction: rtl;
+  font-size: 20px;
+  text-align: center;
+  margin: 0 auto;
+  clear: both;
+}
+#pdf-container .pdf-footer-info {
+  text-align: right;
+  color: #666;
+  font-size: 13px;
+  direction: rtl;
+}
+#pdf-container .pdf-footer-info-row {
+  line-height: 40px;
+}
+#pdf-container .pdf-footer-info-row i {
+  font-family: "FontAwesome";
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  float: right;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 50%;
+  margin-top: 0.5em;
+  font-size: 18px;
+  margin-left: 0.5em;
+  font-style: inherit;
+}
+#pdf-container .pdf-header {
+  min-height: 178px;
+}
+#pdf-container .pdf-footer {
+  min-height: 178px;
+}
+.details-info ul {
+  box-shadow: none !important;
+}
