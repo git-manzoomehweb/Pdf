@@ -8,6 +8,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.dir-rtl {
+  direction: rtl;
+}
 .clr {
   clear: both;
 }
@@ -1860,7 +1863,21 @@
   box-shadow: none !important;
 }
 h1 .other,
+h1 span {
+  display: inline-block !important;
+  direction: rtl !important;
+}
 h1 div {
   display: inline-block !important;
   direction: rtl !important;
+}
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.unicode-isolate {
+  direction: rtl !important;
+  unicode-bidi: isolate-override !important;
+  text-align: center !important;
+  white-space: normal;
 }
