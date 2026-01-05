@@ -201,7 +201,7 @@
                     </face>
                 </basis>
 
-                <button id="showprice" onclick="togglePrice(this)" type="button" 
+                <button id="showprice" onclick="togglePrice(this)" type="button"
                     class="book-w-[150px] text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 me-2 mb-2 max-sm:justify-center max-sm:me-0">
                     <svg class=" h-3 me-2 -ms-1" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -316,10 +316,10 @@
                     <!-- ticket section -->
                     <div
                         class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
-    
+
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
-    
+
                             <!-- ticket details (passenger name, flight number and etc. ) -->
                             <div
                                 class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
@@ -327,8 +327,8 @@
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-    
-    
+
+
                                     <div class="ticketContainer__details__head__item flex justify-between gap-x-8 w-full max-xl:flex-wrap">
                                          <div class="name">
                                         <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
@@ -436,7 +436,7 @@
                                     </face>
                                 </basis>
                             </div>
-    
+
                             <!-- flight and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
@@ -500,7 +500,7 @@
                             </script>
                                 </face>
                             </basis>
-    
+
                             <!-- flight path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
@@ -521,16 +521,16 @@
                         </div>
                     </div>
                 </basis>
-    
+
                 <!-- btb (round trip) -->
                 <basis core="group" name="roundtrip" run="atclient" triggers="db.producttype"
                     if="{##db.producttype.ptype##} == 2 || {##db.producttype.ptype##} == 4">
                     <div
                         class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
-    
+
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
-    
+
                             <!-- ticket details (passenger name, flight number and etc. ) -->
                             <div
                                 class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
@@ -538,8 +538,8 @@
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-    
-    
+
+
                                     <div class="ticketContainer__details__head__item flex justify-between gap-x-8 w-full max-xl:flex-wrap">
                                          <div class="name">
                                         <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
@@ -713,7 +713,7 @@
                             </script>
                                 </face>
                             </basis>
-    
+
                             <!-- flight path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
@@ -733,7 +733,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <!-- Return section -->
                     <div
                         class="return_stracture mt-4 ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
@@ -804,7 +804,7 @@
                             </script>
                                 </face>
                             </basis>
-    
+
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                     <layout>@child</layout>
@@ -824,16 +824,16 @@
                         </div>
                     </div>
                 </basis>
-    
+
                 <!-- multicity -->
                 <basis core="group" name="multicity" run="atclient" triggers="db.producttype"
                     if="{##db.producttype.ptype##} == 7 ">
                     <div
                         class="ticketContainer border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
-    
+
                         <!-- ticket details (left section of ticket) -->
                         <div class="ticketContainer__details w-full">
-    
+
                             <!-- ticket details (passenger name, flight number and etc. ) -->
                             <div
                                 class="ticketContainer__details__head flex justify-start p-4 items-center max-sm:flex-col max-sm:gap-4 max-sm:p-2">
@@ -841,8 +841,8 @@
                                     <layout>@child</layout>
                                     <face>
                                         <script type="text/template">
-    
-    
+
+
                                     <div class="ticketContainer__details__head__item flex justify-between gap-x-8 w-full max-xl:flex-wrap">
                                          <div class="name">
                                         <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
@@ -1017,7 +1017,7 @@
                             </script>
                                 </face>
                             </basis>
-    
+
                             <!-- flight path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
@@ -1037,7 +1037,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <!-- Multiple routes for multicity -->
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>@child</layout>
@@ -1054,7 +1054,7 @@
                         </face>
                     </basis>
                 </basis>
-    
+
                 <!-- One way Train -->
                 <basis core="group" name="train-oneway" run="atclient" triggers="db.producttype"
                     if="{##db.producttype.ptype##} == 8 ">
@@ -1154,8 +1154,8 @@
                                             </script>
                                     </face>
                                 </basis>
-    
-                                <basis core="group" name="persian" if="[##db.shortlinkTreelangid.Value##] = 1">
+                                <basis core="group" name="persian" run="atclient"
+                                    if="'[##db.shortlinkTreelangid.Value##]' == '1'">
                                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                         <layout></layout>
                                         <face>
@@ -1174,8 +1174,9 @@
                                         </face>
                                     </basis>
                                 </basis>
-    
-                                <basis core="group" name="no-persian" if="[##db.shortlinkTreelangid.Value##] <> 1">
+
+                                <basis core="group" name="no-persian" run="atclient"
+                                    if="'[##db.shortlinkTreelangid.Value##]' != '1'">
                                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                         <layout></layout>
                                         <face>
@@ -1195,7 +1196,7 @@
                                     </basis>
                                 </basis>
                             </div>
-    
+
                             <!-- train and landing date and time (yellow section) -->
                             <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                                 <layout>
@@ -1213,14 +1214,20 @@
                                                         <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/>
                                                     </g>
                                                 </svg>
-                                                <span id="trainDate" class=" text-sm max-sm:text-xs">
-    
-                                                    @products[0].departure[0].route.routeDate.mstring@
-    
-                                                   ( @products[0].departure[0].route.routeDate.sstring@ ) 
-                                                </span>
-                                                |
-                                                <span id="trainTime" class=" text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
+
+
+                                    <span id="trainDate" class=" text-sm max-sm:text-xs">
+                                        {{
+                                            try{
+                                                return await convertDateFormat($data.products[0].departure[0].route.routeDate.mstring , $data.products[0].departure[0].route.routeDate.sstring , [##db.shortlinkTreelangid.Value##]);
+                                            }catch (e){
+                                                return '';
+                                            }
+                                        }}
+                                    </span>
+                                    |
+                                    <span id="trainTime" class=" text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
+
                                             </div>
                                             
                                             <div class="{{ return await barArrowRotation([##db.shortlinkTreelangid.Value##])}}  ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
@@ -1246,7 +1253,7 @@
                                         </script>
                                 </face>
                             </basis>
-    
+
                             <!-- train path  -->
                             <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
                                 <basis core="print" datamembername="db.ticket_pdf" run="atclient">
@@ -1266,13 +1273,323 @@
                         </div>
                     </div>
                 </basis>
+
+                <!-- roundtrip Train -->
+                <basis core="group" name="train-roundtrip" run="atclient" triggers="db.producttype"
+                    if="{##db.producttype.ptype##} == 9">
+
+                    <!-- Departure ticket -->
+                    <div
+                        class="ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+
+                        <div class="ticketContainer__details w-full">
+
+                            <!-- passenger details (same as train-oneway) -->
+                            <div
+                                class="ticketContainer__details__head flex justify-between p-4 items-center max-[794px]:flex-wrap max-md:flex-col max-md:justify-center max-sm:p-2 max-sm:gap-2">
+                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                    <layout>@child</layout>
+                                    <face>
+                                        <script type="text/template">
+                                                <div class="ticketContainer__details__head__item max-sm:w-full">
+                                                    <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                        Passenger:
+                                                    </h4>
+                                                    <span class="ticketContainer__details__head__item__desc text-base font-danademibold text-center inline-block w-full max-sm:text-sm">
+                                                        {{
+                                                            try{
+                                                                 return await passenger_gender($data.passenger.gender);
+                                                            }catch (e){
+                                                                return '';
+                                                            }
+                                                        }}
+                                                        @passenger.name@
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="ticketContainer__details__head__item max-sm:w-full">
+                                                    <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                        Age:
+                                                    </h4>
+                                                    <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                                        <span id="cargoWeight" class="text-sm font-danademibold text-center max-sm:text-xs">
+                                                            {{
+                                                                async function getPassengerType() {
+                                                                    const maxRetries = 3;
+                                                                    let retries = 0;
+                                                                    
+                                                                    while (retries < maxRetries) {
+                                                                        try {
+                                                                            if (!$data?.passenger?.type) {
+                                                                                return '-';
+                                                                            }
+                                                                            
+                                                                            const result = await passenger_type(
+                                                                                $data.passenger.type, 
+                                                                                [##db.shortlinkTreelangid.Value|(1)##]
+                                                                            );
+                                                                            
+                                                                            if (result && result !== 'undefined') {
+                                                                                return result;
+                                                                            }
+                                                                            
+                                                                            // اگر نتیجه خالی بود، کمی صبر کنیم و دوباره تلاش کنیم
+                                                                            await new Promise(resolve => setTimeout(resolve, 200));
+                                                                            retries++;
+                                                                            
+                                                                        } catch (e) {
+                                                                            console.error(`Attempt ${retries + 1} failed:`, e);
+                                                                            retries++;
+                                                                            
+                                                                            if (retries < maxRetries) {
+                                                                                await new Promise(resolve => setTimeout(resolve, 300));
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    
+                                                                    // اگر همه تلاش‌ها ناکام بود، fallback استفاده کنیم
+                                                                    const type = $data?.passenger?.type;
+                                                                    switch (String(type)) {
+                                                                        case "0": return "نوزاد";
+                                                                        case "1": return "کودک";
+                                                                        case "2": return "بزرگسال";
+                                                                        default: return "-";
+                                                                    }
+                                                                }
+                                                                
+                                                                return await getPassengerType();
+                                                            }}
+                                                        </span>
+                                                    </span>
+                                                </div>
     
+                                                <div class="ticketContainer__details__head__item max-sm:w-full">
+                                                    <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                        National Code:
+                                                    </h4>
+                                                    <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                                        <span class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                                            @passenger.nationalCode@
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </script>
+                                    </face>
+                                </basis>
+                                <basis core="group" name="persian" run="atclient"
+                                    if="'[##db.shortlinkTreelangid.Value##]' == '1'">
+                                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                        <layout></layout>
+                                        <face>
+                                            <script type="text/template">
+                                                    <div class="ticketContainer__details__head__item max-sm:w-full">
+                                                        <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                            Birthdate:
+                                                        </h4>
+                                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                                            <span class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                                                @passenger.birthdate.sstring@ <span>( @passenger.birthdate.mstring@)</span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </script>
+                                        </face>
+                                    </basis>
+                                </basis>
+
+                                <basis core="group" name="no-persian" run="atclient"
+                                    if="'[##db.shortlinkTreelangid.Value##]' != '1'">
+                                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                        <layout></layout>
+                                        <face>
+                                            <script type="text/template">
+                                                    <div class="ticketContainer__details__head__item max-sm:w-full">
+                                                        <h4 dir="{{ detectDirectionlid([##db.shortlinkTreelangid.Value##]) }}" class="ticketContainer__details__head__item__title   mb-2 text-gray-500 text-sm text-center max-sm:text-xs">
+                                                            Birthdate:
+                                                        </h4>
+                                                        <span class="ticketContainer__details__head__item__desc flex gap-1 items-center text-sm justify-center max-sm:text-xs">
+                                                            <span class=" text-sm font-danademibold text-center max-sm:text-xs">
+                                                                @passenger.birthdate.mstring@
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </script>
+                                        </face>
+                                    </basis>
+                                </basis>
+                            </div>
+
+
+                                                        <div
+                                class="ticketContainer__details__time  px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
+                                Departure </div>
+                            <!-- Departure yellow bar -->
+                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <layout>
+                                    <div id="from-to-yellow-bar-departure"
+                                        class="{{ return await barDirection([##db.shortlinkTreelangid.Value##])}} ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#ececeb] text-sm max-[794px]:flex-wrap max-md:flex-col max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        @child
+                                    </div>
+                                </layout>
+                                <face>
+                                    <script type="text/template">
+                        <div class="ticketContainer__details__time__train flex items-center gap-2 shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="#2F2F2F" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#2F2F2F" class="max-sm:w-5 max-sm:h-5">
+                                <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/>
+                            </svg>
+
+                            <span id="trainDateDeparture" class="text-sm max-sm:text-xs">
+                                {{
+                                    try{
+                                        return await convertDateFormat(
+                                            $data.products[0].departure[0].route.routeDate.mstring,
+                                            $data.products[0].departure[0].route.routeDate.sstring,
+                                            [##db.shortlinkTreelangid.Value##]
+                                        );
+                                    }catch (e){
+                                        return '';
+                                    }
+                                }}
+                            </span>
+                            |
+                            <span id="trainTimeDeparture" class="text-sm max-sm:text-xs">@products[0].departure[0].route.etime@</span>
+                        </div>
+
+                        <div class="{{ return await barArrowRotation([##db.shortlinkTreelangid.Value##])}} ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
+                            <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]" src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+                        </div>
+
+                        <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
+                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 64 64" fill="#2F2F2F" class="max-sm:w-5 max-sm:h-5">
+                                <path fill="#231F20" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"/>
+                            </svg>
+                            {{
+                                try{
+                                    return await arrive_date_info($data.products[0].departure , $data.ptype, [##db.shortlinkTreelangid.Value##]);
+                                }catch (e){
+                                    return '';
+                                }
+                            }}
+                        </div>
+                    </script>
+                                </face>
+                            </basis>
+
+                            <!-- Departure path -->
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                    <layout>@child</layout>
+                                    <face>
+                                        <script type="text/template">
+                            {{ 
+                                try{
+                                    return await route_array($data.products[0].departure , $data.ptype);
+                                }catch (e){
+                                    return '';
+                                }
+                            }}
+                        </script>
+                                    </face>
+                                </basis>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Return ticket -->
+                    <div
+                        class="return_stracture mt-4 ticketContainer !bg-none border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl mx-auto max-w-screen-md max-[794px]:min-w-full max-[794px]:w-full shrink-0 ">
+
+                        <div class="ticketContainer__details w-full">
+
+                                                        <div
+                                class="ticketContainer__details__time  px-4 py-2 flex gap-3 w-full items-center text-sm max-sm:px-2 max-sm:text-xs">
+                                Return
+                            </div>
+                            <!-- Return yellow bar -->
+                            <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                <layout>
+                                    <div id="from-to-yellow-bar-return"
+                                        class="{{ return await barDirection([##db.shortlinkTreelangid.Value##])}} ticketContainer__details__time px-12 py-2 flex gap-3 w-full items-center bg-[#ececeb] text-sm max-[794px]:flex-wrap max-md:flex-col max-[794px]:px-1 max-[794px]:gap-x-1 max-sm:px-2 max-sm:py-3 max-sm:text-xs">
+                                        @child
+                                    </div>
+                                </layout>
+                                <face>
+                                    <script type="text/template">
+                        <div class="ticketContainer__details__time__train flex items-center gap-2 shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="#2F2F2F" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#2F2F2F" class="max-sm:w-5 max-sm:h-5">
+                                <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/>
+                            </svg>
+
+                            <span id="trainDateReturn" class="text-sm max-sm:text-xs">
+                                {{
+                                    try{
+                                        return await convertDateFormat(
+                                            $data.products[1].return[0].route.routeDate.mstring,
+                                            $data.products[1].return[0].route.routeDate.sstring,
+                                            [##db.shortlinkTreelangid.Value##]
+                                        );
+                                    }catch (e){
+                                        return '';
+                                    }
+                                }}
+                            </span>
+                            |
+                            <span id="trainTimeReturn" class="text-sm max-sm:text-xs">@products[1].return[0].route.etime@</span>
+                        </div>
+
+                        <div class="{{ return await barArrowRotation([##db.shortlinkTreelangid.Value##])}} ticketContainer__details__time__arrow h-[2px] w-full flex relative z-10 justify-end relative max-md:hidden">
+                            <img class="absolute right-[-6px] top-[-15px] z-[9] max-sm:w-6 max-sm:h-6 max-sm:right-[-3px] max-sm:top-[-12px]" src="/images/arrow-rtl.png" width="32" height="32" alt="arrow-rtl"/>
+                        </div>
+
+                        <div class="ticketContainer__details__time__landing flex items-center gap-2 shrink-0">
+                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 64 64" fill="#2F2F2F" class="max-sm:w-5 max-sm:h-5">
+                                <path fill="#231F20" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"/>
+                            </svg>
+                            {{
+                                try{
+                                    return await arrive_date_info($data.products[1].return , $data.ptype, [##db.shortlinkTreelangid.Value##]);
+                                }catch (e){
+                                    return '';
+                                }
+                            }}
+                        </div>
+                    </script>
+                                </face>
+                            </basis>
+
+                            <!-- Return path -->
+                            <div class="ticketContainer__details__path pathContainer p-4 flex flex-col max-sm:p-2">
+                                <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                                    <layout>@child</layout>
+                                    <face>
+                                        <script type="text/template">
+                            {{ 
+                                try{
+                                    return await route_array($data.products[1].return , $data.ptype);
+                                }catch (e){
+                                    return '';
+                                }
+                            }}
+                        </script>
+                                    </face>
+                                </basis>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </basis>
+
+
+
                 <!-- Price Details Section -->
-                            <div 
+                <div
                     class=" ticketContainer__info__details_PriceBox ticketContainer__info w-full border-2 border-dashed overflow-hidden border-gray-400 rounded-2xl p-4 mt-8 mx-auto max-w-screen-md  max-[794px]:min-w-full max-[794px]:w-full shrink-0 flex flex-col justify-end items-start gap-4 max-sm:p-2 max-sm:mt-4">
                     <basis core="print" datamembername="db.ticket_pdf" run="atclient">
                         <layout>
-                            <div class="ticketContainer__info__details  flex flex-col w-full max-sm:flex-col max-sm:gap-4">
+                            <div
+                                class="ticketContainer__info__details  flex flex-col w-full max-sm:flex-col max-sm:gap-4">
                                 <div
                                     class="text-sm flex justify-between items-start gap-2 w-full max-sm:flex-col max-sm:gap-4">
                                     @child
@@ -1339,16 +1656,20 @@
                         </face>
                     </basis>
                 </div>
-    
+
                 <!-- Fare Conditions Section -->
-                <div
-                    class="fare_conditions max-w-screen-md  max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
-                    <h3 class="my-4 font-bold text-base fare-condition max-sm:text-sm">Fare Conditions</h3>
-                    <div id="desc_array"></div>
-                    <basis core="print" datamembername="db.ticket_pdf" run="atclient">
-                        <layout>@child</layout>
-                        <face>
-                            <script type="text/template">
+
+                <basis core="group" name="not-train-oneway" run="atclient" triggers="db.producttype"
+                    if="{##db.producttype.ptype##} != 8 &&  {##db.producttype.ptype##} != 9">
+
+                    <div
+                        class="fare_conditions max-w-screen-md  max-[794px]:min-w-full mx-auto mt-8 text-xs mb-4 max-[794px]:w-full max-sm:px-2 max-sm:text-[10px]">
+                        <h3 class="my-4 font-bold text-base fare-condition max-sm:text-sm">Fare Conditions</h3>
+                        <div id="desc_array"></div>
+                        <basis core="print" datamembername="db.ticket_pdf" run="atclient">
+                            <layout>@child</layout>
+                            <face>
+                                <script type="text/template">
                            <div>
                             {{ 
                                 try {
@@ -1366,9 +1687,14 @@
                                 }
                         }}
                         </script>
-                        </face>
-                    </basis>
-                </div>
+                            </face>
+                        </basis>
+                    </div>
+
+                </basis>
+
+
+
             </div>
 
         </main>

@@ -781,12 +781,16 @@ async function arrive_date_info($data, invoicetype, lid) {
   var arrive_date = $data[len - 1].route.routeDateArrival.mstring
   var arrive_date_S = $data[len - 1].route.routeDateArrival.sstring
   var arrive_dtime = $data[len - 1].route.atime
-  if (invoicetype === 8) {
+
+  const isTrain = (invoicetype === 8 || invoicetype === 9)
+
+  if (isTrain) {
     return `<span id="landingDate" class=" text-sm max-sm:text-xs" >${arrive_date}</span><span class="inline-block">(<span class="inline-block"> ${arrive_date_S} </span>)</span> | <span id="landingTime" class=" text-sm max-sm:text-xs">${arrive_dtime}</span>`
   } else {
     return `<span id="landingDate" class=" text-sm max-sm:text-xs">${await convertDateFormat(arrive_date, arrive_date_S, lid)}</span> | <span id="landingTime" class=" text-sm max-sm:text-xs" style="direction: ltr !important;display: inline-block;">${arrive_dtime}</span>`
   }
 }
+
 
 function passenger_gender(gender) {
   if (gender == 0) {
@@ -799,11 +803,12 @@ function passenger_gender(gender) {
 async function route_array($data, invoicetype) {
   var output = "";
   var data = $data;
+  const isTrain = (invoicetype == 8 || invoicetype == 9);
 
-  if (invoicetype == 8) {
+  if (isTrain) {
     for (var i = 0; i < data.length; i++) {
       output += `<div class=" relative "><div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
-                       
+
                         <div class="ticketContainer__details__path__item__times pathItem__times flex flex-col justify-between items-center w-1/6 max-md:w-3/12">
                             <span class="pathItem__times__start text-nowrap text-sm max-sm:text-xs text-center">
                                ${data[i].route.etime}
@@ -814,20 +819,16 @@ async function route_array($data, invoicetype) {
                             <svg xmlns="http://www.w3.org/2000/svg" class="train-icon" fill="#9ca3af" width="23" height="23" viewBox="0 0 256 256" id="Flat" stroke="#9ca3af">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"/>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                                <g id="SVGRepo_iconCarrier"> 
-                                    <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/> 
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M188,24H68A32.03667,32.03667,0,0,0,36,56V184a32.03667,32.03667,0,0,0,32,32H79.99976L65.59961,235.2002a8.00019,8.00019,0,0,0,12.80078,9.5996L100.00024,216h55.99952l21.59985,28.7998a8.00019,8.00019,0,0,0,12.80078-9.5996L176.00024,216H188a32.03667,32.03667,0,0,0,32-32V56A32.03667,32.03667,0,0,0,188,24ZM84,184a12,12,0,1,1,12-12A12,12,0,0,1,84,184Zm36-64H52V80h68Zm52,64a12,12,0,1,1,12-12A12,12,0,0,1,172,184Zm32-64H136V80h68Z"/>
                                 </g>
                             </svg>
                         </div>
 
                         <div class="ticketContainer__details__path__item__details pathItem__details w-4/6 px-2.5">
-                            <h3 class="pathItem__details__city text-xl font-danamedium max-md:text-lg max-sm:text-base">${data[i].route.startairport.startotherinfo.city}</h3>
-                            
-                            <span class="pathItem__details__airport text-xs text-gray-500 font-danaregular max-sm:text-[10px]">${data[i].route.startairport.airport}<span class="text-sm mx-1 font-danabold max-sm:text-xs">(${data[i].route.startairport.startotherinfo.shortname})</span></span>
 
-                            </div>
-                            </div>
-                            <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 absolute max-md:static top-16 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
+                            <h3 class="pathItem__details__airport text-xl font-danamedium max-md:text-lg max-sm:text-base">${data[i].route.startairport.airport}</h3>
+                            <div class="pathItem__details__airline flex items-center gap-2 text-xs text-gray-500 absolute max-md:static top-14 bottom-auto my-auto flex-wrap max-sm:text-[10px] max-sm:gap-1">
                                 <span class="flex gap-1 items-center">
                                     <img class="mr-2.5 max-sm:mr-1" src="/${data[i].route.trainimage}" width="32" height="32" alt="${data[i].route.trainid}"/>
                                     ${data[i].route.trainid}
@@ -842,6 +843,9 @@ async function route_array($data, invoicetype) {
                                     <span>${data[i].route.class}</span>
                                 </span>
                             </div>
+                            </div>
+                            </div>
+
 
                     <div class="ticketContainer__details__path__item pathItem flex gap-2 relative mt-1 min-h-[70px] max-[794px]:min-h-auto">
                         <div class="ticketContainer__details__path__item__times pathItem__times relative flex flex-nowrap justify-end flex-col items-center w-1/6 max-md:w-3/12">
@@ -854,9 +858,8 @@ async function route_array($data, invoicetype) {
                             <div class="w-2 h-2 rounded-full bg-gray-400 absolute bottom-0 right-[5px]"></div>
                         </div>
 
-                        <div class="ticketContainer__details__path__item__details pathItem__details w-4/6 px-2.5 pt-8">
-                            <h3 class="pathItem__details__city text-xl font-danamedium max-md:text-lg max-sm:text-base">${data[i].route.endairport.endotherinfo.city}</h3>
-                            <span class="pathItem__details__airport text-xs text-gray-500 font-danaregular max-sm:text-[10px]">${data[i].route.endairport.airport}<span class="text-sm mx-1 font-danabold max-sm:text-xs">(${data[i].route.endairport.endotherinfo.shortname})</span></span>
+                        <div class="ticketContainer__details__path__item__details pathItem__details w-4/6 px-2.5 pt-12">
+                            <h3 class="pathItem__details__airport text-xl font-danamedium max-md:text-lg max-sm:text-base">${data[i].route.endairport.airport}</h3>
                         </div>
                     </div>
                 </div>`;
@@ -1340,7 +1343,7 @@ async function multi_route_array($data, invoicetype, lid) {
 
   // اگر طول داده‌ها بیشتر از یک باشد
   if (data.length > 1) {
-    if (invoicetype === 8) {
+    if (invoicetype === 8 || invoicetype === 9) {
       // برای هر مسیر داده
       for (var i = 1; i < data.length; i++) {
         var segment_len = data[i].segment.length;

@@ -391,8 +391,8 @@ window.addEventListener("load", function () {
 //     checkOut: "خروج ",
 //     roomsList: "لیست اتاق‌ها",
 //     // Train
-//     departureTrain: " یکطرفه قطار اطلاعات / One-Way Train Information ",
-//     returnTrain: " دوطرفه قطار اطلاعات / Return Train Information " ,
+//     departureTrain: " اطلاعات قطار یکطرفه/ One-Way Train Information ",
+//     returnTrain: " اطلاعات قطار دوطرفه / Return Train Information " ,
 //     routeCode: "کد مسیر ",
 //     routeCodeFlight: "شماره پرواز",
 //     routeCodeTrain: "شماره قطار",
@@ -849,8 +849,8 @@ const invoiceTranslations = {
     checkOut: "خروج ",
     roomsList: "لیست اتاق‌ها",
     // Train
-    departureTrain: " یکطرفه قطار اطلاعات / One-Way Train Information ",
-    returnTrain: " دوطرفه قطار اطلاعات / Return Train Information ",
+    departureTrain: " اطلاعات قطار یکطرفه/ One-Way Train Information ",
+    returnTrain: " اطلاعات قطار دوطرفه / Return Train Information ",
     routeCode: "کد مسیر ",
     routeCodeFlight: "شماره پرواز",
     routeCodeTrain: "شماره قطار",
@@ -2838,10 +2838,10 @@ function renderTrainInfoSection(route, lid = 1) {
 
   const trainclass = route.class;
 
-  const fromAirport = `${startairport.airport} <span class="inline-block"> / </span> ${startairport.startotherinfo.city}`;
+  const fromAirport = `${startairport.airport} `;
   const fromCode = startairport.startotherinfo.shortname;
 
-  const toAirport = `${endairport.airport} <span class="inline-block"> / </span> ${endairport.endotherinfo.city}`;
+  const toAirport = `${endairport.airport} `;
   const toCode = endairport.endotherinfo.shortname;
 
   return `
@@ -2853,13 +2853,13 @@ function renderTrainInfoSection(route, lid = 1) {
           </div>
           <div>
             <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.from}</span>
-            <span class="text-black text-xs font-danamedium inline-block">${fromAirport} <span class="text-[#292929] inline-block">(${fromCode})</span></span>
+            <span class="text-black text-xs font-danamedium inline-block">${fromAirport}</span>
           </div>
         </div>
         <div class="flex gap-x-2 items-center w-1/2 max-md:w-full">
           <div>
             <span class="block text-[#6D6D6D] text-xs font-danaregular">${t.to}</span>
-            <span class="text-black text-xs font-danamedium inline-block">${toAirport} <span class="text-[#292929] inline-block">(${toCode})</span></span>
+            <span class="text-black text-xs font-danamedium inline-block">${toAirport} </span>
           </div>
         </div>
       </div>
