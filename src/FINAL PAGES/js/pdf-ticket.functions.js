@@ -38,17 +38,24 @@ function barArrowRotation(lid) {
 }
 
 
+// function formatPrice(num , type) {
+//   if(type === "price"){
+//     if(num !== 0){
+//       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//     }else if(num == 0){
+//       document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
+//       document.getElementById("showprice").classList.add("hidden");
+//     }
+//   }else{
+//       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//   }
+// }
+
+
 function formatPrice(num , type) {
-  if(type === "price"){
-    if(num !== 0){
+
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }else if(num == 0){
-      document.querySelector(".ticketContainer__info__details_PriceBox").classList.add("hidden");
-      document.getElementById("showprice").classList.add("hidden");
-    }
-  }else{
-      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+
 }
 
 
@@ -87,6 +94,7 @@ function initializePageLanguage(lid, invoice = null) {
       priceDetails: "جزئیات قیمت",
       basePrice: "قیمت پایه",
       tax: "مالیات",
+      provider_fare: "مالیات و خدمات",
       total: "مجموع",
       extraService: "خدمات اضافی",
       fareConditions: "قوانین",
@@ -140,6 +148,7 @@ function initializePageLanguage(lid, invoice = null) {
       priceDetails: "Price Details",
       basePrice: "Base Price",
       tax: "Tax",
+      provider_fare: "Taxes and Services",
       total: "Total",
       extraService: "Extra Service",
       fareConditions: "Fare Conditions",
@@ -195,6 +204,7 @@ function initializePageLanguage(lid, invoice = null) {
       priceDetails: "تفاصيل السعر",
       basePrice: "السعر الأساسي",
       tax: "الضريبة",
+      provider_fare: "الضرائب و الخدمات",
       total: "المجموع",
       extraService: "خدمة إضافية",
       fareConditions: "شروط الأجرة",
@@ -472,6 +482,9 @@ function translatePriceTitles(t) {
     }
     if (text.includes('Total:')) {
       label.innerHTML = label.innerHTML.replace('Total:', `${t.total}<span style="display: inline-block;">:</span>`);
+    }
+    if (text.includes('Taxes and Services:')) {
+      label.innerHTML = label.innerHTML.replace('Taxes and Services:', `${t.provider_fare}<span style="display: inline-block;">:</span>`);
     }
 
   });
